@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_In" Id="{fc7fe112-f387-422b-8731-17eb41d477d2}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_In :
+STRUCT
+	stCtrl					:ST_Fanuc_Control_In;
+	stHandShake				:ST_Fanuc_HandShake_In;
+	stArea					:ST_Fanuc_Area_In;
+	stDIO					:ST_Fanuc_DIO_In;
+	stAlarm					:ST_Fanuc_Alarm_In;
+	stData					:ST_Fanuc_Data_In;
+	stProg					:ST_Fanuc_Prog_In;
+	stEmergency				:ST_Fanuc_Emergency_In;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

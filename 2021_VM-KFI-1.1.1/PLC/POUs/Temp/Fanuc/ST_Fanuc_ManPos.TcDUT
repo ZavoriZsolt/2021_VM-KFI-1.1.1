@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_ManPos" Id="{bfbea4f1-1ed3-4c56-84ed-ce5ffba62222}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_ManPos :
+STRUCT
+	nPosX				:REAL;
+	nPosY				:REAL;
+	nPosR				:REAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

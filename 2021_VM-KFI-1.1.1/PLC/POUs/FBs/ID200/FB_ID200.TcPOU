@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_ID200" Id="{9ca0a875-8b0e-4419-869e-8dbf2f083a59}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ID200
+VAR_INPUT
+	
+END_VAR
+VAR_OUTPUT
+	
+END_VAR
+VAR
+	arrDataIn		AT %I*		: ARRAY [0..63] OF BYTE;
+	arrDataOut		AT %Q*		: ARRAY [0..63] OF BYTE;
+	PnIoBoxState	AT %I*		: UINT;
+END_VAR
+VAR
+	_ch1_tag_data				: ST_Tag_Data;
+	_ch2_tag_data				: ST_Tag_Data;
+END_VAR
+VAR
+	Channel			: BYTE;
+	TagData			: ST_Tag_Data;
+	RawData			: RawToUlint;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ChkData();]]></ST>
+    </Implementation>
+    <Folder Name="Properties" Id="{2b0fb5bc-1ece-433d-ad45-d29ac488ffae}" />
+    <Property Name="Ch1_TagData" Id="{7e547ea7-bd38-46c2-b05e-afebad76b741}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Ch1_TagData : ST_Tag_Data]]></Declaration>
+      <Get Name="Get" Id="{f7adbd6a-ae50-4f1d-812a-45a90b259628}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Ch1_TagData := _ch1_tag_data;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7f7b6e6e-1932-4b9c-ad03-7fb4b5ede156}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_ch1_tag_data := Ch1_TagData;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="ChangeTag" Id="{8d0595b6-f287-458f-919e-25b831620e07}">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeTag : BOOL
+VAR_INPUT
+	Channel				: BYTE;
+	CarrierType			: E_CarrierType;
+END_VAR
+VAR
+	temp				: WordToBytes;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Set command
+arrDataOut[0] := E_Command.ChangeTag;
+
+//Set Channel
+arrDataOut[1].1 := Channel.0;
+arrDataOut[1].2 := Channel.1;
+arrDataOut[1].3 := Channel.2;
+arrDataOut[1].4 := 0;
+arrDataOut[1].5 := 0;
+arrDataOut[1].6 := 0;
+arrDataOut[1].7 := 0;
+
+//Set Carrier type
+temp.word_in := CarrierType;
+arrDataOut[2] := temp.bytes[1];
+arrDataOut[3] := temp.bytes[0];
+
+//Start! Set toggle bit.
+IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) THEN
+	MEMSET(ADR(arrDataOut)+4, 16#00, SIZEOF(arrDataOut)-4);
+	arrDataOut[1].0 := NOT arrDataOut[1].0;
+END_IF
+
+ChangeTag :=		arrDataIn[0] = arrDataOut[0] AND
+					arrDataIn[1] = arrDataOut[1] AND
+					arrDataIn[2] = 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ChkData" Id="{82fa32f3-d1be-493c-bc7f-1ca2ed0c68dd}">
+      <Declaration><![CDATA[METHOD PRIVATE ChkData : BOOL
+VAR
+//	Channel			: BYTE;
+//	TagData			: ST_Tag_Data;
+//	RawData			: RawToUlint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Channel := 0;
+Channel.0 := arrDataIn[1].1;
+Channel.1 := arrDataIn[1].2;
+Channel.2 := arrDataIn[1].3;
+TagData.RawData[0] := arrDataIn[4];
+TagData.RawData[1] := arrDataIn[5];
+TagData.RawData[2] := arrDataIn[6];
+TagData.RawData[3] := arrDataIn[7];
+TagData.RawData[4] := arrDataIn[8];
+RawData.Raw := TagData.RawData;
+TagData.Code := RawData.Number;
+
+IF (arrDataIn[0] = 16#1D) OR (arrDataIn[0] = 16#01) THEN
+	IF arrDataIn[2] = 0 THEN
+		TagData.Status := E_TagStatus.FixCode;
+	ELSE
+		TagData.Status := E_TagStatus.NotPresent;
+	END_IF
+	IF Channel = 1 THEN
+		_ch1_tag_data := TagData;
+	ELSIF Channel = 2 THEN
+		_ch2_tag_data := TagData;
+	END_IF
+ELSIF (arrDataIn[0] = 16#10) OR (arrDataIn[0] = 16#19) THEN
+	IF arrDataIn[2] = 0 THEN
+		TagData.Status := E_TagStatus.UserCode;
+	ELSE
+		TagData.Status := E_TagStatus.NotPresent;
+	END_IF
+	IF Channel = 1 THEN
+		_ch1_tag_data := TagData;
+	ELSIF Channel = 2 THEN
+		_ch2_tag_data := TagData;
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EncReadFixCode" Id="{8af2f2ae-aaab-48dc-a7e0-bccf8f022160}">
+      <Declaration><![CDATA[METHOD PUBLIC EncReadFixCode : BOOL
+VAR_INPUT
+	Channel				:BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Set command
+arrDataOut[0] := E_Command.EnchancedReadFixCode;
+
+//Set Channel
+arrDataOut[1].1 := Channel.0;
+arrDataOut[1].2 := Channel.1;
+arrDataOut[1].3 := Channel.2;
+arrDataOut[1].4 := 0;
+arrDataOut[1].5 := 0;
+arrDataOut[1].6 := 0;
+arrDataOut[1].7 := 0;
+
+//Start! Set toggle bit.
+IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) THEN
+	MEMSET(ADR(arrDataOut)+2, 16#00, SIZEOF(arrDataOut)-2);
+	arrDataOut[1].0 := NOT arrDataOut[1].0;
+END_IF
+
+EncReadFixCode :=		arrDataIn[0] = arrDataOut[0] AND
+						arrDataIn[1] = arrDataOut[1] AND
+						(arrDataIn[2] = 0 OR arrDataIn[2] = 5);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EncReadWords" Id="{505bd065-a843-4851-a190-906618e5dabf}">
+      <Declaration><![CDATA[METHOD PUBLIC EncReadWords : BOOL
+VAR_INPUT
+	Channel				:BYTE;
+	WordNr				:BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Set command
+arrDataOut[0] := E_Command.EnchancedReadWords;
+
+//Set Channel
+arrDataOut[1].1 := Channel.0;
+arrDataOut[1].2 := Channel.1;
+arrDataOut[1].3 := Channel.2;
+
+//Set WordNr
+arrDataOut[1].4 := WordNr.0;
+arrDataOut[1].5 := WordNr.1;
+arrDataOut[1].6 := WordNr.2;
+arrDataOut[1].7 := WordNr.3;
+
+
+//Start! Set toggle bit.
+IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) THEN
+	MEMSET(ADR(arrDataOut)+2, 16#00, SIZEOF(arrDataOut)-2);
+	arrDataOut[1].0 := NOT arrDataOut[1].0;
+END_IF
+
+EncReadWords :=			arrDataIn[0] = arrDataOut[0] AND
+						(arrDataIn[1] AND 16#0F) = (arrDataOut[1] AND 16#0F) AND
+						(arrDataIn[2] = 0 OR arrDataIn[2] = 5);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Quit" Id="{4abb1e75-c6fe-402b-b5fb-9015a39a6c0d}">
+      <Declaration><![CDATA[METHOD PUBLIC Quit : BOOL
+VAR_INPUT
+	Channel				:BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Set command
+arrDataOut[0] := E_Command.Quit;
+
+//Set Channel
+arrDataOut[1].1 := Channel.0;
+arrDataOut[1].2 := Channel.1;
+arrDataOut[1].3 := Channel.2;
+arrDataOut[1].4 := 0;
+arrDataOut[1].5 := 0;
+arrDataOut[1].6 := 0;
+arrDataOut[1].7 := 0;
+
+
+//Start! Set toggle bit.
+IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) THEN
+	MEMSET(ADR(arrDataOut)+2, 16#00, SIZEOF(arrDataOut)-2);
+	arrDataOut[1].0 := NOT arrDataOut[1].0;
+END_IF
+
+Quit :=		arrDataIn[0] = arrDataOut[0] AND
+			arrDataIn[1] = arrDataOut[1] AND
+			arrDataIn[2] = 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{a6e7c240-b737-4526-af2a-542aadcd2d57}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Set command
+arrDataOut[0] := E_Command.Reset;
+
+//Start! Set toggle bit.
+IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) AND arrDataIn[0] <> 0 and arrDataIn[2] <> 16#FF THEN
+		MEMSET(ADR(arrDataOut)+2, 16#00, SIZEOF(arrDataOut)-2);
+		arrDataOut[1].0 := NOT arrDataOut[1].0;
+END_IF
+
+IF arrDataIn[2] = 16#FF THEN
+	arrDataOut[0] := 0;
+	arrDataOut[1] := 0;
+	Reset := TRUE;
+ELSE
+	Reset := FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SinWriteFixCode" Id="{116d5172-8faf-4b94-ae8d-023c9cf66799}">
+      <Declaration><![CDATA[METHOD PUBLIC SinWriteFixCode : BOOL
+VAR_INPUT
+	Channel				: BYTE;
+	CarrierType			: E_CarrierType;
+	Data				: ARRAY [0..7] OF BYTE;
+	DataLength			: BYTE;
+	
+	//v2
+	//FixLen				: UINT;
+END_VAR
+VAR
+	temp				: WordToBytes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Set command
+arrDataOut[0] := E_Command.SingleWriteFixCode;
+
+// Set Channel
+arrDataOut[1].1 := Channel.0;
+arrDataOut[1].2 := Channel.1;
+arrDataOut[1].3 := Channel.2;
+
+//Set FixLen v1 - 0101 -> 5
+arrDataOut[1].4 := 1; //1
+arrDataOut[1].5 := 0; //0
+arrDataOut[1].6 := 1; //1
+arrDataOut[1].7 := 0; //0
+
+//FixLen v2
+//arrDataOut[1].4 := FixLen.0;
+//arrDataOut[1].5 := FixLen.1;
+//arrDataOut[1].6 := FixLen.2;
+//arrDataOut[1].7 := FixLen.3;
+
+//Set Carrier type
+temp.word_in := CarrierType; //Byte 2-3
+//arrDataOut[2] := temp.bytes[1];
+//arrDataOut[3] := temp.bytes[0];
+
+// Set Data
+MEMCPY(destAddr := ADR(arrDataOut), srcAddr :=ADR(Data), n := DataLength);
+
+//Start! Set toggle bit.
+IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) THEN
+	MEMSET(ADR(arrDataOut)+2, 16#00, SIZEOF(arrDataOut)-2);
+	arrDataOut[1].0 := NOT arrDataOut[1].0;
+END_IF
+
+//SinWriteFixCode :=			arrDataIn[0] = arrDataOut[0] AND
+//						(arrDataIn[1] AND 16#0F) = (arrDataOut[1] AND 16#0F) AND
+//						(arrDataIn[2] = 0 OR arrDataIn[2] = 5);
+						
+SinWriteFixCode :=			arrDataIn[0] = arrDataOut[0] AND
+						arrDataIn[1] = arrDataOut[1] AND
+						arrDataIn[2] = 0;						]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SinWriteWords" Id="{d188f722-3383-462f-ba9c-b397215a961e}">
+      <Declaration><![CDATA[METHOD PUBLIC SinWriteWords : BOOL
+VAR_INPUT
+	Channel				:	BYTE;
+	WordNr				:	BYTE;
+	//WordNr				:	UINT;
+	Data				: 	ARRAY [0..7] OF BYTE;
+	DataLength			: 	UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Set command
+arrDataOut[0] := E_Command.SingleWriteWords;
+
+//Set Channel
+arrDataOut[1].1 := Channel.0;
+arrDataOut[1].2 := Channel.1;
+arrDataOut[1].3 := Channel.2;
+
+//Set WordNr
+arrDataOut[1].4 := WordNr.0;
+arrDataOut[1].5 := WordNr.1;
+arrDataOut[1].6 := WordNr.2;
+arrDataOut[1].7 := WordNr.3;
+
+//Set Data
+
+MEMCPY(destAddr := ADR(arrDataOut)+4, srcAddr :=ADR(Data), n := DataLength);
+
+//arrDataOut[4] := Data[0];
+//arrDataOut[5] := Data[1];
+//arrDataOut[6] := Data[2];
+//arrDataOut[7] := Data[3];
+
+
+//Start! Set toggle bit.
+IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) THEN
+	MEMSET(ADR(arrDataOut)+2, 16#00, SIZEOF(arrDataOut)-2);
+	arrDataOut[1].0 := NOT arrDataOut[1].0;
+END_IF
+
+SinWriteWords :=			arrDataIn[0] = arrDataOut[0] AND
+						(arrDataIn[1] AND 16#0F) = (arrDataOut[1] AND 16#0F) AND
+						(arrDataIn[2] = 0 OR arrDataIn[2] = 5);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

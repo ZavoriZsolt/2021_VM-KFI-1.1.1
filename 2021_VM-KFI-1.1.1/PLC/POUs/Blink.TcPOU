@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Blink" Id="{358b784b-2ced-40a6-b6f1-ec138f270d98}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Blink
+VAR
+	tBL1					:FB_GenPulse; (*50ms/50ms*)
+	tBL2					:FB_GenPulse; (*100ms/100ms*)
+	tBL3					:FB_GenPulse; (*250ms/250ms*)
+	tBL4					:FB_GenPulse; (*500ms/500ms*)
+	tBL5					:FB_GenPulse; (*1000ms/1000ms*)
+	tBL6					:FB_GenPulse; (*750ms/250ms*)
+	tBL7					:FB_GenPulse; (*750ms/250ms*)
+	tBL8					:FB_GenPulse; (*1000ms/1000ms*)
+	rtBL1,rtBL2,rtBL3,rtBL4	:R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+tBL1(ENQ:= TRUE, PTH:= T#50MS, PTL:= T#50MS, Q=> bBL50p50);
+tBL2(ENQ:= TRUE, PTH:= T#100MS, PTL:= T#100MS, Q=> bBL100p100);
+tBL3(ENQ:= TRUE, PTH:= T#250MS, PTL:= T#250MS, Q=> bBL250p250);
+tBL4(ENQ:= TRUE, PTH:= T#500MS, PTL:= T#500MS, Q=> bBL500p500);
+tBL5(ENQ:= TRUE, PTH:= T#1000MS, PTL:= T#1000MS, Q=> bBL1000p1000);
+tBL6(ENQ:= TRUE, PTH:= T#250MS, PTL:= T#750MS, Q=> bBL250p750);
+tBL7(ENQ:= TRUE, PTH:= T#750MS, PTL:= T#250MS, Q=> bBL750p250);
+tBL8(ENQ:= TRUE, PTH:= T#2000MS, PTL:= T#2000MS, Q=> bBL2000p2000);
+rtBL1(CLK:= GVL_Main.bBL50p50, Q=> bTakt100ms);
+rtBL2(CLK:= GVL_Main.bBL100p100, Q=> bTakt200ms);
+rtBL3(CLK:= GVL_Main.bBL250p250, Q=> bTakt500ms);
+rtBL4(CLK:= GVL_Main.bBL500p500, Q=> bTakt1s);
+
+IF bTakt100ms THEN
+	wLifeSignal:=wLifeSignal + 1;      
+END_IF
+IF wLifeSignal>100 THEN
+	wLifeSignal:=0;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="Blink">
+      <LineId Id="27" Count="6" />
+      <LineId Id="66" Count="1" />
+      <LineId Id="34" Count="2" />
+      <LineId Id="48" Count="6" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

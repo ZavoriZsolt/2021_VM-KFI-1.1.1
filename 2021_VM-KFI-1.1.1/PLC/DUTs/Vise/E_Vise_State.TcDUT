@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="E_Vise_State" Id="{a3a1e10f-aa0e-4ce1-bed1-4f4fdb2e35db}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_Vise_State :
+(
+	Empty := 0,
+	OutForLoad := 10,
+	ReadyToCnc := 20,
+	InRobotAram := 30,
+	InCnc := 40,
+	CncDone := 50,
+	WaitingForUnLoad := 60,
+	OutForUnload := 70,
+	RequestCleaning := 100,
+	OutOfService := 200
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

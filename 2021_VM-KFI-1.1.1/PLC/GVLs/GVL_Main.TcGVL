@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="GVL_Main" Id="{3b5d4a0b-a75d-4b2d-96e2-aa85a6e849c2}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	// Blink
+	bBL50p50						:BOOL; // 50ms/50ms
+	bBL100p100						:BOOL; // 100ms/100ms
+	bBL250p250						:BOOL; // 250ms/250ms
+	bBL500p500						:BOOL; // 500ms/500ms
+	bBL1000p1000					:BOOL; // 1000ms/1000ms
+	bBL2000p2000					:BOOL; // 2000ms/2000ms
+	bBL250p750						:BOOL; // 750ms/250ms
+	bBL750p250						:BOOL;
+	bTakt100ms						:BOOL; // Takt 100ms
+	bTakt200ms						:BOOL; // Takt 200ms
+	bTakt500ms						:BOOL; // Takt 500ms
+	bTakt1s							:BOOL; // Takt 1000ms
+
+	bFirstCycle						:BOOL; 
+	wLifeSignal						:WORD;
+	bManualMode						:BOOL;				(* Manual mode *)
+	bManualModeRequest				:BOOL;
+	sMode							:STRING;			(* Actual mode *)
+	nMode							:BYTE;
+	bStepMode						:BOOL;				(* Step mode *)
+	bStepP							:BOOL;				(* Step pulse *)
+	bStepHMI						:BOOL;				(* Step button HMI *)
+	bStepEnable						:BOOL;				(* Step enable *)
+	bAckHMI							:BOOL;				(* Error acknowledge HMI *)
+	bAckP							:BOOL;				(* Acknowledge pulse *)
+	bGlobalEHA						:BOOL;				(* Error-handling active *)
+	bGlobalError					:BOOL;				(* Global error bit *)
+	bDoorOpenReq					:BOOL;				(* Door open request *)
+	bInitTCPIP						:BOOL := TRUE;	
+	bDrOpenHMI						:BOOL;
+	wError							:WORD;
+	fbTime 							:FB_LocalSystemTime;
+	dtSystemTime					:DATE_AND_TIME;
+	fbDoor							:FB_Door;
+	aViseStatus						:ARRAY[1..14] OF ST_Vise_Status;
+	
+	{attribute 'TcLinkTo' := '		.q_bGreenColor	 := TIIB(30)^IO-Link Port1^Segment 1 -off/on/flash;	
+									.q_bYellowColor  := TIIB(30)^IO-Link Port1^Segment 2 -off/on/flash;
+									.q_bRedColor	 := TIIB(30)^IO-Link Port1^Segment 3 -off/on/flash;
+									.q_bBuzzer		 := TIIB(30)^IO-Link Port1^Segment 4 -off/on/flash;'}
+	fbNotSmartLight					:FB_Not_SmartLight;
+	
+	
+	{attribute 'TcLinkTo' := '  [1].fbVise.q_bWorkPos  			:= TIIB(33)^Output1^Outputs^Output 0;
+								[1].fbVise.q_bBasePos  			:= TIIB(33)^Output1^Outputs^Output 1;
+								[2].fbVise.q_bWorkPos  			:= TIIB(33)^Output1^Outputs^Output 2;
+								[2].fbVise.q_bBasePos  			:= TIIB(33)^Output1^Outputs^Output 3;
+								[3].fbVise.q_bWorkPos  			:= TIIB(33)^Output1^Outputs^Output 4;
+								[3].fbVise.q_bBasePos  			:= TIIB(33)^Output1^Outputs^Output 5;
+								[4].fbVise.q_bWorkPos  			:= TIIB(33)^Output1^Outputs^Output 6;
+								[4].fbVise.q_bBasePos  			:= TIIB(33)^Output1^Outputs^Output 7;
+								[5].fbVise.q_bWorkPos  			:= TIIB(33)^Output2^Outputs^Output 0;
+								[5].fbVise.q_bBasePos  			:= TIIB(33)^Output2^Outputs^Output 1;
+								[6].fbVise.q_bWorkPos  			:= TIIB(33)^Output2^Outputs^Output 2;
+								[6].fbVise.q_bBasePos 			:= TIIB(33)^Output2^Outputs^Output 3;
+								[7].fbVise.q_bWorkPos 			:= TIIB(33)^Output2^Outputs^Output 4;
+								[7].fbVise.q_bBasePos 			:= TIIB(33)^Output2^Outputs^Output 5;
+								[1].fbStopper_In.q_bWorkPos		:= TIIB(33)^Output3^Outputs^Output 0;
+								[1].fbStopper_Out.q_bWorkPos  	:= TIIB(33)^Output3^Outputs^Output 2;
+								[2].fbStopper_In.q_bWorkPos 	:= TIIB(33)^Output3^Outputs^Output 4;
+								[2].fbStopper_Out.q_bWorkPos 	:= TIIB(33)^Output3^Outputs^Output 6;
+								[3].fbStopper_In.q_bWorkPos  	:= TIIB(33)^Output4^Outputs^Output 0;
+								[3].fbStopper_Out.q_bWorkPos  	:= TIIB(33)^Output4^Outputs^Output 2;
+								[4].fbStopper_In.q_bWorkPos  	:= TIIB(33)^Output4^Outputs^Output 4;
+								[4].fbStopper_Out.q_bWorkPos  	:= TIIB(33)^Output4^Outputs^Output 6;
+								[5].fbStopper_In.q_bWorkPos  	:= TIIB(33)^Output5^Outputs^Output 0;
+								[5].fbStopper_Out.q_bWorkPos  	:= TIIB(33)^Output5^Outputs^Output 2;
+								[6].fbStopper_In.q_bWorkPos  	:= TIIB(33)^Output5^Outputs^Output 4;
+								[6].fbStopper_Out.q_bWorkPos  	:= TIIB(33)^Output5^Outputs^Output 6;
+								[7].fbStopper_In.q_bWorkPos  	:= TIIB(33)^Output6^Outputs^Output 0;
+								[7].fbStopper_Out.q_bWorkPos  	:= TIIB(33)^Output6^Outputs^Output 2;'}
+//								[8].fbVise.q_bWorkPos  			:= TIIB(25)^Output1^Outputs^Output 0;
+//								[8].fbVise.q_bBasePos  			:= TIIB(25)^Output1^Outputs^Output 1;
+//								[9].fbVise.q_bWorkPos  			:= TIIB(25)^Output1^Outputs^Output 2;
+//								[9].fbVise.q_bBasePos  			:= TIIB(25)^Output1^Outputs^Output 3;
+//								[10].fbVise.q_bWorkPos  		:= TIIB(25)^Output1^Outputs^Output 4;
+//								[10].fbVise.q_bBasePos  		:= TIIB(25)^Output1^Outputs^Output 5;
+//								[11].fbVise.q_bWorkPos  		:= TIIB(25)^Output1^Outputs^Output 6;
+//								[11].fbVise.q_bBasePos  		:= TIIB(25)^Output1^Outputs^Output 7;
+//								[12].fbVise.q_bWorkPos  		:= TIIB(25)^Output2^Outputs^Output 0;
+//								[12].fbVise.q_bBasePos  		:= TIIB(25)^Output2^Outputs^Output 1;
+//								[13].fbVise.q_bWorkPos  		:= TIIB(25)^Output2^Outputs^Output 2;
+//								[13].fbVise.q_bBasePos 			:= TIIB(25)^Output2^Outputs^Output 3;
+//								[14].fbVise.q_bWorkPos 			:= TIIB(25)^Output2^Outputs^Output 4;
+//								[14].fbVise.q_bBasePos 			:= TIIB(25)^Output2^Outputs^Output 5;
+//								[8].fbStopper_In.q_bWorkPos		:= TIIB(25)^Output3^Outputs^Output 0;
+//								[8].fbStopper_Out.q_bWorkPos  	:= TIIB(25)^Output3^Outputs^Output 2;
+//								[9].fbStopper_In.q_bWorkPos 	:= TIIB(25)^Output3^Outputs^Output 4;
+//								[9].fbStopper_Out.q_bWorkPos 	:= TIIB(25)^Output3^Outputs^Output 6;
+//								[10].fbStopper_In.q_bWorkPos  	:= TIIB(25)^Output4^Outputs^Output 0;
+//								[10].fbStopper_Out.q_bWorkPos  	:= TIIB(25)^Output4^Outputs^Output 2;
+//								[11].fbStopper_In.q_bWorkPos  	:= TIIB(25)^Output4^Outputs^Output 4;
+//								[11].fbStopper_Out.q_bWorkPos  	:= TIIB(25)^Output4^Outputs^Output 6;
+//								[12].fbStopper_In.q_bWorkPos  	:= TIIB(25)^Output5^Outputs^Output 0;
+//								[12].fbStopper_Out.q_bWorkPos  	:= TIIB(25)^Output5^Outputs^Output 2;
+//								[13].fbStopper_In.q_bWorkPos  	:= TIIB(25)^Output5^Outputs^Output 4;
+//								[13].fbStopper_Out.q_bWorkPos  	:= TIIB(25)^Output5^Outputs^Output 6;
+//								[14].fbStopper_In.q_bWorkPos  	:= TIIB(25)^Output6^Outputs^Output 0;
+//								[14].fbStopper_Out.q_bWorkPos  	:= TIIB(25)^Output6^Outputs^Output 2;'}													
+	fbViseStation				:ARRAY[1..14] OF FB_Vise_Station;	
+	{attribute 'TcLinkTo' := 'TIIB(33)^Output2^Outputs^Output 6'}
+	q_bViseOut_1_7		AT %Q*	:BOOL;	
+//	{attribute 'TcLinkTo' := 'TIIB(28)^Output2^Outputs^Output 6'}
+	q_bViseOut_8_14		AT %Q*	:BOOL;	
+	
+	
+	// RGB
+	{attribute 'TcLinkTo' := '	.i_stRGB_In.LifeSig := TIIB(32)^Inputs^LifeSignal;
+								.i_stRGB_In.Resp := TIIB(32)^Inputs^Response;
+								.q_stRGB_Out.LifeSig := TIIB(32)^Outputs^LifeSignal;
+								.q_stRGB_Out.Command := TIIB(32)^Outputs^Command;
+								.q_stRGB_Out.arrRGB[1] := TIIB(32)^Outputs^RGB_01;
+								.q_stRGB_Out.arrRGB[2] := TIIB(32)^Outputs^RGB_02;
+								.q_stRGB_Out.arrRGB[3] := TIIB(32)^Outputs^RGB_03;
+								.q_stRGB_Out.arrRGB[4] := TIIB(32)^Outputs^RGB_04;
+								.q_stRGB_Out.arrRGB[5] := TIIB(32)^Outputs^RGB_05;
+								.q_stRGB_Out.arrRGB[6] := TIIB(32)^Outputs^RGB_06;
+								.q_stRGB_Out.arrRGB[7] := TIIB(32)^Outputs^RGB_07;
+								.q_stRGB_Out.arrRGB[8] := TIIB(32)^Outputs^RGB_08;
+								.q_stRGB_Out.arrRGB[9] := TIIB(32)^Outputs^RGB_09;
+								.q_stRGB_Out.arrRGB[10] := TIIB(32)^Outputs^RGB_10;
+								.q_stRGB_Out.arrRGB[11] := TIIB(32)^Outputs^RGB_11;
+								.q_stRGB_Out.arrRGB[12] := TIIB(32)^Outputs^RGB_12;
+								.q_stRGB_Out.arrRGB[13] := TIIB(32)^Outputs^RGB_13;
+								.q_stRGB_Out.arrRGB[14] := TIIB(32)^Outputs^RGB_14;
+								.q_stRGB_Out.arrRGB[15] := TIIB(32)^Outputs^RGB_15;
+								.q_stRGB_Out.arrRGB[16] := TIIB(32)^Outputs^RGB_16;
+								.q_stRGB_Out.arrRGB[17] := TIIB(32)^Outputs^RGB_17;
+								.q_stRGB_Out.arrRGB[18] := TIIB(32)^Outputs^RGB_18;
+								.q_stRGB_Out.arrRGB[19] := TIIB(32)^Outputs^RGB_19;
+								.q_stRGB_Out.arrRGB[20] := TIIB(32)^Outputs^RGB_20;
+								.q_stRGB_Out.arrRGB[21] := TIIB(32)^Outputs^RGB_21;
+								.q_stRGB_Out.arrRGB[22] := TIIB(32)^Outputs^RGB_22;
+								.q_stRGB_Out.arrRGB[23] := TIIB(32)^Outputs^RGB_23;
+								.q_stRGB_Out.arrRGB[24] := TIIB(32)^Outputs^RGB_24;'}
+	fbRgbLights					:FB_RGB_Light;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

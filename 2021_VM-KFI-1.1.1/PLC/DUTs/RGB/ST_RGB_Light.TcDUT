@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_RGB_Light" Id="{284a819e-34f5-446a-8823-b5bb71571e0a}">
+    <Declaration><![CDATA[TYPE ST_RGB_Light :
+STRUCT
+	nColor1				:UDINT;
+	nColor1State		:BOOL;
+	nColor2				:UDINT;
+	nColor2State		:BOOL;
+	nColor3				:UDINT;
+	nColor3State		:BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

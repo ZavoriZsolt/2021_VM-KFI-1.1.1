@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Robot" Id="{7413f5a0-93df-4ba2-8cb2-1d1cd18c453c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Robot
+VAR
+	tResetFault					:TON;
+	tStopCycle					:TON;
+	tStartCycle					:TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Bemetek olvasása*******************************************)
+stFanucIn := uFanucIn.stFanucIn;
+stDigiForceIn := uDigiForceIn.stDigiforce_In;
+(*Időzítők***************************************************)
+tResetFault(IN:= stFanucOut.stCtrl.bReset, PT:= T#100MS);
+tStopCycle(IN:= stFanucOut.stCtrl.bCycleStop, PT:= T#100MS);
+tStartCycle(IN:= stFanucOut.stCtrl.bStart, PT:= T#100MS);
+(*Triggerek**************************************************)
+
+(*Vész rendszer**********************************************)
+bRobotReady := 	NOT stFanucIn.stEmergency.bEMGOP AND
+				NOT	stFanucIn.stEmergency.bEMGTP AND
+				NOT	stFanucIn.stEmergency.bDEADMAN AND
+				NOT	stFanucIn.stEmergency.bFENCE AND
+				NOT	stFanucIn.stEmergency.bEMGEX;
+				
+IF	NOT i_bLOp2 AND
+	stRobot.nState > 0 THEN
+			stRobot.nState := 0;
+END_IF
+(*Hibakezelés************************************************)
+bRobotAlarm := stRobot.nState > 140 AND	(stFanucIn.stAlarm.bAlarm1 OR
+										stFanucIn.stAlarm.bAlarm2 OR
+										stFanucIn.stAlarm.bAlarm3 OR
+										stFanucIn.stAlarm.bAlarm4 OR
+										stFanucIn.stAlarm.bAlarm5 OR
+										stFanucIn.stAlarm.bAlarm6);
+
+IF stRobot.nState > 60 AND stRobot.nState < 150000 THEN
+	stRobot.nStateLast := stRobot.nState;
+	IF	stFanucIn.stCtrl.bFault OR bRobotAlarm OR NOT bRobotReady THEN
+			stRobot.nState := 200000;
+	END_IF
+END_IF
+										
+(*Engedélyek *************************************************)
+IF stRobot.nState <= 10000
+	OR stRobot.nState = 150000
+	OR stRobot.nState >= 200000
+THEN
+	stRobot.bManualModeEnable := TRUE;
+ELSE
+	stRobot.bManualModeEnable := FALSE;
+END_IF
+
+IF stRobot.nState = 0
+	OR stRobot.nState = 10000
+	OR stRobot.nState = 150000
+	OR stRobot.nState >= 200000
+THEN
+	stRobot.bDoorOpenEnable := TRUE;
+ELSE
+	stRobot.bDoorOpenEnable := FALSE;
+END_IF
+
+(*Kézi üzem *************************************************)
+IF bManualMode and stRobot.nState < 150000 THEN
+	stRobot.nState := 150000;
+END_IF
+
+(*Automata üzem *********************************************)
+CASE stRobot.nState OF
+	0:		IF i_bLOp2 AND stProcessReq.bEco THEN			
+				stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Robot "ECO" mód aktív - Működtetések törlése');
+			ELSE
+				stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Vészkör vagy ajtókör bontva - Működtetések törlése');				
+			END_IF
+			stFanucOut.stCtrl.bImStop := FALSE; 
+			stFanucOut.stCtrl.bHold := FALSE; 
+			stFanucOut.stCtrl.bSafetyfSpeed := FALSE; 
+			stFanucOut.stCtrl.bCycleStop := FALSE; 
+			stFanucOut.stCtrl.bReset := FALSE; 
+			stFanucOut.stCtrl.bStart := FALSE; 
+			stFanucOut.stCtrl.bEnable := FALSE; 
+			stFanucOut.stCtrl.bPsr1 := FALSE; 
+			stFanucOut.stCtrl.bPsr2 := FALSE; 
+			stFanucOut.stCtrl.bPsr3 := FALSE; 
+			stFanucOut.stCtrl.bPsr4 := FALSE; 
+			stFanucOut.stCtrl.bPsrStrobe := FALSE;
+			stFanucOut.stCtrl.bMoveEnable := FALSE; 
+			stFanucOut.stCtrl.bServiceEnd := FALSE;
+			stFanucOut.stProg.nType := 0;
+			stFanucOut.stProg.nMode := 0;
+			stFanucOut.stProg.nProgNr := 0;
+			stProcessReq.bExecute := FALSE;
+			stProcessReq.nProgIdx := 0;
+			stRobot.bError := 0;
+			IF i_bLOp2 AND bRobotReady AND NOT stProcessReq.bEco THEN
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+
+	20:		stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Robot bekapcsolása');
+			stFanucOut.stCtrl.bImStop := TRUE; 
+			stFanucOut.stCtrl.bHold := TRUE; 
+			stFanucOut.stCtrl.bSafetyfSpeed := TRUE; 
+			stFanucOut.stCtrl.bEnable := TRUE;
+			IF stFanucIn.stCtrl.bFault AND NOT stFanucOut.stCtrl.bReset THEN
+				stFanucOut.stCtrl.bReset := TRUE;									// Ha hiba van -> Reset
+			END_IF
+			IF bStepEnable THEN
+				stRobot.nState := stRobot.nState + 20;
+			END_IF
+
+	40:		stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Robot hibatörlés');
+			IF tResetFault.Q THEN
+				stFanucOut.stCtrl.bReset := FALSE;									// Timer-re kell törölni! Hanshake nincs.
+			END_IF
+			IF NOT stFanucIn.stCtrl.bFault AND NOT stFanucOut.stCtrl.bReset THEN
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;							// Ha se hiba se reset akkor mehet tovább.
+				END_IF
+			END_IF
+			
+	60:		stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Várakozás Robot hibatörlésre');
+			IF stFanucIn.stCtrl.bCmdEnable AND NOT stFanucIn.stCtrl.bFault THEN
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+
+	80:		stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Robot Cycle Stop');
+			stFanucOut.stCtrl.bCycleStop := TRUE;
+			IF tStopCycle.Q THEN
+				stFanucOut.stCtrl.bCycleStop := FALSE;
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+	
+	100:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Robot Cycle Start');
+			stFanucOut.stCtrl.bStart := TRUE;
+			IF tStartCycle.Q THEN
+				stFanucOut.stCtrl.bStart := FALSE;
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+
+			
+	120:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Várakozás Robot Cycle Start-ra');
+			IF stFanucIn.stCtrl.bBusy AND stFanucIn.stCtrl.bProgEnd THEN
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+			
+	140:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Robot Busy');
+			IF stFanucIn.stCtrl.bBusy THEN
+				stFanucOut.stCtrl.bMoveEnable := TRUE;								// Robot mozgásengedély
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+			
+	160:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Robot alaphelyzetbe küldése');
+			stFanucOut.stProg.nType := 1;
+			stFanucOut.stProg.nMode := 1;
+			stFanucOut.stProg.nProgNr := 1;
+			IF stFanucOut.stProg.nProgNr = stFanucIn.stProg.nActProg THEN
+				stFanucOut.stProg.nProgNr := 0;
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+
+	180:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet felvétel - Várakozás a robotprogram végére.');
+			IF	stFanucIn.stProg.nActPoint = 1 AND							// A robot a kiválsztott pontban van
+				NOT stFanucIn.stCtrl.bProgRun AND							// A program nem fut
+				stFanucIn.stCtrl.bProgEnd THEN								// A program végzett
+					IF bStepEnable THEN
+						stRobot.nState := stRobot.nState + 20;
+					END_IF
+			END_IF
+
+	200:
+			stRobot.nState := 10000;
+
+	(* Alaphelyzet *********************************************************************)
+	10000:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Alaphelyzet, parancsra vár');
+			IF		stProcessReq.bEco THEN									// Eco mode vagy ajtónyitás
+						IF bStepEnable THEN
+							stRobot.nState := 20000;
+						END_IF
+			ELSIF	stProcessReq.bExecute THEN								// Program végrehajtás
+						IF stProcessReq.nProgIdx > 0 THEN
+							IF bStepEnable THEN
+								stRobot.nState := 11000;
+							END_IF
+						ELSE
+							stProcessReq.bExecute := FALSE;
+						END_IF
+			END_IF
+
+(*-----=== Execute robot program ===-----*)			
+	11000:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,arrFanucReq[stProcessReq.nProgIdx].sName);
+			stFanucOut.stProg.nType := word_to_byte(stP0.stFixtureData.nPcbType);
+			stFanucOut.stProg.nMode := 1;
+			stFanucOut.stProg.nProgNr := arrFanucReq[stProcessReq.nProgIdx].nProgNr;
+			IF (stFanucOut.stProg.nProgNr = stFanucIn.stProg.nActProg) AND											//	A programot tükrözze vissza a robot és	(* Z.Zs. 2022.05.10. *)
+			   (stFanucIn.stCtrl.bProgRun AND NOT stFanucIn.stCtrl.bProgEnd) THEN									//	indúljon el a mozgás is, mert a profinet és a PLC elég gyors ahoz, hogy a robotba még ne indúljon el a mozgás!!!!! 
+				stProcessReq.nProgIdx := 0;
+				IF stProcessReq.nProgIdx2 <> 0 THEN
+					stFanucOut.stProg.nProgNr := arrFanucReq[stProcessReq.nProgIdx2].nProgNr;
+					IF bStepEnable THEN
+						stRobot.nState := stRobot.nState + 20;
+					END_IF
+				ELSE
+					stFanucOut.stProg.nProgNr := 0;
+					IF bStepEnable THEN
+						stRobot.nState := stRobot.nState + 40;
+					END_IF
+				END_IF		
+			END_IF
+			
+	11020:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,arrFanucReq[stProcessReq.nProgIdx2].sName);
+			IF stFanucOut.stProg.nProgNr = stFanucIn.stProg.nActProg THEN
+				stProcessReq.nProgIdx2 := 0;
+				stFanucOut.stProg.nProgNr := 0;
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+
+	11040:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Várakozás a robotprogram végére.');
+			IF	NOT stFanucIn.stCtrl.bProgRun AND stFanucIn.stCtrl.bProgEnd THEN
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+	
+	11060:	
+			stRobot.nState := 50000;
+
+(*-----=== ECO mode ===-----*)
+	20000:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Robot Cycle Stop');
+			stFanucOut.stCtrl.bCycleStop := TRUE;
+			stFanucOut.stCtrl.bMoveEnable := FALSE;
+			IF tStopCycle.Q THEN
+				stFanucOut.stCtrl.bCycleStop := FALSE;
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+
+	20020:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Robot kikapcsolása');
+			stFanucOut.stCtrl.bImStop := FALSE; 
+			stFanucOut.stCtrl.bHold := FALSE; 
+			stFanucOut.stCtrl.bSafetyfSpeed := FALSE; 
+			stFanucOut.stCtrl.bEnable := FALSE;
+			IF bStepEnable THEN
+				stRobot.nState := 0;
+			END_IF			
+		
+	50000:
+			stProcessReq.nProgIdx := 0;
+			stProcessReq.bExecute := FALSE;
+			stRobot.nState := 10000;
+	
+
+	(* Kézi üzem *********************************************************************)
+	150000:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Kézi üzem');
+			IF NOT bManualMode THEN
+				stRobot.nState := 0;
+			ELSIF	stProcessReq.bExecute AND NOT bRobotAlarm AND bRobotReady THEN							// Program végrehajtás
+						IF stProcessReq.nProgIdx > 0 THEN
+							IF bStepEnable THEN
+								stRobot.nState := 151000;
+							END_IF
+						ELSE
+							stProcessReq.bExecute := FALSE;
+						END_IF
+			ELSIF bRobotAlarm THEN
+					stRobot.nState := 152000;
+			END_IF
+
+(*-----=== Execute robot program ===-----*)			
+	151000:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,arrFanucReq[stProcessReq.nProgIdx].sName);
+			stFanucOut.stProg.nType := WORD_TO_BYTE(stP0.stFixtureData.nPcbType);
+			stFanucOut.stProg.nMode := 1;
+			stFanucOut.stProg.nProgNr := arrFanucReq[stProcessReq.nProgIdx].nProgNr;
+			IF stFanucOut.stProg.nProgNr = stFanucIn.stProg.nActProg THEN
+				stFanucOut.stProg.nProgNr := 0;
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+
+	151020:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Várakozás a robotprogram végére.');
+			IF	(NOT stFanucIn.stCtrl.bProgRun AND stFanucIn.stCtrl.bProgEnd) OR bRobotAlarm OR NOT bRobotReady THEN
+				IF bStepEnable THEN
+					stRobot.nState := stRobot.nState + 20;
+				END_IF
+			END_IF
+	
+	151040:
+			stProcessReq.bExecute := FALSE;
+			stRobot.nState := 150000;
+
+(*-----=== Robot alarm törlése ===-----*)
+	152000:
+			stFanucOut.stAlarm.bAlarm1 := stFanucIn.stAlarm.bAlarm1;
+			stFanucOut.stAlarm.bAlarm2 := stFanucIn.stAlarm.bAlarm2;
+			stFanucOut.stAlarm.bAlarm3 := stFanucIn.stAlarm.bAlarm3;
+			stFanucOut.stAlarm.bAlarm4 := stFanucIn.stAlarm.bAlarm4;
+			stFanucOut.stAlarm.bAlarm5 := stFanucIn.stAlarm.bAlarm5;
+			stFanucOut.stAlarm.bAlarm6 := stFanucIn.stAlarm.bAlarm6;
+			IF NOT bRobotAlarm THEN
+				stProcessReq.bExecute := FALSE;
+				stRobot.nState := 150000;
+			END_IF
+	
+
+	(* Hibakezelés *********************************************************************)
+	200000:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,CONCAT(' - Hiba, ebből az állapotból: ' ,stRobot.sState));
+			stRobot.bError := TRUE;
+			stRobot.nState := stRobot.nState + 20;
+
+	(* Hibakezelés *********************************************************************)
+	200020:	IF bAckP THEN
+				stRobot.nState := stRobot.nState + 20;
+			END_IF
+			
+
+	200040:	stFanucOut.stAlarm.bAlarm1 := stFanucIn.stAlarm.bAlarm1;
+			stFanucOut.stAlarm.bAlarm2 := stFanucIn.stAlarm.bAlarm2;
+			stFanucOut.stAlarm.bAlarm3 := stFanucIn.stAlarm.bAlarm3;
+			stFanucOut.stAlarm.bAlarm4 := stFanucIn.stAlarm.bAlarm4;
+			stFanucOut.stAlarm.bAlarm5 := stFanucIn.stAlarm.bAlarm5;
+			stFanucOut.stAlarm.bAlarm6 := stFanucIn.stAlarm.bAlarm6;
+			IF NOT bRobotAlarm THEN
+				stRobot.nState := stRobot.nState + 20;
+			END_IF
+				
+	200060:
+				CASE stRobot.nStateLast OF
+					(* Alaphelyzet felvétel folyamán *)
+					0..9999:	stRobot.nState := 0;
+				ELSE 			stRobot.nState := 0;
+				END_CASE
+				stRobot.bError := FALSE;
+ELSE
+	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Nem használt állapot');
+END_CASE
+
+
+(*Robot handshake********************************************)
+HandShake();
+(*Kimetek írása**********************************************)
+uFanucOut.stFanucOut := stFanucOut;
+uDigiForceOut.stDigiforce_Out := stDigiForceOut;
+]]></ST>
+    </Implementation>
+    <Action Name="HandShake" Id="{b2825642-e46f-4191-9924-7cc8984f8b83}">
+      <Implementation>
+        <ST><![CDATA[stFanucOut.stHandShake.bFeederEnable := stFanucIn.stHandShake.bFeederReq;
+stFanucOut.stHandShake.bPositioner1Enable := stFanucIn.stHandShake.bPositioner1Req;
+stFanucOut.stHandShake.bPositioner2Enable := stFanucIn.stHandShake.bPositioner2Req;
+stFanucOut.stHandShake.bFixtureAreaEnable := stFanucIn.stHandShake.bFixtureAreaReq;
+stFanucOut.stHandShake.bPositioner1Open := stFanucIn.stHandShake.bPositioner1OpenReq AND fbP0Positioner1.bBasePosStab AND fbP0Positioner2.bBasePosStab;
+stFanucOut.stHandShake.bPositioner2Open := stFanucIn.stHandShake.bPositioner2OpenReq AND fbP0Positioner3.bBasePosStab AND fbP0Positioner4.bBasePosStab;
+]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

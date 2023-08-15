@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Area_In" Id="{d1665deb-76d9-4145-af31-d2a7d53f9a47}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Area_In :
+STRUCT
+	(* -----=== Byte 03 ===----- *)
+	bFeeder						:BIT;			//	Robot a Fuji adaagolóknál
+	bPositioner1				:BIT;			//	Tájoló 1-nél
+	bPositioner2				:BIT;			//	Tájoló 2-nél
+	bFixtureArea				:BIT;			//	PCB üléknél
+	{attribute 'hide'}
+	_reserved_03_5				:BIT;			// Tartalék 03.05	
+	{attribute 'hide'}
+	_reserved_03_6				:BIT;			// Tartalék 03.06	
+	{attribute 'hide'}
+	_reserved_03_7				:BIT;			// Tartalék 03.07	
+	{attribute 'hide'}
+	_reserved_03_8				:BIT;			// Tartalék 03.08	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="E_Fanuc_Program" Id="{7a8e8f7c-e980-40bd-b584-97e7c40881a1}">
+    <Declaration><![CDATA[{attribute 'strict'}
+TYPE E_Fanuc_Program :
+(
+	NoCommand := 0,					// Üres utasítás
+	Home := 1,						// Alaphelyzet felvétel
+	Service1 := 2,					// Szerviz pozíció 1
+	Service2 := 3,					// Szerviz pozíció 2
+	Service3 := 4,					// Szerviz pozíció 3
+	PickUpFeeder1 := 5,				// Alkatrész felvétel Feeder1-ből
+	PickUpFeeder2 := 6,				// Alkatrész felvétel Feeder2-ből
+	PickUpFeeder3 := 7,				// Alkatrész felvétel Feeder3-ból
+	PickUpFeeder4 := 8,				// Alkatrész felvétel Feeder4-ből
+	PutDownPositioner1 := 9,		// Alkatrész lerakás 1. tájolóba
+	PickUpPositioner1 := 10,		// Alkatrész felvéte 1. tájolóból
+	PutDownPositioner2 := 11,		// Alkatrész lerakás 2. tájolóba
+	PickUpPositioner2 := 12,		// Alkatrész felvétel 2. tájolóból
+	PressCamCoord := 13,			// Alkatrész préselés küldött pozícióra
+	PressFixCoord1 := 14,			// Alkatrész préselés Fix pozícióra 1
+	PressFixCoord2 := 15,			// Alkatrész préselés Fix pozícióra 2
+	PressFixCoord3 := 16,			// Alkatrész préselés Fix pozícióra 3
+	PressFixCoord4 := 17,			// Alkatrész préselés Fix pozícióra 4
+	TempPos := 18,					// Várakozó pozíció
+	OriginCalibA := 19,				// Robot présfej mozgatása kalibráló ülék fölé (Kézi 0 pont állítás)
+	OriginCalibB := 20,				// Aktuális pozícióra robot offset beállítása
+	CalibPositioner1 := 21,			// Tájoló 1-ből alkatrész kiszedés kalibráló lapra lerakás koordináták elküldése
+	CalibPositioner2 := 22,			// Tájoló 1-ből alkatrész kiszedés kalibráló lapra lerakás koordináták elküldése
+	CalibPickUpStoreS1 := 23,		// Kicsi 1. kalibráló darab felvétele a tárolóból
+	CalibPickUpStoreS2 := 24,		// Kicsi 2. kalibráló darab felvétele a tárolóból
+	CalibPickUpStoreS3 := 25,		// Kicsi 3. kalibráló darab felvétele a tárolóból
+	CalibPickUpStoreS4 := 26,		// Kicsi 4. kalibráló darab felvétele a tárolóból
+	CalibPutDownStoreS1 := 27,		// Kicsi 1. kalibráló darab lerakása a tárolóba
+	CalibPutDownStoreS2 := 28,		// Kicsi 2. kalibráló darab lerakása a tárolóba
+	CalibPutDownStoreS3 := 29,		// Kicsi 3. kalibráló darab lerakása a tárolóba
+	CalibPutDownStoreS4 := 30,		// Kicsi 4. kalibráló darab lerakása a tárolóba
+	CalibPickUpStoreL1 := 31,		// Nagy 1. kalibráló darab felvétele a tárolóból
+	CalibPickUpStoreL2 := 32,		// Nagy 2. kalibráló darab felvétele a tárolóból
+	CalibPickUpStoreL3 := 33,		// Nagy 3. kalibráló darab felvétele a tárolóból
+	CalibPickUpStoreL4 := 34,		// Nagy 4. kalibráló darab felvétele a tárolóból
+	CalibPutDownStoreL1 := 35,		// Nagy 1. kalibráló darab lerakása a tárolóba
+	CalibPutDownStoreL2 := 36,		// Nagy 2. kalibráló darab lerakása a tárolóba
+	CalibPutDownStoreL3 := 37,		// Nagy 3. kalibráló darab lerakása a tárolóba
+	CalibPutDownStoreL4 := 38,		// Nagy 4. kalibráló darab lerakása a tárolóba
+	CalibPutDownUpper1 := 39,		// Kalibráló darab lerakás felső lap 1. pozícióba
+	CalibPutDownUpper2 := 40,		// Kalibráló darab lerakás felső lap 2. pozícióba
+	CalibPutDownUpper3 := 41,		// Kalibráló darab lerakás felső lap 3. pozícióba
+	CalibPutDownUpper4 := 42,		// Kalibráló darab lerakás felső lap 4. pozícióba
+	CalibPickUpUpper1 := 43,		// Kalibráló darab felvétel felső lap 1. pozícióból
+	CalibPickUpUpper2 := 44,		// Kalibráló darab felvétel felső lap 2. pozícióból
+	CalibPickUpUpper3 := 45,		// Kalibráló darab felvétel felső lap 3. pozícióból
+	CalibPickUpUpper4 := 46,		// Kalibráló darab felvétel felső lap 4. pozícióból
+	CalibPutDownLower1 := 47,		// Kalibráló darab lerakás alsó lap 1. pozícióba
+	CalibPutDownLower2 := 48,		// Kalibráló darab lerakás alsó lap 2. pozícióba
+	CalibPutDownLower3 := 49,		// Kalibráló darab lerakás alsó lap 3. pozícióba
+	CalibPutDownLower4 := 50,		// Kalibráló darab lerakás alsó lap 4. pozícióba
+	CalibPickUpLower1 := 51,		// Kalibráló darab felvétel alsó lap 1. pozícióból
+	CalibPickUpLower2 := 52,		// Kalibráló darab felvétel alsó lap 2. pozícióból
+	CalibPickUpLower3 := 53,		// Kalibráló darab felvétel alsó lap 3. pozícióból
+	CalibPickUpLower4 := 54,		// Kalibráló darab felvétel alsó lap 4. pozícióból
+	CalibPickUpPositioner1 := 55,	// Kalibráló darab felvétel 1. tájolóból
+	CalibPickUpPositioner2 := 56	// Kalibráló darab felvétel 2. tájolóból
+) := NoCommand;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

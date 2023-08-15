@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="MAIN" Id="{f64088c3-f9a4-4ef8-a854-8e583a1e04fb}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	rtStep						:R_Trig;
+	rtAck						:R_Trig;
+	i							:UDINT;
+	fbWakeUpTmr					:TON;	
+	sTime						:STRING(8);
+	bAckLED						:BOOL;	
+	
+	// Alarm	
+	aErrorActive				:ARRAY[1..nNbrOfAlarms] OF WORD;
+	aErrorID1					:ARRAY[1..nNbrOfAlarms] OF STRING(255);
+	aErrorID2					:ARRAY[1..nNbrOfAlarms] OF STRING(255);
+	afbAlarms					:ARRAY[1..nNbrOfAlarms] OF FB_TcAlarm;
+	fbSource					:FB_TcSourceInfo;
+
+
+	(*ID200 Test*)
+	(*Function block*)
+	fbId200_1			: FB_ID200;
+	TestData : ARRAY [0..7] OF BYTE;
+	(*Head Data*)
+
+	bTestQuit			: BOOL;
+	bTestERFC			: BOOL;
+	bTestERWS			: BOOL;
+	bTestCT				: BOOL;
+	bTestReset			: BOOL;
+	bTestChannel		: BYTE := 1;
+	
+	bTestSWFC			: BOOL;
+	bTestSWWS			: BOOL;
+	
+	fbAwea				: FB_AWEA;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//InitTCPIP();
+Init();
+Blink();
+SafetyPRG();
+Alarm();
+BusDiag();
+Door();
+Light();
+Mode();
+ViseProgram();
+RobotCncProgram();
+
+
+
+Test();
+fbAwea();
+
+
+fbTime(bEnable := TRUE, dwCycle := 1);
+dtSystemTime := SYSTEMTIME_TO_DT(TIMESTR:= fbTime.systemTime);
+sTime := MID((SYSTEMTIME_TO_STRING(fbTime.systemTime)),8,12);
+
+fbId200_1();
+IF bTestReset THEN
+	IF fbId200_1.Reset() THEN
+		bTestReset := FALSE;
+	END_IF
+END_IF
+
+IF bTestQuit THEN
+	IF fbId200_1.Quit(bTestChannel) THEN
+		bTestQuit := FALSE;
+	END_IF
+END_IF
+
+IF bTestERWS THEN
+	IF fbId200_1.EncReadWords(bTestChannel, 5, ) THEN
+		bTestERWS := FALSE;
+	END_IF
+END_IF
+
+IF bTestERFC THEN
+	IF fbId200_1.EncReadFixCode(bTestChannel) THEN
+		bTestERFC := FALSE;
+	END_IF
+END_IF
+
+IF bTestCT THEN
+	IF fbId200_1.ChangeTag(			Channel := bTestChannel,
+									CarrierType := E_CarrierType.MDT_28) THEN
+		bTestCT := FALSE;
+	END_IF
+END_IF
+
+//v1
+IF bTestSWFC THEN
+	IF fbId200_1.SinWriteFixCode(	Channel := bTestChannel,
+									CarrierType := E_CarrierType.MDT_28,
+									Data := TestData,
+									DataLength := 5) THEN
+		bTestSWFC := FALSE;
+	END_IF
+END_IF
+
+//v2
+//IF bTestSWFC THEN
+//	IF fbId200_1.SinWriteFixCode(	Channel := bTestChannel,
+//									Fixlen := uFixLength,
+//									CarrierType := E_CarrierType.MDT_28,
+//									Data := TestData,
+//									DataLength := 5) THEN
+//		bTestSWFC := FALSE;
+//	END_IF
+//END_IF
+
+IF bTestSWWS THEN
+	IF fbId200_1.SinWriteWords(		Channel := bTestChannel,
+									1,
+									Data := TestData,
+									DataLength := 5) THEN
+		bTestSWWS := FALSE;
+	END_IF
+END_IF
+]]></ST>
+    </Implementation>
+    <Action Name="Alarm" Id="{74b54fed-c5dc-49fb-9aa9-6cad65b323d1}">
+      <Implementation>
+        <ST><![CDATA[// Creating error acknowladge impulse
+rtAck(CLK:= i_bVisePos1ErrorAckBtn OR i_bVisePos2ErrorAckBtn OR bAckHMI, Q=> bAckP);
+IF rtAck.Q THEN
+	afbAlarms[1].Confirm(0); afbAlarms[2].Confirm(0); afbAlarms[3].Confirm(0); afbAlarms[4].Confirm(0);
+	afbAlarms[5].Confirm(0); afbAlarms[6].Confirm(0); afbAlarms[7].Confirm(0); 
+	bAckHMI := FALSE;
+END_IF
+
+IF wError <> 0 OR bSafetyError OR ViseProgram.nState >= 200000 THEN
+	bGlobalError := TRUE;
+ELSE
+	bGlobalError := FALSE;
+END_IF
+
+(* 
+	wError.0 : Air pressure error
+	wError.1 : Ethercat error
+	wError.2 : 
+	wError.3 : 
+	wError.4 : 
+	wError.5 : 
+	wError.6 : 
+	wError.7 : 
+	wError.8 : 
+	wError.9 : 
+*)
+
+aErrorActive[1].0 := wError.0;
+aErrorActive[2].0 := wError.1;
+aErrorActive[3].0 := i_bSafetyGroupComErr;
+aErrorActive[4].0 := i_bSafetyGroupFBErr;
+aErrorActive[5].0 := i_bSafetyGroupOtherErr;
+aErrorActive[6].0 := i_bLO1EDMErr;
+aErrorActive[7].0 := i_bLO2EDMErr;
+
+FOR i := 1 TO nNbrOfAlarms DO
+	IF aErrorActive[i].0 THEN
+		IF (afbAlarms[i].eConfirmationState <> 2 AND afbAlarms[i].nTimeCleared <> 0 AND afbAlarms[i].nTimeConfirmed <> 0) OR //Ha már volt alarm, akkor van bennük érték
+			(afbAlarms[i].eConfirmationState = 1 AND afbAlarms[i].nTimeCleared = 0 AND afbAlarms[i].nTimeConfirmed = 0)	//Első futás esetén
+		THEN
+			IF aErrorActive[i].1 AND aErrorActive[i].2 THEN
+				afbAlarms[i].ipArguments.Clear().AddString(aErrorID1[i]).AddString(aErrorID2[i]);
+			ELSIF aErrorActive[i].1 THEN
+				afbAlarms[i].ipArguments.Clear().AddString(aErrorID1[i]);
+			ELSE
+				afbAlarms[i].ipArguments.Clear();
+			END_IF
+			afbAlarms[i].Raise(0);
+		END_IF	
+	ELSE
+		IF (afbAlarms[i].eConfirmationState = 2 OR afbAlarms[i].eConfirmationState = 3) AND afbAlarms[i].nTimeCleared = 0 THEN
+			afbAlarms[i].Clear(0, FALSE);
+		END_IF		
+	END_IF
+END_FOR
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="BusDiag" Id="{f28fd779-3d8e-4ec9-aa56-27042a3165b6}">
+      <Implementation>
+        <ST><![CDATA[fbWakeUpTmr(IN:= NOT bFirstCycle, PT:= T#60S, Q=> , ET=> );
+// eCAT network error
+IF fbWakeUpTmr.Q AND (i_nBusState <> 8) THEN
+	wError.1 := TRUE;	
+END_IF
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Door" Id="{6538cdd5-c667-405f-9c30-8490d92c2d68}">
+      <Implementation>
+        <ST><![CDATA[fbDoor(
+	bDoorButton:= i_bDoorRequest, 
+	bOpenEnable:= TRUE (*and robot.....*), 
+	bDoorsClosed:= i_bDoorClosed, 
+	bDoorsLocked:= i_bLO2, 
+	bBlink:= bBL100p100, 
+	bCloseOut=> q_bDoorLock, 
+	bDoorButtonLED=> q_bDoorRequestLED, 
+	bObenRequestOut=> bDoorOpenReq);
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Init" Id="{d87a8829-577b-44df-8bb5-51539643ac1d}">
+      <Implementation>
+        <ST><![CDATA[IF bFirstCycle THEN
+	afbAlarms[1].CreateEx(TC_Events.MyEvents.AirPE, TRUE, 0);
+	afbAlarms[2].CreateEx(TC_Events.MyEvents.GenEtherCATErr, TRUE, 0);
+	afbAlarms[3].CreateEx(TC_Events.MyEvents.SafetyGroupComErr, TRUE, 0);
+	afbAlarms[4].CreateEx(TC_Events.MyEvents.SafetyGroupFbErr, TRUE, 0);
+	afbAlarms[5].CreateEx(TC_Events.MyEvents.SafetyGroupOtherErr, TRUE, 0);
+	afbAlarms[6].CreateEx(TC_Events.MyEvents.LO1EDMErr, TRUE, 0);
+	afbAlarms[7].CreateEx(TC_Events.MyEvents.LO2EDMErr, TRUE, 0);
+	bFirstCycle := FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Light" Id="{17fc2ff3-9ede-4c3e-bb12-242734fa3e89}">
+      <Implementation>
+        <ST><![CDATA[//Master on light
+q_bMasterOnLED := (i_bLO1 (*AND i_bLO2*)) OR (bBL500p500 AND 
+					NOT i_bEmyStop1 AND NOT i_bEmyStop2 AND NOT i_bEmyStop3 AND
+					NOT i_bEmyStop4 AND NOT i_bEmyStop5 AND NOT i_bEmyStop6);
+
+//Error acknowledge light
+bAckLED := (bGlobalError AND bBL500p500) OR 
+			i_bEmyStop1 OR i_bEmyStop2 OR i_bEmyStop3 OR
+			i_bEmyStop4 OR i_bEmyStop5 OR i_bEmyStop6;
+
+q_bVise1ErrorAckLED := q_bVise2ErrorAckBtnLED := bAckLED;
+	
+fbNotSmartLight(
+	bEmyStop:= i_bEmyStop1 OR i_bEmyStop2 OR i_bEmyStop3 OR i_bEmyStop4 OR i_bEmyStop5 OR i_bEmyStop6,
+	bEmyOK:= i_bLO1 AND i_bLO2, 
+	bError:= bGlobalError, 
+	bOutOfStock:= ,
+	bBuzzer := FALSE,
+	bBlink := bBL500p500);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Mode" Id="{37f15e2b-fb65-4020-9798-fa6f49222fe7}">
+      <Implementation>
+        <ST><![CDATA[// Switching mode
+IF bManualModeRequest THEN
+	IF (ViseProgram.nState = 0 OR ViseProgram.nState = 10000 OR ViseProgram.nState = 150000 OR ViseProgram.nState >= 200000) 
+	THEN
+		nMode := 2;
+		bManualMode := TRUE;
+		bGlobalEHA := FALSE;
+	ELSE
+		nMode := 1;
+	END_IF
+ELSE
+	nMode := 0;
+	bManualMode := FALSE;
+	bGlobalEHA := TRUE;
+END_IF
+
+// Step mode for testing
+rtStep(CLK:= bStepHMI OR i_bMasterOn, Q=> bStepP);
+IF bStepMode AND bStepP OR NOT bStepMode THEN
+	bStepEnable := TRUE;
+ELSE
+	bStepEnable := FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

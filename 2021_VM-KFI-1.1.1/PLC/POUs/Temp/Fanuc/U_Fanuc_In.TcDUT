@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="U_Fanuc_In" Id="{703dc039-d064-452a-be9e-4332a34567c3}">
+    <Declaration><![CDATA[TYPE U_Fanuc_In :
+UNION
+	aFanuc_In		AT %I*	:ARRAY [1..16] OF BYTE;
+	stFanucIn				:ST_Fanuc_In;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

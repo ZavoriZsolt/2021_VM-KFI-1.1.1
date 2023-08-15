@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="RobotCncProgram" Id="{eed2e4c0-ad68-465b-86ac-58c9189ec973}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM RobotCncProgram
+VAR	(* Control *)
+	nState						:UDINT;
+	nStatePrevious				:UDINT;
+	sState						:STRING(500);
+	fbCycleTime					:TON;
+	nCycleTime					:REAL;
+END_VAR
+VAR //LastStates
+	anLastStates				:ARRAY[0..500] OF UDINT;
+    iLastStates					:INT;
+END_VAR
+VAR (* Robot *)
+	fbRobot				: FB_Fanuc;
+	arRobotEvents		: ARRAY [0..11] OF TcEventEntry;
+END_VAR
+VAR (* Test variables *)
+	bTestEnable			: BOOL;
+	nTestIndex			: BYTE;
+	nTestCncIndex		: BYTE;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Error handling*)
+IF nState > 0 AND nState < 150000 THEN
+	nStatePrevious := nState;
+END_IF
+
+(*Maintance*)
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*Emergency*)
+IF NOT i_bLO1 OR NOT i_bLO2 THEN
+	nState := 0;
+END_IF
+
+(*Last states*)
+IF(nState >= 1000) AND (nState < 150000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+CASE nState OF
+	(* Emergency circuit broken - Base state *)
+	0:(* Operation stop - Emergency circuit check *)
+		fbRobot.eCommand := E_Robot_Command.NoCommand;
+		fbRobot.nViseNumber := 0;
+		fbRobot.nCncNumber := 0;
+		
+		
+	(* Automatic mode - Base position *)
+	10000: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet');
+	
+	(*-----=== CNC 4 felvétel ===-----*)
+{region "CNC 4 felvétel"}
+	20000: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kivétel a négyes CNC-ből');
+		// valahonnét jön majd a satu szám !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		fbRobot.nViseNumber := nTestIndex;
+		fbRobot.nCncNumber := 4;
+		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Cnc;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
+		nState := nState + 20;
+		
+	20020: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC-hez mozog');
+		IF fbRobot.bRequestEnableToCnc_4 THEN
+			nState := nState + 20;
+		END_IF
+	
+	20040:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC engedélyező jelére vár');
+		// Ide majd CNC-től jövő jel hogy nyitva!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+		//fbRobot.bCnc_4_Enable := jel;
+		IF NOT fbRobot.bRequestEnableToCnc_4 THEN
+			fbRobot.bCnc_4_Enable := FALSE;
+			nState := nState + 20;
+		END_IF			
+	
+	20060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.nViseNumber < 8 THEN
+			nState := 22000;
+		ELSIF fbRobot.nViseNumber > 7 THEN
+			nState := 23000;
+		END_IF
+		
+	22000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
+		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+	
+	22020: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.bRequestEnableToVise_1_7 THEN
+			nState := nState + 20;	
+		END_IF
+	
+	22040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
+		fbRobot.bVise_1_7_Enable := TRUE;
+		IF NOT fbRobot.bRequestEnableToVise_1_7 THEN
+			fbRobot.bVise_1_7_Enable := FALSE;
+			nState := nState + 20;	
+		END_IF
+		
+	22060:
+		nState := 25000;
+	
+	23000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
+		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+	
+	23020: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.bRequestEnableToVise_8_14 THEN
+			nState := nState + 20;	
+		END_IF
+	
+	23040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
+		fbRobot.bVise_8_14_Enable := TRUE;
+		IF NOT fbRobot.bRequestEnableToVise_8_14 THEN
+			fbRobot.bVise_8_14_Enable := FALSE;
+			nState := nState + 20;	
+		END_IF
+		
+	23060:
+		nState := 25000;	
+		
+	25000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot program befejezésére vár');
+		IF 	fbRobot.bDone THEN
+			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			nState := 10000;
+		END_IF
+{endregion}
+ 
+
+	(*-----=== CNC 5 felvétel ===-----*)
+{region "CNC 5 felvétel"}
+	30000: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kivétel a ötös CNC-ből');
+		// valahonnét jön majd a satu szám !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		fbRobot.nViseNumber := nTestIndex;
+		fbRobot.nCncNumber := 5;
+		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Cnc;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
+		nState := nState + 20;
+		
+	30020: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC-hez mozog');
+		IF fbRobot.bRequestEnableToCnc_5 THEN
+			nState := nState + 20;
+		END_IF
+	
+	30040:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC engedélyező jelére vár');
+		// Ide majd CNC-től jövő jel hogy nyitva!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+		//fbRobot.bCnc_4_Enable := jel;
+		IF NOT fbRobot.bRequestEnableToCnc_5 THEN
+			fbRobot.bCnc_5_Enable := FALSE;
+			nState := nState + 20;
+		END_IF			
+	
+	30060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.nViseNumber < 8 THEN
+			nState := 32000;
+		ELSIF fbRobot.nViseNumber > 7 THEN
+			nState := 33000;
+		END_IF
+		
+	32000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
+		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+	
+	32020: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.bRequestEnableToVise_1_7 THEN
+			nState := nState + 20;	
+		END_IF
+	
+	32040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
+		fbRobot.bVise_1_7_Enable := TRUE;
+		IF NOT fbRobot.bRequestEnableToVise_1_7 THEN
+			fbRobot.bVise_1_7_Enable := FALSE;
+			nState := nState + 20;	
+		END_IF
+		
+	32060:
+		nState := 35000;
+	
+	33000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
+		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+	
+	33020: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.bRequestEnableToVise_8_14 THEN
+			nState := nState + 20;	
+		END_IF
+	
+	33040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
+		fbRobot.bVise_8_14_Enable := TRUE;
+		IF NOT fbRobot.bRequestEnableToVise_8_14 THEN
+			fbRobot.bVise_8_14_Enable := FALSE;
+			nState := nState + 20;	
+		END_IF
+		
+	33060:
+		nState := 25000;	
+		
+	35000:
+		IF 	fbRobot.bDone THEN
+			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			nState := 10000;
+		END_IF
+{endregion}
+
+	
+	(*-----=== Satu 1-7 felvétel ===-----*)
+{region "Satu 1-7 felvétel"}
+	40000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzet');
+		fbViseStation[nTestIndex].Vise.bBasePosCmd := FALSE;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
+		
+		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+		
+	40020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		fbRobot.nViseNumber := nTestIndex;
+		fbRobot.nCncNumber := nTestCncIndex;
+		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Vise;
+		nState := nState + 20;
+	
+	40040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.bRequestEnableToVise_1_7 THEN
+			nState := nState + 20;
+		END_IF
+		
+	40060:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
+		fbRobot.bVise_1_7_Enable := TRUE;
+		IF NOT fbRobot.bRequestEnableToVise_1_7 THEN
+			fbRobot.bVise_1_7_Enable := FALSE;
+			nState := nState + 20;	
+		END_IF
+		
+	40080:
+		IF fbRobot.nCncNumber = 4 THEN
+			nState := 42000;
+		ELSIF fbRobot.nCncNumber = 5 THEN
+			nState := 43000;
+		END_IF
+		
+	42000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az négyes CNC-hez mozog');	
+		IF fbRobot.bRequestEnableToCnc_4 THEN
+			nState := nState + 20;
+		END_IF
+		
+	42020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC engedélyező jelére vár');
+		fbRobot.bCnc_4_Enable := TRUE;
+		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
+			 
+		IF NOT fbRobot.bRequestEnableToCnc_4 THEN
+			fbRobot.bCnc_4_Enable := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	42040:
+		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
+			nState := 45000;	 
+		END_IF		
+	
+	43000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az ötös CNC-hez mozog');	
+		IF fbRobot.bRequestEnableToCnc_5 THEN
+			nState := nState + 20;
+		END_IF
+		
+	43020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC engedélyező jelére vár');
+		fbRobot.bCnc_5_Enable := TRUE;
+		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
+			 
+		IF NOT fbRobot.bRequestEnableToCnc_5 THEN
+			fbRobot.bCnc_5_Enable := FALSE;
+			nState := nState + 20;
+		END_IF
+	
+	43040:
+		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
+			nState := 45000;	 
+		END_IF	
+		
+	45000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot program befejezésére vár');
+		IF fbRobot.bDone THEN
+			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			nState := 10000;
+		END_IF
+{endregion}
+
+
+	(*-----=== Satu 8-14 felvétel ===-----*)
+{region "Satu 8-14 felvétel"}
+	50000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzet');
+		fbViseStation[nTestIndex].Vise.bBasePosCmd := FALSE;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
+		
+		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+		
+	50020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		fbRobot.nViseNumber := nTestIndex;
+		fbRobot.nCncNumber := nTestCncIndex;
+		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Vise;
+		nState := nState + 20;
+	
+	50040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
+		IF fbRobot.bRequestEnableToVise_8_14 THEN
+			nState := nState + 20;
+		END_IF
+		
+	50060:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 8-14 engedélyező jelére vár');
+		fbRobot.bVise_8_14_Enable := TRUE;
+		IF NOT fbRobot.bRequestEnableToVise_8_14 THEN
+			fbRobot.bVise_8_14_Enable := FALSE;
+			nState := nState + 20;	
+		END_IF
+		
+	50080:
+		IF fbRobot.nCncNumber = 4 THEN
+			nState := 52000;
+		ELSIF fbRobot.nCncNumber = 5 THEN
+			nState := 53000;
+		END_IF
+		
+	52000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az négyes CNC-hez mozog');	
+		IF fbRobot.bRequestEnableToCnc_4 THEN
+			nState := nState + 20;
+		END_IF
+		
+	52020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC engedélyező jelére vár');
+		fbRobot.bCnc_4_Enable := TRUE;
+		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
+			 
+		IF NOT fbRobot.bRequestEnableToCnc_4 THEN
+			fbRobot.bCnc_4_Enable := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	52040:
+		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
+			nState := 45000;	 
+		END_IF		
+	
+	53000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az ötös CNC-hez mozog');	
+		IF fbRobot.bRequestEnableToCnc_5 THEN
+			nState := nState + 20;
+		END_IF
+		
+	53020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC engedélyező jelére vár');
+		fbRobot.bCnc_5_Enable := TRUE;
+		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
+		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
+			 
+		IF NOT fbRobot.bRequestEnableToCnc_5 THEN
+			fbRobot.bCnc_5_Enable := FALSE;
+			nState := nState + 20;
+		END_IF
+	
+	53040:
+		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
+			nState := 45000;	 
+		END_IF	
+		
+	55000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot program befejezésére vár');
+		IF fbRobot.bDone THEN
+			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			nState := 10000;
+		END_IF
+{endregion}
+
+
+	
+	150000: (* Maintenance *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
+		IF NOT bManualMode THEN
+			nState := 0;
+		END_IF
+		
+	200000:(* Error handling *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
+		nState := 200020;
+
+	200020:(* Error handling *)
+		IF bAckP THEN
+			CASE nStatePrevious OF
+				0..9999: nState := 0;
+				10000..25000: nState := 10000;
+				30000..31000: nState := 30000;
+			ELSE nState := 0;
+			END_CASE
+		END_IF	
+		
+	ELSE //Not a real step, for test purposes
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
+END_CASE
+
+(*Timers***************************************************)
+fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+IF nState > 10000 AND nState <= 95000 THEN
+	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+END_IF
+
+Robot();]]></ST>
+    </Implementation>
+    <Action Name="Robot" Id="{300bd409-a385-474c-812b-4c295d30f6a6}">
+      <Implementation>
+        <ST><![CDATA[arRobotEvents[0] := TC_EVENTS.MyEvents.RobotNoPneumaticsErr;
+arRobotEvents[1] := TC_EVENTS.MyEvents.RobotNotCorrectPrgErr;
+arRobotEvents[2] := TC_EVENTS.MyEvents.RobotNotProdOnRobotErr;
+arRobotEvents[3] := TC_EVENTS.MyEvents.RobotProdOnRobotErr;
+arRobotEvents[4] := TC_EVENTS.MyEvents.RobotGripperOpenErr;
+arRobotEvents[5] := TC_EVENTS.MyEvents.RobotGripperCloseErr;
+arRobotEvents[6] := TC_EVENTS.MyEvents.RobotNotCorrectViseNumberErr;
+arRobotEvents[7] := TC_EVENTS.MyEvents.RobotNotReadyErr;
+arRobotEvents[8] := TC_EVENTS.MyEvents.RobotBasePosErr;
+
+fbRobot(
+	sName:= 'Buksi - Hülye de erős', 
+	bEn:= i_bLO2, 
+	timeBaseState:= T#40S, 
+	bAck:= bAckP, 
+	bOverride:= 10, 
+	stEventArray:= arRobotEvents);]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

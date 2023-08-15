@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_RGB_In" Id="{56529e07-5eb6-4b85-afd9-b4f3ea77ae32}">
+    <Declaration><![CDATA[TYPE ST_RGB_In :
+STRUCT
+	LifeSig				AT %I*			:UINT;
+	Resp				AT %i*			:UINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

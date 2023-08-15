@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <EnumerationTextList Name="E_Command" Id="{33ccd2b1-a775-4831-b2cb-dd18a3fb09e3}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_Command :
+(
+	Quit := 16#02,
+	ChangeTag := 16#04,
+	Reset := 16#16,
+	SetMultiplexedMode := 16#9B,
+	SetTriggerMode := 16#9C,
+	SingleReadFixCode := 16#01,
+	EnchancedReadFixCode := 16#1D,
+	SingleReadWords := 16#10,
+	EnchancedReadWords := 16#19,
+	SingleWriteWords := 16#40,
+	SingleWriteFixCode := 16#1F
+)BYTE := Quit;
+END_TYPE
+]]></Declaration>
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="TextListEnumerationTextListObject">
+          <l n="TextList" t="ArrayList" cet="TextListRow">
+            <o>
+              <v n="TextID">"Quit"</v>
+              <v n="TextDefault">"16#02"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"ChangeTag"</v>
+              <v n="TextDefault">"16#04"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Reset"</v>
+              <v n="TextDefault">"16#16"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SetMultiplexedMode"</v>
+              <v n="TextDefault">"16#9B"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SetTriggerMode"</v>
+              <v n="TextDefault">"16#9C"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SingleReadFixCode"</v>
+              <v n="TextDefault">"16#01"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"EnchancedReadFixCode"</v>
+              <v n="TextDefault">"16#1D"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SingleReadWords"</v>
+              <v n="TextDefault">"16#10"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"EnchancedReadWords"</v>
+              <v n="TextDefault">"16#19"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SingleWriteWords"</v>
+              <v n="TextDefault">"16#40"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SingleWriteFixCode"</v>
+              <v n="TextDefault">"16#1F"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">""</v>
+              <v n="TextDefault">""</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+          </l>
+          <l n="Languages" t="ArrayList" />
+          <v n="GuidInit">{0198489d-93bb-43ff-a8b5-d63824715e7e}</v>
+          <v n="GuidReInit">{62b37361-a837-403f-b18d-3669a5e6f3da}</v>
+          <v n="GuidExitX">{c0a0f066-1442-4314-bda8-c1e7b7442126}</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="String">System.String</Type>
+        <Type n="TextListEnumerationTextListObject">{4b60233c-f940-4beb-b331-82133b520151}</Type>
+        <Type n="TextListRow">{53da1be7-ad25-47c3-b0e8-e26286dad2e0}</Type>
+      </TypeList>
+    </XmlArchive>
+  </EnumerationTextList>
+</TcPlcObject>

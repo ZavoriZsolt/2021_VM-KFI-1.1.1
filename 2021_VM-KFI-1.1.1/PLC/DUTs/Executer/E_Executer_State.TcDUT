@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="E_Executer_State" Id="{a9e50dad-a849-4a93-b484-7d81f17b5c19}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_Executer_State :
+(
+	Busy := 0,
+	Done := 10,
+	Error := 20
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

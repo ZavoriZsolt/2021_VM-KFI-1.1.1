@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Control_Out" Id="{77d9bb9c-f14c-49cc-8d83-0369d8eeb8c6}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Control_Out :
+STRUCT
+	(* -----=== Byte 01 ===----- *)
+	bImStop						:BIT;			//	Immediate stop			Mindig kint van kivéve vészstop (Alacsony aktív)
+	bHold						:BIT;			//	Temporary stop			Mindig kint van kivéve vészstop (Alacsony aktív)
+	bSafetyfSpeed				:BIT;			//	Safety speed			Mindig kint van kivéve vészstop (Alacsony aktív)
+	bCycleStop					:BIT;			//	Cycle stop
+	bReset						:BIT;			//	External reset			Robot hibatörlés, nem alarm
+	bStart						:BIT;			//	Cycle start
+	bEnable						:BIT;			//	Operational enable
+	bPsr1						:BIT;			//	Prg 1					Nincs használva
+	(* -----=== Byte 02 ===----- *)	
+	bPsr2						:BIT;			//	Prg 2					Nincs használva
+	bPsr3						:BIT;			//	Prg 3					Nincs használva
+	bPsr4						:BIT;			//	Prg 4					Nincs használva
+	bPsrStrobe					:BIT;			//	Prg strobe				Nincs használva
+	bMoveEnable					:BIT;			//	Move enable				Mindig kint van kivéve vészstop (Alacsony aktív)
+	bServiceEnd					:BIT;			//	Sevice end
+	{attribute 'hide'}
+	_reserved_02_7				:BIT;			// Tartalék 02.07	
+	{attribute 'hide'}
+	_reserved_02_8				:BIT;			// Tartalék 02.08	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

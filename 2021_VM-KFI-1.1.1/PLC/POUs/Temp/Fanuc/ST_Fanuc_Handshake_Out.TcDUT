@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Handshake_Out" Id="{d33918da-2c19-4ae7-8bc6-a847fce92105}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Handshake_Out :
+STRUCT
+	(* -----=== Byte 03 ===----- *)
+	bFeederEnable				:BIT;			//	Fuji adaagolóba mehet a robot
+	bPositioner1Enable			:BIT;			//	Tájoló 1-be  mehet a robot
+	bPositioner2Enable			:BIT;			//	Tájoló 2-be  mehet a robot
+	bFixtureAreaEnable			:BIT;			//	PCB ülék fölé mehet a robot
+	bPositioner1Open			:BIT;			//	Tájoló 1 nyitva
+	bPositioner2Open			:BIT;			//	Tájoló 2 nyitva
+	{attribute 'hide'}
+	_reserved_03_7				:BIT;			// Tartalék 03.07	
+	{attribute 'hide'}
+	_reserved_03_8				:BIT;			// Tartalék 03.08	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

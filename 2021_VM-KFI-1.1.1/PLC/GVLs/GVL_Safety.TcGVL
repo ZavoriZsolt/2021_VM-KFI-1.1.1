@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="GVL_Safety" Id="{7831800b-3b8a-4161-88f7-8e1c36003963}">
+    <Declaration><![CDATA[VAR_GLOBAL
+(**************************************************Inputs*********************************************************)	
+	i_bLO1						AT %I*	:BOOL;	
+	i_bLO2						AT %I*	:BOOL;	
+	i_bLO1EDMErr				AT %I*	:BOOL;	
+	i_bLO2EDMErr				AT %I*	:BOOL;	
+	i_bSafetyGroupComErr		AT %I*	:BOOL;
+	i_bSafetyGroupFBErr			AT %I*	:BOOL;	
+	i_bSafetyGroupOtherErr		AT %I*	:BOOL;	
+
+	bSafetyError					:BOOL;		// Safety error
+
+(**************************************************Outputs*********************************************************)
+	q_bSafetyRun				AT %Q*	:BOOL;	// Safety run
+	q_bSafetyMasterOn			AT %Q*	:BOOL;	// Master on
+	q_bSafetyErrorAck			AT %Q*	:BOOL;	// Safety ack		
+END_VAR
+
+
+	]]></Declaration>
+  </GVL>
+</TcPlcObject>

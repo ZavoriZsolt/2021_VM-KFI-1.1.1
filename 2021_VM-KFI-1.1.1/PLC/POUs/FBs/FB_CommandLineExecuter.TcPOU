@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_CommandLineExecuter" Id="{8c921669-45cb-4dc5-866f-eec3ba736c61}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandLineExecuter
+VAR
+	_executer		: NT_StartProcess;
+	_file_finder	: FB_EnumFindFileEntry;
+END_VAR
+VAR
+	_move_file_state : UINT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ExecuteCommand" Id="{ae57242d-57ab-4814-987a-b9d03fbad112}">
+      <Declaration><![CDATA[METHOD PUBLIC ExecuteCommand : E_Executer_State
+VAR_INPUT
+	CommandLine		: T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ExecuteCommand := E_Executer_State.Busy;
+
+_executer(
+	NETID:= '',
+	START := TRUE, 
+	PATHSTR:= 'C:\Windows\System32\cmd.exe', 
+	DIRNAME:= 'C:\Windows\System32',
+	COMNDLINE:= CommandLine, 
+	TMOUT:= T#10S);
+	
+IF NOT _executer.BUSY THEN
+	_executer(START := FALSE);
+	ExecuteCommand := E_Executer_State.Done;
+END_IF
+
+IF _executer.ERR THEN
+	_executer(START := FALSE);
+	ExecuteCommand := E_Executer_State.Error;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveFile" Id="{14c1b210-f346-468c-8bd6-0bbd33f6f3f1}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveFile : E_Executer_State
+VAR_INPUT
+	Source 		: T_MaxString;
+	Destination : T_MaxString;
+END_VAR
+VAR
+	_command	: T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Build Command String
+_command := '/C ';                  // Special command indicating command string input
+_command := CONCAT(_command, 'move ');      // Add move command
+_command := CONCAT(_command, Source);  // Add target file
+_command := CONCAT(_command, ' ');          // Required space for command 
+_command := CONCAT(_command, Destination); // Add target location
+CASE _move_file_state OF
+	0: 
+		_move_file_state := _move_file_state + 20;
+	
+	20:
+		IF THIS^.ExecuteCommand(_command) = E_Executer_State.Done THEN
+			_move_file_state := _move_file_state + 20;
+		END_IF	
+	
+	40:
+		_file_finder.sPathName := Destination;
+		_file_finder.eCmd := E_EnumCmdType.eEnumCmd_First;
+		_move_file_state := _move_file_state + 20;
+		
+	60:
+        _file_finder( bExecute := TRUE );
+		_move_file_state := _move_file_state + 20;	
+		
+	80:
+		_file_finder( bExecute := FALSE );
+        IF NOT _file_finder.bBusy THEN
+            IF NOT _file_finder.bError AND NOT _file_finder.bEOE THEN
+				MoveFile := E_Executer_State.Done;
+				_move_file_state := 0;
+            ELSE 
+                MoveFile := E_Executer_State.Error;
+				_move_file_state := 0;
+            END_IF
+        END_IF
+END_CASE
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

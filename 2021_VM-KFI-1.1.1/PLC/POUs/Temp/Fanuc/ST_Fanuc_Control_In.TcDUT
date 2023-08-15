@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Control_In" Id="{3d2974a9-f2f4-46ae-9149-685dfc129ea3}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Control_In :
+STRUCT
+	(* -----=== Byte 01 ===----- *)
+	bCmdEnable					:BIT;			//	A robot automata módba van
+	bFault						:BIT;			//	A robot hiba
+	bBattery					:BIT;			//	A robot elem figyelmeztetés
+	bBusy						:BIT;			//	A robot elfoglalt
+	bProgEnd					:BIT;			//	Aktuális program kész
+	bProgRun					:BIT;			//	Aktuális program fut
+	bError						:BIT;			//	Program hiba
+	bServiceRun					:BIT;			//	Robot szervíz pozícióban
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

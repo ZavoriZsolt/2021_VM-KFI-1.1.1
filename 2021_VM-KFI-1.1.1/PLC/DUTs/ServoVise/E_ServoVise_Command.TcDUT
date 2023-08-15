@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="E_ServoVise_Command" Id="{6d567d06-f76c-480a-9878-61fbe11a8111}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_ServoVise_Command :
+(
+	NoCommand,
+	Open,
+	Close
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

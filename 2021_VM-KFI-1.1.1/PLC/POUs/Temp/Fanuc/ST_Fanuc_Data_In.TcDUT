@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Data_In" Id="{991bd0cb-f34b-414e-983a-0dbe9c37cf0b}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Data_In :
+STRUCT
+	(* -----=== Byte 07, 08 ===----- *)
+	nPositionX					:WORD;			//	Formátuma egész pozítiv szám. A felhasználása szám/100. Pl.: 123,45 > 12345
+	(* -----=== Byte 09, 10 ===----- *)
+	nPositionY					:WORD;			//	Formátuma egész pozítiv szám. A felhasználása szám/100. Pl.: 123,45 > 12345
+	(* -----=== Byte 11, 12 ===----- *)
+	nPositionR					:WORD;			//	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Vise_Status" Id="{ae77624c-a36f-44e8-9619-c4fb608f31d3}">
+    <Declaration><![CDATA[TYPE ST_Vise_Status :
+STRUCT
+	eState			:E_Vise_State;
+	bPass			:BOOL;
+	bFail			:BOOL;
+	nViseIndex		:USINT; // 1-14
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

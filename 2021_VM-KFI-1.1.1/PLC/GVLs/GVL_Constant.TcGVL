@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="GVL_Constant" Id="{03d4147d-5c4f-479e-bb2e-67ce90e41f29}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+	nNbrOfAlarms				:BYTE := 40;
+	cDarkBlue	:UDINT := 16#002A20A8;
+	cTorquise	:UDINT := 16#007DD0D9;
+	
+	
+	cBlack 		:UDINT := 16#00000000;
+	cRed 		:UDINT := 16#008F0000;
+	cOrange		:UDINT := 16#000F3200;
+	cYellow		:UDINT := 16#000F0F00;
+	cGreen 		:UDINT := 16#00000F00;
+	cBlue 		:UDINT := 16#0000000F;
+	cIndigo		:UDINT := 16#0064005A;
+	cViolet		:UDINT := 16#00C80064;
+	cWhite 		:UDINT := 16#000F0F0F;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_Fanuc" Id="{a07028dd-53f4-4ea4-9382-7b1703fce4dd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Fanuc
+VAR_INPUT
+	sName				:STRING;
+	bEn					:BOOL;				(* Engedély jel *)
+	eCommand			:E_Robot_Command;	(* Végrehajtandó parancsok *)	
+	nViseNumber			:BYTE;				(* Satu sorszáma *)	
+	nCncNumber			:BYTE;				(* CNC száma; 4 vagy 5 *)
+	bVise_1_7_Enable	:BOOL;	
+	bVise_8_14_Enable	:BOOL;
+	bCnc_4_Enable		:BOOL;	
+	bCnc_5_Enable		:BOOL;	
+	timeBaseState		:TIME:=T#20S;		(* Alaphelyzet felvételi idő*)
+	bAck				:BOOL; 				(* Hibanyugta *)
+	bOverride			:BYTE := 10;		(* PLC Override  10 - 100%*)
+	stEventArray		:ARRAY [0..nMaxAlarmNr] OF TcEventEntry;	(* Event array definition *)
+END_VAR
+VAR_OUTPUT
+	bReady				:BOOL;				(* Folyamat üzemkész *)
+	bBusy				:BOOL;				(* Folyamat aktív *)
+	bDone				:BOOL;				(* Folyamat kész *)
+	bPendantMode		:BOOL;				(* Teach pendant mód aktív *)
+	bError				:BOOL;				(* Hiba bit*)
+	sError				:STRING(255);		(* Hiba string*)
+	bRequestEnableToCnc_4 : BOOL;
+	bRequestEnableToCnc_5 : BOOL;
+	bRequestEnableToVise_1_7 : BOOL;
+	bRequestEnableToVise_8_14 : BOOL;
+END_VAR
+VAR CONSTANT
+	nMaxAlarmNr			:INT := 11;
+END_VAR
+VAR (* Robot IO *)
+	RobotIn				:U_Fanuc_Input;
+	RobotOut			:U_Fanuc_Output;
+END_VAR
+VAR (* State control *)
+	tBaseState			:TON;
+	tResetFault			:TON;
+	tStopCycle			:TON;
+	tStartCycle			:TON;
+	
+	nState				:UDINT;
+	sState				:STRING;
+	bIsInitalized		:BOOL;
+	bRobotReady			:BOOL;
+END_VAR
+VAR (* Error handling*)
+	bErrNotReady		:BOOL;
+	bErrBaseTimeout		:BOOL;
+	fbAlarmArray		:ARRAY [0..nMaxAlarmNr] OF FB_TcAlarm;
+	arrAlarms			:ARRAY [0..nMaxAlarmNr] OF BOOL;
+	i					:INT;
+	
+	//LastStates
+	anLastStates				:ARRAY[0..500] OF UDINT;
+    iLastStates					:INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Időzítők***************************************************)
+tBaseState(IN:= (nState > 0 AND nState < 10000), PT:= timeBaseState);
+tResetFault(IN:= RobotOut.Control.bReset, PT:= T#100MS);
+tStopCycle(IN:= RobotOut.Control.bCycleStop, PT:= T#100MS);
+tStartCycle(IN:= RobotOut.Control.bStart, PT:= T#100MS);
+
+(*Vész rendszer**************************************************)
+bRobotReady :=  NOT RobotIn.Status.bControllerEmyStop AND
+				NOT RobotIn.Status.bTeachPendantEmyStop AND
+				NOT RobotIn.Status.bDeadman AND
+				NOT RobotIn.Status.bFence AND
+				NOT RobotIn.Status.bEmyStopExternal;
+				
+(*Hibakezelés************************************************)
+IF nState >= 200 AND nState < 150000 AND (RobotIn.Status.bAlarm OR RobotIn.Status.bFault OR NOT bRobotReady) THEN
+	bErrNotReady := TRUE;
+END_IF
+
+IF tBaseState.Q AND NOT bErrBaseTimeout THEN
+	bErrBaseTimeout := TRUE;
+END_IF
+
+bError := (RobotIn.Status.bAlarm AND bEn) OR
+			RobotIn.Status.bNoPneumatics OR
+			RobotIn.Status.bNotCorrectPrg OR
+			RobotIn.Status.bNotProductOnRobot OR
+			RobotIn.Status.bProductOnRobot OR
+			RobotIn.Status.bGripperOpenError OR
+			RobotIn.Status.bGripperCloseError OR
+			RobotIn.Status.bNotCorrectViseNumber OR
+			bErrNotReady OR
+			bErrBaseTimeout;
+
+arrAlarms[0] := RobotIn.Status.bNoPneumatics;			
+arrAlarms[1] := RobotIn.Status.bNotCorrectPrg;
+arrAlarms[2] := RobotIn.Status.bNotProductOnRobot;
+arrAlarms[3] := RobotIn.Status.bProductOnRobot;
+arrAlarms[4] := RobotIn.Status.bGripperOpenError;
+arrAlarms[5] := RobotIn.Status.bGripperCloseError;
+arrAlarms[6] := RobotIn.Status.bNotCorrectViseNumber;
+arrAlarms[7] := bErrNotReady;
+arrAlarms[8] := bErrBaseTimeout;
+
+IF nState > 140 AND nState < 150000 AND bError THEN
+	nState := 200000;
+END_IF
+					
+(*State history ************************************************)
+IF(nState >= 100) AND (nState <= 20000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+(*Pendant mód ************************************************)
+bPendantMode := RobotIn.Status.bPendant;
+IF bPendantMode THEN
+	nState := 150000;
+END_IF
+
+(*Engedélyek *************************************************)
+IF (NOT bEn AND NOT bPendantMode) THEN			// nincs ajtókör, és pendantról sem szeretnék használni
+	nState := 0;
+END_IF
+
+// Enable signals
+RobotOut.Control.bZoneEnable := bEn;
+RobotOut.Control.bPlcOverride := bOverride;
+
+(*Automata üzem *********************************************)
+CASE nState OF
+	(* Emergency circuit broken - Base state *)
+	0:(* Operation stop - Emergency circuit check *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Vészkör vagy ajtókör bontva - Működtetések törlése');
+		RobotOut.Control.bImmediateStop := FALSE;
+		RobotOut.Control.bHold := FALSE;
+		RobotOut.Control.bSafeSpeed := FALSE;
+		RobotOut.Control.bCycleStop := FALSE;
+		RobotOut.Control.bReset := FALSE;
+		RobotOut.Control.bStart := FALSE;
+		RobotOut.Control.bPNS1 := TRUE;
+		RobotOut.Control.bPNS2 := FALSE;
+		RobotOut.Control.bPNS3 := FALSE;
+		RobotOut.Control.bPNS4 := FALSE;
+		RobotOut.Control.bPNS5 := FALSE;
+		RobotOut.Control.bPNS6 := FALSE;
+		RobotOut.Control.bPNS7 := FALSE;
+		RobotOut.Control.bPNS8 := FALSE;
+		RobotOut.Control.bPnsStrobe := FALSE;
+		RobotOut.Control.bEnable := FALSE;
+		RobotOut.Control.bHome := FALSE;
+		RobotOut.Control.bServiceEnd := FALSE;
+		RobotOut.Control.nMode := 0;
+		RobotOut.Control.nProgramNumber := 0;
+		RobotOut.Control.bProdStart := FALSE;
+		RobotOut.Control.bVise_1_7_Reset := FALSE;
+		RobotOut.Control.bVise_8_14_Reset := FALSE;
+		RobotOut.Control.bCNC_4_Reset := FALSE;
+		RobotOut.Control.bCNC_5_Reset := FALSE;
+		bErrNotReady := FALSE;
+		bErrBaseTimeout := FALSE;
+		bReady := FALSE;
+		bBusy := FALSE;	
+		IF bEn AND bRobotReady THEN
+			bBusy := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	20:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzetfelvétel - Robot bekapcsolása');
+		RobotOut.Control.bImmediateStop := TRUE;
+		RobotOut.Control.bHold := TRUE;
+		RobotOut.Control.bSafeSpeed := TRUE;
+		RobotOut.Control.bEnable := TRUE;
+		IF RobotIn.Status.bFault AND NOT RobotOut.Control.bReset THEN
+			RobotOut.Control.bReset := TRUE;	// Ha hiba van -> Reset
+		END_IF
+		nState := nState + 20;
+
+	40:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot hibatörlés');	
+		IF tResetFault.Q THEN
+			RobotOut.Control.bReset := FALSE;
+		END_IF
+		IF NOT RobotOut.Control.bReset AND NOT RobotIn.Status.bFault THEN
+			nState := nState + 20;
+		END_IF
+
+	60:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Várakozás Robot hibatörlésre');	
+		IF RobotIn.Status.bCommandEnable AND NOT RobotIn.Status.bFault THEN
+			nState := nState + 20;
+		END_IF
+		
+	80:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot Cycle Stop');
+		RobotOut.Control.bCycleStop := TRUE;
+		IF tStopCycle.Q THEN
+			RobotOut.Control.bCycleStop := FALSE;
+			nState := nState + 20;
+		END_IF
+	
+	100:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot Cycle Start');
+		RobotOut.Control.bStart := TRUE;
+		IF tStartCycle.Q THEN
+			RobotOut.Control.bStart := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	120: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Várakozás Robot Cycle Start-ra');
+		IF RobotIn.Status.bBusy AND RobotIn.Status.bProgramEnd THEN
+			nState := nState + 20;
+		END_IF
+		
+	140:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Alaphelyzet felvétel - Robot Busy');
+		IF RobotIn.Status.bBusy THEN
+			RobotOut.Control.bProdStart := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	160:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot alaphelyzetbe küldése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.Home);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	180:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.nPointNumber = 1 AND RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	200:
+		nState := 10000;
+		 
+(* Alaphelyzet *********************************************************************)
+	10000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet - Várakozás parancsra');
+		IF eCommand = E_Robot_Command.NoCommand THEN
+			bReady := TRUE;
+			bBusy := FALSE;
+			bDone := FALSE;
+		ELSIF eCommand = E_Robot_Command.PickAndPlace_From_Vise THEN
+			bReady := TRUE;
+			bBusy := TRUE;
+			bDone := FALSE;	
+			nState := 12000;	
+		ELSIF eCommand = E_Robot_Command.PickAndPlace_From_Cnc THEN
+			bReady := TRUE;
+			bBusy := TRUE;
+			bDone := FALSE;	
+			nState := 15000;
+		END_IF
+ 
+	(*-----=== Satuzó -> CNC program végrehajtása ===-----*)
+	12000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu felvétele');
+		RobotOut.Control.nViseNumber := nViseNumber;
+		IF nViseNumber <= 7 THEN
+			nState := 20000;
+		ELSIF nViseNumber >= 8 THEN
+			nState := 30000;
+		END_IF
+		
+		
+	15000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu kiszedése');
+		IF nCncNumber = 4 THEN
+			nState := 40000;
+		ELSIF nCncNumber = 5 THEN
+			nState := 50000;
+		END_IF
+
+	
+	(*-----=== Satuzó 1-7 felvétel ===-----*)	
+{region "Satuzo 1-7 felvétel"}
+	20000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 1-7 program betöltése');
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePickUp_1_7);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	20020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 1-7 handshake');
+		IF RobotIn.Status.bVise_1_7_Set THEN
+			bRequestEnableToVise_1_7 := TRUE;
+			nState := nState + 20;
+		END_IF	 
+				  
+	20040:
+		IF bVise_1_7_Enable THEN
+			RobotOut.Control.bVise_1_7_Reset := TRUE;
+			bRequestEnableToVise_1_7 := FALSE;
+			nState := nState + 20;	 
+		END_IF
+		 
+	20060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu felvevés');
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bVise_1_7_Reset := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	20080:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu CNC-be helyezése - CNC kiválasztása');
+		IF nCncNumber = 4 THEN
+			nState := 60000;
+		ELSIF nCncNumber = 5 THEN
+			nState := 70000;
+		END_IF
+{endregion}
+
+	
+	(*-----=== Satuzó 8-14 felvétel ===-----*)
+{region "Satuzó 8-14 felvétel"}
+	30000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 8-14 program betöltése');
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePickUp_8_14);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	30020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 8-14 handshake');
+		IF RobotIn.Status.bVise_8_14_Set THEN
+			bRequestEnableToVise_8_14 := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	30040:
+		IF bVise_8_14_Enable THEN
+			RobotOut.Control.bVise_8_14_Reset := TRUE;
+			bRequestEnableToVise_8_14 := FALSE;
+			nState := nState + 20;
+		END_IF
+		 
+	30060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu felvevés');
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bVise_8_14_Reset := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	30080:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu CNC-be helyezése - CNC kiválasztása');
+		IF nCncNumber = 4 THEN
+			nState := 60000;
+		ELSIF nCncNumber = 5 THEN
+			nState := 70000;
+		END_IF	
+{endregion}
+
+	
+	(*-----=== CNC 4 kiszzedés ===-----*)
+{region "CNC 4 kiszedés"}
+	40000: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu négyes CNC-ből kiszedés');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePickUpFromCnc_4);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	40020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu négyes CNC handshake');	
+		IF RobotIn.Status.bCNC_4_Set THEN
+			bRequestEnableToCnc_4 := TRUE;
+			nState := nState + 20;
+		END_IF
+	
+	40040:
+		IF bCnc_4_Enable THEN
+			RobotOut.Control.bCNC_4_Reset := TRUE;
+			bRequestEnableToCnc_4 := FALSE; 
+			nState := nState + 20;
+		END_IF	
+			 
+	40060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu négyes CNC-be helyezése');	
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bCNC_4_Reset := FALSE;
+			nState := 80000;
+		END_IF	
+{endregion}
+
+
+	(*-----=== CNC 5 kiszzedés ===-----*)
+{region "CNC 5 kiszedés"}	
+	50000: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu ötös CNC-ből kiszedés');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePickUpFromCnc_5);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	50020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu ötös CNC handshake');	
+		IF RobotIn.Status.bCNC_5_Set THEN
+			bRequestEnableToCnc_5 := TRUE;
+			nState := nState + 20;
+		END_IF
+	
+	50040:
+		IF bCnc_5_Enable THEN
+			RobotOut.Control.bCNC_5_Reset := TRUE;
+			bRequestEnableToCnc_5 := FALSE;
+			nState := nState + 20;
+		END_IF
+	
+	50060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu ötös CNC-be helyezése');	
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bCNC_5_Reset := FALSE;
+			nState := 80000;
+		END_IF
+{endregion}	
+
+
+	(*-----=== CNC 4 behelyézs ===-----*)	
+{region "CNC 4 behelyezés"}		
+	60000: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu négyes CNC-be helyezése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePutToCnc_4);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	60020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu négyes CNC handshake');	
+		IF RobotIn.Status.bCNC_4_Set THEN
+			bRequestEnableToCnc_4 := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	60040:
+		IF bCnc_4_Enable THEN
+			RobotOut.Control.bCNC_4_Reset := TRUE;
+			bRequestEnableToCnc_4 := FALSE;
+			nState := nState + 20;
+		END_IF		 
+				  
+	60060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu négyes CNC-be helyezése');	
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bCNC_4_Reset := FALSE;
+			bBusy := FALSE;
+			bDone := TRUE;
+			IF eCommand = E_Robot_Command.NoCommand THEN
+				nState := 10000;
+			END_IF
+		END_IF
+{endregion}
+
+	
+	(*-----=== CNC 5 behelyézs ===-----*)	
+{region "CNC 5 behelyezés"}			
+	70000: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu ötös CNC-be helyezése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePutToCnc_5);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	70020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu ötös CNC handshake');	
+		IF RobotIn.Status.bCNC_5_Set THEN
+			bRequestEnableToCnc_5 := TRUE;
+			nState := nState + 20;
+		END_IF
+	
+	70040:
+		IF bCnc_5_Enable THEN
+			RobotOut.Control.bCNC_5_Reset := TRUE;
+			bRequestEnableToCnc_5 := FALSE;
+			nState := nState + 20;	  
+		END_IF
+	
+	70060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu ötös CNC-be helyezése');
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bCNC_5_Reset := FALSE;
+			bBusy := FALSE;
+			bDone := TRUE;
+			IF eCommand = E_Robot_Command.NoCommand THEN
+				nState := 10000;
+			END_IF
+		END_IF
+{endregion}
+
+	
+	80000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu lerakása pozició');
+		IF nViseNumber <=7 THEN
+			nState := 90000;
+		ELSIF nViseNumber >=8 THEN
+			nState := 100000;
+		END_IF
+
+	(*-----=== Satuzó 1-7 lerakás ===-----*)	
+{region "Satuzo 1-7 lerakás"}
+	90000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 1-7 lerakás program betöltése');
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePutDown_1_7);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	90020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 1-7 handshake');
+		IF RobotIn.Status.bVise_1_7_Set THEN
+			bRequestEnableToVise_1_7 := TRUE;
+			nState := nState + 20;
+		END_IF
+	
+	90040:
+		IF bVise_1_7_Enable THEN
+			RobotOut.Control.bVise_1_7_Reset := TRUE;
+			bRequestEnableToVise_1_7 := FALSE;
+			nState := nState + 20;	  
+		END_IF
+	
+	90060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu lerakás');
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bVise_1_7_Reset := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	90080:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu lerakva');
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+
+	
+	(*-----=== Satuzó 8-14 lerakás ===-----*)	
+{region "Satuzo 8-14 lerakás"}
+	100000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 8-14 lerakás program betöltése');
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_Robot_Programs.VisePutDown_8_14);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber AND RobotIn.Status.bProgramRun THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	100020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu 8-14 handshake');
+		IF RobotIn.Status.bVise_8_14_Set THEN
+			bRequestEnableToVise_8_14 := TRUE;
+			nState := nState + 20;
+		END_IF
+	
+	100040:
+		IF bVise_8_14_Enable THEN
+			RobotOut.Control.bVise_8_14_Reset := TRUE;	
+			bRequestEnableToVise_8_14 := FALSE; 
+			nState := nState + 20; 
+		END_IF
+	
+	100060: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu lerakás');
+		IF RobotIn.Status.bProgramEnd THEN
+			RobotOut.Control.bVise_8_14_Reset := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	100080:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu lerakva');
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+
+
+(* Pendant mód *********************************************************************)
+	150000:	sState := CONCAT(UDINT_TO_STRING(nState) ,' - Pendant mód');
+			IF NOT bPendantMode THEN
+				RobotOut.Control.bImmediateStop := FALSE;
+				RobotOut.Control.bEnable := FALSE;
+				nState := 0;
+			ELSE
+				RobotOut.Control.bEnable := TRUE;
+				RobotOut.Control.bImmediateStop := TRUE;
+			END_IF
+			
+(* Hibakezelés *********************************************************************)
+	200000:	sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Hiba, ebből az állapotból: ' ,sState));
+			bReady := FALSE;
+			bBusy := FALSE;	
+			nState := nState + 20;
+
+(* Hibakezelés *********************************************************************)
+	200020:	
+			IF bAck THEN			
+				nState := nState + 20;
+			END_IF
+			
+	200040: 
+			RobotOut.Control.bImmediateStop := TRUE;
+			RobotOut.Control.bReset := TRUE;
+			RobotOut.Control.bNotCorrectPrg_Reset := TRUE;
+			RobotOut.Control.bNotProductOnRobot_Reset := TRUE;
+			RobotOut.Control.bProductOnRobot_Reset := TRUE;
+			RobotOut.Control.bGripperOpenError_Reset := TRUE;
+			RobotOut.Control.bGripperCloseError_Reset := TRUE;
+			RobotOut.Control.bNotCorrectViseNumber_Reset := TRUE;
+			nState := nState + 20;
+			
+	200060:
+			IF 	NOT RobotIn.Status.bNoPneumatics AND
+				NOT RobotIn.Status.bNotCorrectPrg AND
+				NOT RobotIn.Status.bNotProductOnRobot AND
+				NOT RobotIn.Status.bProductOnRobot AND
+				NOT RobotIn.Status.bGripperOpenError AND
+				NOT RobotIn.Status.bGripperCloseError AND
+				NOT RobotIn.Status.bNotCorrectViseNumber
+			THEN
+				nState := nState + 20;
+			END_IF	
+			
+	200080:
+			RobotOut.Control.bReset := FALSE;
+			RobotOut.Control.bNotCorrectPrg_Reset := FALSE;
+			RobotOut.Control.bNotProductOnRobot_Reset := FALSE;
+			RobotOut.Control.bProductOnRobot_Reset := FALSE;
+			RobotOut.Control.bGripperOpenError_Reset := FALSE;
+			RobotOut.Control.bGripperCloseError_Reset := FALSE;
+			RobotOut.Control.bNotCorrectViseNumber_Reset := FALSE;
+			bErrNotReady := FALSE;
+			bErrBaseTimeout := FALSE;
+			nState := 0;
+ELSE
+	sState := CONCAT(UDINT_TO_STRING(nState) ,' - Nem használt állapot');
+END_CASE	
+
+
+(*Hiba string*)
+IF bError THEN
+	sError := sName;
+	FOR i:=0 TO nMaxAlarmNr DO
+		IF arrAlarms[i] THEN
+			IF (fbAlarmArray[i].eConfirmationState <> 2 AND fbAlarmArray[i].nTimeCleared <> 0 AND fbAlarmArray[i].nTimeConfirmed <> 0) OR //Ha már volt alarm, akkor van bennük érték
+				(fbAlarmArray[i].eConfirmationState = 1 AND fbAlarmArray[i].nTimeCleared = 0 AND fbAlarmArray[i].nTimeConfirmed = 0)	//Első futás esetén
+			THEN
+				fbAlarmArray[i].Raise(0);
+			END_IF
+		END_IF
+	END_FOR 
+ELSE
+	sError := '';
+END_IF
+
+(*Hiba kezelés Tc3_EventLogger*)
+IF NOT bIsInitalized THEN
+	bIsInitalized := TRUE;
+	FOR i:=0 TO nMaxAlarmNr DO
+		fbAlarmArray[i].CreateEx(stEventArray[i], TRUE, 0);
+	END_FOR
+END_IF
+
+(*Hiba törlés (nyugtázott és megszűnt)*)
+FOR i:=0 TO nMaxAlarmNr DO
+	IF fbAlarmArray[i].eConfirmationState = 3 AND NOT bError THEN
+		fbAlarmArray[i].Clear(0, FALSE);
+	END_IF
+END_FOR	]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

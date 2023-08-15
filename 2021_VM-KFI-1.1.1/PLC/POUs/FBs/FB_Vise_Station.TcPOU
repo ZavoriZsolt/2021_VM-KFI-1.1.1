@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_Vise_Station" Id="{dca77ff4-31c6-463b-b418-27516e63514d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Vise_Station
+VAR_INPUT
+	sName						:STRING;
+	bEn							:BOOL;
+	bEHA						:BOOL;
+	bManualMode					:BOOL;
+	bAck						:BOOL;
+	sSourceName					:STRING(10);
+	stViseBasePosEvent			:TcEventEntry;		(*Event definition*)
+	stViseWorkPosEvent			:TcEventEntry;		(*Event definition*)
+	stStopperInWorkPosEvent		:TcEventEntry;		(*Event definition*)
+	stStopperOutWorkPosEvent	:TcEventEntry;		(*Event definition*)
+	stViseStationSensors		:ST_Vise_Sensors;
+END_VAR
+VAR_OUTPUT
+	bError 						:BOOL;
+END_VAR
+VAR
+	fbVise						:FB_Bistabil;
+	fbStopper_In				:FB_Bistabil;
+	fbStopper_Out				:FB_Bistabil;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbVise(
+	sName:= sName,
+	bEn:= bEn,						// AND fbStopper_In.bWorkPosStab,				Miért ?????????????????????????????????????????
+	bEHA:= bEHA, 
+	bDisableManualCmd:= NOT (bManualMode AND fbStopper_In.bWorkPosStab), 
+	bAck:= bAckP,
+	sSourceName:= sSourceName, 
+	i_bBasePos:= stViseStationSensors.bViseIn,
+	i_bWorkPos:= stViseStationSensors.bViseOut,
+	stBasePosEvent:= stViseBasePosEvent,
+	stWorkPosEvent:= stViseWorkPosEvent);
+	
+fbStopper_In(
+	sName:= sName, 
+	bEn:= bEn, 
+	bEHA:= bEHA, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= sSourceName,
+	i_bBasePos:= stViseStationSensors.bStopper_In_Release,
+	i_bWorkPos:= stViseStationSensors.bStopper_In_Hold,
+	stBasePosEvent:= TC_Events.MyEvents.Event,
+	stWorkPosEvent:= stStopperInWorkPosEvent);
+
+fbStopper_Out(
+	sName:= sName, 
+	bEn:= bEn, 
+	bEHA:= bEHA, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= sSourceName,
+	i_bBasePos:= stViseStationSensors.bStopper_Out_Release,
+	i_bWorkPos:= stViseStationSensors.bStopper_Out_Hold,
+	stBasePosEvent:= TC_Events.MyEvents.Event,
+	stWorkPosEvent:= stStopperOutWorkPosEvent);
+	
+bError := fbStopper_In.bError OR fbStopper_Out.bError OR fbVise.bError;]]></ST>
+    </Implementation>
+    <Property Name="StopperInner" Id="{7841bc5e-c2d5-4005-a558-b9137ecb09b9}">
+      <Declaration><![CDATA[PROPERTY PUBLIC StopperInner : REFERENCE TO FB_Bistabil]]></Declaration>
+      <Get Name="Get" Id="{a80d635b-7629-4407-836c-c734d04f00c0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StopperInner REF= fbStopper_In;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="StopperOuter" Id="{c9d12e77-d4da-49f2-95f3-1f6cbdd86da3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC StopperOuter : REFERENCE TO FB_Bistabil]]></Declaration>
+      <Get Name="Get" Id="{607caa2b-f912-4499-be6d-cc7d834f1eda}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StopperOuter REF= fbStopper_Out;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Vise" Id="{40939cac-d896-4760-a16b-644feb036ff8}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Vise : REFERENCE TO FB_Bistabil]]></Declaration>
+      <Get Name="Get" Id="{c1a64b2a-e409-4af0-8e72-63c71b993edd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Vise REF= fbVise;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

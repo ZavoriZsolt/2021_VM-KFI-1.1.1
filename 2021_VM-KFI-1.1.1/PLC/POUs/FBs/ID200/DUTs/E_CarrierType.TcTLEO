@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <EnumerationTextList Name="E_CarrierType" Id="{0efa1e39-f5cb-42f4-97d9-78560f31c819}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_CarrierType :
+(
+	EM4102		:= 16#3032,
+	EM4550		:= 16#3033,
+	Nova		:= 16#3130,
+	Q5			:= 16#3131,
+	T5557		:= 16#3134,
+	MDT_28		:= 16#3135,
+	ISO15693	:= 16#3230,
+	MDT_112		:= 16#3231,
+	TiHF_I		:= 16#3232,
+	SRF55V02P	:= 16#3233,
+	SRF55V10P	:= 16#3234,
+	MDT_2K_H	:= 16#3333,
+	SLI_S		:= 16#3335,
+	Depending	:= 16#3939
+)WORD := MDT_28;
+END_TYPE
+]]></Declaration>
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="TextListEnumerationTextListObject">
+          <l n="TextList" t="ArrayList" cet="TextListRow">
+            <o>
+              <v n="TextID">"EM4102"</v>
+              <v n="TextDefault">"16#3032"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"EM4550"</v>
+              <v n="TextDefault">"16#3033"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Nova"</v>
+              <v n="TextDefault">"16#3130"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Q5"</v>
+              <v n="TextDefault">"16#3131"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"T5557"</v>
+              <v n="TextDefault">"16#3134"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"MDT_28"</v>
+              <v n="TextDefault">"16#3135"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"ISO15693"</v>
+              <v n="TextDefault">"16#3230"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"MDT_112"</v>
+              <v n="TextDefault">"16#3231"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"TiHF_I"</v>
+              <v n="TextDefault">"16#3232"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SRF55V02P"</v>
+              <v n="TextDefault">"16#3233"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SRF55V10P"</v>
+              <v n="TextDefault">"16#3234"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"MDT_2K_H"</v>
+              <v n="TextDefault">"16#3333"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"SLI_S"</v>
+              <v n="TextDefault">"16#3335"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Depending"</v>
+              <v n="TextDefault">"16#3939"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">""</v>
+              <v n="TextDefault">""</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+          </l>
+          <l n="Languages" t="ArrayList" />
+          <v n="GuidInit">{38397cad-60bf-4928-b25c-6a3a412c6c39}</v>
+          <v n="GuidReInit">{e155ba82-c69b-4c70-a7d0-2be150c54145}</v>
+          <v n="GuidExitX">{109fc2ca-3733-4090-bf2b-d4b8deccd5de}</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="String">System.String</Type>
+        <Type n="TextListEnumerationTextListObject">{4b60233c-f940-4beb-b331-82133b520151}</Type>
+        <Type n="TextListRow">{53da1be7-ad25-47c3-b0e8-e26286dad2e0}</Type>
+      </TypeList>
+    </XmlArchive>
+  </EnumerationTextList>
+</TcPlcObject>

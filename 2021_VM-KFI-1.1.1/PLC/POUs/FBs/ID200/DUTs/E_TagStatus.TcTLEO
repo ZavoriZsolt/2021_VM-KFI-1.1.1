@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <EnumerationTextList Name="E_TagStatus" Id="{59ca2db3-18b8-4c5d-af75-6ed4208e6e6d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_TagStatus :
+(
+	NotPresent	:= 0,
+	FixCode		:= 1,
+	UserCode	:= 2
+)BYTE := NotPresent;
+END_TYPE
+]]></Declaration>
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="TextListEnumerationTextListObject">
+          <l n="TextList" t="ArrayList" cet="TextListRow">
+            <o>
+              <v n="TextID">"NotPresent"</v>
+              <v n="TextDefault">"0"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"FixCode"</v>
+              <v n="TextDefault">"1"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"UserCode"</v>
+              <v n="TextDefault">"2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">""</v>
+              <v n="TextDefault">""</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+          </l>
+          <l n="Languages" t="ArrayList" />
+          <v n="GuidInit">{38397cad-60bf-4928-b25c-6a3a412c6c39}</v>
+          <v n="GuidReInit">{e155ba82-c69b-4c70-a7d0-2be150c54145}</v>
+          <v n="GuidExitX">{109fc2ca-3733-4090-bf2b-d4b8deccd5de}</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="String">System.String</Type>
+        <Type n="TextListEnumerationTextListObject">{4b60233c-f940-4beb-b331-82133b520151}</Type>
+        <Type n="TextListRow">{53da1be7-ad25-47c3-b0e8-e26286dad2e0}</Type>
+      </TypeList>
+    </XmlArchive>
+  </EnumerationTextList>
+</TcPlcObject>

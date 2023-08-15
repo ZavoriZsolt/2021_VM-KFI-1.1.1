@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="InitTCPIP" Id="{1ab60bce-2155-45d7-b4bb-787adb64acf0}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM InitTCPIP
+VAR
+	sSrvNetID 		: T_AmsNetID := '';(* TwinCAT TCP/IP server network address *)
+	fbCloseAll		: FB_SocketCloseAll;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* On PLC reset or program download close all created/opened sockets/connections *)
+fbCloseAll( sSrvNetID := sSrvNetID, bExecute:= bInitTCPIP );
+IF fbCloseAll.bBusy OR fbCloseAll.bError THEN
+	RETURN;
+END_IF
+bInitTCPIP := FALSE;]]></ST>
+    </Implementation>
+    <LineIds Name="InitTCPIP">
+      <LineId Id="3" Count="5" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

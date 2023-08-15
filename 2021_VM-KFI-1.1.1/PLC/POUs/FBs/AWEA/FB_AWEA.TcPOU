@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_AWEA" Id="{4abb8e03-7980-4855-bec2-cd7833f94046}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AWEA
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	DigIn		AT %I*		:ST_AWEA_In;
+	DigOut		AT %Q*		:ST_AWEA_Out;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

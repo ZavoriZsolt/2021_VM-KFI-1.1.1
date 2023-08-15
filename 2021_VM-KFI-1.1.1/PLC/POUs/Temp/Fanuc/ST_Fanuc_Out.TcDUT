@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Out" Id="{d611a7a7-886d-4345-9cf5-0816cbdac224}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Out :
+STRUCT
+	stCtrl					:ST_Fanuc_Control_Out;
+	stHandShake				:ST_Fanuc_Handshake_Out;
+	stPress					:ST_Fanuc_Press_Out;
+	{attribute 'hide'}
+	_reserved_05			:BYTE;						// Tartalék 05	
+	stAlarm					:ST_Fanuc_Alarm_Out;
+	stData					:ST_Fanuc_Data_Out;
+	{attribute 'hide'}
+	_reserved_13			:BYTE;						// Tartalék 13	
+	stProg					:ST_Fanuc_Prog_Out;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

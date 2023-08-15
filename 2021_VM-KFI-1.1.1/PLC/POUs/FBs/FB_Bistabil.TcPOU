@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_Bistabil" Id="{b135a1dc-ecdb-4a1f-a51f-db2d83392e97}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Bistabil
+VAR_INPUT
+	sName				:STRING(30);
+	sBasePosSensor		:STRING(10);		(*Base position sensor*)
+	sWorkPosSensor		:STRING(10);		(*Work position sensor*)
+	bEn					:BOOL;				(*Enable signal*)
+	bEHA				:BOOL; 				(*Error-handling active *)
+	nEHMode				:BYTE;				(*0: Delete output commant, 1: Control device to the opposite direction*)
+	bDisableManualCmd	:BOOL;				(*Manual control disable*)
+	bBasePosCmd			:BOOL;				(*Control to Base pos*)
+	bWorkPosCmd			:BOOL;				(*Control to work pos*)
+	bAck				:BOOL; 				(*Acknowledge*)
+	timBasePos			:TIME:=T#5S;		(*Time for base position*)
+	timWorkPos			:TIME:=T#5S;		(*Time fort work position*)
+	timBasePosStab		:TIME:=T#200MS;		(*Time to set base position*)
+	timWorkPosStab		:TIME:=T#200MS;		(*Time to set work position*)
+	i_bBasePos			:BOOL;				(*Base position*)
+	i_bWorkPos			:BOOL;				(*Work position*)
+	sSourceName			:STRING(10);		(*Station name - if there are multiple monitors*)
+	stBasePosEvent		:TcEventEntry;		(*Event definition*)
+	stWorkPosEvent		:TcEventEntry;		(*Event definition*)
+END_VAR
+VAR_OUTPUT
+	bBasePosStab		:BOOL;				(*Base position stabil*)
+	bWorkPosStab		:BOOL;				(*Work position stabil*)
+	bError				:BOOL;				(*Error*)
+	sError				:STRING(255);		(*Error string*)
+	q_bBasePos			AT %Q*	:BOOL;		(*Control to base position*)
+	q_bWorkPos			AT %Q*	:BOOL;		(*Control to work position*)
+END_VAR
+VAR
+	tBP, tWP, tDPWP		:TON;
+	tBPS, tWPS			:TON;
+	bErrBasePos0		:BOOL;				(*Base position error 0: the signal did not stop after reaching base position*)
+	bErrBasePos1		:BOOL;				(*Base position error 1: the signal did not appear while reaching base position*)
+	bErrWorkPos0		:BOOL; 				(*Work position error 0: the signal did not stop after reaching work position*)
+	bErrWorkPos1		:BOOL; 				(*Work position error 1: the signal did not appear while reaching work position*)
+	bErrBPWP			:BOOL;				(*To positions at the same time error*)
+	bIsInitalized		:BOOL;
+	fbBasePosAlarm		:FB_TcAlarm;
+	fbWorkPosAlarm		:FB_TcAlarm;
+	fbSource			:FB_TcSourceInfo;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*	Documentation
+	--------------------------------------------------------------------------------
+	Info		:	FB cylinders, bistabil, monostabil 
+	Name		:	FB_Bistabil
+	Modifier	:	Gyarmati Péter
+	Date		:	2022.06.20
+	Revision	:	1.32
+	--------------------------------------------------------------------------------
+	Requirements:	-
+	Variable	:	-
+	Visu		:	-
+	UserControl	:	-
+	--------------------------------------------------------------------------------
+	Details		:	Alarms included. 
+					Strings modified, to reduce the size of the FB.
+					The error handling was modified because of the language change (only base and work position errors set)
+					sSourceName -> It adds the stations name to the string after an error. 
+	--------------------------------------------------------------------------------
+	Usage		:	For example.:
+					fbPaletteLift(
+						sName:= 'Palette lifter', 
+						bEn:= bEmyOK, 
+						bEHA:= bGlobalEHA, 
+						bDisableManualCmd:= NOT bManualMode, 
+						bAck:= bAckP,  
+						stBasePosEvent:= TC_Events.MyEvents.Valve_1,
+						stWorkPosEvent:= TC_Events.MyEvents.Valve_2);
+*)
+
+(*Error handling Tc3_EventLogger*)
+IF NOT bIsInitalized THEN
+	bIsInitalized := TRUE;
+	fbSource.sName := sSourceName;
+	IF sSourceName = '' THEN
+		fbBasePosAlarm.CreateEx(stBasePosEvent, TRUE, 0);
+		fbWorkPosAlarm.CreateEx(stWorkPosEvent, TRUE, 0);
+	ELSE
+		fbBasePosAlarm.CreateEx(stBasePosEvent, TRUE, fbSource);
+		fbWorkPosAlarm.CreateEx(stWorkPosEvent, TRUE, fbSource);		
+		// This Addstring part puts the SourceName in a bracket. This is only required if there are multiple stations/monitort and this is how they are separated.
+		fbBasePosAlarm.ipArguments.Clear().AddString(sSourceName);
+		fbWorkPosAlarm.ipArguments.Clear().AddString(sSourceName);		
+	END_IF
+END_IF
+
+(*Error acknowledge*)
+IF bAck OR NOT bEHA THEN
+	bErrBasePos0 := FALSE;
+	bErrWorkPos0 := FALSE;
+	bErrBasePos1 := FALSE;
+	bErrWorkPos1 := FALSE;
+	bErrBPWP := FALSE;
+	IF fbBasePosAlarm.eConfirmationState = 2 THEN
+		fbBasePosAlarm.Confirm(0);
+	END_IF	
+	IF fbWorkPosAlarm.eConfirmationState = 2 THEN
+		fbWorkPosAlarm.Confirm(0);
+	END_IF
+END_IF
+
+(*Error setting base position*)
+tBP(IN:= bEn AND bEHA AND q_bBasePos AND NOT q_bWorkPos, PT:= timBasePos);
+
+IF tBP.Q AND NOT i_bBasePos THEN
+	bErrBasePos1 := TRUE;
+	IF (fbBasePosAlarm.eConfirmationState <> 2 AND fbBasePosAlarm.nTimeCleared <> 0 AND fbBasePosAlarm.nTimeConfirmed <> 0) OR //Ha már volt alarm, akkor van bennük érték
+		(fbBasePosAlarm.eConfirmationState = 1 AND fbBasePosAlarm.nTimeCleared = 0 AND fbBasePosAlarm.nTimeConfirmed = 0)	//Első futás esetén
+	THEN
+		fbBasePosAlarm.Raise(0);
+	END_IF
+END_IF
+
+IF tBP.Q AND i_bWorkPos THEN
+	//bErrWorkPos0 := TRUE;
+END_IF
+
+(*Error setting work position*)
+tWP(IN:= bEn AND bEHA AND q_bWorkPos AND NOT q_bBasePos , PT:= timWorkPos);
+
+IF tWP.Q AND NOT i_bWorkPos THEN
+	bErrWorkPos1 := TRUE;
+	IF (fbWorkPosAlarm.eConfirmationState <> 2 AND fbWorkPosAlarm.nTimeCleared <> 0 AND fbWorkPosAlarm.nTimeConfirmed <> 0) OR //Ha már volt alarm, akkor van bennük érték
+		(fbWorkPosAlarm.eConfirmationState = 1 AND fbWorkPosAlarm.nTimeCleared = 0 AND fbWorkPosAlarm.nTimeConfirmed = 0)	//Első futás esetén
+	THEN
+		fbWorkPosAlarm.Raise(0);
+	END_IF
+END_IF
+
+IF tWP.Q AND i_bBasePos THEN
+	//bErrBasePos0 := TRUE;
+END_IF
+
+(*Two work positions at the same time*)
+tDPWP(In:= bEn AND bEHA AND i_bBasePos AND i_bWorkPos, PT:= T#600MS);
+
+IF tDPWP.q THEN
+	//bErrBPWP := TRUE;
+END_IF;
+
+bError := bErrBasePos0 OR bErrWorkPos0 
+	OR bErrBasePos1 OR bErrWorkPos1
+	OR bErrBPWP;
+
+(*Control*)
+CASE nEHMode OF
+	0:	(*Cancels control if an error occurs*)
+		IF bEn AND bBaseposCmd AND (NOT bEHA OR NOT bError) THEN
+			q_bBasePos := TRUE;
+		ELSE
+			q_bBasePos := FALSE;
+		END_IF
+		IF bEn  AND bWorkPosCmd AND (NOT bEHA OR NOT bError) THEN
+			q_bWorkPos := TRUE;
+		ELSE
+			q_bWorkPos := FALSE;
+		END_IF
+	1:	(*If an error occurs, it gets controlled to the previous way, then releases the order*)
+		IF (bEn AND bBaseposCmd AND (NOT bEHA OR NOT bError))
+			OR (bEn AND bWorkPosCmd AND bEHA AND bErrWorkPos1 AND NOT i_bBasePos) THEN
+			q_bBasePos := TRUE;
+		ELSE
+			q_bBasePos := FALSE;
+		END_IF
+		IF bEn AND bWorkPosCmd AND (NOT bEHA OR NOT bError)
+			OR (bEn AND bBasePosCmd AND bEHA AND bErrBasePos1 AND NOT i_bWorkPos) THEN
+			q_bWorkPos := TRUE;
+		ELSE
+			q_bWorkPos := FALSE;
+		END_IF
+END_CASE
+
+(*Base position stabil*)
+tBPS(IN:= q_bBasePos AND i_bBasePos AND NOT bError, PT:= timBasePosStab, Q=>  bBasePosStab);
+
+(*Work position stabil*)
+tWPS(IN:= q_bWorkPos AND i_bWorkPos AND NOT bError, PT:= timWorkPosStab, Q=>  bWorkPosStab);
+
+(*Error string*)
+IF bErrBasePos0 OR bErrBasePos1 OR bErrWorkPos0 OR bErrWorkPos1 OR bErrBPWP THEN
+	sError := sName;
+	IF bErrBasePos0 THEN
+		sError := CONCAT(sError, CONCAT(' Base position error: the signal did not stop after reaching work position ', sBasePosSensor));
+	END_IF
+	IF bErrBasePos1 THEN
+		sError := CONCAT(sError, CONCAT(' Base position error 1: the signal did not appear while reaching base position ', sBasePosSensor));
+	END_IF
+	IF bErrWorkPos0 THEN
+		sError := CONCAT(sError,  CONCAT(' Work position error 0: the signal did not stop after reaching Work position ', sWorkPosSensor));
+	END_IF
+	IF bErrWorkPos1 THEN
+		sError := CONCAT(sError, CONCAT(' Work position error 1: the signal did not appear while reaching work position ', sWorkPosSensor));
+	END_IF
+	IF bErrBPWP THEN
+		sError := CONCAT(sError, CONCAT(' To positions at the same time error ', CONCAT(sBasePosSensor, CONCAT('-',sWorkPosSensor))));
+	END_IF
+ELSE
+	sError := '';
+END_IF
+
+//Error clear
+IF fbBasePosAlarm.eConfirmationState = 3 AND NOT bError THEN
+	fbBasePosAlarm.Clear(0, FALSE);
+END_IF	
+IF fbWorkPosAlarm.eConfirmationState = 3 AND NOT bError THEN
+	fbWorkPosAlarm.Clear(0, FALSE);
+END_IF	
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Bistabil">
+      <LineId Id="1496" Count="12" />
+      <LineId Id="1523" Count="0" />
+      <LineId Id="1891" Count="1" />
+      <LineId Id="1848" Count="0" />
+      <LineId Id="1524" Count="1" />
+      <LineId Id="1681" Count="0" />
+      <LineId Id="1688" Count="5" />
+      <LineId Id="1539" Count="0" />
+      <LineId Id="1495" Count="0" />
+      <LineId Id="1617" Count="0" />
+      <LineId Id="1611" Count="2" />
+      <LineId Id="1740" Count="0" />
+      <LineId Id="1838" Count="1" />
+      <LineId Id="1841" Count="1" />
+      <LineId Id="1844" Count="1" />
+      <LineId Id="1936" Count="0" />
+      <LineId Id="1847" Count="0" />
+      <LineId Id="1843" Count="0" />
+      <LineId Id="1840" Count="0" />
+      <LineId Id="1610" Count="0" />
+      <LineId Id="1616" Count="0" />
+      <LineId Id="1093" Count="6" />
+      <LineId Id="1605" Count="4" />
+      <LineId Id="1604" Count="0" />
+      <LineId Id="1100" Count="0" />
+      <LineId Id="1600" Count="0" />
+      <LineId Id="1102" Count="1" />
+      <LineId Id="1105" Count="2" />
+      <LineId Id="1619" Count="3" />
+      <LineId Id="1618" Count="0" />
+      <LineId Id="1108" Count="7" />
+      <LineId Id="1117" Count="2" />
+      <LineId Id="1624" Count="3" />
+      <LineId Id="1623" Count="0" />
+      <LineId Id="1120" Count="7" />
+      <LineId Id="1129" Count="38" />
+      <LineId Id="1170" Count="2" />
+      <LineId Id="1175" Count="0" />
+      <LineId Id="1183" Count="0" />
+      <LineId Id="1265" Count="0" />
+      <LineId Id="1445" Count="0" />
+      <LineId Id="1419" Count="1" />
+      <LineId Id="1422" Count="1" />
+      <LineId Id="1439" Count="0" />
+      <LineId Id="1426" Count="1" />
+      <LineId Id="1440" Count="0" />
+      <LineId Id="1430" Count="1" />
+      <LineId Id="1441" Count="0" />
+      <LineId Id="1434" Count="1" />
+      <LineId Id="1442" Count="0" />
+      <LineId Id="1438" Count="0" />
+      <LineId Id="1446" Count="1" />
+      <LineId Id="1444" Count="0" />
+      <LineId Id="1027" Count="0" />
+      <LineId Id="1630" Count="5" />
+      <LineId Id="1628" Count="0" />
+      <LineId Id="311" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Emergency_In" Id="{dd4ead42-5e4b-4376-88eb-d66edecf5ce6}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Emergency_In :
+STRUCT
+	(* -----=== Byte 15 ===----- *)
+	bEMGOP						:BIT;			//	Robot kontroller vészgomb
+	bEMGTP						:BIT;			//	Teach Pendant vészgomb
+	bDEADMAN					:BIT;			//	TP engedélyező gomb
+	bFENCE						:BIT;			//	Fence
+	bROT						:BIT;			//	Robot olyan területre akar mozogni ahova mechanikusan nem ér el
+	bHBK						:BIT;			//	Robot felütközött, védelem
+	bEMGEX						:BIT;			//	Külső vészgomb (gépi)
+	bPPABN						:BIT;			//	A karon lévő pneumatika nem érzékel levegőt
+	(* -----=== Byte 16 ===----- *)
+	bBELTBREAK					:BIT;			//	
+	bFALM						:BIT;			//	Ventilátor hiba
+	bSVOFF						:BIT;			//	Kivűlről tiltott SERVO engedélyezés
+	bIMSTP						:BIT;			//	Engedélyező jel vissza adása
+	bBEKHLD						:BIT;				
+	bUSRALM						:BIT;				
+	bSRVDSCNCT					:BIT;				
+	bNTED						:BIT;				
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

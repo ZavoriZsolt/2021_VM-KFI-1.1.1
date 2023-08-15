@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_Door" Id="{19907d50-4869-4e7a-afc8-f289128a21a0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Door
+VAR_INPUT
+	bDoorButton			:BOOL;			// Door button imput
+	bOpenEnable			:BOOL;			// The door open is possible 
+	bDoorsClosed		:BOOL;			// Doors are closed
+	bDoorsLocked		:BOOL;			// The doors are locked
+	bBlink				:BOOL;			// Blinker for the door open button
+END_VAR
+VAR_OUTPUT
+	bCloseOut			:BOOL;			// Door closed output
+	bDoorButtonLED		:BOOL;			// Door button LED output
+	bObenRequestOut		:BOOL;			// Door open request output
+END_VAR
+VAR
+	rtDoorButton		:R_Trig;		// Door open trigger
+	rsOpenRequest		:RS;			// Door open request
+	tOpenForce			:TON;			// Timer for forcing the doors to open
+	tOpenForceDelay		:TIME := T#5S;	// Delaying for forcing the doors to open
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* HOW TO:
+Lock: Doors are closed and the button is pushed
+Open possibilities (if the doors locked and the button is pushed):
+	1. Open: if the process lets the doos open
+	2. Door open request register: if the process does not let the doors open, 
+		from this it can go to 1, or 3rd, or it deletes the request if the button is pressed again
+	3. Force open: if the button is pressed for 5 seconds, the doors open anyways *)
+
+// Door open request
+rtDoorButton(CLK:= bDoorButton);
+
+// Lock doors
+IF rtDoorButton.Q AND bDoorsClosed AND NOT bDoorsLocked THEN
+	bCloseOut := TRUE;
+END_IF
+
+// Door open request
+rsOpenRequest(
+	SET:= rtDoorButton.Q AND bDoorsClosed AND bDoorsLocked, 
+	RESET1:= NOT bDoorsLocked OR (rtDoorButton.Q AND rsOpenRequest.Q1),  
+	Q1=> bObenRequestOut
+	);
+
+//// Door open force
+//tOpenForce(IN:= bDoorButton AND bDoorsLocked, PT:= tOpenForceDelay);
+
+// Open output
+IF (rsOpenRequest.Q1 AND bOpenEnable) 
+//	OR tOpenForce.Q
+THEN
+	bCloseOut := FALSE;
+END_IF
+
+// Control for the door open blinker LED
+IF bDoorsLocked THEN
+	IF rsOpenRequest.Q1 THEN
+		bDoorButtonLED := bBlink;
+	ELSE
+		bDoorButtonLED := TRUE;
+	END_IF
+ELSE
+	bDoorButtonLED := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Door">
+      <LineId Id="3" Count="41" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

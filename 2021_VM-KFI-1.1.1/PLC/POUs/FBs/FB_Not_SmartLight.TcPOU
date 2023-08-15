@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_Not_SmartLight" Id="{dd478dbb-7e57-4de6-822d-12fa3bcc36f8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Not_SmartLight
+VAR_INPUT
+	bEmyStop					:BOOL;
+	bEmyOK						:BOOL;
+	bError						:BOOL;
+	bOutOfStock					:BOOL;
+	bBuzzer						:BOOL;
+	bBlink						:BOOL;
+END_VAR
+VAR_OUTPUT
+	q_bGreenColor		AT %Q*	:BIT;
+	q_bYellowColor		AT %Q*	:BIT;
+	q_bRedColor			AT %Q*	:BIT;
+	q_bBuzzer			AT %Q*	:BIT;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Buzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+q_bGreenColor := FALSE;
+q_bYellowColor := FALSE;
+q_bRedColor := FALSE;
+
+IF bError THEN
+	q_bRedColor := bBlink;
+END_IF
+
+IF bEmyOK THEN
+	q_bGreenColor := TRUE;
+ELSE 
+	q_bGreenColor := bBlink;
+END_IF
+
+IF bOutOfStock THEN
+	q_bYellowColor := bBlink;
+END_IF
+
+IF bEmyStop THEN
+	q_bGreenColor := FALSE;
+	q_bYellowColor := FALSE;
+	q_bRedColor := TRUE;
+END_IF
+
+q_bBuzzer := bBuzzer;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_RGB_Light" Id="{9c0efa59-1cdb-4687-9ee3-0f1ff7387e34}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_RGB_Light
+VAR_INPUT
+	arrColors				:ARRAY [1..24] OF ST_RGB_Light;
+	
+END_VAR
+VAR_OUTPUT
+	
+END_VAR
+VAR
+	i_stRGB_In			AT %I*	:ST_RGB_In;
+	q_stRGB_Out			AT %Q*	:ST_RGB_Out;
+	step						:UINT;
+	i							:INT;
+	n							:UINT;
+	arrChannel					:ARRAY [1..24] OF UINT:=[101, 102, 103, 104, 105, 106, 107,
+														201, 202, 203, 204, 205, 206, 207];
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[q_stRGB_Out.LifeSig := i_stRGB_In.LifeSig;
+
+CASE step OF
+0:
+			n := 1;											// Source nr.
+			q_stRGB_Out.Command := 0;
+			IF i_stRGB_In.Resp = q_stRGB_Out.Command THEN
+				step := step + 20;
+			END_IF
+
+20:
+			FOR i:=1 TO 24 DO								// Set led colors
+				IF i>=0 AND i<=6 THEN
+					IF arrColors[n].nColor1State THEN
+						q_stRGB_Out.arrRGB[i] := arrColors[n].nColor1;
+					ELSE
+						q_stRGB_Out.arrRGB[i] := 0;
+					END_IF
+				ELSIF i>=7 AND i<=18 THEN
+					IF arrColors[n].nColor2State THEN
+						q_stRGB_Out.arrRGB[i] := arrColors[n].nColor2;
+					ELSE
+						q_stRGB_Out.arrRGB[i] := 0;
+					END_IF
+				ELSIF i>=19 AND i<=24 THEN
+					IF arrColors[n].nColor3State THEN
+						q_stRGB_Out.arrRGB[i] := arrColors[n].nColor3;
+					ELSE
+						q_stRGB_Out.arrRGB[i] := 0;
+					END_IF
+				END_IF 
+			END_FOR
+			q_stRGB_Out.Command := arrChannel[n];
+			step := step + 20;
+
+40:
+		IF i_stRGB_In.Resp = q_stRGB_Out.Command THEN
+			n:= n + 1;
+			IF n > 24 THEN
+				q_stRGB_Out.Command := 10;
+				step := step + 20;
+			ELSE
+				step := 20;
+			END_IF
+		END_IF
+
+60:
+		IF i_stRGB_In.Resp = q_stRGB_Out.Command THEN
+			q_stRGB_Out.Command := 0;
+			step := 0;
+		END_IF
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

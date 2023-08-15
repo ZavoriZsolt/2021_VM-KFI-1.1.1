@@ -1,0 +1,665 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ViseProgram" Id="{6d9b958e-c489-4500-98fd-04fa45676c6e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM ViseProgram
+VAR CONSTANT
+	nStartIndex					:USINT := 1;
+	nMaxIndex					:USINT := 7;
+END_VAR
+VAR	(* Control *)
+	nState						:UDINT;
+	nStatePrevious				:UDINT;
+	sState						:STRING(500);
+	fbCycleTime					:TON;
+	nCycleTime					:REAL;
+	eCommand					:E_Vise_Command;
+	index						:UINT := 1;
+	nCounter					:UINT;
+	
+	tWaitStabTime				:TON;
+	tVisePushTime				:TON;
+	tFillUpTime					:TON;
+	bFirstCycle					:BOOL := TRUE;
+END_VAR
+VAR
+	fbUnloadTrig				: R_TRIG;
+END_VAR
+VAR (* RGB *)
+	arrColors					:ARRAY [1..24] OF ST_RGB_Light;
+	nRgbCounter					:UINT;
+	aViseErrorIndex				:ARRAY[1..14] OF BOOL;
+END_VAR
+VAR //LastStates
+	anLastStates				:ARRAY[0..500] OF UDINT;
+    iLastStates					:INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Pneu();
+RGB();
+
+(*Init*)
+IF bFirstCycle THEN
+	eCommand := E_Vise_Command.Load;
+	bFirstCycle := FALSE;
+END_IF
+
+(*Error handling*)
+IF nState > 0 AND nState < 150000 THEN
+	nStatePrevious := nState;
+	FOR nCounter := nStartIndex TO nMaxIndex BY 1 DO
+		IF fbViseStation[nCounter].bError THEN
+			nState := 200000;
+			aViseErrorIndex[nCounter] := TRUE;
+		ELSE
+			aViseErrorIndex[nCounter] := FALSE;
+		END_IF
+	END_FOR
+END_IF
+
+(*Maintance*)
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*Emergency*)
+IF NOT i_bLO1 OR NOT i_bLO2 THEN
+	nState := 0;
+END_IF
+
+(*Last states*)
+IF(nState >= 1000) AND (nState < 150000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+//(*Base timeout*) 
+//tWaitStabTime(IN:= nState = 40 OR nState = 80, PT:= T#1S, Q=> , ET=> );
+//IF tWaitStabTime.Q THEN
+//	nState := 200000;
+//END_IF
+
+(*Push out time*) 
+tVisePushTime(IN:= nState = 20060, PT:= T#400MS, Q=> , ET=> );
+
+(*Fill up time*) 
+tFillUpTime(IN:= nState = 80, PT:= T#2S, Q=> , ET=> );
+
+CASE nState OF
+	(* Emergency circuit broken - Base state *)
+	0:(* Operation stop - Emergency circuit check *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Vészkör bontva');
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			fbViseStation[index].StopperInner.bWorkPosCmd := FALSE;
+			fbViseStation[index].StopperOuter.bWorkPosCmd := FALSE;
+			fbViseStation[index].Vise.bBasePosCmd := FALSE;
+			fbViseStation[index].Vise.bWorkPosCmd := FALSE;
+		END_FOR
+		IF i_bLO1 AND i_bLO2 AND NOT bManualMode THEN
+			nState := nState + 20;
+		END_IF
+		
+	20:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Stopperek');
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			IF fbViseStation[index].stViseStationSensors.bInPos THEN
+				fbViseStation[index].StopperInner.bWorkPosCmd := TRUE;
+			ELSE
+				nState := 200000;
+				EXIT;
+			END_IF
+		END_FOR
+		IF index = (nMaxIndex + 1) THEN
+			nState := nState + 20;
+		END_IF
+		
+	40:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Stopperek');
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			IF NOT fbViseStation[index].stViseStationSensors.bStopper_In_Hold THEN
+				EXIT;
+			END_IF
+		END_FOR
+		IF index = (nMaxIndex + 1) THEN
+			nState := nState + 20;
+		END_IF
+		
+	60:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengereinek feltöltése');
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			fbViseStation[index].Vise.bWorkPosCmd := TRUE;
+			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+		END_FOR
+		IF index = (nMaxIndex + 1) THEN
+			nState := nState + 20;
+		END_IF
+		
+	80:
+		IF tFillUpTime.Q THEN
+			nState := nState + 20;
+		END_IF
+	
+	100:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengerek alaphelyzetbe');
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			fbViseStation[index].Vise.bWorkPosCmd := FALSE;
+			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+		END_FOR
+		IF index = (nMaxIndex + 1) THEN
+			nState := nState + 20;
+		END_IF
+		
+	120:	
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			IF NOT fbViseStation[index].fbVise.bBasePosStab THEN
+				EXIT;
+			END_IF
+		END_FOR
+		IF index = (nMaxIndex + 1) THEN
+			nState := nState + 20;
+		END_IF
+		
+	140:
+		nState := 10000;
+		
+	(* Automatic mode - Base position *)
+	10000:
+		IF eCommand = E_Vise_Command.Load THEN
+			nState := 20000;
+		ELSIF eCommand = E_Vise_Command.UnLoad THEN
+			nState := 50000;
+		END_IF
+
+	(*-----=== Feltöltés ===-----*)
+{region "Feltöltés"}
+	20000: (*Load*)
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			IF aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad THEN
+				nState := nState + 20;
+				EXIT;
+			END_IF
+		END_FOR
+		IF index = (nMaxIndex + 1) THEN
+			eCommand := E_Vise_Command.UnLoad;
+			nState := 10000;
+		END_IF
+			
+	20020: (*Stopper in release*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Belső stopper elengedése');
+		fbViseStation[index].StopperInner.bWorkPosCmd := FALSE;
+		nState := nState + 20;
+		
+	20040: (*Push out vise*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Belső stopper elengedése');
+		IF fbViseStation[index].stViseStationSensors.bStopper_In_Release THEN
+			IF index < 8 THEN
+				q_bViseOut_1_7 := TRUE;
+			ELSIF index > 7 THEN
+				q_bViseOut_8_14 := TRUE;
+			END_IF
+			nState := nState + 20;
+		END_IF
+		
+	20060:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu kilökése');
+		IF tVisePushTime.Q THEN
+			nState := nState + 20;
+		END_IF
+		
+	20080: (*Waiting for out sensor*)
+		q_bViseOut_1_7 := FALSE;
+		q_bViseOut_8_14 := FALSE;
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Húzd ki a satut');
+		aViseStatus[index].eState := E_Vise_State.OutForLoad;
+		
+		IF fbViseStation[index].stViseStationSensors.bOutPos THEN
+			fbViseStation[index].StopperOuter.bWorkPosCmd := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	20100: (*Stopper out hold*)
+		IF fbViseStation[index].fbStopper_Out.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+		
+	20120: (*Waiting for operator*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu feltöltése - Ha kész nyomd meg a gombot');
+		IF (index > 7 AND i_bVisePos2InBtn) OR (index < 8 AND i_bVisePos1InBtn) THEN
+			fbViseStation[index].StopperOuter.bWorkPosCmd := FALSE;
+			nState := nState + 20;
+		END_IF	
+		
+	20140: (*Stopper out release*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu elengedve - Told be a satut');
+		IF fbViseStation[index].stViseStationSensors.bStopper_Out_Release THEN
+			nState := nState + 20;
+		END_IF
+		
+	20160: (*Waiting for operator to push vise in*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Told be a satut');
+		IF fbViseStation[index].stViseStationSensors.bInPos THEN
+			fbViseStation[index].StopperInner.bWorkPosCmd := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	20180:
+		IF fbViseStation[index].fbStopper_In.bWorkPosStab THEN
+			aViseStatus[index].eState := E_Vise_State.ReadyToCnc;
+			nState := 10000;
+		END_IF		
+{endregion}
+
+
+	(*-----=== Kiürítés ===-----*)
+{region "Kiürítés"}		
+	50000: (*Unload*)
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			IF aViseStatus[index].eState = E_Vise_State.WaitingForUnLoad OR aViseStatus[index].eState = E_Vise_State.OutForUnload THEN
+				nState := nState + 20;
+				EXIT;
+			END_IF
+		END_FOR
+		// Unload is done, next cycle starts
+		IF index = (nMaxIndex + 1) THEN			
+			eCommand := E_Vise_Command.Load;
+			nState := 10000;
+		END_IF	
+		
+	50020: (*Stopper in release*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Belső stopper elengedése');
+		fbViseStation[index].StopperInner.bWorkPosCmd := FALSE;
+		nState := nState + 20;
+		
+	50040: (*Push out vise*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Belső stopper elengedése');
+		IF fbViseStation[index].stViseStationSensors.bStopper_In_Release THEN
+			IF index < 8 THEN
+				q_bViseOut_1_7 := TRUE;
+			ELSIF index > 7 THEN
+				q_bViseOut_8_14 := TRUE;
+			END_IF
+			nState := nState + 20;
+		END_IF
+		
+	50060:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu kilökése');
+		IF tVisePushTime.Q THEN
+			nState := nState + 20;
+		END_IF
+		
+	50080: (*Waiting for out sensor*)
+		q_bViseOut_1_7 := FALSE;
+		q_bViseOut_8_14 := FALSE;
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Húzd ki a satut');
+		aViseStatus[index].eState := E_Vise_State.OutForUnload;
+		
+		IF fbViseStation[index].stViseStationSensors.bOutPos THEN
+			fbViseStation[index].StopperOuter.bWorkPosCmd := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	50100: (*Stopper out hold*)
+		IF fbViseStation[index].fbStopper_Out.bWorkPosStab THEN
+			nState := nState + 20;
+		END_IF
+		
+	50120: (*Waiting for operator*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu kiürítése - Ha kész nyomd meg a gombot');
+		IF (index > 7 AND i_bVisePos2InBtn) OR (index < 8 AND i_bVisePos1InBtn) THEN
+			fbViseStation[index].StopperOuter.bWorkPosCmd := FALSE;
+			nState := nState + 20;
+		END_IF	
+		
+	50140: (*Stopper out release*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu elengedve - Told be a satut');
+		IF fbViseStation[index].stViseStationSensors.bStopper_Out_Release THEN
+			nState := nState + 20;
+		END_IF
+		
+	50160: (*Waiting for operator to push vise in*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Told be a satut');
+		IF fbViseStation[index].stViseStationSensors.bInPos THEN
+			fbViseStation[index].StopperInner.bWorkPosCmd := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	50180:
+		IF fbViseStation[index].fbStopper_In.bWorkPosStab THEN
+			aViseStatus[index].eState := E_Vise_State.Empty;
+			nState := 10000;
+		END_IF	
+{endregion}
+
+	
+	150000: (* Maintenance *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
+		IF NOT bManualMode THEN
+			nState := 0;
+		END_IF
+		
+	200000:(* Error handling *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
+		nState := 200020;
+
+	200020:(* Error handling *)
+		IF bAckP THEN
+			CASE nStatePrevious OF
+				0..9999: nState := 0;
+				10000..60000: nState := 10000;
+			ELSE nState := 0;
+			END_CASE
+		END_IF	
+		
+	ELSE //Not a real step, for test purposes
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
+END_CASE
+
+(*Timers***************************************************)
+fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+IF nState > 10000 AND nState <= 95000 THEN
+	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+END_IF]]></ST>
+    </Implementation>
+    <Action Name="Pneu" Id="{1b8e8939-21d0-44f7-914f-286606625816}">
+      <Implementation>
+        <ST><![CDATA[(**************************************************Vise station*********************************************************)	
+fbViseStation[1](
+	sName:= 'Vise 1', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[1].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 1-7', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu1BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu1WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu1_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu1_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_1);
+	
+fbViseStation[2](
+	sName:= 'Vise 2', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[2].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 1-7', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu2BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu2WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu2_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu2_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_2);
+	
+fbViseStation[3](
+	sName:= 'Vise 3', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[3].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 1-7', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu3BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu3WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu3_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu3_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_3);
+	
+fbViseStation[4](
+	sName:= 'Vise 4', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[4].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 1-7', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu4BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu4WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu4_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu4_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_4);
+	
+fbViseStation[5](
+	sName:= 'Vise 5', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[5].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 1-7', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu5BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu5WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu5_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu5_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_5);
+	
+fbViseStation[6](
+	sName:= 'Vise 6', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[6].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 1-7', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu6BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu6WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu6_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu6_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_6);
+	
+fbViseStation[7](
+	sName:= 'Vise 7', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[7].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 1-7', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu7BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu7WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu7_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu7_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_7);
+	
+fbViseStation[8](
+	sName:= 'Vise 8', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[8].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 8-14', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu8BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu8WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu8_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu8_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_8);
+	
+fbViseStation[9](
+	sName:= 'Vise 9', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[9].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 8-14', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu9BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu9WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu9_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu9_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_9);
+	
+fbViseStation[10](
+	sName:= 'Vise 10', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[10].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 8-14', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu10BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu10WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu10_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu10_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_10);
+	
+fbViseStation[11](
+	sName:= 'Vise 11', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[11].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 8-14', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu11BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu11WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu11_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu11_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_11);
+	
+fbViseStation[12](
+	sName:= 'Vise 12', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[12].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 8-14', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu12BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu12WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu12_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu12_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_12);
+	
+fbViseStation[13](
+	sName:= 'Vise 13', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[13].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 8-14', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu13BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu13WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu13_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu13_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_13);
+	
+fbViseStation[14](
+	sName:= 'Vise 14', 
+	bEn:= i_bLO1 AND NOT (aViseStatus[14].eState = E_Vise_State.OutOfService), 
+	bEHA:= bGlobalEHA, 
+	bManualMode:= bManualMode, 
+	bAck:= bAckP, 
+	sSourceName:= 'Vise 8-14', 
+	stViseBasePosEvent:= TC_Events.MyEvents.Satu14BasePosErr, 
+	stViseWorkPosEvent:= TC_Events.MyEvents.Satu14WorkPosErr, 
+	stStopperInWorkPosEvent:= TC_Events.MyEvents.Satu14_Stopper_In_WorkPosErr, 
+	stStopperOutWorkPosEvent:= TC_Events.MyEvents.Satu14_Stopper_Out_WorkPosErr,
+	stViseStationSensors:= i_stViseStationSensors_14);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="RGB" Id="{a210a396-ea20-4cc4-92e7-a2380e2750b9}">
+      <Implementation>
+        <ST><![CDATA[FOR nRgbCounter := nStartIndex TO nMaxIndex BY 1 DO
+	CASE aViseStatus[nRgbCounter].eState OF
+		// Violet - Violet - Violet
+	 	E_Vise_State.OutOfService:
+			arrColors[nRgbCounter].nColor1 := cViolet;
+			arrColors[nRgbCounter].nColor1State := TRUE;
+			arrColors[nRgbCounter].nColor2 := cViolet;
+			arrColors[nRgbCounter].nColor2State := TRUE;
+			arrColors[nRgbCounter].nColor3 := cViolet;
+			arrColors[nRgbCounter].nColor3State := TRUE;
+			
+		// Fail : Red - None - Red; Pass: Green - None - Green
+		E_Vise_State.WaitingForUnLoad:
+			IF aViseStatus[index].bFail THEN
+				arrColors[nRgbCounter].nColor1 := cRed;
+				arrColors[nRgbCounter].nColor1State := TRUE;
+				arrColors[nRgbCounter].nColor2 := cRed;
+				arrColors[nRgbCounter].nColor2State := FALSE;
+				arrColors[nRgbCounter].nColor3 := cRed;
+				arrColors[nRgbCounter].nColor3State := TRUE;	
+			ELSIF aViseStatus[index].bPass THEN
+				arrColors[nRgbCounter].nColor1 := cGreen;
+				arrColors[nRgbCounter].nColor1State := TRUE;
+				arrColors[nRgbCounter].nColor2 := cGreen;
+				arrColors[nRgbCounter].nColor2State := FALSE;
+				arrColors[nRgbCounter].nColor3 := cGreen;
+				arrColors[nRgbCounter].nColor3State := TRUE; 
+			END_IF
+			
+		// Dark blue - Indigo blink - Dark blue
+		E_Vise_State.OutForLoad:
+			arrColors[nRgbCounter].nColor1 := cDarkBlue;
+			arrColors[nRgbCounter].nColor1State := TRUE;
+			arrColors[nRgbCounter].nColor2 := cIndigo;
+			arrColors[nRgbCounter].nColor2State := bBL1000p1000;
+			arrColors[nRgbCounter].nColor3 := cDarkBlue;
+			arrColors[nRgbCounter].nColor3State := TRUE;
+		
+		// Fail : Red - Blink red - Red; Pass: Green - Blink green - Green	
+		E_Vise_State.OutForUnload:
+			IF aViseStatus[index].bFail THEN
+				arrColors[nRgbCounter].nColor1 := cRed;
+				arrColors[nRgbCounter].nColor1State := TRUE;
+				arrColors[nRgbCounter].nColor2 := cRed;
+				arrColors[nRgbCounter].nColor2State := bBL1000p1000;
+				arrColors[nRgbCounter].nColor3 := cRed;
+				arrColors[nRgbCounter].nColor3State := TRUE;	
+			ELSIF aViseStatus[index].bPass THEN
+				arrColors[nRgbCounter].nColor1 := cGreen;
+				arrColors[nRgbCounter].nColor1State := TRUE;
+				arrColors[nRgbCounter].nColor2 := cGreen;
+				arrColors[nRgbCounter].nColor2State := bBL1000p1000;
+				arrColors[nRgbCounter].nColor3 := cGreen;
+				arrColors[nRgbCounter].nColor3State := TRUE; 
+			END_IF
+			
+		// White - White - White
+		E_Vise_State.Empty: 
+			arrColors[nRgbCounter].nColor1 := cWhite;
+			arrColors[nRgbCounter].nColor1State := TRUE;
+			arrColors[nRgbCounter].nColor2 := cWhite;
+			arrColors[nRgbCounter].nColor2State := TRUE;
+			arrColors[nRgbCounter].nColor3 := cWhite;
+			arrColors[nRgbCounter].nColor3State := TRUE;
+			
+		// Dark blue - Dark blue - Dark blue
+		E_Vise_State.InCnc:
+			arrColors[nRgbCounter].nColor1 := cDarkBlue;
+			arrColors[nRgbCounter].nColor1State := TRUE;
+			arrColors[nRgbCounter].nColor2 := cDarkBlue;
+			arrColors[nRgbCounter].nColor2State := TRUE;
+			arrColors[nRgbCounter].nColor3 := cDarkBlue;
+			arrColors[nRgbCounter].nColor3State := TRUE;
+			
+		// Dark blue - Dark blue - Dark blue
+		E_Vise_State.ReadyToCnc:
+			arrColors[nRgbCounter].nColor1 := cDarkBlue;
+			arrColors[nRgbCounter].nColor1State := TRUE;
+			arrColors[nRgbCounter].nColor2 := cDarkBlue;
+			arrColors[nRgbCounter].nColor2State := TRUE;
+			arrColors[nRgbCounter].nColor3 := cDarkBlue;
+			arrColors[nRgbCounter].nColor3State := TRUE;
+			
+	END_CASE
+	
+	// Blink Red - Orange - Blink Red
+	IF aViseErrorIndex[nRgbCounter] THEN 
+		arrColors[nRgbCounter].nColor1 := cRed;
+		arrColors[nRgbCounter].nColor1State := bBL1000p1000;
+		arrColors[nRgbCounter].nColor2 := cOrange;
+		arrColors[nRgbCounter].nColor2State := TRUE;
+		arrColors[nRgbCounter].nColor3 := cRed;
+		arrColors[nRgbCounter].nColor3State := bBL1000p1000;
+	END_IF
+	
+	// No LO1 or LO2 Red - Red - Red
+	IF NOT i_bLO1 OR NOT i_bLO2 THEN
+		arrColors[nRgbCounter].nColor1 := cRed;
+		arrColors[nRgbCounter].nColor1State := TRUE;
+		arrColors[nRgbCounter].nColor2 := cRed;
+		arrColors[nRgbCounter].nColor2State := TRUE;
+		arrColors[nRgbCounter].nColor3 := cRed;
+		arrColors[nRgbCounter].nColor3State := TRUE;
+	END_IF
+END_FOR
+fbRgbLights(arrColors:= arrColors);]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

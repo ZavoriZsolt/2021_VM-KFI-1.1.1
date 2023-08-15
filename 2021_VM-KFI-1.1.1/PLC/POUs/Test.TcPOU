@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test" Id="{a7f529f9-6639-4ddc-83fe-1d6592c310d9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Test
+VAR
+	fbExecuter	:	NT_StartProcess;
+	bTrig		: BOOL;
+END_VAR
+VAR
+	sImageTestPath	: T_MaxString := 'C:\Test\felfogasi_terv\M1 K.PNG';
+END_VAR
+VAR
+	fbCommandLine	: FB_CommandLineExecuter;
+	bCommandLineTrig : BOOL;
+	bMoveFileTrig	: BOOL;
+	sSourceFIle		: STRING := 'C:\Test\asd.png';
+	sTargetFile		: STRING := 'C:\Test\testerino\asd.png';
+END_VAR
+VAR
+	fbEnum			: FB_EnumFindFileEntry;
+	sFilePath		: T_MaxString := 'C:\Test\testerino\asd.png';
+    bFileCheckTrig 	: BOOL;
+    nFileCheckState	: UDINT;
+	bFileFound		: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bTrig THEN
+	fbExecuter(START := TRUE);
+	fbExecuter(START := FALSE);
+	bTrig := FALSE;
+END_IF
+
+fbExecuter(
+	NETID:= '', 
+	PATHSTR:= 'C:\Windows\System32\cmd.exe', 
+	DIRNAME:= 'C:\Windows\System32',
+	COMNDLINE:= '/C echo deez nuts && pause', 
+	TMOUT:= T#10S, );
+	
+IF bCommandLineTrig AND_THEN fbCommandLine.ExecuteCommand('/C echo deez nuts && pause') = E_Executer_State.Done THEN
+	bCommandLineTrig := FALSE;
+END_IF
+
+IF bMoveFileTrig THEN
+	IF fbCommandLine.MoveFile(sSourceFIle , sTargetFile) = E_Executer_State.Done THEN
+		bMoveFileTrig := FALSE;
+	ELSIF fbCommandLine.MoveFile(sSourceFIle , sTargetFile) = E_Executer_State.Error THEN
+		bMoveFileTrig := FALSE;
+	END_IF
+END_IF
+
+
+CASE nFileCheckState OF 
+	0:
+		IF bFileCheckTrig THEN
+			bFileFound := FALSE;
+			bFileCheckTrig := FALSE;
+			fbEnum.sPathName := sFilePath;
+			fbEnum.eCmd := E_EnumCmdType.eEnumCmd_First;
+			nFileCheckState := nFileCheckState + 20;		
+		END_IF
+		
+	20:
+		fbEnum( bExecute := FALSE );
+        fbEnum( bExecute := TRUE );
+		nFileCheckState := nFileCheckState + 20;	
+		
+	40:
+		fbEnum( bExecute := FALSE );
+        IF NOT fbEnum.bBusy THEN
+            IF NOT fbEnum.bError THEN
+                IF NOT fbEnum.bEOE THEN
+                   	nFileCheckState	:= 0;
+					bFileFound := TRUE;
+                ELSE (* no more entries *)
+                    ;
+                END_IF
+            ELSE (* log error *)
+                ;
+            END_IF
+        END_IF
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

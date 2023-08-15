@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Alarm_Out" Id="{ff5665d2-9919-4383-a17e-29e341c9fdb6}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Alarm_Out :
+STRUCT
+	(* -----=== Byte 06 ===----- *)
+	bAlarm1						:BIT;			//	Program hívási hiba: A robot nem fog terméket
+	bAlarm2						:BIT;			//	Program hívási hiba: A robot terméket fog
+	bAlarm3						:BIT;			//	Program hívási hiba: Nincs ilyen program
+	bAlarm4						:BIT;			//	Termék megfogás hiba: Vákuum hiba átrakó
+	bAlarm5						:BIT;			//	Termék fogás hiba: Vákuum hiba prés
+	bAlarm6						:BIT;			//	Préselés: Folyamat megszakítva, erőmérés hiba
+	{attribute 'hide'}
+	_reserved_06_7				:BIT;			// Tartalék 06.07	
+	{attribute 'hide'}
+	_reserved_06_8				:BIT;			// Tartalék 06.08	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

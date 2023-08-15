@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Press_Out" Id="{41f47e93-3f01-449e-a44f-f50ab4ca61bc}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Press_Out :
+STRUCT
+	(* -----=== Byte 04 ===----- *)
+	bWindow_1_Ok				:BIT;			//	Préselésifolyamat 1. ablak
+	bWindow_2_Ok				:BIT;			//	Préselésifolyamat 2. ablak
+	bWindow_3_Ok				:BIT;			//	Préselésifolyamat 3. ablak
+	bWindow_4_Ok				:BIT;			//	Préselésifolyamat 4. ablak
+	bWindow_5_Ok				:BIT;			//	Préselésifolyamat 5. ablak
+	bWindow_6_Ok				:BIT;			//	Préselésifolyamat 6. ablak
+	bWindow_7_Ok				:BIT;			//	Préselésifolyamat 7. ablak
+	bWindow_8_Ok				:BIT;			//	Préselésifolyamat 8. ablak
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Tag_Data" Id="{6b853d31-e087-4fb1-a929-7316d27ac478}">
+    <Declaration><![CDATA[TYPE ST_Tag_Data :
+STRUCT
+	Status			: E_TagStatus;
+	RawData			: ARRAY [0..7] OF BYTE;
+	Code			: ULINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

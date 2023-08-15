@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_FanucReq" Id="{f1502c7e-92fb-41d5-85f8-a159c49fa577}">
+    <Declaration><![CDATA[TYPE ST_FanucReq :
+STRUCT
+	nProgNr					:Byte;				
+	nMovePoint				:BYTE;
+	sName					:STRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

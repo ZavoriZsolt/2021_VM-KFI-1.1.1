@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_ContiRobot" Id="{d3a34c2f-4120-4572-ac0d-fd5af3f15c67}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ContiRobot
+VAR_INPUT
+	nPcbType					:WORD;
+	
+	bPcbStat_N					:BOOL;
+	bPcbStat_Pass				:BOOL;
+	bPcbStat_Fail				:BOOL;
+	bPcbInFixture				:BOOL;
+	bPcbSensor11				:BOOL;
+	bPcbSensor12				:BOOL;
+	bPcbSensor21				:BOOL;
+	bPcbSensor22				:BOOL;
+	
+	bEmy_OK						:BOOL;
+	bDoor_OK					:BOOL;
+	bOpDoorUp					:BOOL;
+	bOpDoorDown					:BOOL;
+	bDoorsClose					:BOOL;
+	bDoorsLock					:BOOL;
+	bEmyBtn_1					:BOOL;
+	bEmyBtn_2					:BOOL;
+	
+	bReady						:BOOL;
+	bWaitDutIn					:BOOL;
+	bWaitDutOut					:BOOL;
+	bError						:BOOL;
+	bEcoMode					:BOOL;
+	bInProcess					:BOOL;
+	
+	stFanucIn					:ST_Fanuc_In;
+	
+	nErrorCode					:WORD;
+	
+	bMoveAreaEnable				:BOOL;
+	bDoorOpenEnable				:BOOL;
+
+	nLifeSignalOut				:UINT;
+END_VAR
+VAR_OUTPUT
+	bMoveAreaReq				:BOOL;
+	bDoorOpenReq				:BOOL;
+	bStart						:BOOL;
+	
+	nLifeSignalIn				:UINT;
+	
+END_VAR
+VAR
+	uConvWord					:U_WordToArrOfByte;
+	Inputs_0		AT %I*		:ARRAY [0..3] OF BYTE;
+	Inputs_1		AT %I*		:ARRAY [0..3] OF BYTE;
+	Inputs_2		AT %I*		:ARRAY [0..3] OF BYTE;
+	Inputs_3		AT %I*		:ARRAY [0..3] OF BYTE;
+	Inputs_4		AT %I*		:ARRAY [0..3] OF BYTE;
+	Inputs_5		AT %I*		:ARRAY [0..3] OF BYTE;
+	Inputs_6		AT %I*		:ARRAY [0..3] OF BYTE;
+	Inputs_7		AT %I*		:ARRAY [0..3] OF BYTE;
+	
+
+	Outputs_0		AT %Q*		:ARRAY [0..3] OF BYTE;
+	Outputs_1		AT %Q*		:ARRAY [0..3] OF BYTE;
+	Outputs_2		AT %Q*		:ARRAY [0..3] OF BYTE;
+	Outputs_3		AT %Q*		:ARRAY [0..3] OF BYTE;
+	Outputs_4		AT %Q*		:ARRAY [0..3] OF BYTE;
+	Outputs_5		AT %Q*		:ARRAY [0..3] OF BYTE;
+	Outputs_6		AT %Q*		:ARRAY [0..3] OF BYTE;
+	Outputs_7		AT %Q*		:ARRAY [0..3] OF BYTE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* -----=== DUT type ===----- *)
+Outputs_0[3] := WORD_TO_BYTE(nPcbType);				//	00.0 .. 00.7	PCBA Típusa
+
+(* -----=== DUT status ===----- *)
+Outputs_0[2].0 := bPcbStat_N;						//	01.0			PCBA állapot nem ismert
+Outputs_0[2].1 := bPcbStat_Pass;					//	01.1			PCBA állapot 'Pass'
+Outputs_0[2].2 := bPcbStat_Fail;					//	01.2			PCBA állapot 'Fail'
+Outputs_0[2].3 := bPcbInFixture;					//	01.3			PCBA az ülékben (kiértékelt bit)
+Outputs_0[2].4 := bPcbSensor11;						//	01.4			PCBA szenzor kimenet 11
+Outputs_0[2].5 := bPcbSensor12;						//	01.5			PCBA szenzor kimenet 12
+Outputs_0[2].6 := bPcbSensor21;						//	01.6			PCBA szenzor kimenet 21
+Outputs_0[2].7 := bPcbSensor22;						//	01.7			PCBA szenzor kimenet 22
+
+(* -----=== Safety status ===----- *)
+Outputs_0[1].0 := bEmy_OK;							//	02.0			Vészkör Ok
+Outputs_0[1].1 := bDoor_OK;							//	02.1			Ajtókör Ok
+Outputs_0[1].2 := bOpDoorUp;						//	02.2			Operátor ajtó fent
+Outputs_0[1].3 := bOpDoorDown;						//	02.3			Operátor ajtó lent
+Outputs_0[1].4 := bDoorsClose;						//	02.4			Ajtók csukva
+Outputs_0[1].5 := bDoorsLock;						//	02.5			Ajtók reteszelve
+Outputs_0[1].6 := bEmyBtn_1;						//	02.6			Vészgomb 1
+Outputs_0[1].7 := bEmyBtn_2;						//	02.7			Vészgomb 2
+
+(* -----=== Machine status ===----- *)
+Outputs_0[0].0 := bReady;							//	03.0			Az állomás üzemkész
+Outputs_0[0].1 := bWaitDutIn;						//	03.1			Az állomás termék behelyezésre vár
+Outputs_0[0].2 := bWaitDutOut;						//	03.2			Az állomás termék kivételre
+Outputs_0[0].3 := bError;							//	03.3			Az állomás hiba állapotban van
+Outputs_0[0].4 := bEcoMode;							//	03.4			Az állomás Eco állapotban van
+Outputs_0[0].5 := bInProcess;						//	03.5			Az állomás folyamat közben van
+//Outputs_0[0].6 := ;								//	03.6
+//Outputs_0[0].7 := ;								//	03.7
+
+(* -----=== Error code ===----- *)
+uConvWord.wData := nErrorCode;
+Outputs_1[3] := uConvWord.arrData[0];				//	04.0 .. 05.0	Állomás hiba kód
+Outputs_1[2] := uConvWord.arrData[1];;
+
+(* -----=== Handshake ===----- *)
+Outputs_1[1].0 := bMoveAreaEnable;					//	06.0			Terület bemozgási engedély
+Outputs_1[1].1 := bDoorOpenEnable;					//	06.1			Ajtónyitás engedély
+
+//Outputs_1[0].0 := ;								//	07.01			Tartalék
+
+(* -----=== Fanuc ===----- *)
+Outputs_2[3].0 := stFanucIn.stArea.bFeeder;			//	08.0			Fanuc Area
+Outputs_2[3].1 := stFanucIn.stArea.bFixtureArea;	//	08.1			Fanuc Area
+Outputs_2[3].2 := stFanucIn.stArea.bPositioner1;	//	08.2			Fanuc Area
+Outputs_2[3].3 := stFanucIn.stArea.bPositioner2;	//	08.3			Fanuc Area
+Outputs_2[3].4 := stFanucIn.stCtrl.bBattery;		//	08.4			Fanuc Ctrl
+Outputs_2[3].5 := stFanucIn.stCtrl.bBusy;			//	08.5			Fanuc Ctrl
+Outputs_2[3].6 := stFanucIn.stCtrl.bCmdEnable;		//	08.6			Fanuc Ctrl
+Outputs_2[3].7 := stFanucIn.stCtrl.bError;			//	08.7			Fanuc Ctrl
+
+Outputs_2[2].0 := stFanucIn.stCtrl.bFault;			//	09.0			Fanuc Ctrl
+Outputs_2[2].1 := stFanucIn.stCtrl.bProgEnd;		//	09.1			Fanuc Ctrl
+Outputs_2[2].2 := stFanucIn.stCtrl.bProgRun;		//	09.2			Fanuc Ctrl
+Outputs_2[2].3 := stFanucIn.stCtrl.bServiceRun;		//	09.3			Fanuc Ctrl
+Outputs_2[2].4 := stFanucIn.stAlarm.bAlarm1;		//	09.4			Fanuc Alarm
+Outputs_2[2].5 := stFanucIn.stAlarm.bAlarm2;		//	09.5			Fanuc Alarm
+Outputs_2[2].6 := stFanucIn.stAlarm.bAlarm3;		//	09.6			Fanuc Alarm
+Outputs_2[2].7 := stFanucIn.stAlarm.bAlarm4;		//	09.7			Fanuc Alarm
+
+Outputs_2[1].0 := stFanucIn.stAlarm.bAlarm5;		//	10.0			Fanuc Alarm
+Outputs_2[1].1 := stFanucIn.stAlarm.bAlarm6;		//	10.1			Fanuc Alarm
+Outputs_2[1].2 := stFanucIn.stEmergency.bBEKHLD;	//	10.2			Fanuc Emergency
+Outputs_2[1].3 := stFanucIn.stEmergency.bBELTBREAK;	//	10.3			Fanuc Emergency
+Outputs_2[1].4 := stFanucIn.stEmergency.bEMGEX;		//	10.4			Fanuc Emergency
+Outputs_2[1].5 := stFanucIn.stEmergency.bEMGOP;		//	10.5			Fanuc Emergency
+Outputs_2[1].6 := stFanucIn.stEmergency.bEMGTP;		//	10.6			Fanuc Emergency
+Outputs_2[1].7 := stFanucIn.stEmergency.bFALM;		//	10.7			Fanuc Emergency
+
+Outputs_2[0].0 := stFanucIn.stEmergency.bFENCE;		//	11.0			Fanuc Emergency
+Outputs_2[0].1 := stFanucIn.stEmergency.bHBK;		//	11.1			Fanuc Emergency
+Outputs_2[0].2 := stFanucIn.stEmergency.bIMSTP;		//	11.2			Fanuc Emergency
+Outputs_2[0].3 := stFanucIn.stEmergency.bNTED;		//	11.3			Fanuc Emergency
+Outputs_2[0].4 := stFanucIn.stEmergency.bPPABN;		//	11.4			Fanuc Emergency
+Outputs_2[0].5 := stFanucIn.stEmergency.bROT;		//	11.5			Fanuc Emergency
+Outputs_2[0].6 := stFanucIn.stEmergency.bSRVDSCNCT;	//	11.6			Fanuc Emergency
+Outputs_2[0].7 := stFanucIn.stEmergency.bSVOFF;		//	11.7			Fanuc Emergency
+
+Outputs_3[3].0 := stFanucIn.stEmergency.bUSRALM;	//	12.0			Fanuc Emergency
+
+
+(* -----=== Life signal ===----- *)
+Outputs_7[0] := UINT_TO_BYTE(nLifeSignalOut);		//	63.0 .. 63.7	Életjel
+{endregion}
+	 
+{region "Profinet -> Beckhoff"}
+(* -----=== Handshake ===----- *)
+bMoveAreaReq := Inputs_0[3].0;						//	00.0			Bemozgási engedély kérés
+bDoorOpenReq := Inputs_0[3].1;						//	00.1			Ajtónyitás engedély kérés
+bStart := Inputs_0[3].2;							//	00.1
+
+(* -----=== Life signal ===----- *)
+nLifeSignalIn := BYTE_TO_WORD(Inputs_7[0]);			//	63.0 .. 63.7	Életjel
+{enregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

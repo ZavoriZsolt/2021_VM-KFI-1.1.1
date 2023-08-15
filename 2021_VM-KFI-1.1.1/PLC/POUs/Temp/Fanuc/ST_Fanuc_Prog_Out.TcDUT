@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Fanuc_Prog_Out" Id="{c1c1d5d5-b397-4d64-8066-e0c9854dc70b}">
+    <Declaration><![CDATA[TYPE ST_Fanuc_Prog_Out :
+STRUCT
+	(* -----=== Byte 14 ===----- *)
+	nType						:BYTE;			//	Típus kiválasztás
+	(* -----=== Byte 15 ===----- *)
+	nMode						:BYTE;			//	Üzemmód kiválasztás			Nincs használva
+	(* -----=== Byte 16 ===----- *)
+	nProgNr						:BYTE;			//	Mozgási program kiválasztás
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Robot_Control" Id="{aa8c278d-fbd5-4356-933d-e12f88b349c7}">
+    <Declaration><![CDATA[TYPE ST_Robot_Control :
+STRUCT
+(*-----=== Byte 01 ===-----*)
+	bImmediateStop			:BIT;				// 01.1	Immediate stop
+	bHold					:BIT;				// 01.2	Temporary stop
+	bSafeSpeed				:BIT;				// 01.3	Safe speed
+	bCycleStop				:BIT;				// 01.4	Cycle stop
+	bReset					:BIT;				// 01.5	External reset
+	bStart					:BIT;				// 01.6	Start
+	bHome					:BIT;				// 01.7	Return to home position
+	bEnable					:BIT;				// 01.8	Operation enable
+
+(*-----=== Byte 02 ===-----*)
+	bPNS1					:BIT;				// 02.1	Program  number selection
+	bPNS2					:BIT;				// 02.2	Program  number selection
+	bPNS3					:BIT;				// 02.3	Program  number selection
+	bPNS4					:BIT;				// 02.4	Program  number selection
+	bPNS5					:BIT;				// 02.5	Program  number selection
+	bPNS6					:BIT;				// 02.6	Program  number selection
+	bPNS7					:BIT;				// 02.7	Program  number selection
+	bPNS8					:BIT;				// 02.8	Program  number selection
+
+(*-----=== Byte 03 ===-----*)
+	bPnsStrobe				:BIT;				// 03.1	PNS strobe
+	bProdStart				:BIT;				// 03.2	Start of automatic operation
+	bZoneEnable				:BIT;				// 03.3	Ez mindig jön kivéve ha vész van
+	bServiceEnd				:BIT;				// 03.4	Szervíz üzemmód vége
+	{attribute 'hide'}
+	_reserved_03_05			:BIT;
+	{attribute 'hide'}
+	_reserved_03_06			:BIT;
+	{attribute 'hide'}
+	_reserved_03_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_03_08			:BIT;		
+	
+(*-----=== Byte 04 ===-----*)
+	{attribute 'hide'}
+	_reserved_04			:BYTE;				
+
+(*-----=== Byte 05 ===-----*)
+	bVise_1_7_Reset			:BIT;				// 05.1	Robot satú 1-7-be mehet RESET
+	bVise_8_14_Reset		:BIT;				// 05.2	Robot satú 8-10-be mehet RESET
+	bCNC_4_Reset			:BIT;				// 05.3	Robot CNC-4-be mehet RESET
+	bCNC_5_Reset			:BIT;				// 05.4	Robot CNC-5-be mehet RESET
+	{attribute 'hide'}
+	_reserved_05_05			:BIT;
+	{attribute 'hide'}
+	_reserved_05_06			:BIT;
+	{attribute 'hide'}
+	_reserved_05_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_05_08			:BIT;
+	
+(*-----=== Byte 06 ===-----*)
+	{attribute 'hide'}
+	_reserved_06			:BYTE;				
+	
+(*-----=== Byte 07 ===-----*)
+	bNotCorrectPrg_Reset		:BIT;				// 07.1	Nem megfelelő mozgási program RESET
+	bNotProductOnRobot_Reset	:BIT;				// 07.2	Mozgási program nem hajtható végre, mert a robotnál nincs termék RESET
+	bProductOnRobot_Reset		:BIT;				// 07.3	Mozgási program nem hajtható végre, mert a robotnál termék van RESET
+	bGripperOpenError_Reset		:BIT;				// 07.4	Megfogó nyitási hiba RESET
+	bGripperCloseError_Reset	:BIT;				// 07.5	Megfogó zárási hiba RESET
+	bNotCorrectViseNumber_Reset	:BIT;				// 07.5 Nem megfelelő satú sorszám RESET
+	{attribute 'hide'}
+	_reserved_07_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_07_08			:BIT;	
+
+(*-----=== Byte 08-12 ===-----*)
+	{attribute 'hide'}
+	_reserved_08_12			:ARRAY [8..12] OF BYTE;
+
+(*-----=== Byte 13 ===-----*)
+	bPlcOverride			:BYTE;				// 13. PLC által vezérelt sebesség, 10-100 %
+	
+(*-----=== Byte 14 ===-----*)
+	nProgramNumber			:BYTE;				// 14. Mozgatási műveletek kiválasztása.
+	
+(*-----=== Byte 15 ===-----*)
+	nMode					:BYTE;				// 15. PLC által meghatározott robot üzemmód, 1-2
+	
+(*-----=== Byte 16 ===-----*)
+	nViseNumber				:BYTE;				// 15. Satu sorszáma
+	
+(*-----=== Byte 17-64 ===-----*)
+	{attribute 'hide'}
+	_reserved_17_64			:ARRAY [17..64] OF BYTE;				
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

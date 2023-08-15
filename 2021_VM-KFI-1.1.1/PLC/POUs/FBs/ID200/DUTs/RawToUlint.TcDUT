@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="RawToUlint" Id="{2489ca05-eeb1-4b11-a0c0-2b17736e01fe}">
+    <Declaration><![CDATA[TYPE RawToUlint :
+UNION
+	Number		: ULINT;
+	Raw			: ARRAY [0..7] OF BYTE;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
