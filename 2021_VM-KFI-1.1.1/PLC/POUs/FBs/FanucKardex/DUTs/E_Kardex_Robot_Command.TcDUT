@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_Kardex_Robot_Command" Id="{01bc3e1f-fe2f-4672-845e-eba6db5bbd2f}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_Kardex_Robot_Command :
+(
+	NoCommand 				:= 0,
+	Home					:= 1,
+	Wait					:= 2,
+	Service					:= 3,
+	Measurement_Kardex 		:= 4,
+	Pick_Up_Kardex			:= 5,
+	Put_Down_Kardex 		:= 6,
+	Pick_Up_Mir 			:= 7,
+	Put_Down_Mir			:= 8,
+	Pick_Up_Puffer 			:= 9,
+	Put_Down_Puffer 		:= 10,
+	Pick_Up_Strip			:= 11,
+	Put_Down_Strip			:= 12,
+	Rotate_In_Strip_3		:= 13
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

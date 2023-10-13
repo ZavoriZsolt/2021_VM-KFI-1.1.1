@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <EnumerationTextList Name="E_Kardex_Robot_Programs" Id="{32f2ff98-2c0e-4575-8e74-9fee76abe5d3}">
+    <Declaration><![CDATA[{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_Kardex_Robot_Programs :
+(
+	NoCommand			:= 0, 	// Amíg "0"-ás a programszám addig nincs mozgási program végrehajtás, vár…
+	Home				:= 1,	// Robot Zóna-6-ba megy és bemozog alaphelyzetbe
+	Park				:= 2,	// Robot Zóna-6-ba megy és bemozog parkoló pozícióba.
+	Service				:= 3,	// Robot elmegy szerviz pozícióba.
+	KardexMeasurement	:= 4,	// Robot beméri az aktuális kardex polc koordiátáit.
+	KardexPickUp 		:= 11,	// Kardex paletta kiszedés
+	KardexPutDown	 	:= 12,	// Kardex paletta lerakás
+	Mir_1_PickUp		:= 13,	// MIR-1 paletta kiszedés
+	Mir_1_PutDown		:= 14,	// MIR-1 paletta lerakás
+	Mir_2_PickUp		:= 15,	// MIR-2 paletta kiszedés
+	Mir_2_PutDown		:= 16,	// MIR-2 paletta lerakás
+	PufferPickUp 		:= 17,	// Puffer paletta kiszedés
+	PufferPutDown		:= 18,	// Puffer paletta lerakás
+	Strip_1_PickUp		:= 19,	// Szalag-1 paletta kiszedés
+	Strip_1_PutDown		:= 20,	// Szalag-1 paletta lerakás
+	Strip_2_PickUp		:= 21,	// Szalag-2 paletta kiszedés
+	Strip_2_PutDown		:= 22,	// Szalag-2 paletta lerakás
+	Strip_3_PickUp		:= 23,	// Szalag-3 paletta kiszedés
+	Strip_3_PutDown		:= 24,	// Szalag-3 paletta lerakás
+	Strip_3_Rotate		:= 25	// Szalag-3 paletta forgatás
+);
+END_TYPE
+]]></Declaration>
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="TextListEnumerationTextListObject">
+          <l n="TextList" t="ArrayList" cet="TextListRow">
+            <o>
+              <v n="TextID">"NoCommand"</v>
+              <v n="TextDefault">"0"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Home"</v>
+              <v n="TextDefault">"1"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Park"</v>
+              <v n="TextDefault">"2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Service"</v>
+              <v n="TextDefault">"3"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"KardexMeasurement"</v>
+              <v n="TextDefault">"4"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"KardexPickUp"</v>
+              <v n="TextDefault">"11"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"KardexPutDown"</v>
+              <v n="TextDefault">"12"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Mir_1_PickUp"</v>
+              <v n="TextDefault">"13"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Mir_1_PutDown"</v>
+              <v n="TextDefault">"14"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Mir_2_PickUp"</v>
+              <v n="TextDefault">"15"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Mir_2_PutDown"</v>
+              <v n="TextDefault">"16"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"PufferPickUp"</v>
+              <v n="TextDefault">"17"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"PufferPutDown"</v>
+              <v n="TextDefault">"18"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Strip_1_PickUp"</v>
+              <v n="TextDefault">"19"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Strip_1_PutDown"</v>
+              <v n="TextDefault">"20"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Strip_2_PickUp"</v>
+              <v n="TextDefault">"21"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Strip_2_PutDown"</v>
+              <v n="TextDefault">"22"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Strip_3_PickUp"</v>
+              <v n="TextDefault">"23"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Strip_3_PutDown"</v>
+              <v n="TextDefault">"24"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Strip_3_Rotate"</v>
+              <v n="TextDefault">"25"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">""</v>
+              <v n="TextDefault">""</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+          </l>
+          <l n="Languages" t="ArrayList" />
+          <v n="GuidInit">{2ac532de-b544-460b-b9c6-c6e708f670a0}</v>
+          <v n="GuidReInit">{5bd741af-611c-44da-8eb2-169e89f4b9c6}</v>
+          <v n="GuidExitX">{7e4f3dee-77ef-4dbe-9b0d-066664ee7a7c}</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="String">System.String</Type>
+        <Type n="TextListEnumerationTextListObject">{4b60233c-f940-4beb-b331-82133b520151}</Type>
+        <Type n="TextListRow">{53da1be7-ad25-47c3-b0e8-e26286dad2e0}</Type>
+      </TypeList>
+    </XmlArchive>
+  </EnumerationTextList>
+</TcPlcObject>

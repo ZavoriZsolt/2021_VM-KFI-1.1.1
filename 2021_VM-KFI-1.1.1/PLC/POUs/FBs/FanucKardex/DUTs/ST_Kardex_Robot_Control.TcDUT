@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_Kardex_Robot_Control" Id="{72c7c7cf-0ebb-426e-b9ff-cf2dd0a0b309}">
+    <Declaration><![CDATA[TYPE ST_Kardex_Robot_Control :
+STRUCT
+(*-----=== Byte 01 ===-----*)
+	bImmediateStop			:BIT;				// 01.1	Immediate stop
+	bHold					:BIT;				// 01.2	Temporary stop
+	bSafeSpeed				:BIT;				// 01.3	Safe speed
+	bCycleStop				:BIT;				// 01.4	Cycle stop
+	bReset					:BIT;				// 01.5	External reset
+	bStart					:BIT;				// 01.6	Start
+	bHome					:BIT;				// 01.7	Return to home position
+	bEnable					:BIT;				// 01.8	Operation enable
+
+(*-----=== Byte 02 ===-----*)
+//	nProgNumberSelection	:BYTE;
+	bPNS1					:BIT;				// 02.1	Program  number selection
+	bPNS2					:BIT;				// 02.2	Program  number selection
+	bPNS3					:BIT;				// 02.3	Program  number selection
+	bPNS4					:BIT;				// 02.4	Program  number selection
+	bPNS5					:BIT;				// 02.5	Program  number selection
+	bPNS6					:BIT;				// 02.6	Program  number selection
+	bPNS7					:BIT;				// 02.7	Program  number selection
+	bPNS8					:BIT;				// 02.8	Program  number selection
+
+(*-----=== Byte 03 ===-----*)
+	bPnsStrobe				:BIT;				// 03.1	PNS strobe
+	bProdStart				:BIT;				// 03.2	Start of automatic operation
+	bZoneEnable				:BIT;				// 03.3	Ez mindig jön kivéve ha vész van
+	bServiceEnd				:BIT;				// 03.4	Szervíz üzemmód vége
+	{attribute 'hide'}
+	_reserved_03_05			:BIT;
+	{attribute 'hide'}
+	_reserved_03_06			:BIT;
+	{attribute 'hide'}
+	_reserved_03_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_03_08			:BIT;		
+	
+(*-----=== Byte 04 ===-----*)
+	{attribute 'hide'}
+	_reserved_04			:BYTE;				
+
+(*-----=== Byte 05 ===-----*)
+	bKardex_Reset			:BIT;				// 05.1	Robot kardex-be mehet RESET
+	bMir_1_Reset			:BIT;				// 05.2	Robot Mir-1-be mehet RESET
+	bMir_2_Reset			:BIT;				// 05.3	Robot Mir-2-be mehet RESET
+	bPuffer_Reset			:BIT;				// 05.4	Robot pufferbe mehet RESET
+	bStrip_1_Reset			:BIT;				// 05.5	Robot szalag-1-be mehet RESET
+	bStrip_2_Reset			:BIT;				// 05.6	Robot szalag-2-be mehet RESET
+	bStrip_3_Reset			:BIT;				// 05.7	Robot szalag-3-be mehet RESET	
+	{attribute 'hide'}
+	_reserved_05_08			:BIT;
+	
+(*-----=== Byte 06 ===-----*)
+	{attribute 'hide'}
+	_reserved_06			:BYTE;				
+	
+(*-----=== Byte 07 ===-----*)
+	bNotCorrectPrg_Reset			:BIT;				// 07.1	Nem megfelelő mozgási program RESET
+	bNotProductOnRobot_Reset		:BIT;				// 07.2	Mozgási program nem hajtható végre, mert a robotnál nincs termék RESET
+	bProductOnRobot_Reset			:BIT;				// 07.3	Mozgási program nem hajtható végre, mert a robotnál termék van RESET
+	bGripperOpenError_Reset			:BIT;				// 07.4	Megfogó nyitási hiba RESET
+	bGripperCloseError_Reset		:BIT;				// 07.5	Megfogó zárási hiba RESET
+	bPartPresentError_Reset			:BIT;				// 07.6 Paletta jelenlét hiba RESET
+	bNotCorrectKardexFloor_Reset	:BIT;				// 07.7 Nem megfelelő kardex polc RESET
+	bNotCorrectKardexJig_Reset		:BIT;				// 07.8 Nem megfelelő kardex üllék RESET
+
+(*-----=== Byte 08 ===-----*)
+	bNotCorrectMir_Reset		:BIT;				// 08.1	Nem megfelelő MIR üllék RESET
+	bNotCorrectPuffer_Reset		:BIT;				// 08.2 Nem megfelelő puffer üllék RESET
+	{attribute 'hide'}
+	_reserved_08_03				:BIT;
+	{attribute 'hide'}
+	_reserved_08_04				:BIT;
+	{attribute 'hide'}
+	_reserved_08_05				:BIT;
+	{attribute 'hide'}
+	_reserved_08_06				:BIT;
+	{attribute 'hide'}
+	_reserved_08_07				:BIT;
+	{attribute 'hide'}
+	_reserved_08_08				:BIT;
+
+(*-----=== Byte 09-12 ===-----*)
+	{attribute 'hide'}
+	_reserved_09_12			:ARRAY [9..12] OF BYTE;
+
+(*-----=== Byte 13 ===-----*)
+	bPlcOverride			:BYTE;				// 13. PLC által vezérelt sebesség, 10-100 %
+	
+(*-----=== Byte 14 ===-----*)
+	nProgramNumber			:BYTE;				// 14. Mozgatási műveletek kiválasztása.
+	
+(*-----=== Byte 15 ===-----*)
+	nMode					:BYTE;				// 15. PLC által meghatározott robot üzemmód, 1-2
+	
+(*-----=== Byte 16 ===-----*)
+	nKardexFloor			:BYTE;				// 16. Kardex polc szám (1-50)
+
+(*-----=== Byte 17 ===-----*)
+	nKardexJig				:BYTE;				// 17. Kardex paletta szám (1-30)
+	
+(*-----=== Byte 18 ===-----*)
+	nMir_1_Jig				:BYTE;				// 18. Mir-1 paletta szám (1-4)
+		
+(*-----=== Byte 19 ===-----*)
+	nMir_2_Jig				:BYTE;				// 19. Mir-2 paletta szám (1-4)
+		
+(*-----=== Byte 20 ===-----*)
+	nPuffer					:BYTE;				// 20. Puffer tároló paletta szám (1-15)
+	
+(*-----=== Byte 21-64 ===-----*)
+	{attribute 'hide'}
+	_reserved_21_64			:ARRAY [21..64] OF BYTE;				
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
