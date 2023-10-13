@@ -253,15 +253,10 @@ END_IF]]></ST>
       <Declaration><![CDATA[METHOD PUBLIC SinWriteFixCode : BOOL
 VAR_INPUT
 	Channel				: BYTE;
-	CarrierType			: E_CarrierType;
-	Data				: ARRAY [0..7] OF BYTE;
-	DataLength			: BYTE;
-	
-	//v2
-	//FixLen				: UINT;
+	Data				: ARRAY [0..4] OF BYTE;
 END_VAR
 VAR
-	temp				: WordToBytes;
+
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -274,25 +269,18 @@ arrDataOut[1].1 := Channel.0;
 arrDataOut[1].2 := Channel.1;
 arrDataOut[1].3 := Channel.2;
 
-//Set FixLen v1 - 0101 -> 5
+//Set FixLen - 0101 -> 5
 arrDataOut[1].4 := 1; //1
 arrDataOut[1].5 := 0; //0
 arrDataOut[1].6 := 1; //1
 arrDataOut[1].7 := 0; //0
 
-//FixLen v2
-//arrDataOut[1].4 := FixLen.0;
-//arrDataOut[1].5 := FixLen.1;
-//arrDataOut[1].6 := FixLen.2;
-//arrDataOut[1].7 := FixLen.3;
-
 //Set Carrier type
-temp.word_in := CarrierType; //Byte 2-3
-//arrDataOut[2] := temp.bytes[1];
-//arrDataOut[3] := temp.bytes[0];
+arrDataOut[2] := 16#30;
+arrDataOut[3] := 16#32;
 
 // Set Data
-MEMCPY(destAddr := ADR(arrDataOut), srcAddr :=ADR(Data), n := DataLength);
+MEMCPY(destAddr := ADR(arrDataOut), srcAddr :=ADR(Data), n := 5);
 
 //Start! Set toggle bit.
 IF (arrDataIn[1].0 = arrDataOut[1].0) AND (arrDataIn[0] <> arrDataOut[0]) THEN

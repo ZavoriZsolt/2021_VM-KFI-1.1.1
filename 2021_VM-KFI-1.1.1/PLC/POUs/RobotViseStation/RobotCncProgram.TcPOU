@@ -18,12 +18,20 @@ VAR (* Robot *)
 	arRobotEvents		: ARRAY [0..11] OF TcEventEntry;
 END_VAR
 VAR (* Test variables *)
+	nOverride			: BYTE := 10;
 	bTestEnable			: BOOL;
 	nTestIndex			: BYTE;
 	nTestCncIndex		: BYTE;
+END_VAR
+VAR // MySQL
+	fbUpdateVise			: FB_SP_spUpdateVise;
+	stParameterValues		: ST_ParaVal_UpdateVise;
+	fbGetNextVise			: FB_SP_spGetNextVise;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*Error handling*)
+      <ST><![CDATA[MySQL();
+
+(*Error handling*)
 IF nState > 0 AND nState < 150000 THEN
 	nStatePrevious := nState;
 END_IF
@@ -34,7 +42,7 @@ IF bManualMode THEN
 END_IF
 
 (*Emergency*)
-IF NOT i_bLO1 OR NOT i_bLO2 THEN
+IF NOT i_bLO1_CNC45 OR NOT i_bLO2_CNC45 THEN
 	nState := 0;
 END_IF
 
@@ -52,15 +60,34 @@ END_IF
 CASE nState OF
 	(* Emergency circuit broken - Base state *)
 	0:(* Operation stop - Emergency circuit check *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
 		fbRobot.eCommand := E_Robot_Command.NoCommand;
 		fbRobot.nViseNumber := 0;
 		fbRobot.nCncNumber := 0;
+		IF i_bLO1_CNC45 AND i_bLO2_CNC45 AND NOT bManualMode THEN
+			nState := nState + 20;
+		END_IF
+
+	20: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetfelvétel');
+		fbRobot.eCommand := E_Robot_Command.Home;
+		IF NOT fbRobot.bBusy AND fbRobot.bReady THEN
+			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			nState := nState + 20;
+		END_IF
+
+	40:
+		nState := 10000;
+
 		
 		
 	(* Automatic mode - Base position *)
 	10000: 
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet');
-	
+		IF fbRobot.RobotIn.Status.bGripperClose AND fbRobot.RobotIn.Status.bVisePresent THEN
+			;
+		END_IF 
+(*	
 	(*-----=== CNC 4 felvétel ===-----*)
 {region "CNC 4 felvétel"}
 	20000: 
@@ -421,7 +448,7 @@ CASE nState OF
 		END_IF
 {endregion}
 
-
+*)
 	
 	150000: (* Maintenance *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
@@ -455,6 +482,28 @@ END_IF
 
 Robot();]]></ST>
     </Implementation>
+    <Action Name="MySQL" Id="{88254c98-7c76-40b1-aabd-0b61b65fd720}">
+      <Implementation>
+        <ST><![CDATA[fbGetNextVise(
+	Target:= , 
+	nRecordStartIndex:= , 
+	tTimeout:= , 
+	bExecute:= , 
+	bBusy=> , 
+	bError=> , 
+	ipResult=> , 
+	nViseNr=> );
+
+fbUpdateVise(
+	nRecordStartIndex:= , 
+	tTimeout:= , 
+	bExecute:= , 
+	bBusy=> , 
+	bError=> , 
+	ipResult=> , 
+	stParameterValues:= stParameterValues);]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Robot" Id="{300bd409-a385-474c-812b-4c295d30f6a6}">
       <Implementation>
         <ST><![CDATA[arRobotEvents[0] := TC_EVENTS.MyEvents.RobotNoPneumaticsErr;
@@ -467,12 +516,26 @@ arRobotEvents[6] := TC_EVENTS.MyEvents.RobotNotCorrectViseNumberErr;
 arRobotEvents[7] := TC_EVENTS.MyEvents.RobotNotReadyErr;
 arRobotEvents[8] := TC_EVENTS.MyEvents.RobotBasePosErr;
 
+(*-----=== Hand shake jelek kezelése ===-----*)
+fbRobot.bVise_1_7_Reset := 		fbRobot.bVise_1_7_Set;
+
+fbRobot.bVise_8_14_Reset := 	fbRobot.bVise_8_14_Set;
+
+fbRobot.bCNC_4_Reset := 		fbRobot.bCNC_4_Set AND
+								i_bCNC4_Door_Opened AND
+								i_bCNC4_Robot_Mode AND
+								i_bCNC4_Door_HW_opened;
+
+fbRobot.bCNC_5_Reset := 		fbRobot.bCNC_5_Set;
+
+
+
 fbRobot(
-	sName:= 'Buksi - Hülye de erős', 
-	bEn:= i_bLO2, 
+	sName:= 'Fanuc - Satuzó', 
+	bEn:= i_bLO2_CNC45, 
 	timeBaseState:= T#40S, 
 	bAck:= bAckP, 
-	bOverride:= 10, 
+	bOverride:= nOverride, 
 	stEventArray:= arRobotEvents);]]></ST>
       </Implementation>
     </Action>

@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Robot_Status" Id="{ffdb72c4-fe6f-47fb-85ab-1f168f23b128}">
+    <Declaration><![CDATA[TYPE ST_Robot_Status :
+STRUCT
+(*-----=== Byte 01 ===-----*)
+	bCommandEnable			:BIT;				// 01.1	During automatic operation
+	bSystemReady			:BIT;				// 01.2	Preparation completed
+	bProgRun				:BIT;				// 01.3	Program running
+	bPaused					:BIT;				// 01.4	Program being interrupted
+	bHeld					:BIT;				// 01.5	During temporary stop
+	bFault					:BIT;				// 01.6	Alarm
+	bHomePos				:BIT;				// 01.7	Home position
+	bPendant				:BIT;				// 01.8	Teach pendant enabled
+
+(*-----=== Byte 02 ===-----*)
+	bBatteryVoltageDrop		:BIT;				// 02.1	Battery voltage drop
+	bBusy					:BIT;				// 02.2	During operation
+	bAckSNO1				:BIT;				// 02.3	Selected program number
+	bAckSNO2				:BIT;				// 02.4	Selected program number
+	bAckSNO3				:BIT;				// 02.5	Selected program number
+	bAckSNO4				:BIT;				// 02.6	Selected program number
+	bAckSNO5				:BIT;				// 02.7	Selected program number
+	bAckSNO6				:BIT;				// 02.8	Selected program number
+
+(*-----=== Byte 03 ===-----*)
+	bAckSNO7				:BIT;				// 03.1	Selected program number
+	bAckSNO8				:BIT;				// 03.2	Selected program number
+	bSnAck					:BIT;				// 03.3	Response signal to PNS
+	{attribute 'hide'}
+	_reserved_03_04			:BIT;
+	bProgramEnd				:BIT;				// 03.5	Robot aktuális programot befejezte
+	bProgramRun				:BIT;				// 03.6	Robot aktuális program futásban.
+	bAlarm					:BIT;				// 03.7	Robot kűldi amikor hiba van
+	bServiceRun				:BIT;				// 03.8 Szerviz pozícióban a robot, szelep vezérlés mehet.
+	
+(*-----=== Byte 04 ===-----*)
+	bGripperOpen			:BIT;				// 04.1	Robot IO, gripper nyitva
+	bGripperClose			:BIT;				// 04.2	Robot IO, gripper zárva
+	bVisePresent			:BIT;				// 04.3	Robot IO, satu a megfogóban
+	{attribute 'hide'}
+	_reserved_04_04			:BIT;
+	{attribute 'hide'}
+	_reserved_04_05			:BIT;
+	{attribute 'hide'}
+	_reserved_04_06			:BIT;
+	{attribute 'hide'}
+	_reserved_04_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_04_08			:BIT;
+
+(*-----=== Byte 05 ===-----*)
+	bVise_1_7_Set			:BIT;				// 05.1	Robot satú 1-7-be menne SET
+	bVise_8_14_Set			:BIT;				// 05.2	Robot satú 8-14-be menne SET
+	bCNC_4_Set				:BIT;				// 05.3	Robot CNC-4-be menne SET
+	bCNC_5_Set				:BIT;				// 05.4	Robot CNC-5-be menne SET
+	{attribute 'hide'}
+	_reserved_05_05			:BIT;
+	{attribute 'hide'}
+	_reserved_05_06			:BIT;
+	{attribute 'hide'}
+	_reserved_05_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_05_08			:BIT;
+	
+(*-----=== Byte 06 ===-----*)
+	{attribute 'hide'}
+	_reserved_06			:BYTE;				
+	
+(*-----=== Byte 07 ===-----*)
+	bNotCorrectPrg			:BIT;				// 07.1	Nem megfelelő mozgási program SET
+	bNotProductOnRobot		:BIT;				// 07.2	Mozgási program nem hajtható végre, mert a robotnál nincs termék SET
+	bProductOnRobot			:BIT;				// 07.3	Mozgási program nem hajtható végre, mert a robotnál termék van SET
+	bGripperOpenError		:BIT;				// 07.4	Megfogó nyitási hiba SET
+	bGripperCloseError		:BIT;				// 07.5 Megfogó zárási hiba SET
+	bNotCorrectViseNumber	:BIT;				// 07.6 Nem megfelelő satú sorszám SET
+	{attribute 'hide'}
+	_reserved_07_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_07_08			:BIT;	
+
+(*-----=== Byte 08 ===-----*)
+	{attribute 'hide'}
+	_reserved_08			:BYTE;
+	
+(*-----=== Byte 09 ===-----*)
+	bZone_1_Vise_1_7		:BIT;				// 09.1	Robot bent a területen.
+	bZone_2_Vise_8_14		:BIT;				// 09.2	Robot bent a területen.
+	bZone_3_Trans			:BIT;				// 09.3	Robot bent a területen.
+	bZone_4_CNC_4			:BIT;				// 09.4	Robot bent a területen.
+	bZone_5_CNC_5			:BIT;				// 09.5	Robot bent a területen.
+	{attribute 'hide'}
+	_reserved_09_06			:BIT;
+	{attribute 'hide'}
+	_reserved_09_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_09_08			:BIT;	
+
+(*-----=== Byte 10 ===-----*)
+	{attribute 'hide'}
+	_reserved_10			:BYTE;
+
+(*-----=== Byte 11 ===-----*)
+	{attribute 'hide'}
+	_reserved_11			:BYTE;
+
+(*-----=== Byte 12 ===-----*)
+	{attribute 'hide'}
+	_reserved_12			:BYTE;
+	
+(*-----=== Byte 13 ===-----*)
+	nProgramNumber			:BYTE;				// 13. Aktuális program szám Robotban,
+	
+(*-----=== Byte 14 ===-----*)
+	nPointNumber			:BYTE;				// 14. Aktuális pont szám
+	
+(*-----=== Byte 15 ===-----*)
+	bKeyAuto				:BIT;				// 15.1	Robot automata-remote üzemmódban
+	bKeyManualT1			:BIT;				// 15.2	Robot kézi üzemmódban - 250 mm/sec max sebesség
+	bKeyManualT2			:BIT;				// 15.3	Robot kézi üzemmódban - 100 % sebesség
+	bSimInput				:BIT;				// 15.4	Szimulálva (force-olva) Input
+	bSimOutput				:BIT;				// 15.5	Szimulálva (force-olva) Output
+	{attribute 'hide'}
+	_reserved_15_06			:BIT;
+	{attribute 'hide'}
+	_reserved_15_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_15_08			:BIT;	
+	
+(*-----=== Byte 16 ===-----*)
+	bControllerEmyStop		:BIT;				// 16.1	Robot kontroller vészgomb
+	bTeachPendantEmyStop	:BIT;				// 16.2	Teach Pendant vészgomb
+	bDeadman				:BIT;				// 16.3	TP engedélyező gomb
+	bFence					:BIT;				// 16.4	Fence
+	bRot					:BIT;				// 16.5	Robot olyan területre akar mozogni ahova mechanikusan nem ér el
+	bHbk					:BIT;				// 16.6	Robot felütközött, védelem
+	bEmyStopExternal		:BIT;				// 16.7	Külső vészgomb (gépi)
+	bNoPneumatics			:BIT;				// 16.8	A karon lévő pneumatika nem érzékel levegőt
+	
+(*-----=== Byte 17 ===-----*)
+	bBeltBreak				:BIT;				// 17.1	Robot kontroller vészgomb
+	bFalm					:BIT;				// 17.2	Ventilátor hiba
+	bServoOff				:BIT;				// 17.3	Kivűlről tiltott SERVO engedélyezés
+	bIMSTP					:BIT;				// 17.4	Engedélyező jel vissza adása
+	bBEKHLD					:BIT;				// 17.5	
+	bUSRALM					:BIT;				// 17.6	
+	bSRVDSCNCT				:BIT;				// 17.7	
+	bNTED					:BIT;				// 17.8			
+	
+(*-----=== Byte 17 - 64 ===-----*)
+	{attribute 'hide'}
+	_reserved_17_64			:ARRAY[17..64] OF BYTE;		
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

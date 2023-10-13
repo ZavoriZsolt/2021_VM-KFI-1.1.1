@@ -33,10 +33,15 @@ VAR //LastStates
 	anLastStates				:ARRAY[0..500] OF UDINT;
     iLastStates					:INT;
 END_VAR
-]]></Declaration>
+VAR // MySQL
+	fbUpdateVise			: FB_SP_spUpdateVise;
+	stParameterValues		: ST_ParaVal_UpdateVise;
+	fbGetNextVise			: FB_SP_spGetNextVise;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Pneu();
 RGB();
+MySQL();
 
 (*Init*)
 IF bFirstCycle THEN
@@ -63,7 +68,7 @@ IF bManualMode THEN
 END_IF
 
 (*Emergency*)
-IF NOT i_bLO1 OR NOT i_bLO2 THEN
+IF NOT i_bLO1_CNC45 OR NOT i_bLO2_CNC45 THEN
 	nState := 0;
 END_IF
 
@@ -100,7 +105,7 @@ CASE nState OF
 			fbViseStation[index].Vise.bBasePosCmd := FALSE;
 			fbViseStation[index].Vise.bWorkPosCmd := FALSE;
 		END_FOR
-		IF i_bLO1 AND i_bLO2 AND NOT bManualMode THEN
+		IF i_bLO1_CNC45 AND i_bLO2_CNC45 AND NOT bManualMode THEN
 			nState := nState + 20;
 		END_IF
 		
@@ -173,6 +178,8 @@ CASE nState OF
 			nState := 20000;
 		ELSIF eCommand = E_Vise_Command.UnLoad THEN
 			nState := 50000;
+		ELSIF eCommand = E_Vise_Command.InProcess THEN
+			nState := 30000;
 		END_IF
 
 	(*-----=== Feltöltés ===-----*)
@@ -185,7 +192,7 @@ CASE nState OF
 			END_IF
 		END_FOR
 		IF index = (nMaxIndex + 1) THEN
-			eCommand := E_Vise_Command.UnLoad;
+			eCommand := E_Vise_Command.InProcess;
 			nState := 10000;
 		END_IF
 			
@@ -254,6 +261,23 @@ CASE nState OF
 		END_IF		
 {endregion}
 
+	(*-----=== InProcess ===-----*)
+{region "Gyártás"}
+	30000: (*In process*)
+		FOR index := nStartIndex TO nMaxIndex BY 1 DO
+			IF aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad THEN
+				nState := nState + 20;
+				EXIT;
+			END_IF
+		END_FOR
+		IF index = (nMaxIndex + 1) THEN
+			eCommand := E_Vise_Command.UnLoad;
+			nState := 10000;
+		END_IF
+
+
+
+{endregion}
 
 	(*-----=== Kiürítés ===-----*)
 {region "Kiürítés"}		
@@ -365,12 +389,34 @@ IF nState > 10000 AND nState <= 95000 THEN
 	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
 END_IF]]></ST>
     </Implementation>
+    <Action Name="MySQL" Id="{9e7c91d0-f43c-493e-b9fa-55a273076bbd}">
+      <Implementation>
+        <ST><![CDATA[fbGetNextVise(
+	Target:= , 
+	nRecordStartIndex:= , 
+	tTimeout:= , 
+	bExecute:= , 
+	bBusy=> , 
+	bError=> , 
+	ipResult=> , 
+	nViseNr=> );
+
+fbUpdateVise(
+	nRecordStartIndex:= , 
+	tTimeout:= , 
+	bExecute:= , 
+	bBusy=> , 
+	bError=> , 
+	ipResult=> , 
+	stParameterValues:= stParameterValues);]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Pneu" Id="{1b8e8939-21d0-44f7-914f-286606625816}">
       <Implementation>
         <ST><![CDATA[(**************************************************Vise station*********************************************************)	
 fbViseStation[1](
 	sName:= 'Vise 1', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[1].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[1].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -383,7 +429,7 @@ fbViseStation[1](
 	
 fbViseStation[2](
 	sName:= 'Vise 2', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[2].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[2].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -396,7 +442,7 @@ fbViseStation[2](
 	
 fbViseStation[3](
 	sName:= 'Vise 3', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[3].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[3].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -409,7 +455,7 @@ fbViseStation[3](
 	
 fbViseStation[4](
 	sName:= 'Vise 4', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[4].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[4].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -422,7 +468,7 @@ fbViseStation[4](
 	
 fbViseStation[5](
 	sName:= 'Vise 5', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[5].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[5].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -435,7 +481,7 @@ fbViseStation[5](
 	
 fbViseStation[6](
 	sName:= 'Vise 6', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[6].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[6].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -448,7 +494,7 @@ fbViseStation[6](
 	
 fbViseStation[7](
 	sName:= 'Vise 7', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[7].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[7].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -461,7 +507,7 @@ fbViseStation[7](
 	
 fbViseStation[8](
 	sName:= 'Vise 8', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[8].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[8].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -474,7 +520,7 @@ fbViseStation[8](
 	
 fbViseStation[9](
 	sName:= 'Vise 9', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[9].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[9].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -487,7 +533,7 @@ fbViseStation[9](
 	
 fbViseStation[10](
 	sName:= 'Vise 10', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[10].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[10].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -500,7 +546,7 @@ fbViseStation[10](
 	
 fbViseStation[11](
 	sName:= 'Vise 11', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[11].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[11].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -513,7 +559,7 @@ fbViseStation[11](
 	
 fbViseStation[12](
 	sName:= 'Vise 12', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[12].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[12].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -526,7 +572,7 @@ fbViseStation[12](
 	
 fbViseStation[13](
 	sName:= 'Vise 13', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[13].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[13].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -539,7 +585,7 @@ fbViseStation[13](
 	
 fbViseStation[14](
 	sName:= 'Vise 14', 
-	bEn:= i_bLO1 AND NOT (aViseStatus[14].eState = E_Vise_State.OutOfService), 
+	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[14].eState = E_Vise_State.OutOfService), 
 	bEHA:= bGlobalEHA, 
 	bManualMode:= bManualMode, 
 	bAck:= bAckP, 
@@ -649,7 +695,7 @@ fbViseStation[14](
 	END_IF
 	
 	// No LO1 or LO2 Red - Red - Red
-	IF NOT i_bLO1 OR NOT i_bLO2 THEN
+	IF NOT i_bLO1_CNC45 OR NOT i_bLO2_CNC45 THEN
 		arrColors[nRgbCounter].nColor1 := cRed;
 		arrColors[nRgbCounter].nColor1State := TRUE;
 		arrColors[nRgbCounter].nColor2 := cRed;

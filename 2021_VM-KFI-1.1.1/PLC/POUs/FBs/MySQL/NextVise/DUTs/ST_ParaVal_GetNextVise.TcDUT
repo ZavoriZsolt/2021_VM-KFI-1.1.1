@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_ParaVal_GetNextVise" Id="{202c6e46-1403-4304-859a-6264d482395e}">
+    <Declaration><![CDATA[TYPE ST_ParaVal_GetNextVise :
+STRUCT
+	Target			: BYTE;
+	ViseNumber		: BYTE;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

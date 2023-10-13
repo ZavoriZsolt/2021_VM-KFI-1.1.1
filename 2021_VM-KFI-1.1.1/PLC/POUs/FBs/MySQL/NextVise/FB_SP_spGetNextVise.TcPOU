@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_SP_spGetNextVise" Id="{f3397782-5da9-41f5-9ce9-052b12b66b3f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SP_spGetNextVise
+VAR_INPUT
+	Target						: BYTE;		// 0:empty;		1:wait operator;		4,5: wait cnc;
+	nRecordStartIndex			: UDINT;
+	tTimeout					: TIME;
+	bExecute					: BOOL;
+END_VAR
+VAR_OUTPUT
+	bBusy						: BOOL;
+	bError						: BOOL;
+	ipResult					: I_TcMessage;
+	nViseNr						: BYTE;
+END_VAR
+VAR
+	R_TRIG_Execute				: R_TRIG;
+	nState						: INT;
+	nErrState					: INT;
+	fbSQLDatabase				: FB_SQLDatabaseEvt(sNetID := '', tTimeout := TIME#5s0ms);
+	fbSQLStoredProcedure		: FB_SQLStoredProcedureEvt(sNetID := '', tTimeout := TIME#5s0ms);
+	fbSQLResult					: FB_SQLResultEvt(sNetID := '', tTimeout := TIME#5s0ms);
+	arrParaInfo					: ARRAY[0..1] OF ST_SQLSPParameter;
+	stParameterValues			: ST_ParaVal_GetNextVise;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE nState OF
+	0:
+		R_TRIG_Execute(CLK:=bExecute);
+		IF R_TRIG_Execute.Q THEN
+			nState := 1;
+			bBusy:=TRUE;
+			bError:=FALSE;
+			nErrState:=0;
+		END_IF
+	1:
+		IF fbSQLDatabase.Connect(1) THEN
+			ipResult:=fbSQLDatabase.ipTcResult;
+			IF fbSQLDatabase.bError THEN
+				nErrState:=1;
+				nState:=255;
+			ELSE
+				arrParaInfo[0].sParameterName := 'Target';
+				arrParaInfo[0].eParameterType := E_SPParameterType.Input;
+				arrParaInfo[0].eParameterDataType := E_ColumnType.TinyInt;
+				arrParaInfo[0].nParameterSize := 1;
+
+				arrParaInfo[1].sParameterName := 'ViseNumber';
+				arrParaInfo[1].eParameterType := E_SPParameterType.Output;
+				arrParaInfo[1].eParameterDataType := E_ColumnType.TinyInt;
+				arrParaInfo[1].nParameterSize := 1;
+				nState:= 2;
+			END_IF
+		END_IF
+	2:
+		IF fbSQLDatabase.CreateSP('spGetNextVise', ADR(arrParaInfo), SIZEOF(arrParaInfo), ADR(fbSQLStoredProcedure)) THEN
+			IF fbSQLDatabase.bError THEN
+				nErrState:=2;
+				nState:=255;
+			ELSE
+				nState:=3;
+			END_IF
+		END_IF
+	3:
+		stParameterValues.Target := Target;
+		IF fbSQLStoredProcedure.ExecuteDataReturn(ADR(stParameterValues), SIZEOF(stParameterValues), ADR(fbSQLResult))THEN
+			ipResult:=fbSQLStoredProcedure.ipTcResult;
+			IF fbSQLStoredProcedure.bError THEN
+				nErrState:=3;
+				nState:=255;
+			ELSE
+				nState:= 4;
+			END_IF
+		END_IF
+	4:
+		IF fbSQLResult.Read(nRecordStartIndex, 1, ADR(nViseNr), SIZEOF(nViseNr), TRUE, TRUE) THEN
+			ipResult:=fbSQLResult.ipTcResult;
+			IF fbSQLResult.bError THEN
+				nErrState:=4;
+				nState:= 255;
+			ELSE
+				nState:= 5;
+			END_IF
+		END_IF
+	5:
+		IF fbSQLStoredProcedure.Release() THEN
+			IF fbSQLStoredProcedure.bError THEN
+				nErrState:=5;
+				nState:=255;
+			ELSE
+				nState:= 200;
+			END_IF
+		END_IF
+	200:
+		IF fbSQLDatabase.Disconnect() THEN
+			nState := 0;
+			bBusy:= FALSE;
+		END_IF
+	255:
+		bError:= TRUE;
+		bBusy:= FALSE;
+		IF nErrState > 1 THEN
+			nState:=200;
+		ELSE
+			nState:=0;
+		END_IF
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

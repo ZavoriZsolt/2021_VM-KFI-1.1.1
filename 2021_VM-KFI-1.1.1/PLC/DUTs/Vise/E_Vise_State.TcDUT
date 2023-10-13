@@ -8,11 +8,12 @@ TYPE E_Vise_State :
 	Empty := 0,
 	OutForLoad := 10,
 	ReadyToCnc := 20,
-	InRobotAram := 30,
+	InRobotArmBeforeCnc := 30,
 	InCnc := 40,
 	CncDone := 50,
-	WaitingForUnLoad := 60,
-	OutForUnload := 70,
+	InRobotArmAfterCnc := 60,
+	WaitingForUnLoad := 70,
+	OutForUnload := 80,
 	RequestCleaning := 100,
 	OutOfService := 200
 );

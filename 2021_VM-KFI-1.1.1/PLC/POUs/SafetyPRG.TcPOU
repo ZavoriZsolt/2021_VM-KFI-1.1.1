@@ -3,23 +3,31 @@
   <POU Name="SafetyPRG" Id="{d93974d1-d903-4b6e-83e0-8aba9599867a}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM SafetyPRG
 VAR
-	fbAirTimer			:TON;
+	fbAirTimer						:TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Safety GroupPort run condition
 q_bSafetyRun := TRUE;
-q_bSafetyMasterOn := i_bMasterOn AND bBL100p100;
+q_bCellEmptyAck_CNC45 := i_bCellAck;
+q_bSafetyMasterOn_CNC45 := i_bMasterOn_CNC45 AND bBL100p100;
+q_bSafetyMasterOn_Main := i_bMasterOn_Main AND bBL100p100;
+q_bBlink := bBL500p500;
 
 // Safety Error
-bSafetyError := i_bSafetyGroupComErr OR i_bSafetyGroupFBErr OR i_bSafetyGroupOtherErr OR 
-				i_bLO1EDMErr OR i_bLO2EDMErr;
+bSafetyError_CNC45 := i_bSafetyGroupComErr_CNC45 OR i_bSafetyGroupFBErr_CNC45 OR i_bSafetyGroupOtherErr_CNC45 OR 
+				i_bLO1EDMErr_CNC45 OR i_bLO2EDMErr_CNC45;
 
-q_bSafetyErrorAck := bSafetyError AND bBL100p100 OR i_bVisePos1ErrorAckBtn OR i_bVisePos2ErrorAckBtn;				
+bSafetyError_Main := i_bSafetyGroupComErr_Main OR i_bSafetyGroupFBErr_Main OR i_bSafetyGroupOtherErr_Main OR 
+				i_bLO1EDMErr_Main OR i_bLO2EDMErr_Main;
+
+q_bSafetyErrorAck_CNC45 := bSafetyError_CNC45 AND bBL100p100 OR i_bVisePos1ErrorAckBtn OR i_bVisePos2ErrorAckBtn;				
+
+q_bSafetyErrorAck_Main := bSafetyError_Main AND bBL100p100 OR i_bErrorAckBtn_Main;				
 
 (*Air pressure error*)
-fbAirTimer(IN:= i_bLO1, PT:= T#10S);
-IF i_bLO1 THEN
+fbAirTimer(IN:= i_bLO1_CNC45, PT:= T#10S);
+IF i_bLO1_CNC45 THEN
 	IF fbAirTimer.Q AND NOT i_bAirPressureOk THEN
 		wError.0 := TRUE;
 	END_IF

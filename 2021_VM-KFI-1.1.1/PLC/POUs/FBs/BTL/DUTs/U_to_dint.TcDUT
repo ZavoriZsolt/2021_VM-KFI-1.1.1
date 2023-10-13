@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="U_to_dint" Id="{64957c93-ba3f-4d61-8ae5-d9ebecfad76b}">
+    <Declaration><![CDATA[TYPE U_to_dint :
+UNION
+	arrRaw			: ARRAY [0..3] OF BITARR8;
+	nData			: DINT;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

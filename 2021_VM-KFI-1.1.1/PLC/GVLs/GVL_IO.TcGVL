@@ -5,130 +5,217 @@
 (**************************************************Inputs*********************************************************)	
 	// 1.x
 	// Satuzó 1-7
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 1^Input'} 
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 1^Input'} 
 	i_bVisePos1InBtn			AT %I*	:BOOL;		// Satu be 1-7
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 2^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 2^Input'}
 	i_bVisePos1RequestBtn		AT %I*	:BOOL;		// Satu kérés 1-7
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 3^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 3^Input'}
 	i_bVisePos1CleanBtn			AT %I*	:BOOL;		// Satu tisztítás 1-7
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 4^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 4^Input'}
 	i_bVisePos1ErrorAckBtn		AT %I*	:BOOL;		// Satu hibanyugta 1-7
 
 	// Satuzó 8-14
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 5^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 5^Input'}
 	i_bVisePos2InBtn			AT %I*	:BOOL;		// Satu be 8-14
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 6^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 6^Input'}
 	i_bVisePos2RequestBtn		AT %I*	:BOOL;		// Satu kérés 8-14
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 7^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 7^Input'}
 	i_bVisePos2CleanBtn			AT %I*	:BOOL;		// Satu tisztítás 8-14
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 8^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 8^Input'}
 	i_bVisePos2ErrorAckBtn		AT %I*	:BOOL;		// Satu hibanyugta 8-14
 	
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 9^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 9^Input'}
 	i_bAirPressureOk			AT %I*	:BOOL;		// Levegő nyomás OK
-	{attribute 'TcLinkTo' := 'TIIB(27)^Channel 10^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 10^Input'}
 	i_bCellAck					AT %I*	:BOOL;		// Satuzó ajtó zárás nyugtázás - kék gomb
 	
 	// 2.x
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 1^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 1^Input'}
 	i_bEMYStop1					AT %I*	:BOOL;		// Vészstop 1
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 2^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 2^Input'}
 	i_bEMYStop2					AT %I*	:BOOL;		// Vészstop 2
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 3^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 3^Input'}
 	i_bEMYStop3					AT %I*	:BOOL;		// Vészstop 3
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 4^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 4^Input'}
 	i_bEMYStop4					AT %I*	:BOOL;		// Vészstop 4
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 5^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 5^Input'}
 	i_bEMYStop5					AT %I*	:BOOL;		// Vészstop 5
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 6^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 6^Input'}
 	i_bEMYStop6					AT %I*	:BOOL;		// Vészstop 6	
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 9^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 9^Input'}
 	i_bDoorClosed				AT %I*	:BOOL;		// Ajtó nyitva/zárva
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 10^Input'}
-	i_bMasterOn					AT %I*	:BOOL;		// Vezérlés
-	{attribute 'TcLinkTo' := 'TIIB(28)^Channel 11^Input'}
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 10^Input'}
+	i_bMasterOn_CNC45					AT %I*	:BOOL;		// Vezérlés
+	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 11^Input'}
 	i_bDoorRequest				AT %I*	:BOOL;		// Ajtó nyítás kérés
 
 	
 (**************************************************Outputs*********************************************************)
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 1^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 1^Output'}
 	q_bMasterOnLED				AT %Q*	:BOOL;		// Vezérlés LED
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 2^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 2^Output'}
 	q_bDoorRequestLED			AT %Q*	:BOOL;		// Ajtó nyítás kérés LED
 	
 	// Satuzó 1-7
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 3^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 3^Output'}
 	q_bVise1InLED				AT %Q*	:BOOL;		// Satu be 1-7 LED
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 4^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 4^Output'}
 	q_bVise1ReqestLED			AT %Q*	:BOOL;		// Satu kérés 1-7 LED
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 5^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 5^Output'}
 	q_bVise1CleanLED			AT %Q*	:BOOL;		// Satu tisztítás 1-7 LED
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 6^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 6^Output'}
 	q_bVise1ErrorAckLED 		AT %Q*	:BOOL;		// Satu hibanyugta 1-7 LED
 	
 	// Satuzó 8-14
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 7^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 7^Output'}
 	q_bVise2InLED				AT %Q*	:BOOL;		// Satu be 8-14 LED
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 8^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 8^Output'}
 	q_bVise2RequestLED			AT %Q*	:BOOL;		// Satu kérés 8-14 LED
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 9^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 9^Output'}
 	q_bVise2CleanLED			AT %Q*	:BOOL;		// Satu tisztítás 8-14 LED
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 10^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 10^Output'}
 	q_bVise2ErrorAckBtnLED		AT %Q*	:BOOL;		// Satu hibanyugta 8-14 LED
 	
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 11^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 11^Output'}
 	q_bDoorLock					AT %Q*	:BOOL;		// Ajtó zárás
-	{attribute 'TcLinkTo' := 'TIIB(29)^Channel 12^Output'}
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 12^Output'}
 	q_bCellAckLED				AT %Q*	:BOOL;		// Satuzó ajtó zárás nyugtázás - kék gomb LED
-	{attribute 'TcLinkTo' := 'TIIB(22)^InfoData^State'}
+	{attribute 'TcLinkTo' := 'TIIB(60)^InfoData^State'}
 	i_nBusState					AT %I*	:uint;
 	
 (**************************************************Festo Inputs*********************************************************)	
 	// Satuzó 1-7
- 	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(33)^Input^Inputs^Input 0;
-    						 	  <8,8,0>TIIB(33)^Input^Inputs^Input 1;'}
+ 	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(88)^Input^Inputs^Input 0;
+    						 	  <8,8,0>TIIB(88)^Input^Inputs^Input 1;'}
 	i_stViseStationSensors_1	AT %I*	:ST_Vise_Sensors;
-	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(33)^Input^Inputs^Input 2;
-								 <8,8,0>TIIB(33)^Input^Inputs^Input 3'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(88)^Input^Inputs^Input 2;
+								 <8,8,0>TIIB(88)^Input^Inputs^Input 3'}
 	i_stViseStationSensors_2	AT %I*	:ST_Vise_Sensors;
-	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(33)^Input^Inputs^Input 4;
-								 <8,8,0>TIIB(33)^Input^Inputs^Input 5'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(88)^Input^Inputs^Input 4;
+								 <8,8,0>TIIB(88)^Input^Inputs^Input 5'}
 	i_stViseStationSensors_3	AT %I*	:ST_Vise_Sensors;
-	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(33)^Input^Inputs^Input 6;
-    						 	  <8,8,0>TIIB(33)^Input^Inputs^Input 7;'}
+	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(88)^Input^Inputs^Input 6;
+    						 	  <8,8,0>TIIB(88)^Input^Inputs^Input 7;'}
 	i_stViseStationSensors_4	AT %I*	:ST_Vise_Sensors;
-	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(33)^Input^Inputs^Input 8;
-								 <8,8,0>TIIB(33)^Input^Inputs^Input 9'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(88)^Input^Inputs^Input 8;
+								 <8,8,0>TIIB(88)^Input^Inputs^Input 9'}
 	i_stViseStationSensors_5	AT %I*	:ST_Vise_Sensors;
-	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(33)^Input^Inputs^Input 10;
-								 <8,8,0>TIIB(33)^Input^Inputs^Input 11'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(88)^Input^Inputs^Input 10;
+								 <8,8,0>TIIB(88)^Input^Inputs^Input 11'}
 	i_stViseStationSensors_6	AT %I*	:ST_Vise_Sensors;
-	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(33)^Input^Inputs^Input 12;
-								 <8,8,0>TIIB(33)^Input^Inputs^Input 13'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(88)^Input^Inputs^Input 12;
+								 <8,8,0>TIIB(88)^Input^Inputs^Input 13'}
 	i_stViseStationSensors_7	AT %I*	:ST_Vise_Sensors;
 	
 	// Satuzó 8-14
-// 	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(25)^Input^Inputs^Input 0;
-//    						 	  <8,8,0>TIIB(25)^Input^Inputs^Input 1;'}
+ 	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(89)^Input^Inputs^Input 0;
+    						 	  <8,8,0>TIIB(89)^Input^Inputs^Input 1;'}
 	i_stViseStationSensors_8	AT %I*	:ST_Vise_Sensors;
-//	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(25)^Input^Inputs^Input 2;
-//								 <8,8,0>TIIB(25)^Input^Inputs^Input 3'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(89)^Input^Inputs^Input 2;
+								 <8,8,0>TIIB(89)^Input^Inputs^Input 3'}
 	i_stViseStationSensors_9	AT %I*	:ST_Vise_Sensors;
-//	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(25)^Input^Inputs^Input 4;
-//								 <8,8,0>TIIB(25)^Input^Inputs^Input 5'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(89)^Input^Inputs^Input 4;
+								 <8,8,0>TIIB(89)^Input^Inputs^Input 5'}
 	i_stViseStationSensors_10	AT %I*	:ST_Vise_Sensors;
-//	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(25)^Input^Inputs^Input 6;
-//    						 	  <8,8,0>TIIB(25)^Input^Inputs^Input 7;'}
+	{attribute 'TcLinkToOSO' := ' <0,8,0>TIIB(89)^Input^Inputs^Input 6;
+    						 	  <8,8,0>TIIB(89)^Input^Inputs^Input 7;'}
 	i_stViseStationSensors_11	AT %I*	:ST_Vise_Sensors;
-//	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(25)^Input^Inputs^Input 8;
-//								 <8,8,0>TIIB(25)^Input^Inputs^Input 9'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(89)^Input^Inputs^Input 8;
+								 <8,8,0>TIIB(89)^Input^Inputs^Input 9'}
 	i_stViseStationSensors_12	AT %I*	:ST_Vise_Sensors;
-//	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(25)^Input^Inputs^Input 10;
-//								 <8,8,0>TIIB(25)^Input^Inputs^Input 11'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(89)^Input^Inputs^Input 10;
+								 <8,8,0>TIIB(89)^Input^Inputs^Input 11'}
 	i_stViseStationSensors_13	AT %I*	:ST_Vise_Sensors;
-//	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(25)^Input^Inputs^Input 12;
-//								 <8,8,0>TIIB(25)^Input^Inputs^Input 13'}
+	{attribute 'TcLinkToOSO' := '<0,8,0>TIIB(89)^Input^Inputs^Input 12;
+								 <8,8,0>TIIB(89)^Input^Inputs^Input 13'}
 	i_stViseStationSensors_14	AT %I*	:ST_Vise_Sensors;
+END_VAR
+VAR_GLOBAL
+(**************************************************CNC45 Inputs*********************************************************)
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 1^Input'} 
+	i_bCNC4_Door_Opened			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 2^Input'} 
+	i_bCNC4_Door_Closed			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 3^Input'}
+	i_bCNC4_Program_Ready		AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 4^Input'}
+	i_bCNC4_Program_Run			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 5^Input'}
+	i_bCNC4_Program_End			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 6^Input'}
+	i_bCNC4_Error				AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 7^Input'}
+	i_bCNC4_Robot_Mode			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 8^Input'}
+	i_bCNC4_M401_Req			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 9^Input'}
+	i_bCNC4_M402_Req			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 10^Input'}
+	i_bCNC4_M403_Req			AT %I*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(91)^Channel 11^Input'}
+	i_bCNC4_Door_HW_opened		AT %I*	:BOOL;
+	
+(**************************************************CNC45 Outputs*********************************************************)
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 1^Output'}
+	q_bCNC4_Door_Open			AT %Q*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 2^Output'}
+	q_bCNC4_Door_Close			AT %Q*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 3^Output'}
+	q_bCNC4_Program_Start		AT %Q*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 4^Output'}
+	q_bCNC4_M401_Ack			AT %Q*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 5^Output'}
+	q_bCNC4_M402_Ack			AT %Q*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 6^Output'}
+	q_bCNC4_M403_Ack			AT %Q*	:BOOL;
+
+END_VAR
+VAR_GLOBAL
+(**************************************************Inputs*********************************************************)	
+	// 1.x
+	// Satuzó 1-7
+	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 1^Input'} 
+	i_bTest_01					AT %I*	:BOOL;		// Test 01
+	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 2^Input'}
+	i_bErrorAckBtn_Main			AT %I*	:BOOL;		// Error Ack
+	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 3^Input'}
+	i_bTest03					AT %I*	:BOOL;		// Test 03
+	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 4^Input'}
+	i_bMasterOn_Main			AT %I*	:BOOL;		// Master On
+	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 5^Input'}
+	i_bTest_Up					AT %I*	:BOOL;		// Master On
+	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 6^Input'}
+	i_bTest_Stop				AT %I*	:BOOL;		// Master On
+	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 7^Input'}
+	i_bTest_Down				AT %I*	:BOOL;		// Master On
+
+(**************************************************Outputs*********************************************************)
+	{attribute 'TcLinkTo' := 'TIIB(51)^Channel 4^Output'}
+	q_bMasterOnLED_Main			AT %Q*	:BOOL;		// Vezérlés LED
+
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 1^Output'}
+	q_bConveyor_1				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 2^Output'}
+	q_bConveyor_2				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 3^Output'}
+	q_bConveyor_3				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 4^Output'}
+	q_bConveyor_4				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 5^Output'}
+	q_bConveyor_5				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 6^Output'}
+	q_bConveyor_6				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 7^Output'}
+	q_bConveyor_7				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 8^Output'}
+	q_bConveyor_8				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 9^Output'}
+	q_bConveyor_9				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 10^Output'}
+	q_bConveyor_10				AT %Q*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 11^Output'}
+	q_bConveyor_11				AT %Q*	:BOOL;		// Konvejor
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

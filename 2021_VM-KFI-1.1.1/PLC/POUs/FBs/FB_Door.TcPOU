@@ -4,14 +4,18 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Door
 VAR_INPUT
 	bDoorButton			:BOOL;			// Door button imput
-	bOpenEnable			:BOOL;			// The door open is possible 
+	bOpenEnable			:BOOL;			// The door open is possible
+	bEmergencyOk		:BOOL;			// Emergency circuit state
+	bWaitClose			:BOOL;			// Waiting door close 
 	bDoorsClosed		:BOOL;			// Doors are closed
 	bDoorsLocked		:BOOL;			// The doors are locked
-	bBlink				:BOOL;			// Blinker for the door open button
+	bBlink_1			:BOOL;			// Blinker for the door open button
+	bBlink_2			:BOOL;			// Blinker for the cell ack button
 END_VAR
 VAR_OUTPUT
 	bCloseOut			:BOOL;			// Door closed output
 	bDoorButtonLED		:BOOL;			// Door button LED output
+	bCellAckLED			:BOOL;			// Cell empty acknoledge LED output
 	bObenRequestOut		:BOOL;			// Door open request output
 END_VAR
 VAR
@@ -34,7 +38,7 @@ Open possibilities (if the doors locked and the button is pushed):
 rtDoorButton(CLK:= bDoorButton);
 
 // Lock doors
-IF rtDoorButton.Q AND bDoorsClosed AND NOT bDoorsLocked THEN
+IF bEmergencyOk AND rtDoorButton.Q AND bDoorsClosed AND bWaitClose AND NOT bDoorsLocked THEN
 	bCloseOut := TRUE;
 END_IF
 
@@ -49,7 +53,8 @@ rsOpenRequest(
 //tOpenForce(IN:= bDoorButton AND bDoorsLocked, PT:= tOpenForceDelay);
 
 // Open output
-IF (rsOpenRequest.Q1 AND bOpenEnable) 
+IF (rsOpenRequest.Q1 AND bOpenEnable)
+	OR NOT bEmergencyOk 
 //	OR tOpenForce.Q
 THEN
 	bCloseOut := FALSE;
@@ -58,17 +63,27 @@ END_IF
 // Control for the door open blinker LED
 IF bDoorsLocked THEN
 	IF rsOpenRequest.Q1 THEN
-		bDoorButtonLED := bBlink;
+		bDoorButtonLED := bBlink_1;
 	ELSE
 		bDoorButtonLED := TRUE;
 	END_IF
+ELSIF bDoorsClosed AND bWaitClose THEN
+	bDoorButtonLED := bBlink_1;
 ELSE
 	bDoorButtonLED := FALSE;
-END_IF]]></ST>
+END_IF
+
+// Cell Ack Led
+IF bEmergencyOk THEN
+	IF bWaitClose THEN
+		bCellAckLED := bBlink_1;
+	ELSE
+		bCellAckLED := bBlink_2;
+	END_IF
+ELSE
+	bCellAckLED := FALSE;
+END_IF
+]]></ST>
     </Implementation>
-    <LineIds Name="FB_Door">
-      <LineId Id="3" Count="41" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

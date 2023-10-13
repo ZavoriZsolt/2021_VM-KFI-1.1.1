@@ -2,21 +2,48 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <GVL Name="GVL_Safety" Id="{7831800b-3b8a-4161-88f7-8e1c36003963}">
     <Declaration><![CDATA[VAR_GLOBAL
+(*-----=== Common ===-----*)
+(***************************************************Test**********************************************************)	
+	q_bSafetyDriveEnCnc1			AT %Q*	:BOOL;	// Enable
 (**************************************************Inputs*********************************************************)	
-	i_bLO1						AT %I*	:BOOL;	
-	i_bLO2						AT %I*	:BOOL;	
-	i_bLO1EDMErr				AT %I*	:BOOL;	
-	i_bLO2EDMErr				AT %I*	:BOOL;	
-	i_bSafetyGroupComErr		AT %I*	:BOOL;
-	i_bSafetyGroupFBErr			AT %I*	:BOOL;	
-	i_bSafetyGroupOtherErr		AT %I*	:BOOL;	
 
-	bSafetyError					:BOOL;		// Safety error
 
-(**************************************************Outputs*********************************************************)
-	q_bSafetyRun				AT %Q*	:BOOL;	// Safety run
-	q_bSafetyMasterOn			AT %Q*	:BOOL;	// Master on
-	q_bSafetyErrorAck			AT %Q*	:BOOL;	// Safety ack		
+(**************************************************Outputs********************************************************)
+	q_bSafetyRun					AT %Q*	:BOOL;	// Safety run
+	q_bBlink						AT %Q*	:BOOL;
+
+(*-----=== CNC4 - CNC5 ===-----*)
+(**************************************************Inputs*********************************************************)
+	i_bLO1_CNC45					AT %I*	:BOOL;	
+	i_bLO2_CNC45					AT %I*	:BOOL;	
+	i_bLO1EDMErr_CNC45				AT %I*	:BOOL;	
+	i_bLO2EDMErr_CNC45				AT %I*	:BOOL;	
+	i_bSafetyGroupComErr_CNC45		AT %I*	:BOOL;
+	i_bSafetyGroupFBErr_CNC45		AT %I*	:BOOL;	
+	i_bSafetyGroupOtherErr_CNC45	AT %I*	:BOOL;
+	i_bWaitClose_CNC45				AT %I*	:BOOL;
+	bSafetyError_CNC45						:BOOL;	// Safety error
+(**************************************************Outputs********************************************************)
+	q_bSafetyMasterOn_CNC45			AT %Q*	:BOOL;	// Master on
+	q_bCellEmptyAck_CNC45			AT %Q*	:BOOL;	// Cell empty ack
+	q_bSafetyErrorAck_CNC45			AT %Q*	:BOOL;	// Safety ack
+
+
+(*-----=== Main ===-----*)
+(**************************************************Inputs*********************************************************)	
+	i_bLO1_Main						AT %I*	:BOOL;	
+	i_bLO2_Main						AT %I*	:BOOL;	
+	i_bLO1EDMErr_Main				AT %I*	:BOOL;	
+	i_bLO2EDMErr_Main				AT %I*	:BOOL;	
+	i_bSafetyGroupComErr_Main		AT %I*	:BOOL;
+	i_bSafetyGroupFBErr_Main		AT %I*	:BOOL;	
+	i_bSafetyGroupOtherErr_Main		AT %I*	:BOOL;
+	i_bWaitClose_Main				AT %I*	:BOOL;
+	bSafetyError_Main						:BOOL;	// Safety error
+(**************************************************Outputs********************************************************)
+	q_bSafetyMasterOn_Main			AT %Q*	:BOOL;	// Master on
+	q_bCellEmptyAck_Main			AT %Q*	:BOOL;	// Cell empty ack
+	q_bSafetyErrorAck_Main			AT %Q*	:BOOL;	// Safety ack
 END_VAR
 
 

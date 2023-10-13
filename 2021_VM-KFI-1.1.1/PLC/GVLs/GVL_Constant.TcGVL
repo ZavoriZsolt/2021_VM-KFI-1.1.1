@@ -12,7 +12,7 @@
 	cOrange		:UDINT := 16#000F3200;
 	cYellow		:UDINT := 16#000F0F00;
 	cGreen 		:UDINT := 16#00000F00;
-	cBlue 		:UDINT := 16#0000000F;
+	cBlue 		:UDINT := 16#00000020;
 	cIndigo		:UDINT := 16#0064005A;
 	cViolet		:UDINT := 16#00C80064;
 	cWhite 		:UDINT := 16#000F0F0F;

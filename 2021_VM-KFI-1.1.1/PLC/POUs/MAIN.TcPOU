@@ -8,7 +8,8 @@ VAR
 	i							:UDINT;
 	fbWakeUpTmr					:TON;	
 	sTime						:STRING(8);
-	bAckLED						:BOOL;	
+	bAckLED						:BOOL;
+	darius						:UDINT;	
 	
 	// Alarm	
 	aErrorActive				:ARRAY[1..nNbrOfAlarms] OF WORD;
@@ -20,8 +21,10 @@ VAR
 
 	(*ID200 Test*)
 	(*Function block*)
-	fbId200_1			: FB_ID200;
-	TestData : ARRAY [0..7] OF BYTE;
+	j				: INT := 1;
+	k				: INT := 1;
+	FixCode			: ARRAY [0..4] OF BYTE;
+	TestData 		: ARRAY [0..7] OF BYTE;
 	(*Head Data*)
 
 	bTestQuit			: BOOL;
@@ -33,8 +36,7 @@ VAR
 	
 	bTestSWFC			: BOOL;
 	bTestSWWS			: BOOL;
-	
-	fbAwea				: FB_AWEA;
+	fbVisePos			: FB_BTL1AR0;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[//InitTCPIP();
@@ -49,77 +51,16 @@ Mode();
 ViseProgram();
 RobotCncProgram();
 
-
+fbVisePos(nDistance=> );
 
 Test();
-fbAwea();
-
+SQL_Test();
+ID_200();
 
 fbTime(bEnable := TRUE, dwCycle := 1);
 dtSystemTime := SYSTEMTIME_TO_DT(TIMESTR:= fbTime.systemTime);
 sTime := MID((SYSTEMTIME_TO_STRING(fbTime.systemTime)),8,12);
 
-fbId200_1();
-IF bTestReset THEN
-	IF fbId200_1.Reset() THEN
-		bTestReset := FALSE;
-	END_IF
-END_IF
-
-IF bTestQuit THEN
-	IF fbId200_1.Quit(bTestChannel) THEN
-		bTestQuit := FALSE;
-	END_IF
-END_IF
-
-IF bTestERWS THEN
-	IF fbId200_1.EncReadWords(bTestChannel, 5, ) THEN
-		bTestERWS := FALSE;
-	END_IF
-END_IF
-
-IF bTestERFC THEN
-	IF fbId200_1.EncReadFixCode(bTestChannel) THEN
-		bTestERFC := FALSE;
-	END_IF
-END_IF
-
-IF bTestCT THEN
-	IF fbId200_1.ChangeTag(			Channel := bTestChannel,
-									CarrierType := E_CarrierType.MDT_28) THEN
-		bTestCT := FALSE;
-	END_IF
-END_IF
-
-//v1
-IF bTestSWFC THEN
-	IF fbId200_1.SinWriteFixCode(	Channel := bTestChannel,
-									CarrierType := E_CarrierType.MDT_28,
-									Data := TestData,
-									DataLength := 5) THEN
-		bTestSWFC := FALSE;
-	END_IF
-END_IF
-
-//v2
-//IF bTestSWFC THEN
-//	IF fbId200_1.SinWriteFixCode(	Channel := bTestChannel,
-//									Fixlen := uFixLength,
-//									CarrierType := E_CarrierType.MDT_28,
-//									Data := TestData,
-//									DataLength := 5) THEN
-//		bTestSWFC := FALSE;
-//	END_IF
-//END_IF
-
-IF bTestSWWS THEN
-	IF fbId200_1.SinWriteWords(		Channel := bTestChannel,
-									1,
-									Data := TestData,
-									DataLength := 5) THEN
-		bTestSWWS := FALSE;
-	END_IF
-END_IF
 ]]></ST>
     </Implementation>
     <Action Name="Alarm" Id="{74b54fed-c5dc-49fb-9aa9-6cad65b323d1}">
@@ -132,7 +73,7 @@ IF rtAck.Q THEN
 	bAckHMI := FALSE;
 END_IF
 
-IF wError <> 0 OR bSafetyError OR ViseProgram.nState >= 200000 THEN
+IF wError <> 0 OR bSafetyError_CNC45 OR ViseProgram.nState >= 200000 THEN
 	bGlobalError := TRUE;
 ELSE
 	bGlobalError := FALSE;
@@ -153,11 +94,11 @@ END_IF
 
 aErrorActive[1].0 := wError.0;
 aErrorActive[2].0 := wError.1;
-aErrorActive[3].0 := i_bSafetyGroupComErr;
-aErrorActive[4].0 := i_bSafetyGroupFBErr;
-aErrorActive[5].0 := i_bSafetyGroupOtherErr;
-aErrorActive[6].0 := i_bLO1EDMErr;
-aErrorActive[7].0 := i_bLO2EDMErr;
+aErrorActive[3].0 := i_bSafetyGroupComErr_CNC45;
+aErrorActive[4].0 := i_bSafetyGroupFBErr_CNC45;
+aErrorActive[5].0 := i_bSafetyGroupOtherErr_CNC45;
+aErrorActive[6].0 := i_bLO1EDMErr_CNC45;
+aErrorActive[7].0 := i_bLO2EDMErr_CNC45;
 
 FOR i := 1 TO nNbrOfAlarms DO
 	IF aErrorActive[i].0 THEN
@@ -196,13 +137,85 @@ END_IF
       <Implementation>
         <ST><![CDATA[fbDoor(
 	bDoorButton:= i_bDoorRequest, 
-	bOpenEnable:= TRUE (*and robot.....*), 
+	bOpenEnable:= TRUE (*and robot.....*),
+	bEmergencyOk:= i_bLO1_CNC45,
+	bWaitClose:= i_bWaitClose_CNC45,
 	bDoorsClosed:= i_bDoorClosed, 
-	bDoorsLocked:= i_bLO2, 
-	bBlink:= bBL100p100, 
+	bDoorsLocked:= i_bLO2_CNC45, 
+	bBlink_1:= bBL100p100,
+	bBlink_2:= bBL500p500, 
 	bCloseOut=> q_bDoorLock, 
-	bDoorButtonLED=> q_bDoorRequestLED, 
+	bDoorButtonLED=> q_bDoorRequestLED,
+	bCellAckLED => q_bCellAckLED, 
 	bObenRequestOut=> bDoorOpenReq);
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ID_200" Id="{454861a7-6e0b-4444-864d-9594011e8d7c}">
+      <Implementation>
+        <ST><![CDATA[
+FOR j:=1 TO 10 DO
+	fbRFID_Readers[j]();
+END_FOR
+
+IF bTestReset THEN
+	IF fbRFID_Readers[k].Reset() THEN
+		bTestReset := FALSE;
+	END_IF
+END_IF
+
+IF bTestQuit THEN
+	IF fbRFID_Readers[k].Quit(bTestChannel) THEN
+		bTestQuit := FALSE;
+	END_IF
+END_IF
+
+IF bTestERWS THEN
+	IF fbRFID_Readers[k].EncReadWords(bTestChannel, 5, ) THEN
+		bTestERWS := FALSE;
+	END_IF
+END_IF
+
+IF bTestERFC THEN
+	IF fbRFID_Readers[k].EncReadFixCode(bTestChannel) THEN
+		bTestERFC := FALSE;
+	END_IF
+END_IF
+
+IF bTestCT THEN
+	IF fbRFID_Readers[k].ChangeTag(			Channel := bTestChannel,
+									CarrierType := E_CarrierType.MDT_28) THEN
+		bTestCT := FALSE;
+	END_IF
+END_IF
+
+//v1
+IF bTestSWFC THEN
+	IF fbRFID_Readers[k].SinWriteFixCode(	Channel := bTestChannel,
+													Data := FixCode) THEN
+		bTestSWFC := FALSE;
+	END_IF
+END_IF
+
+//v2
+//IF bTestSWFC THEN
+//	IF fbId200_1.SinWriteFixCode(	Channel := bTestChannel,
+//									Fixlen := uFixLength,
+//									CarrierType := E_CarrierType.MDT_28,
+//									Data := TestData,
+//									DataLength := 5) THEN
+//		bTestSWFC := FALSE;
+//	END_IF
+//END_IF
+
+IF bTestSWWS THEN
+	IF fbRFID_Readers[k].SinWriteWords(		Channel := bTestChannel,
+									1,
+									Data := TestData,
+									DataLength := 5) THEN
+		bTestSWWS := FALSE;
+	END_IF
+END_IF
 ]]></ST>
       </Implementation>
     </Action>
@@ -223,7 +236,7 @@ END_IF]]></ST>
     <Action Name="Light" Id="{17fc2ff3-9ede-4c3e-bb12-242734fa3e89}">
       <Implementation>
         <ST><![CDATA[//Master on light
-q_bMasterOnLED := (i_bLO1 (*AND i_bLO2*)) OR (bBL500p500 AND 
+q_bMasterOnLED := (i_bLO1_CNC45 (*AND i_bLO2*)) OR (bBL500p500 AND 
 					NOT i_bEmyStop1 AND NOT i_bEmyStop2 AND NOT i_bEmyStop3 AND
 					NOT i_bEmyStop4 AND NOT i_bEmyStop5 AND NOT i_bEmyStop6);
 
@@ -236,7 +249,7 @@ q_bVise1ErrorAckLED := q_bVise2ErrorAckBtnLED := bAckLED;
 	
 fbNotSmartLight(
 	bEmyStop:= i_bEmyStop1 OR i_bEmyStop2 OR i_bEmyStop3 OR i_bEmyStop4 OR i_bEmyStop5 OR i_bEmyStop6,
-	bEmyOK:= i_bLO1 AND i_bLO2, 
+	bEmyOK:= i_bLO1_CNC45 AND i_bLO2_CNC45, 
 	bError:= bGlobalError, 
 	bOutOfStock:= ,
 	bBuzzer := FALSE,
@@ -262,7 +275,7 @@ ELSE
 END_IF
 
 // Step mode for testing
-rtStep(CLK:= bStepHMI OR i_bMasterOn, Q=> bStepP);
+rtStep(CLK:= bStepHMI OR i_bMasterOn_CNC45, Q=> bStepP);
 IF bStepMode AND bStepP OR NOT bStepMode THEN
 	bStepEnable := TRUE;
 ELSE

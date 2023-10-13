@@ -13,6 +13,7 @@ VAR
 	fbSQLStoredProcedure	:FB_SQLStoredProcedureEvt(sNetID:='', tTimeout := T#5S);
 	
 	nStep					:INT;
+	nLastStepError			:INT;
 	nConnectionStep			:INT;
 	
 	// Properties
@@ -26,6 +27,9 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF _Error THEN
+	IF nStep <> 200 THEN
+		nLastStepError := nStep;
+	END_IF
 	nStep := 200;
 END_IF
 IF _Error AND _ACK THEN
@@ -445,159 +449,5 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <LineIds Name="FB_SQL">
-      <LineId Id="140" Count="2" />
-      <LineId Id="105" Count="3" />
-      <LineId Id="137" Count="1" />
-      <LineId Id="135" Count="0" />
-      <LineId Id="139" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.ACK.Set">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Connect">
-      <LineId Id="24" Count="0" />
-      <LineId Id="40" Count="4" />
-      <LineId Id="48" Count="0" />
-      <LineId Id="45" Count="2" />
-      <LineId Id="39" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.CreateCmd">
-      <LineId Id="24" Count="0" />
-      <LineId Id="17" Count="6" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.CreateSP">
-      <LineId Id="12" Count="0" />
-      <LineId Id="6" Count="2" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="9" Count="2" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.DBID.Get">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Disconnect">
-      <LineId Id="23" Count="0" />
-      <LineId Id="16" Count="2" />
-      <LineId Id="24" Count="0" />
-      <LineId Id="19" Count="3" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Error.Get">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Execute">
-      <LineId Id="14" Count="0" />
-      <LineId Id="6" Count="2" />
-      <LineId Id="15" Count="0" />
-      <LineId Id="9" Count="2" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.ExecuteDataReturn">
-      <LineId Id="14" Count="0" />
-      <LineId Id="6" Count="2" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="9" Count="2" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.ExecuteDataReturnSP">
-      <LineId Id="14" Count="0" />
-      <LineId Id="6" Count="2" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="11" Count="0" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Init">
-      <LineId Id="10" Count="1" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="13" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Modify">
-      <LineId Id="94" Count="1" />
-      <LineId Id="152" Count="2" />
-      <LineId Id="112" Count="0" />
-      <LineId Id="170" Count="2" />
-      <LineId Id="113" Count="0" />
-      <LineId Id="173" Count="0" />
-      <LineId Id="114" Count="0" />
-      <LineId Id="121" Count="0" />
-      <LineId Id="168" Count="1" />
-      <LineId Id="122" Count="1" />
-      <LineId Id="139" Count="0" />
-      <LineId Id="161" Count="0" />
-      <LineId Id="163" Count="0" />
-      <LineId Id="162" Count="0" />
-      <LineId Id="140" Count="0" />
-      <LineId Id="145" Count="0" />
-      <LineId Id="151" Count="0" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Name.Get">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Read">
-      <LineId Id="15" Count="0" />
-      <LineId Id="6" Count="2" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="9" Count="3" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.RecordCounts.Get">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.ReleaseRead">
-      <LineId Id="19" Count="7" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.ReleaseSP">
-      <LineId Id="13" Count="0" />
-      <LineId Id="6" Count="2" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="9" Count="2" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.Select">
-      <LineId Id="186" Count="5" />
-      <LineId Id="265" Count="0" />
-      <LineId Id="192" Count="5" />
-      <LineId Id="204" Count="0" />
-      <LineId Id="263" Count="1" />
-      <LineId Id="205" Count="0" />
-      <LineId Id="236" Count="0" />
-      <LineId Id="244" Count="0" />
-      <LineId Id="253" Count="1" />
-      <LineId Id="245" Count="1" />
-      <LineId Id="223" Count="0" />
-      <LineId Id="255" Count="1" />
-      <LineId Id="224" Count="9" />
-      <LineId Id="235" Count="0" />
-      <LineId Id="7" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.StoredProcedure">
-      <LineId Id="279" Count="5" />
-      <LineId Id="355" Count="0" />
-      <LineId Id="285" Count="0" />
-      <LineId Id="297" Count="0" />
-      <LineId Id="365" Count="1" />
-      <LineId Id="298" Count="1" />
-      <LineId Id="306" Count="0" />
-      <LineId Id="369" Count="1" />
-      <LineId Id="307" Count="1" />
-      <LineId Id="348" Count="1" />
-      <LineId Id="316" Count="2" />
-      <LineId Id="350" Count="1" />
-      <LineId Id="325" Count="0" />
-      <LineId Id="338" Count="2" />
-      <LineId Id="367" Count="1" />
-      <LineId Id="326" Count="9" />
-      <LineId Id="337" Count="0" />
-      <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_SQL.TimeOut.Get">
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

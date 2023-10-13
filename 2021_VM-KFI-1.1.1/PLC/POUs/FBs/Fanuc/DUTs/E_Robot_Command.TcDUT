@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="E_Robot_Command" Id="{1c65cd89-ddbb-44ee-bada-c52422484d0c}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_Robot_Command :
+(
+	NoCommand 				:= 0,
+	Home					:= 1,
+	Wait					:= 2,
+	Service					:= 3,
+	Pick_Up_Vise			:= 4,
+	Put_Down_Vise			:= 5,
+	Pick_Up_Cnc 			:= 6,
+	Put_Down_Cnc 			:= 7,
+	Move_To_Clean			:= 8
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

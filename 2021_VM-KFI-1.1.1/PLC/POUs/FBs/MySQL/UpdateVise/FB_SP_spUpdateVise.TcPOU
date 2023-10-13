@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_SP_spUpdateVise" Id="{9c4801bb-6349-4c0e-999e-5ee6044339d0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SP_spUpdateVise
+VAR_INPUT
+	nRecordStartIndex			: UDINT;
+	tTimeout					: TIME;
+	bExecute					: BOOL;
+END_VAR
+VAR_OUTPUT
+	bBusy						: BOOL;
+	bError						: BOOL;
+	ipResult					: I_TcMessage;
+END_VAR
+VAR_IN_OUT
+	stParameterValues			: ST_ParaVal_UpdateVise;
+END_VAR
+VAR
+	R_TRIG_Execute				: R_TRIG;
+	nState						: INT;
+	nErrState					: INT;
+	fbSQLDatabase				: FB_SQLDatabaseEvt(sNetID := '', tTimeout := TIME#5s0ms);
+	fbSQLStoredProcedure		: FB_SQLStoredProcedureEvt(sNetID := '', tTimeout := TIME#5s0ms);
+	fbSQLResult					: FB_SQLResultEvt(sNetID := '', tTimeout := TIME#5s0ms);
+	arrParaInfo					: ARRAY[0..4] OF ST_SQLSPParameter;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE nState OF
+	0:
+		R_TRIG_Execute(CLK:=bExecute);
+		IF R_TRIG_Execute.Q THEN
+			nState := 1;
+			bBusy:=TRUE;
+			bError:=FALSE;
+			nErrState:=0;
+		END_IF
+	1:
+		IF fbSQLDatabase.Connect(1) THEN
+			ipResult:=fbSQLDatabase.ipTcResult;
+			IF fbSQLDatabase.bError THEN
+				nErrState:=1;
+				nState:=255;
+			ELSE
+				arrParaInfo[0].sParameterName := 'ViseNumber';
+				arrParaInfo[0].eParameterType := E_SPParameterType.Input;
+				arrParaInfo[0].eParameterDataType := E_ColumnType.TinyInt;
+				arrParaInfo[0].nParameterSize := 1;
+
+				arrParaInfo[1].sParameterName := 'SerialNumber';
+				arrParaInfo[1].eParameterType := E_SPParameterType.Input;
+				arrParaInfo[1].eParameterDataType := E_ColumnType.NVarChar;
+				arrParaInfo[1].nParameterSize := 256;
+
+				arrParaInfo[2].sParameterName := 'DutIdentifier';
+				arrParaInfo[2].eParameterType := E_SPParameterType.Input;
+				arrParaInfo[2].eParameterDataType := E_ColumnType.BigInt;
+				arrParaInfo[2].nParameterSize := 8;
+
+				arrParaInfo[3].sParameterName := 'CamIdentifier';
+				arrParaInfo[3].eParameterType := E_SPParameterType.Input;
+				arrParaInfo[3].eParameterDataType := E_ColumnType.BigInt;
+				arrParaInfo[3].nParameterSize := 8;
+
+				arrParaInfo[4].sParameterName := 'CncNumber';
+				arrParaInfo[4].eParameterType := E_SPParameterType.Input;
+				arrParaInfo[4].eParameterDataType := E_ColumnType.TinyInt;
+				arrParaInfo[4].nParameterSize := 1;
+				nState:= 2;
+			END_IF
+		END_IF
+	2:
+		IF fbSQLDatabase.CreateSP('spUpdateVise', ADR(arrParaInfo), SIZEOF(arrParaInfo), ADR(fbSQLStoredProcedure)) THEN
+			IF fbSQLDatabase.bError THEN
+				nErrState:=2;
+				nState:=255;
+			ELSE
+				nState:=3;
+			END_IF
+		END_IF
+	3:
+		IF fbSQLStoredProcedure.ExecuteDataReturn(ADR(stParameterValues), SIZEOF(stParameterValues), ADR(fbSQLResult))THEN
+			ipResult:=fbSQLStoredProcedure.ipTcResult;
+			IF fbSQLStoredProcedure.bError THEN
+				nErrState:=3;
+				nState:=255;
+			ELSE
+				nState:= 5;
+			END_IF
+		END_IF
+	
+	5:
+		IF fbSQLStoredProcedure.Release() THEN
+			IF fbSQLStoredProcedure.bError THEN
+				nErrState:=5;
+				nState:=255;
+			ELSE
+				nState:= 200;
+			END_IF
+		END_IF
+	200:
+		IF fbSQLDatabase.Disconnect() THEN
+			nState := 0;
+			bBusy:= FALSE;
+		END_IF
+	255:
+		bError:= TRUE;
+		bBusy:= FALSE;
+		IF nErrState > 1 THEN
+			nState:=200;
+		ELSE
+			nState:=0;
+		END_IF
+END_CASE
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

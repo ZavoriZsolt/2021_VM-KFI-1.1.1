@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_BTL1AR0" Id="{24ff049f-c8dc-470b-bbc6-361e98c1f37e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BTL1AR0
+VAR_OUTPUT
+	bValid					: BOOL;
+	nDistance				: REAL;
+END_VAR
+VAR
+	arrRaw		AT %I*		: ARRAY [0..3] OF BITARR8;
+	nState		AT %I*		: USINT;
+	nDword					: DINT;
+	uConv2Dint				: U_to_dint;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[uConv2Dint.arrRaw[0] := arrRaw[3];
+uConv2Dint.arrRaw[1] := arrRaw[2];
+uConv2Dint.arrRaw[2] := arrRaw[1];
+uConv2Dint.arrRaw[3] := arrRaw[0];
+IF uConv2Dint.nData <> 2147483647 AND nState = 3 THEN
+	bValid := TRUE;
+	nDistance := DINT_TO_REAL(uConv2Dint.nData)/1000;
+ELSE
+	bValid := FALSE;
+	nDistance := 0;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

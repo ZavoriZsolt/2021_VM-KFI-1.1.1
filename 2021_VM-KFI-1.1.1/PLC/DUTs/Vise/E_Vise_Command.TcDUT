@@ -6,6 +6,7 @@
 TYPE E_Vise_Command :
 (
 	Load,
+	InProcess,
 	UnLoad
 );
 END_TYPE

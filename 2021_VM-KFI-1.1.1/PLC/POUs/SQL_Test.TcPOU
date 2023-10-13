@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="SQL_Test" Id="{c043561f-125a-4107-abb2-d742f9f7d8ae}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SQL_Test
+VAR
+//	fbGetNextVise			: FB_SP_spGetNextVise;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//fbGetNextVise(
+//	CncNumber:= , 
+//	nRecordStartIndex:= 0, 
+//	tTimeout:= , 
+//	bExecute:= , 
+//	bBusy=> , 
+//	bError=> , 
+//	ipResult=> , 
+//	nViseNr=> );]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

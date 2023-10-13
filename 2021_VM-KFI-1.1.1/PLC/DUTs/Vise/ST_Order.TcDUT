@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ST_Order" Id="{3b9af622-9ea4-4aba-8e22-85d56222eb5f}">
+    <Declaration><![CDATA[TYPE ST_Order :
+STRUCT
+	nViseIndex		:BYTE;	// 1-14
+	nCncIndex		:BYTE;	// 4,5
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
