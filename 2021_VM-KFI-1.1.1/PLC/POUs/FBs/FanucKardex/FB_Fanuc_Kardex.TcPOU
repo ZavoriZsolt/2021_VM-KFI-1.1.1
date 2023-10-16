@@ -5,7 +5,7 @@
 VAR_INPUT
 	sName				:STRING;
 	bEn					:BOOL;				(* Engedély jel *)
-	eCommand			:E_Robot_Command;	(* Végrehajtandó parancsok *)	
+	eCommand			:E_Kardex_Robot_Command;	(* Végrehajtandó parancsok *)	
 	nKardexFloor		:BYTE;				(* Kardex tálca sorszáma (1-50) *)
 	nKardexJigNumber	:BYTE;				(* Kardex ülék sorszáma (1-30) *)
 	nMirNumber			:BYTE;				(* MIR száma; 1 vagy 2 *)
