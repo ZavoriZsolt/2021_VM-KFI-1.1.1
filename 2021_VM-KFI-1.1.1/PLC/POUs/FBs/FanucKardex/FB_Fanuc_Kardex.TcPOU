@@ -345,7 +345,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Move to Wait"}
 	(*-----=== Move to wait program végrehajtása ===-----*)
@@ -371,7 +371,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Move to Service"}
 	(*-----=== Move to service program végrehajtása ===-----*)
@@ -397,10 +397,10 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 			   
 {region "Measurement Kardex"}
-	(*-----=== Move to wait program végrehajtása ===-----*)
+	(*-----=== Kardex Measurement program végrehajtása ===-----*)
 	14000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kardex paletta bemérés');	
 		RobotOut.Control.nProgramNumber := TO_BYTE(E_Kardex_Robot_Programs.KardexMeasurement);
@@ -423,7 +423,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Pick up kardex"}
 	(*-----=== Pick up Kardex program végrehajtása ===-----*)
@@ -451,7 +451,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Put down kardex"}
 	(*-----=== Put down Kardex program végrehajtása ===-----*)
@@ -479,7 +479,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Pick up MIR"}
 	(*-----=== Pick up MIR program végrehajtása ===-----*)
@@ -511,7 +511,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Put down MIR"}
 	(*-----=== Put down MIR program végrehajtása ===-----*)
@@ -543,7 +543,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 								   
 {region "Pick up Puffer"}
 	(*-----=== Pick up Puffer program végrehajtása ===-----*)
@@ -570,7 +570,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Put down Puffer"}
 	(*-----=== Put down Puffer program végrehajtása ===-----*)
@@ -597,7 +597,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 											 
 {region "Pick up Strip"}
 	(*-----=== Pick up Strip program végrehajtása ===-----*)
@@ -629,7 +629,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Put down Strip"}
 	(*-----=== Put down Strip program végrehajtása ===-----*)
@@ -661,8 +661,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
-
+{endregion}
 {region "Rotate in strip 3"}
 	(*-----=== Rotate in strip 3 program végrehajtása ===-----*)
 	23000:	
@@ -687,7 +686,7 @@ CASE nState OF
 		IF eCommand = E_Kardex_Robot_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
-{enregion}
+{endregion}
 	 
 {region "Pendant mode"}
 (* Pendant mód *********************************************************************)
@@ -811,7 +810,7 @@ END_FOR
       <LineId Id="2552" Count="25" />
       <LineId Id="2706" Count="5" />
       <LineId Id="2584" Count="20" />
-      <LineId Id="2739" Count="24" />
+      <LineId Id="2740" Count="23" />
       <LineId Id="2738" Count="0" />
       <LineId Id="2605" Count="38" />
       <LineId Id="2765" Count="2" />
