@@ -1,0 +1,1039 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Fanuc_CNC" Id="{18cbb600-0505-4d22-8791-aa5b7b76e0c1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Fanuc_CNC
+VAR_INPUT
+	sName					:STRING;
+	bEn						:BOOL;				(* Engedély jel *)
+	eCommand				:E_CNC_Robot_Command;(* Végrehajtandó parancsok *)	
+	nCncNumber				:BYTE;				(* CNC gép sorszáma (1-3) *)
+	eLifterNumber			:E_Lifter;			(* Kiemelő stípusa *)
+	nWeight					:UINT;				(* Offszet érték *)
+	nOffset_ID				:UINT;				(* Offszet érték *)
+	nOffset_X				:REAL;				(* X tengelyű offszet érték *)
+	nOffset_Y				:REAL;				(* Y tengelyű offszet érték *)
+	nOffset_Z				:REAL;				(* Z tengelyű offszet érték *)
+	nOffset_W				:REAL;				(* W tengelyű offszet érték *)
+	nOffset_P				:REAL;				(* P tengelyű offszet érték *)
+	nOffset_R				:REAL;				(* R tengelyű offszet érték *)
+	bCNC_1_Reset			:BOOL;				(* Handshake *)
+	bCNC_1_ViseClose_Reset	:BOOL;				(* Handshake *)
+	bCNC_1_ViseOpen_Reset	:BOOL;				(* Handshake *)
+	bCNC_2_Reset			:BOOL;				(* Handshake *)
+	bCNC_2_ViseClose_Reset	:BOOL;				(* Handshake *)
+	bCNC_2_ViseOpen_Reset	:BOOL;				(* Handshake *)
+	bCNC_3_Reset			:BOOL;				(* Handshake *)
+	bCNC_3_ViseClose_Reset	:BOOL;				(* Handshake *)
+	bCNC_3_ViseOpen_Reset	:BOOL;				(* Handshake *)
+	bPalette_1_Reset		:BOOL;				(* Handshake *)
+	bPalette_2_Reset		:BOOL;				(* Handshake *)
+	bPalette_3_Reset		:BOOL;				(* Handshake *)
+	bGripperClosed_ReReset	:BOOL;				(* Handshake *)
+	timeBaseState			:TIME:=T#20S;		(* Alaphelyzet felvételi idő*)
+	bAck					:BOOL; 				(* Hibanyugta *)
+	bOverride				:BYTE := 10;		(* PLC Override  10 - 100%*)
+	stEventArray			:ARRAY [0..nMaxAlarmNr] OF TcEventEntry;	(* Event array definition *)
+END_VAR
+VAR_OUTPUT
+	bReady					:BOOL;				(* Folyamat üzemkész *)
+	bBusy					:BOOL;				(* Folyamat aktív *)
+	bDone					:BOOL;				(* Folyamat kész *)
+	bPendantMode			:BOOL;				(* Teach pendant mód aktív *)
+	bCNC_1_Set				:BOOL;				(* Handshake *)
+	bCNC_1_ViseClose_Set	:BOOL;				(* Handshake *)
+	bCNC_1_ViseOpen_Set		:BOOL;				(* Handshake *)
+	bCNC_2_Set				:BOOL;				(* Handshake *)
+	bCNC_2_ViseClose_Set	:BOOL;				(* Handshake *)
+	bCNC_2_ViseOpen_Set		:BOOL;				(* Handshake *)
+	bCNC_3_Set				:BOOL;				(* Handshake *)
+	bCNC_3_ViseClose_Set	:BOOL;				(* Handshake *)
+	bCNC_3_ViseOpen_Set		:BOOL;				(* Handshake *)
+	bPalette_1_Set			:BOOL;				(* Handshake *)
+	bPalette_2_Set			:BOOL;				(* Handshake *)
+	bPalette_3_Set			:BOOL;				(* Handshake *)
+	bGripperClosed_Set		:BOOL;				(* Handshake *)
+	bError					:BOOL;				(* Hiba bit*)
+	sError					:STRING(255);		(* Hiba string*)
+END_VAR
+VAR CONSTANT
+	nMaxAlarmNr			:INT := 15;
+	nDecimalPlaces		:USINT := 3;
+END_VAR
+VAR (* Robot IO *)
+	RobotIn				:U_CNC_Fanuc_Input;
+	RobotOut			:U_CNC_Fanuc_Output;
+END_VAR
+VAR (* State control *)
+	tBaseState			:TON;
+	tResetFault			:TON;
+	tStopCycle			:TON;
+	tStartCycle			:TON;
+	
+	nState				:UDINT;
+	sState				:STRING;
+	bIsInitalized		:BOOL;
+	bRobotReady			:BOOL;
+END_VAR
+VAR (* Error handling*)
+	bErrNotReady		:BOOL;
+	bErrBaseTimeout		:BOOL;
+	fbAlarmArray		:ARRAY [0..nMaxAlarmNr] OF FB_TcAlarm;
+	arrAlarms			:ARRAY [0..nMaxAlarmNr] OF BOOL;
+	i					:INT;
+	
+	//LastStates
+	anLastStates				:ARRAY[0..500] OF UDINT;
+    iLastStates					:INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Handshake**************************************************)
+bCNC_1_Set := RobotIn.Status.bCNC_1_Set;
+bCNC_1_ViseClose_Set := RobotIn.Status.bCNC_1_ViseClose_Set;
+bCNC_1_ViseOpen_Set := RobotIn.Status.bCNC_1_ViseOpen_Set;
+bCNC_2_Set := RobotIn.Status.bCNC_2_Set;
+bCNC_2_ViseClose_Set := RobotIn.Status.bCNC_2_ViseClose_Set;
+bCNC_2_ViseOpen_Set := 	RobotIn.Status.bCNC_2_ViseOpen_Set;
+bCNC_3_Set := RobotIn.Status.bCNC_3_Set;
+bCNC_3_ViseClose_Set := RobotIn.Status.bCNC_3_ViseClose_Set;
+bCNC_3_ViseOpen_Set := RobotIn.Status.bCNC_3_ViseOpen_Set;
+bPalette_1_Set := RobotIn.Status.bPalette_1_Set;
+bPalette_2_Set := RobotIn.Status.bPalette_2_Set;
+bPalette_3_Set := RobotIn.Status.bPalette_3_Set;
+RobotOut.Control.bCNC_1_Reset := bCNC_1_Reset;
+RobotOut.Control.bCNC_1_ViseClose_Reset := bCNC_1_ViseClose_Reset;
+RobotOut.Control.bCNC_1_ViseOpen_Reset := bCNC_1_ViseOpen_Reset;
+RobotOut.Control.bCNC_2_Reset := bCNC_2_Reset;
+RobotOut.Control.bCNC_2_ViseClose_Reset := bCNC_2_ViseClose_Reset;
+RobotOut.Control.bCNC_2_ViseOpen_Reset := 	bCNC_2_ViseOpen_Reset;
+RobotOut.Control.bCNC_3_Reset := bCNC_3_Reset;
+RobotOut.Control.bCNC_3_ViseClose_Reset := bCNC_3_ViseClose_Reset;
+RobotOut.Control.bCNC_3_ViseOpen_Reset := bCNC_3_ViseOpen_Reset;
+RobotOut.Control.bPalette_1_Reset := bPalette_1_Reset;
+RobotOut.Control.bPalette_2_Reset := bPalette_2_Reset;
+RobotOut.Control.bPalette_3_Reset := bPalette_3_Reset;
+RobotOut.Control.nWeight := nWeight;
+
+(*Időzítők***************************************************)
+tBaseState(IN:= (nState > 0 AND nState < 10000), PT:= timeBaseState);
+tResetFault(IN:= RobotOut.Control.bReset, PT:= T#100MS);
+tStopCycle(IN:= RobotOut.Control.bCycleStop, PT:= T#100MS);
+tStartCycle(IN:= RobotOut.Control.bStart, PT:= T#100MS);
+
+(*Vész rendszer**************************************************)
+bRobotReady :=  NOT RobotIn.Status.bControllerEmyStop AND
+				NOT RobotIn.Status.bTeachPendantEmyStop AND
+				NOT RobotIn.Status.bDeadman AND
+				NOT RobotIn.Status.bFence AND
+				NOT RobotIn.Status.bEmyStopExternal;
+				
+(*Hibakezelés************************************************)
+IF nState >= 200 AND nState < 150000 AND (RobotIn.Status.bAlarm OR RobotIn.Status.bFault OR NOT bRobotReady) THEN
+	bErrNotReady := TRUE;
+END_IF
+
+IF tBaseState.Q AND NOT bErrBaseTimeout THEN
+	bErrBaseTimeout := TRUE;
+END_IF
+
+bError := (RobotIn.Status.bAlarm AND bEn) OR
+			RobotIn.Status.bNoPneumatics OR
+			RobotIn.Status.bNotCorrectPrg OR
+			RobotIn.Status.bNotProductOnRobot OR
+			RobotIn.Status.bProductOnRobot OR
+			RobotIn.Status.bGripperOpenError OR
+			RobotIn.Status.bGripperCloseError OR
+			RobotIn.Status.bOffsetError OR
+			RobotIn.Status.bWeightError OR
+			bErrNotReady OR
+			bErrBaseTimeout;
+
+arrAlarms[0] := RobotIn.Status.bNoPneumatics;			
+arrAlarms[1] := RobotIn.Status.bNotCorrectPrg;
+arrAlarms[2] := RobotIn.Status.bNotProductOnRobot;
+arrAlarms[3] := RobotIn.Status.bProductOnRobot;
+arrAlarms[4] := RobotIn.Status.bGripperOpenError;
+arrAlarms[5] := RobotIn.Status.bGripperCloseError;
+arrAlarms[6] := RobotIn.Status.bOffsetError;
+arrAlarms[7] := RobotIn.Status.bWeightError;
+arrAlarms[8] := bErrNotReady;
+arrAlarms[9] := bErrBaseTimeout;
+
+IF nState > 140 AND nState < 150000 AND bError THEN
+	nState := 200000;
+END_IF
+					
+(*State history ************************************************)
+IF(nState >= 100) AND (nState <= 20000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+(*Pendant mód ************************************************)
+bPendantMode := RobotIn.Status.bPendant;
+IF bPendantMode THEN
+	nState := 150000;
+END_IF
+
+(*Engedélyek *************************************************)
+IF (NOT bEn AND NOT bPendantMode) THEN			// nincs ajtókör, és pendantról sem szeretnék használni
+	nState := 0;
+END_IF
+
+// Enable signals
+RobotOut.Control.bZoneEnable := bEn;
+RobotOut.Control.bPlcOverride := bOverride;
+
+(*Automata üzem *********************************************)
+CASE nState OF
+	(* Emergency circuit broken - Base state *)
+	0:(* Operation stop - Emergency circuit check *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Vészkör vagy ajtókör bontva - Működtetések törlése');
+		RobotOut.Control.bImmediateStop := FALSE;
+		RobotOut.Control.bHold := FALSE;
+		RobotOut.Control.bSafeSpeed := FALSE;
+		RobotOut.Control.bCycleStop := FALSE;
+		RobotOut.Control.bReset := FALSE;
+		RobotOut.Control.bStart := FALSE;
+		RobotOut.Control.bPNS1 := TRUE;
+		RobotOut.Control.bPNS2 := FALSE;
+		RobotOut.Control.bPNS3 := FALSE;
+		RobotOut.Control.bPNS4 := FALSE;
+		RobotOut.Control.bPNS5 := FALSE;
+		RobotOut.Control.bPNS6 := FALSE;
+		RobotOut.Control.bPNS7 := FALSE;
+		RobotOut.Control.bPNS8 := FALSE;
+		RobotOut.Control.bPnsStrobe := FALSE;
+		RobotOut.Control.bEnable := FALSE;
+		RobotOut.Control.bHome := FALSE;
+		RobotOut.Control.bServiceEnd := FALSE;
+		RobotOut.Control.nMode := 0;
+		RobotOut.Control.nProgramNumber := 0;
+		RobotOut.Control.bProdStart := FALSE;
+		RobotOut.Control.bCNC_1_Reset := FALSE;
+		RobotOut.Control.bCNC_1_ViseClose_Reset := FALSE;
+		RobotOut.Control.bCNC_1_ViseOpen_Reset := FALSE;
+		RobotOut.Control.bCNC_2_Reset := FALSE;
+		RobotOut.Control.bCNC_2_ViseClose_Reset := FALSE;
+		RobotOut.Control.bCNC_2_ViseOpen_Reset := FALSE;
+		RobotOut.Control.bCNC_3_Reset := FALSE;
+		RobotOut.Control.bCNC_3_ViseClose_Reset := FALSE;
+		RobotOut.Control.bCNC_3_ViseOpen_Reset := FALSE;
+		RobotOut.Control.bPalette_1_Reset := FALSE;
+		RobotOut.Control.bPalette_2_Reset := FALSE;
+		RobotOut.Control.bPalette_3_Reset := FALSE;
+		RobotOut.Control.bGripperClosed_Reset := FALSE;
+		bErrNotReady := FALSE;
+		bErrBaseTimeout := FALSE;
+		bReady := FALSE;
+		bBusy := FALSE;	
+		IF bEn AND bRobotReady THEN
+			bBusy := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	20:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzetfelvétel - Robot bekapcsolása');
+		RobotOut.Control.bImmediateStop := TRUE;
+		RobotOut.Control.bHold := TRUE;
+		RobotOut.Control.bSafeSpeed := TRUE;
+		RobotOut.Control.bEnable := TRUE;
+		IF RobotIn.Status.bFault AND NOT RobotOut.Control.bReset THEN
+			RobotOut.Control.bReset := TRUE;	// Ha hiba van -> Reset
+		END_IF
+		nState := nState + 20;
+
+	40:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot hibatörlés');	
+		IF tResetFault.Q THEN
+			RobotOut.Control.bReset := FALSE;
+		END_IF
+		IF NOT RobotOut.Control.bReset AND NOT RobotIn.Status.bFault THEN
+			nState := nState + 20;
+		END_IF
+
+	60:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Várakozás Robot hibatörlésre');	
+		IF RobotIn.Status.bCommandEnable AND NOT RobotIn.Status.bFault THEN
+			nState := nState + 20;
+		END_IF
+		
+	80:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot Cycle Stop');
+		RobotOut.Control.bCycleStop := TRUE;
+		IF tStopCycle.Q THEN
+			RobotOut.Control.bCycleStop := FALSE;
+			nState := nState + 20;
+		END_IF
+	
+	100:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot Cycle Start');
+		RobotOut.Control.bStart := TRUE;
+		IF tStartCycle.Q THEN
+			RobotOut.Control.bStart := FALSE;
+			nState := nState + 20;
+		END_IF
+		
+	120: 
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Várakozás Robot Cycle Start-ra');
+		IF RobotIn.Status.bBusy AND RobotIn.Status.bProgramEnd THEN
+			nState := nState + 20;
+		END_IF
+		
+	140:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Alaphelyzet felvétel - Robot Busy');
+		IF RobotIn.Status.bBusy THEN
+			RobotOut.Control.bProdStart := TRUE;
+			nState := nState + 20;
+		END_IF
+		
+	160:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Robot alaphelyzetbe küldése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Home);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	180:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	200:
+		nState := 10000;
+		 
+(* Alaphelyzet *********************************************************************)
+	10000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet - Várakozás parancsra');
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			bReady := TRUE;
+			bBusy := FALSE;
+			bDone := FALSE;
+		ELSE
+			bReady := TRUE;
+			bBusy := TRUE;
+			bDone := FALSE;
+			IF eCommand = E_CNC_Robot_Command.Home THEN			
+				nState := 11000;	
+			ELSIF eCommand = E_CNC_Robot_Command.Wait THEN	
+				nState := 12000;
+			ELSIF eCommand = E_CNC_Robot_Command.Service THEN	
+				nState := 13000;
+			ELSIF eCommand = E_CNC_Robot_Command.Pick_Up_CNC THEN	
+				nState := 14000;
+			ELSIF eCommand = E_CNC_Robot_Command.Put_Down_CNC THEN	
+				nState := 15000;
+			ELSIF eCommand = E_CNC_Robot_Command.Pick_Up_Lifter THEN	
+				nState := 16000;
+			ELSIF eCommand = E_CNC_Robot_Command.Put_Down_Lifter THEN	
+				nState := 17000;
+			ELSIF eCommand = E_CNC_Robot_Command.Camera_Lifter THEN	
+				nState := 18000;
+			ELSIF eCommand = E_CNC_Robot_Command.Pick_Up_Master THEN	
+				nState := 19000;
+			ELSIF eCommand = E_CNC_Robot_Command.Put_Down_Master THEN	
+				nState := 20000;
+			ELSIF eCommand = E_CNC_Robot_Command.Pick_Up_Master_From_Lifter THEN	
+				nState := 21000;
+			ELSIF eCommand = E_CNC_Robot_Command.Put_Down_Master_To_Lifter THEN	
+				nState := 22000;
+			END_IF
+		END_IF
+
+{region "Move to Home"} 
+	(*-----=== Move to home program végrehajtása ===-----*)
+	11000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetbe küldése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Home);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	11020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	11040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Move to Wait"}
+	(*-----=== Move to wait program végrehajtása ===-----*)
+	12000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot várakozó pozícióba küldése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Park);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	12020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	12040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Move to Service"}
+	(*-----=== Move to service program végrehajtása ===-----*)
+	13000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot szervíz pozícióba küldése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Service);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	13020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	13040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+			   
+{region "Pick up CNC"}
+	(*-----=== CNC pick up program végrehajtása ===-----*)
+	14000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kivétel CNC-ből');
+		IF nCncNumber  = 1 THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_1_PickUp);
+		ELSIF nCncNumber  = 2 THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_2_PickUp);
+		ELSIF nCncNumber  = 3 THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_3_PickUp);
+		END_IF	
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	14020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	14040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Put down CNC"}
+	(*-----=== CNC put down program végrehajtása ===-----*)
+	15000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Berakás CNC-be');
+		IF nCncNumber  = 1 THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_1_PutDown);
+		ELSIF nCncNumber  = 2 THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_2_PutDown);
+		ELSIF nCncNumber  = 3 THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_3_PutDown);
+		END_IF	
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	15020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	15040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Pick up Lifter"}
+	(*-----=== Lifter pick up program végrehajtása ===-----*)
+	16000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Felvétel kiemelőről');
+		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1A_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_1B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1B_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2A_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2B_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3A_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3B_PickUp);
+		END_IF	
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	16020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	16040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Put down Lifter"}
+	(*-----=== Lifter put down program végrehajtása ===-----*)
+	17000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Lerakás kiemelőre');
+		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1A_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_1B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1B_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2A_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2B_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3A_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3B_PutDown);
+		END_IF	
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	17020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	17040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Camera Lifter"}
+	(*-----=== Lifter camera program végrehajtása ===-----*)
+	18000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kamerázás kiemelőnél');
+		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1A_Camera);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_1B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1B_Camera);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2A_Camera);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2B_Camera);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3A_Camera);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3B_Camera);
+		END_IF
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	18020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	18040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+								   
+{region "Pick up Master"}
+	(*-----=== Master pick up program végrehajtása ===-----*)
+	19000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester darab felvétele');
+		RobotOut.Control.nOffset_ID := nOffset_ID;
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Master_Part_PickUp);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	19020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	19040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Put down Master"}
+	(*-----=== Master put down program végrehajtása ===-----*)
+	20000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester darab lerakása');
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Master_Part_PutDown);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	20020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	20040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+											 
+{region "Pick up Master from Lifter"}
+	(*-----=== Pick up Master from Lifter program végrehajtása ===-----*)
+	21000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester felvétel kiemelőből');
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);													   
+		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1A_Master_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_1B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1B_Master_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2A_Master_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2B_Master_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3A_Master_PickUp);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3B_Master_PickUp);
+		END_IF
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	21020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	21040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Put down Master to Lifter"}
+	(*-----=== Put down Master to Lifter program végrehajtása ===-----*)
+	22000:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester lerakás kiemelőbe');
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);
+		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1A_Master_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_1B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1B_Master_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2A_Master_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_2B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_2B_Master_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3A THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3A_Master_PutDown);
+		ELSIF eLifterNumber  = E_Lifter.Lifter_3B THEN
+			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_3B_Master_PutDown);
+		END_IF
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	22020:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	22040:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+	 
+{region "Pendant mode"}
+(* Pendant mód *********************************************************************)
+	150000:	sState := CONCAT(UDINT_TO_STRING(nState) ,' - Pendant mód');
+			IF NOT bPendantMode THEN
+				RobotOut.Control.bImmediateStop := FALSE;
+				RobotOut.Control.bHold := FALSE;
+				RobotOut.Control.bZoneEnable := FALSE;
+				RobotOut.Control.bEnable := FALSE;
+				nState := 0;
+			ELSE
+				RobotOut.Control.bEnable := TRUE;
+				RobotOut.Control.bHold := TRUE;
+				RobotOut.Control.bZoneEnable := TRUE;
+				RobotOut.Control.bImmediateStop := TRUE;
+			END_IF
+{endregion}
+		
+(* Hibakezelés *********************************************************************)
+	200000:	sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Hiba, ebből az állapotból: ' ,sState));
+			bReady := FALSE;
+			bBusy := FALSE;	
+			nState := nState + 20;
+
+(* Hibakezelés *********************************************************************)
+	200020:	
+			IF bAck THEN			
+				nState := nState + 20;
+			END_IF
+			
+	200040: 
+			RobotOut.Control.bImmediateStop := TRUE;
+			RobotOut.Control.bReset := TRUE;
+			RobotOut.Control.bNotCorrectPrg_Reset := TRUE;
+			RobotOut.Control.bNotProductOnRobot_Reset := TRUE;
+			RobotOut.Control.bProductOnRobot_Reset := TRUE;
+			RobotOut.Control.bGripperOpenError_Reset := TRUE;
+			RobotOut.Control.bGripperCloseError_Reset := TRUE;
+			RobotOut.Control.bOffsetError_Reset := TRUE;
+			RobotOut.Control.bWeightError_Reset := TRUE;
+			nState := nState + 20;
+			
+	200060:
+			IF 	NOT RobotIn.Status.bNoPneumatics AND
+				NOT RobotIn.Status.bNotCorrectPrg AND
+				NOT RobotIn.Status.bNotProductOnRobot AND
+				NOT RobotIn.Status.bProductOnRobot AND
+				NOT RobotIn.Status.bGripperOpenError AND
+				NOT RobotIn.Status.bGripperCloseError AND
+				NOT RobotIn.Status.bOffsetError AND
+				NOT	RobotIn.Status.bWeightError													 
+			THEN
+				nState := nState + 20;
+			END_IF	
+			
+	200080:
+			RobotOut.Control.bReset := FALSE;
+			RobotOut.Control.bNotCorrectPrg_Reset := FALSE;
+			RobotOut.Control.bNotProductOnRobot_Reset := FALSE;
+			RobotOut.Control.bProductOnRobot_Reset := FALSE;
+			RobotOut.Control.bGripperOpenError_Reset := FALSE;
+			RobotOut.Control.bGripperCloseError_Reset := FALSE;
+			RobotOut.Control.bOffsetError_Reset := TRUE;
+			RobotOut.Control.bWeightError_Reset := TRUE;
+			bErrNotReady := FALSE;
+			bErrBaseTimeout := FALSE;
+			nState := 0;
+ELSE
+	sState := CONCAT(UDINT_TO_STRING(nState) ,' - Nem használt állapot');
+END_CASE	
+
+
+(*Hiba string*)
+IF bError THEN
+	sError := sName;
+	FOR i:=0 TO nMaxAlarmNr DO
+		IF arrAlarms[i] THEN
+			IF (fbAlarmArray[i].eConfirmationState <> 2 AND fbAlarmArray[i].nTimeCleared <> 0 AND fbAlarmArray[i].nTimeConfirmed <> 0) OR //Ha már volt alarm, akkor van bennük érték
+				(fbAlarmArray[i].eConfirmationState = 1 AND fbAlarmArray[i].nTimeCleared = 0 AND fbAlarmArray[i].nTimeConfirmed = 0)	//Első futás esetén
+			THEN
+				fbAlarmArray[i].Raise(0);
+			END_IF
+		END_IF
+	END_FOR 
+ELSE
+	sError := '';
+END_IF
+
+(*Hiba kezelés Tc3_EventLogger*)
+IF NOT bIsInitalized THEN
+	bIsInitalized := TRUE;
+	FOR i:=0 TO nMaxAlarmNr DO
+		fbAlarmArray[i].CreateEx(stEventArray[i], TRUE, 0);
+	END_FOR
+END_IF
+
+(*Hiba törlés (nyugtázott és megszűnt)*)
+FOR i:=0 TO nMaxAlarmNr DO
+	IF fbAlarmArray[i].eConfirmationState = 3 AND NOT bError THEN
+		fbAlarmArray[i].Clear(0, FALSE);
+	END_IF
+END_FOR	
+]]></ST>
+    </Implementation>
+    <Method Name="REAL_TO_WHOLE_AND_FRACTION" Id="{9d4b857a-66b3-4a0f-a29a-f75a7053a5a4}">
+      <Declaration><![CDATA[METHOD PRIVATE REAL_TO_WHOLE_AND_FRACTION : BOOL
+VAR_INPUT
+	nReal		:	REAL;				// The real number you want to split into whole and fractional parts
+	nAccuracy	:	USINT 	:= 3; 		// The decimal places of the fractional part (MIN: 0 - MAX: 3)
+END_VAR
+VAR_OUTPUT
+	nWhole		:	INT;				// The whole part of the input
+	nFraction	:	UINT;				// The fractional part of the input (multiplied by 1000)
+END_VAR
+VAR
+	nDecimalPlaces	: USINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF nAccuracy > 3 THEN
+	nDecimalPlaces := 3;
+ELSE
+	nDecimalPlaces := nAccuracy;
+END_IF
+nWhole := REAL_TO_INT(nReal);
+nFraction := REAL_TO_UINT(ABS((nReal-nWhole)*EXPT(10,nDecimalPlaces)));
+
+REAL_TO_WHOLE_AND_FRACTION := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WHOLE_AND_FRACTION_TO_REAL" Id="{4f0f4fde-e274-4938-8ead-ead6002da15e}">
+      <Declaration><![CDATA[METHOD PRIVATE WHOLE_AND_FRACTION_TO_REAL : BOOL
+VAR_INPUT
+	nWhole		:INT;					// The whole part of the numbers you want to combine into real
+	nFraction	:UINT;					// The fractional part of the numbers you want to combine into real
+	nAccuracy	:USINT := 3;			// The decimal places of the fractional part (MIN: 0 - MAX: 3)
+END_VAR
+VAR_OUTPUT
+	nReal 	:REAL;					// The result real number
+END_VAR
+VAR
+	nSign			:REAL := 1;			// The sign of the number
+	nDecimalPlaces	: USINT;			// The number of decimal places
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF nAccuracy > 3 THEN
+	nDecimalPlaces := 3;
+ELSE
+	nDecimalPlaces := nAccuracy;
+END_IF
+IF nWhole >= 0 THEN
+	nSign :=  1.0;
+ELSE
+	nSign := -1.0;
+END_IF
+nReal := INT_TO_REAL(nWhole) + nSign * (UINT_TO_REAL(nFraction)/LREAL_TO_REAL(EXPT(10,nDecimalPlaces)));
+
+// Raise error flag if the difference is bigger than 1 between the whole part and the result number 
+WHOLE_AND_FRACTION_TO_REAL := (ABS(nReal) >= ABS(INT_TO_REAL(nWhole))) AND (ABS(nReal) <= ABS(INT_TO_REAL(nWhole)) + 1.0);]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Fanuc_CNC">
+      <LineId Id="2964" Count="24" />
+      <LineId Id="3717" Count="0" />
+      <LineId Id="2989" Count="230" />
+      <LineId Id="3222" Count="84" />
+      <LineId Id="3710" Count="0" />
+      <LineId Id="3712" Count="4" />
+      <LineId Id="3711" Count="0" />
+      <LineId Id="3308" Count="20" />
+      <LineId Id="3718" Count="29" />
+      <LineId Id="3355" Count="5" />
+      <LineId Id="3748" Count="5" />
+      <LineId Id="3755" Count="2" />
+      <LineId Id="3754" Count="0" />
+      <LineId Id="3766" Count="1" />
+      <LineId Id="3363" Count="25" />
+      <LineId Id="3773" Count="11" />
+      <LineId Id="3395" Count="20" />
+      <LineId Id="3896" Count="0" />
+      <LineId Id="3417" Count="3" />
+      <LineId Id="3785" Count="11" />
+      <LineId Id="3427" Count="25" />
+      <LineId Id="3810" Count="1" />
+      <LineId Id="3813" Count="1" />
+      <LineId Id="3816" Count="1" />
+      <LineId Id="3815" Count="0" />
+      <LineId Id="3819" Count="1" />
+      <LineId Id="3818" Count="0" />
+      <LineId Id="3822" Count="1" />
+      <LineId Id="3821" Count="0" />
+      <LineId Id="3825" Count="1" />
+      <LineId Id="3824" Count="0" />
+      <LineId Id="3828" Count="1" />
+      <LineId Id="3827" Count="0" />
+      <LineId Id="3454" Count="25" />
+      <LineId Id="3831" Count="16" />
+      <LineId Id="3830" Count="0" />
+      <LineId Id="3481" Count="25" />
+      <LineId Id="3848" Count="16" />
+      <LineId Id="3809" Count="0" />
+      <LineId Id="3797" Count="11" />
+      <LineId Id="3513" Count="25" />
+      <LineId Id="3865" Count="16" />
+      <LineId Id="3545" Count="0" />
+      <LineId Id="3883" Count="11" />
+      <LineId Id="3882" Count="0" />
+      <LineId Id="3546" Count="19" />
+      <LineId Id="3592" Count="39" />
+      <LineId Id="3635" Count="10" />
+      <LineId Id="3649" Count="10" />
+      <LineId Id="3895" Count="0" />
+      <LineId Id="3664" Count="38" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Fanuc_CNC.REAL_TO_WHOLE_AND_FRACTION">
+      <LineId Id="14" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="13" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Fanuc_CNC.WHOLE_AND_FRACTION_TO_REAL">
+      <LineId Id="44" Count="12" />
+      <LineId Id="28" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

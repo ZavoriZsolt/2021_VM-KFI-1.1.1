@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <EnumerationTextList Name="E_CNC_Robot_Programs" Id="{91f25d92-4e02-47d4-ae40-64b374991344}">
+    <Declaration><![CDATA[{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_CNC_Robot_Programs :
+(
+	NoCommand					:= 0, 	// Amíg "0"-ás a programszám addig nincs mozgási program végrehajtás, vár…
+	Home						:= 1,	// Robot Zóna-6-ba megy és bemozog alaphelyzetbe
+	Park						:= 2,	// Robot Zóna-6-ba megy és bemozog parkoló pozícióba.
+	Service						:= 3,	// Robot elmegy szerviz pozícióba.
+	CNC_1_PutDown				:= 11,	// CNC 1-be rakás
+	CNC_1_PickUp 				:= 12,	// CNC 1-ből kivétel
+	CNC_2_PutDown 				:= 21,	// CNC 2-be rakás
+	CNC_2_PickUp 				:= 22,	// CNC 2-ből kivétel
+	CNC_3_PutDown 				:= 31,	// CNC 3-ba rakás
+	CNC_3_PickUp  				:= 32,	// CNC 3-ból kivétel
+	Lifter_1A_PickUp			:= 41,	// Kiemelő 1A-ból kiszedés
+	Lifter_1A_PutDown 			:= 42,	// Kiemelő 1A-ba berakás
+	Lifter_1B_PickUp			:= 43,	// Kiemelő 1B-ből kiszedés
+	Lifter_1B_PutDown 			:= 44,	// Kiemelő 1B-be berakás
+	Lifter_2A_PickUp			:= 51,	// Kiemelő 2A-ból kiszedés
+	Lifter_2A_PutDown			:= 52,	// Kiemelő 2A-ba berakás
+	Lifter_2B_PickUp			:= 53,	// Kiemelő 2B-ből kiszedés
+	Lifter_2B_PutDown  			:= 54,	// Kiemelő 2B-be berakás
+	Lifter_3A_PickUp			:= 61,	// Kiemelő 3A-ból kiszedés
+	Lifter_3A_PutDown  			:= 62,	// Kiemelő 3A-ba berakás
+	Lifter_3B_PickUp 			:= 63,	// Kiemelő 3B-ből kiszedés
+	Lifter_3B_PutDown 			:= 64,	// Kiemelő 3B-be berakás
+	Lifter_1A_Camera			:= 71,	// Kiemelő 1A-nál kamerázás
+	Lifter_1B_Camera 			:= 72,	// Kiemelő 1B-nél kamerázás
+	Lifter_2A_Camera			:= 73,	// Kiemelő 2A-nál kamerázás
+	Lifter_2B_Camera			:= 74,	// Kiemelő 2B-nél kamerázás
+	Lifter_3A_Camera			:= 75,	// Kiemelő 3A-nál kamerázás
+	Lifter_3B_Camera 			:= 76,	// Kiemelő 3B-nél kamerázás
+	Master_Part_PickUp			:= 101,
+	Master_Part_PutDown			:= 102,
+	Lifter_1A_Master_PickUp		:= 111,
+	Lifter_1A_Master_PutDown	:= 112,
+	Lifter_1B_Master_PickUp		:= 113,
+	Lifter_1B_Master_PutDown	:= 114,
+	Lifter_2A_Master_PickUp 	:= 121,
+	Lifter_2A_Master_PutDown	:= 122,
+	Lifter_2B_Master_PickUp 	:= 123,
+	Lifter_2B_Master_PutDown	:= 124,
+	Lifter_3A_Master_PickUp		:= 131,
+	Lifter_3A_Master_PutDown	:= 132,
+	Lifter_3B_Master_PickUp		:= 133,
+	Lifter_3B_Master_PutDown 	:= 134
+);
+END_TYPE
+]]></Declaration>
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="TextListEnumerationTextListObject">
+          <l n="TextList" t="ArrayList" cet="TextListRow">
+            <o>
+              <v n="TextID">"NoCommand"</v>
+              <v n="TextDefault">"0"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Home"</v>
+              <v n="TextDefault">"1"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Park"</v>
+              <v n="TextDefault">"2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Service"</v>
+              <v n="TextDefault">"3"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"CNC_1_PutDown"</v>
+              <v n="TextDefault">"11"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"CNC_1_PickUp"</v>
+              <v n="TextDefault">"12"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"CNC_2_PutDown"</v>
+              <v n="TextDefault">"21"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"CNC_2_PickUp"</v>
+              <v n="TextDefault">"22"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"CNC_3_PutDown"</v>
+              <v n="TextDefault">"31"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"CNC_3_PickUp"</v>
+              <v n="TextDefault">"32"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1A_PickUp"</v>
+              <v n="TextDefault">"41"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1A_PutDown"</v>
+              <v n="TextDefault">"42"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1B_PickUp"</v>
+              <v n="TextDefault">"43"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1B_PutDown"</v>
+              <v n="TextDefault">"44"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2A_PickUp"</v>
+              <v n="TextDefault">"51"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2A_PutDown"</v>
+              <v n="TextDefault">"52"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2B_PickUp"</v>
+              <v n="TextDefault">"53"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2B_PutDown"</v>
+              <v n="TextDefault">"54"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3A_PickUp"</v>
+              <v n="TextDefault">"61"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3A_PutDown"</v>
+              <v n="TextDefault">"62"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3B_PickUp"</v>
+              <v n="TextDefault">"63"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3B_PutDown"</v>
+              <v n="TextDefault">"64"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1A_Camera"</v>
+              <v n="TextDefault">"71"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1B_Camera"</v>
+              <v n="TextDefault">"72"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2A_Camera"</v>
+              <v n="TextDefault">"73"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2B_Camera"</v>
+              <v n="TextDefault">"74"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3A_Camera"</v>
+              <v n="TextDefault">"75"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3B_Camera"</v>
+              <v n="TextDefault">"76"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Master_Part_PickUp"</v>
+              <v n="TextDefault">"101"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Master_Part_PutDown"</v>
+              <v n="TextDefault">"102"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1A_Master_PickUp"</v>
+              <v n="TextDefault">"111"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1A_Master_PutDown"</v>
+              <v n="TextDefault">"112"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1B_Master_PickUp"</v>
+              <v n="TextDefault">"113"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_1B_Master_PutDown"</v>
+              <v n="TextDefault">"114"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2A_Master_PickUp"</v>
+              <v n="TextDefault">"121"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2A_Master_PutDown"</v>
+              <v n="TextDefault">"122"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2B_Master_PickUp"</v>
+              <v n="TextDefault">"123"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_2B_Master_PutDown"</v>
+              <v n="TextDefault">"124"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3A_Master_PickUp"</v>
+              <v n="TextDefault">"131"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3A_Master_PutDown"</v>
+              <v n="TextDefault">"132"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3B_Master_PickUp"</v>
+              <v n="TextDefault">"133"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"Lifter_3B_Master_PutDown"</v>
+              <v n="TextDefault">"134"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">""</v>
+              <v n="TextDefault">""</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+          </l>
+          <l n="Languages" t="ArrayList" />
+          <v n="GuidInit">{2ac532de-b544-460b-b9c6-c6e708f670a0}</v>
+          <v n="GuidReInit">{5bd741af-611c-44da-8eb2-169e89f4b9c6}</v>
+          <v n="GuidExitX">{7e4f3dee-77ef-4dbe-9b0d-066664ee7a7c}</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="String">System.String</Type>
+        <Type n="TextListEnumerationTextListObject">{4b60233c-f940-4beb-b331-82133b520151}</Type>
+        <Type n="TextListRow">{53da1be7-ad25-47c3-b0e8-e26286dad2e0}</Type>
+      </TypeList>
+    </XmlArchive>
+  </EnumerationTextList>
+</TcPlcObject>

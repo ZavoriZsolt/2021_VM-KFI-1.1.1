@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="U_Kardex_Fanuc_Output" Id="{b7c9fc0d-dad9-4374-92d9-5f7a2c4718a1}">
+    <Declaration><![CDATA[TYPE U_Kardex_Fanuc_Output :
+UNION
+	aStdOut		AT %Q*		:ARRAY [1..32] OF UINT;
+	Control					:ST_Kardex_Robot_Control;	
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

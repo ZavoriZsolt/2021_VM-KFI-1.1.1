@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_CNC_Robot_Status" Id="{1230025e-85e9-4c2b-96c8-5c0aa80b108e}">
+    <Declaration><![CDATA[TYPE ST_CNC_Robot_Status :
+STRUCT
+(*-----=== Byte 01 ===-----*)
+	bCommandEnable			:BIT;				// 01.1	During automatic operation
+	bSystemReady			:BIT;				// 01.2	Preparation completed
+	bProgRun				:BIT;				// 01.3	Program running
+	bPaused					:BIT;				// 01.4	Program being interrupted
+	bHeld					:BIT;				// 01.5	During temporary stop
+	bFault					:BIT;				// 01.6	Alarm
+	bHomePos				:BIT;				// 01.7	Home position
+	bPendant				:BIT;				// 01.8	Teach pendant enabled
+
+(*-----=== Byte 02 ===-----*)
+	bBatteryVoltageDrop		:BIT;				// 02.1	Battery voltage drop
+	bBusy					:BIT;				// 02.1	During operation
+	nAckProgNumber			:BYTE;
+//	bAckSNO1				:BIT;				// 02.1	Selected program number
+//	bAckSNO2				:BIT;				// 02.2	Selected program number
+//	bAckSNO3				:BIT;				// 02.3	Selected program number
+//	bAckSNO4				:BIT;				// 02.4	Selected program number
+//	bAckSNO5				:BIT;				// 02.5	Selected program number
+//	bAckSNO6				:BIT;				// 02.6	Selected program number
+
+(*-----=== Byte 03 ===-----*)
+//	bAckSNO7				:BIT;				// 03.1	Selected program number
+//	bAckSNO8				:BIT;				// 03.2	Selected program number
+	bSnAck					:BIT;				// 03.3	Response signal to PNS
+	{attribute 'hide'}
+	_reserved_03_04			:BIT;
+	bProgramEnd				:BIT;				// 03.5	Robot aktuális programot befejezte
+	bProgramRun				:BIT;				// 03.6	Robot aktuális program futásban.
+	bAlarm					:BIT;				// 03.7	Robot kűldi amikor hiba van
+	bServiceRun				:BIT;				// 03.8 Szerviz pozícióban a robot, szelep vezérlés mehet.
+	
+(*-----=== Byte 04 ===-----*)
+	_reserved_04			:BYTE;
+	
+(*-----=== Byte 05 ===-----*)
+	bCNC_1_Set				:BIT;				// 05.1	Robot CNC-1-be mehet SET
+	bCNC_1_ViseClose_Set	:BIT;				// 05.2	Robot CNC-1 satu zárva SET
+	bCNC_1_ViseOpen_Set		:BIT;				// 05.3	Robot CNC-1 satu nyitva SET
+	bCNC_2_Set				:BIT;				// 05.4	Robot CNC-2-be mehet SET
+	bCNC_2_ViseClose_Set	:BIT;				// 05.5	Robot CNC-2 satu zárva SET
+	bCNC_2_ViseOpen_Set		:BIT;				// 05.6	Robot CNC-2 satu nyitva SET
+	bCNC_3_Set				:BIT;				// 05.7	Robot CNC-3-be mehet SET
+	bCNC_3_ViseClose_Set	:BIT;				// 05.8	Robot CNC-3 satu zárva SET
+	
+(*-----=== Byte 06 ===-----*)
+	bCNC_3_ViseOpen_Set		:BIT;				// 06.1	Robot CNC-3 satu nyitva SET
+	bPalette_1_Set			:BIT;				// 06.2	Robot Kiemelő 1-hez mehet SET
+	bPalette_2_Set			:BIT;				// 06.3	Robot Kiemelő 2-höz mehet SET
+	bPalette_3_Set			:BIT;				// 06.4	Robot Kiemelő 3-hoz mehet SET
+	bGripperClosed_Set		:BIT;				// 06.5	Robot megfogó zárás SET
+	{attribute 'hide'}
+	_reserved_06_06			:BIT;		
+	{attribute 'hide'}
+	_reserved_06_07			:BIT;	
+	{attribute 'hide'}
+	_reserved_06_08			:BIT;					
+	
+(*-----=== Byte 07 ===-----*)
+	bNotCorrectPrg			:BIT;				// 07.1	Nem megfelelő mozgási program SET
+	bNotProductOnRobot		:BIT;				// 07.2	Mozgási program nem hajtható végre, mert a robotnál nincs termék SET
+	bProductOnRobot			:BIT;				// 07.3	Mozgási program nem hajtható végre, mert a robotnál termék van SET
+	bGripperOpenError		:BIT;				// 07.4	Megfogó nyitási hiba SET
+	bGripperCloseError		:BIT;				// 07.5	Megfogó zárási hiba SET
+	bOffsetError			:BIT;				// 07.6 Offset érték hiba SET
+	bWeightError			:BIT;				// 07.7 Súly érték hiba  SET
+	{attribute 'hide'}
+	_reserved_07_08			:BIT;
+
+(*-----=== Byte 08 ===-----*)
+	{attribute 'hide'}
+	_reserved_08			:BYTE;
+	
+(*-----=== Byte 09 ===-----*)
+	bZone_1_CNC_1			:BIT;				// 09.1	Robot bent a területen. - CNC 1
+	bZone_2_CNC_2			:BIT;				// 09.2	Robot bent a területen. - CNC 2
+	bZone_3_CNC_3			:BIT;				// 09.3	Robot bent a területen. - CNC 3
+	bZone_4_Lifter_1		:BIT;				// 09.4	Robot bent a területen. - Kiemelő 1
+	bZone_5_Lifter_2		:BIT;				// 09.5	Robot bent a területen. - Kiemelő 2
+	bZone_6_Lifter_3		:BIT;				// 09.6	Robot bent a területen. - Kiemelő 3
+	bZone_7_Gudel			:BIT;				// 09.7	Robot bent a területen. - Gudel
+	bZone_8_Master			:BIT;				// 09.8	Robot bent a területen. - Master
+	
+(*-----=== Byte 09 ===-----*)
+	bRobotInStrip_1			:BIT;				// 10.1	Robot bent a szalag-1-ben.
+	bRobotInStrip_2			:BIT;				// 10.2	Robot bent a szalag-2-ben.
+	bRobotInStrip_3			:BIT;				// 10.3	Robot bent a szalag-3-ban.
+	{attribute 'hide'}
+	_reserved_10_04			:BIT;	
+	{attribute 'hide'}
+	_reserved_10_05			:BIT;		
+	{attribute 'hide'}
+	_reserved_10_06			:BIT;	
+	{attribute 'hide'}
+	_reserved_10_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_10_08			:BIT;	
+
+(*-----=== Byte 11 - 12 ===-----*)
+	{attribute 'hide'}
+	_reserved_10_12			:ARRAY[11..12] OF BYTE;				
+	
+(*-----=== Byte 13 ===-----*)
+	nProgramNumber			:BYTE;				// 13. Aktuális program szám Robotban,
+	
+(*-----=== Byte 14 ===-----*)
+	nPointNumber			:BYTE;				// 14. Aktuális pont szám
+	
+(*-----=== Byte 15 ===-----*)
+	bKeyAuto				:BIT;				// 15.1	Robot automata-remote üzemmódban
+	bKeyManualT1			:BIT;				// 15.2	Robot kézi üzemmódban - 250 mm/sec max sebesség
+	bKeyManualT2			:BIT;				// 15.3	Robot kézi üzemmódban - 100 % sebesség
+	bSimInput				:BIT;				// 15.4	Szimulálva (force-olva) Input
+	bSimOutput				:BIT;				// 15.5	Szimulálva (force-olva) Output
+	{attribute 'hide'}
+	_reserved_15_06			:BIT;
+	{attribute 'hide'}
+	_reserved_15_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_15_08			:BIT;	
+	
+(*-----=== Byte 16 ===-----*)
+	bControllerEmyStop		:BIT;				// 16.1	Robot kontroller vészgomb
+	bTeachPendantEmyStop	:BIT;				// 16.2	Teach Pendant vészgomb
+	bDeadman				:BIT;				// 16.3	TP engedélyező gomb
+	bFence					:BIT;				// 16.4	Fence
+	bRot					:BIT;				// 16.5	Robot olyan területre akar mozogni ahova mechanikusan nem ér el
+	bHbk					:BIT;				// 16.6	Robot felütközött, védelem
+	bEmyStopExternal		:BIT;				// 16.7	Külső vészgomb (gépi)
+	bNoPneumatics			:BIT;				// 16.8	A karon lévő pneumatika nem érzékel levegőt
+	
+(*-----=== Byte 17 ===-----*)
+	bBeltBreak				:BIT;				// 17.1	Robot kontroller vészgomb
+	bFalm					:BIT;				// 17.2	Ventilátor hiba
+	bServoOff				:BIT;				// 17.3	Kivűlről tiltott SERVO engedélyezés
+	bIMSTP					:BIT;				// 17.4	Engedélyező jel vissza adása
+	bBEKHLD					:BIT;				// 17.5	
+	bUSRALM					:BIT;				// 17.6	
+	bSRVDSCNCT				:BIT;				// 17.7	
+	bNTED					:BIT;				// 17.8			
+	
+(*-----=== Byte 18-20 ===-----*)
+	{attribute 'hide'}
+	_reserved_18_20			:ARRAY [18..20] OF BYTE;	
+	
+(*-----=== Byte 21-22 ===-----*)
+	nOffset_ID				:UINT;				// 21-22. PLC-nek visszaadott offszet érték.
+	
+(*-----=== Byte 23-24 ===-----*)
+	nOffset_X_Whole			:INT;				// 23-24. PLC-nek visszaadott X tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 25-26 ===-----*)
+	nOffset_X_Fractional	:UINT;				// 25-26. PLC-nek visszaadott X tengelyű egész tört offszet érték
+	
+(*-----=== Byte 27-28 ===-----*)
+	nOffset_Y_Whole			:INT;				// 27-28. PLC-nek visszaadott Y tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 29-30 ===-----*)
+	nOffset_Y_Fractional	:UINT;				// 29-30. PLC-nek visszaadott Y tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 31-32 ===-----*)
+	nOffset_Z_Whole			:INT;				// 31-32. PLC-nek visszaadott Z tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 33-34 ===-----*)
+	nOffset_Z_Fractional	:UINT;				// 33-34. PLC-nek visszaadott Z tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 35-36 ===-----*)
+	nOffset_W_Whole			:INT;				// 35-36. PLC-nek visszaadott W tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 37-38 ===-----*)
+	nOffset_W_Fractional	:UINT;				// 37-38. PLC-nek visszaadott W tengelyű egész tört offszet érték
+	
+(*-----=== Byte 39-40 ===-----*)
+	nOffset_P_Whole			:INT;				// 39-40. PLC-nek visszaadott P tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 41-42 ===-----*)
+	nOffset_P_Fractional	:UINT;				// 41-42. PLC-nek visszaadott P tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 43-44 ===-----*)
+	nOffset_R_Whole			:INT;				// 43-44. PLC-nek visszaadott R tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 45-46 ===-----*)
+	nOffset_R_Fractional	:UINT;				// 45-46. PLC-nek visszaadott R tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 47-64 ===-----*)
+	{attribute 'hide'}
+	_reserved_47_64			:ARRAY [47..64] OF BYTE;		
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

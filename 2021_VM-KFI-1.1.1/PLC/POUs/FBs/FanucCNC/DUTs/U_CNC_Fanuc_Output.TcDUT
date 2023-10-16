@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="U_CNC_Fanuc_Output" Id="{47279745-7749-48ad-ba4c-222fc4985ec5}">
+    <Declaration><![CDATA[TYPE U_CNC_Fanuc_Output :
+UNION
+	aStdOut		AT %Q*		:ARRAY [1..32] OF UINT;
+	Control					:ST_CNC_Robot_Control;	
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
