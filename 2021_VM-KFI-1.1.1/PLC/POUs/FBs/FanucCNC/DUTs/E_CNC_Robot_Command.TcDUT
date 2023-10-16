@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_CNC_Robot_Command" Id="{a652049e-e2eb-4a3a-83c9-13e0156f2241}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_CNC_Robot_Command :
+(
+	NoCommand 						:= 0,
+	Home							:= 1,
+	Wait							:= 2,
+	Service							:= 3,
+	Pick_Up_CNC 					:= 4,
+	Put_Down_CNC					:= 5,
+	Pick_Up_Lifter	 				:= 6,
+	Put_Down_Lifter 				:= 7,
+	Camera_Lifter					:= 8,
+	Pick_Up_Master 					:= 9,
+	Put_Down_Master					:= 10,
+	Pick_Up_Master_From_Lifter		:= 11,
+	Put_Down_Master_To_Lifter		:= 12
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

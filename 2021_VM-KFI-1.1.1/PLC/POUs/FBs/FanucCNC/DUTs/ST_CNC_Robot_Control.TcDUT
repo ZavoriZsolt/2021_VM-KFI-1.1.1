@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_CNC_Robot_Control" Id="{c6ffbca2-3acc-48ce-8b05-cd3c3616cb8d}">
+    <Declaration><![CDATA[TYPE ST_CNC_Robot_Control :
+STRUCT
+(*-----=== Byte 01 ===-----*)
+	bImmediateStop			:BIT;				// 01.1	Immediate stop
+	bHold					:BIT;				// 01.2	Temporary stop
+	bSafeSpeed				:BIT;				// 01.3	Safe speed
+	bCycleStop				:BIT;				// 01.4	Cycle stop
+	bReset					:BIT;				// 01.5	External reset
+	bStart					:BIT;				// 01.6	Start
+	bHome					:BIT;				// 01.7	Return to home position
+	bEnable					:BIT;				// 01.8	Operation enable
+
+(*-----=== Byte 02 ===-----*)
+//	nProgNumberSelection	:BYTE;
+	bPNS1					:BIT;				// 02.1	Program  number selection
+	bPNS2					:BIT;				// 02.2	Program  number selection
+	bPNS3					:BIT;				// 02.3	Program  number selection
+	bPNS4					:BIT;				// 02.4	Program  number selection
+	bPNS5					:BIT;				// 02.5	Program  number selection
+	bPNS6					:BIT;				// 02.6	Program  number selection
+	bPNS7					:BIT;				// 02.7	Program  number selection
+	bPNS8					:BIT;				// 02.8	Program  number selection
+
+(*-----=== Byte 03 ===-----*)
+	bPnsStrobe				:BIT;				// 03.1	PNS strobe
+	bProdStart				:BIT;				// 03.2	Start of automatic operation
+	bZoneEnable				:BIT;				// 03.3	Ez mindig jön kivéve ha vész van
+	bServiceEnd				:BIT;				// 03.4	Szervíz üzemmód vége
+	{attribute 'hide'}
+	_reserved_03_05			:BIT;
+	{attribute 'hide'}
+	_reserved_03_06			:BIT;
+	{attribute 'hide'}
+	_reserved_03_07			:BIT;		
+	{attribute 'hide'}
+	_reserved_03_08			:BIT;		
+	
+(*-----=== Byte 04 ===-----*)
+	{attribute 'hide'}
+	_reserved_04			:BYTE;				
+
+(*-----=== Byte 05 ===-----*)
+	bCNC_1_Reset			:BIT;				// 05.1	Robot CNC-1-be mehet RESET
+	bCNC_1_ViseClose_Reset	:BIT;				// 05.2	Robot CNC-1 satu zárva RESET
+	bCNC_1_ViseOpen_Reset	:BIT;				// 05.3	Robot CNC-1 satu nyitva RESET
+	bCNC_2_Reset			:BIT;				// 05.4	Robot CNC-2-be mehet RESET
+	bCNC_2_ViseClose_Reset	:BIT;				// 05.5	Robot CNC-2 satu zárva RESET
+	bCNC_2_ViseOpen_Reset	:BIT;				// 05.6	Robot CNC-2 satu nyitva RESET
+	bCNC_3_Reset			:BIT;				// 05.7	Robot CNC-3-be mehet RESET
+	bCNC_3_ViseClose_Reset	:BIT;				// 05.8	Robot CNC-3 satu zárva RESET
+	
+(*-----=== Byte 06 ===-----*)
+	bCNC_3_ViseOpen_Reset	:BIT;				// 06.1	Robot CNC-3 satu nyitva RESET
+	bPalette_1_Reset		:BIT;				// 06.2	Robot Kiemelő 1-hez mehet RESET
+	bPalette_2_Reset		:BIT;				// 06.3	Robot Kiemelő 2-höz mehet RESET
+	bPalette_3_Reset		:BIT;				// 06.4	Robot Kiemelő 3-hoz mehet RESET
+	bGripperClosed_Reset	:BIT;				// 06.5	Robot megfogó zárás RESET
+	{attribute 'hide'}
+	_reserved_06_06			:BIT;		
+	{attribute 'hide'}
+	_reserved_06_07			:BIT;	
+	{attribute 'hide'}
+	_reserved_06_08			:BIT;			
+	
+(*-----=== Byte 07 ===-----*)
+	bNotCorrectPrg_Reset	:BIT;				// 07.1	Nem megfelelő mozgási program RESET
+	bNotProductOnRobot_Reset:BIT;				// 07.2	Mozgási program nem hajtható végre, mert a robotnál nincs termék RESET
+	bProductOnRobot_Reset	:BIT;				// 07.3	Mozgási program nem hajtható végre, mert a robotnál termék van RESET
+	bGripperOpenError_Reset	:BIT;				// 07.4	Megfogó nyitási hiba RESET
+	bGripperCloseError_Reset:BIT;				// 07.5	Megfogó zárási hiba RESET
+	bOffsetError_Reset		:BIT;				// 07.6 Offset érték hiba RESET
+	bWeightError_Reset		:BIT;				// 07.7 Súly érték hiba  RESET
+	{attribute 'hide'}
+	_reserved_07_08			:BIT;
+
+(*-----=== Byte 08-12 ===-----*)
+	{attribute 'hide'}
+	_reserved_08_12			:ARRAY [8..12] OF BYTE;
+
+(*-----=== Byte 13 ===-----*)
+	bPlcOverride			:BYTE;				// 13. PLC által vezérelt sebesség, 10-100 %
+	
+(*-----=== Byte 14 ===-----*)
+	nProgramNumber			:BYTE;				// 14. Mozgatási műveletek kiválasztása.
+	
+(*-----=== Byte 15 ===-----*)
+	nMode					:BYTE;				// 15. PLC által meghatározott robot üzemmód, 1-2
+	
+(*-----=== Byte 16-17 ===-----*)
+	nWeight					:UINT;				// 16. PLC által megadott súly
+
+(*-----=== Byte 18-20 ===-----*)
+	{attribute 'hide'}
+	_reserved_18_20			:ARRAY [18..20] OF BYTE;	
+	
+(*-----=== Byte 21-22 ===-----*)
+	nOffset_ID				:UINT;				// 21-22. PLC által megadott offszet érték.
+	
+(*-----=== Byte 23-24 ===-----*)
+	nOffset_X_Whole			:INT;				// 23-24. PLC által átadott X tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 25-26 ===-----*)
+	nOffset_X_Fractional	:UINT;				// 25-26. PLC által átadott X tengelyű egész tört offszet érték
+	
+(*-----=== Byte 27-28 ===-----*)
+	nOffset_Y_Whole			:INT;				// 27-28. PLC által átadott Y tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 29-30 ===-----*)
+	nOffset_Y_Fractional	:UINT;				// 29-30. PLC által átadott Y tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 31-32 ===-----*)
+	nOffset_Z_Whole			:INT;				// 31-32. PLC által átadott Z tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 33-34 ===-----*)
+	nOffset_Z_Fractional	:UINT;				// 33-34. PLC által átadott Z tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 35-36 ===-----*)
+	nOffset_W_Whole			:INT;				// 35-36. PLC által átadott W tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 37-38 ===-----*)
+	nOffset_W_Fractional	:UINT;				// 37-38. PLC által átadott W tengelyű egész tört offszet érték
+	
+(*-----=== Byte 39-40 ===-----*)
+	nOffset_P_Whole			:INT;				// 39-40. PLC által átadott P tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 41-42 ===-----*)
+	nOffset_P_Fractional	:UINT;				// 41-42. PLC által átadott P tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 43-44 ===-----*)
+	nOffset_R_Whole			:INT;				// 43-44. PLC által átadott R tengelyű egész szám offszet érték.
+	
+(*-----=== Byte 45-46 ===-----*)
+	nOffset_R_Fractional	:UINT;				// 45-46. PLC által átadott R tengelyű egész tört offszet érték	
+	
+(*-----=== Byte 47-64 ===-----*)
+	{attribute 'hide'}
+	_reserved_47_64			:ARRAY [47..64] OF BYTE;				
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

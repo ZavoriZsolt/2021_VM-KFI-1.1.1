@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_Lifter" Id="{414a0b6f-21fa-4ab6-b4b4-0d2371c63d0d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_Lifter :
+(
+	Lifter_1A := 0,
+	Lifter_1B := 1,
+	Lifter_2A := 2,
+	Lifter_2B := 3,
+	Lifter_3A := 4,
+	Lifter_3B := 5
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
