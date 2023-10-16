@@ -800,27 +800,5 @@ FOR i:=0 TO nMaxAlarmNr DO
 END_FOR	
 ]]></ST>
     </Implementation>
-    <LineIds Name="FB_Fanuc_Kardex">
-      <LineId Id="2039" Count="327" />
-      <LineId Id="2712" Count="0" />
-      <LineId Id="2714" Count="23" />
-      <LineId Id="2713" Count="0" />
-      <LineId Id="2369" Count="182" />
-      <LineId Id="2704" Count="1" />
-      <LineId Id="2552" Count="25" />
-      <LineId Id="2706" Count="5" />
-      <LineId Id="2584" Count="20" />
-      <LineId Id="2740" Count="23" />
-      <LineId Id="2738" Count="0" />
-      <LineId Id="2605" Count="38" />
-      <LineId Id="2765" Count="2" />
-      <LineId Id="2764" Count="0" />
-      <LineId Id="2644" Count="9" />
-      <LineId Id="2769" Count="3" />
-      <LineId Id="2654" Count="10" />
-      <LineId Id="2773" Count="3" />
-      <LineId Id="2665" Count="38" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

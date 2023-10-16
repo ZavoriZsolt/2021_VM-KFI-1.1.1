@@ -96,6 +96,51 @@
     <Compile Include="POUs\FBs\BTL\FB_BTL1AR0.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\E_CNC_Robot_Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\E_CNC_Robot_Programs.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\E_Lifter.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\ST_CNC_Robot_Control.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\ST_CNC_Robot_Status.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\U_CNC_Fanuc_Input.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\U_CNC_Fanuc_Output.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\FB_Fanuc_CNC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucKardex\DUTs\E_Kardex_Robot_Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucKardex\DUTs\E_Kardex_Robot_Programs.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucKardex\DUTs\ST_Kardex_Robot_Control.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucKardex\DUTs\ST_Kardex_Robot_Status.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucKardex\DUTs\U_Kardex_Fanuc_Input.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucKardex\DUTs\U_Kardex_Fanuc_Output.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucKardex\FB_Fanuc_Kardex.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\Fanuc\DUTs\E_Robot_Command.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -307,6 +352,8 @@
     <Folder Include="POUs\FBs" />
     <Folder Include="POUs\FBs\AWEA\DUTs" />
     <Folder Include="POUs\FBs\BTL\DUTs" />
+    <Folder Include="POUs\FBs\FanucCNC\DUTs" />
+    <Folder Include="POUs\FBs\FanucKardex\DUTs" />
     <Folder Include="POUs\FBs\Fanuc\DUTs" />
     <Folder Include="POUs\FBs\ID200" />
     <Folder Include="POUs\FBs\ID200\DUTs" />
@@ -319,6 +366,8 @@
     <Folder Include="POUs\FBs\MySQL\NextVise\DUTs" />
     <Folder Include="POUs\FBs\MySQL\UpdateVise\DUTs" />
     <Folder Include="POUs\CNC_1" />
+    <Folder Include="POUs\FBs\FanucKardex" />
+    <Folder Include="POUs\FBs\FanucCNC" />
     <Folder Include="POUs\Temp" />
     <Folder Include="POUs\RobotViseStation" />
     <Folder Include="POUs\Temp\Fanuc" />
