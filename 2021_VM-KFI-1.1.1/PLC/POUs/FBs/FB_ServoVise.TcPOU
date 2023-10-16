@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_ServoVise" Id="{6aa55fe7-afee-4b40-bb31-d2de59dbb683}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_ServoVise
 VAR_INPUT
@@ -14,8 +14,8 @@ VAR_INPUT
 	nTorqueRamp				: INT;   // [%/s]
 	nTorqueVelocityLimit	: UINT;  // [deg/s]
 	nOverride				: UINT := 100; 
-	nAttachDegree 			: INT := 90;
-	nAttachVelocity			: INT := 150;
+	nAttachDegree 			: LREAL := 0.7;
+	nAttachVelocity			: LREAL := 1;
 	stAxisEvent			:TcEventEntry;	(*Event definition*)
 END_VAR
 VAR_OUTPUT
@@ -260,19 +260,19 @@ CASE nState OF
 			nState := nState + 20;
 		END_IF
 		
-	25020: (*Error ACK*)
+	250020: (*Error ACK*)
 		IF Axis.Status.DriveDeviceError THEN 
 			fbSoEReset.Execute := TRUE;
 			fbReset.Execute := TRUE;
-			nState := 25040;
+			nState := 250040;
 		ELSIF Axis.Status.Error THEN 
 			fbReset.Execute := TRUE;
-			nState := 25060;
+			nState := 250060;
 		ELSE
 			nState := 0;
 		END_IF
 		
-	25040: (*Drive Reset*)
+	250040: (*Drive Reset*)
 		IF NOT fbSoEReset.Busy THEN
 			fbSoEReset.Execute := FALSE;
 			nState := 0;
@@ -280,7 +280,7 @@ CASE nState OF
 			nState := 0; 
 		END_IF
 		
-	25060: (*Reset*)
+	250060: (*Reset*)
 		IF fbReset.Done THEN
 			fbReset.Execute := FALSE;
 			nState := 0;
@@ -311,9 +311,10 @@ ActReset();]]></ST>
     <Action Name="ActMoveRelative" Id="{faed1f2c-59cc-4df3-b558-77214563147a}">
       <Implementation>
         <ST><![CDATA[fbMoveRelative(
-	Axis:= Axis, 
-	Distance:= lrCalculatedDistance, 
-	Velocity:= nOpenVelocity);]]></ST>
+	Axis:= Axis);
+//, 
+//	Distance:= lrCalculatedDistance, 
+//	Velocity:= nOpenVelocity);]]></ST>
       </Implementation>
     </Action>
     <Action Name="ActPower" Id="{dab1f324-c7df-460d-9b39-6efd4ef1e589}">

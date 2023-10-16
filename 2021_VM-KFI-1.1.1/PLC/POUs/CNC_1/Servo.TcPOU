@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Servo" Id="{7c80c4b6-5bdf-4d78-8a31-a44be7b9eb1b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Servo
+VAR
+	fbServoVise				: FB_ServoVise;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbServoVise(
+	bErrorAck:= , 
+	bEnable:= , 
+	eCommand:= , 
+	bManualMode:= , 
+	lrOpenDistance:= , 
+	lrVisePosition:= , 
+	nOpenVelocity:= , 
+	nTorque:= , 
+	nTorqueRamp:= , 
+	nTorqueVelocityLimit:= , 
+	nOverride:= , 
+	nAttachDegree:= , 
+	nAttachVelocity:= , 
+	stAxisEvent:= , 
+	bReady=> , 
+	bBusy=> , 
+	bDone=> , 
+	bError=> );]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

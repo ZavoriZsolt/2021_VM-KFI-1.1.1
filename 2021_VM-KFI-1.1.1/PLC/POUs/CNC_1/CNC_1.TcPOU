@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="CNC_1" Id="{067559b7-2cc8-4a74-b07e-41eb917a7856}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM CNC_1
+VAR
+		
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Servo();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

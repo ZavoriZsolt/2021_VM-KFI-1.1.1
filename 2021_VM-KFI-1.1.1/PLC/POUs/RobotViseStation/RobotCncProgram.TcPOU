@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="RobotCncProgram" Id="{eed2e4c0-ad68-465b-86ac-58c9189ec973}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM RobotCncProgram
 VAR	(* Control *)

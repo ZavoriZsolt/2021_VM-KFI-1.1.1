@@ -75,6 +75,12 @@
     <Compile Include="POUs\Blink.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\CNC_1\CNC_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\CNC_1\Servo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\AWEA\DUTs\ST_AWEA_In.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -135,11 +141,10 @@
     <Compile Include="POUs\FBs\FB_RGB_Light.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FBs\FB_ServoVise.TcPOU">
-      <SubType>Code</SubType>
-      <ExcludeFromBuild>false</ExcludeFromBuild>
-    </Compile>
     <Compile Include="POUs\FBs\FB_Server.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FB_ServoVise.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\FB_SQL.TcPOU">
@@ -313,6 +318,7 @@
     <Folder Include="POUs\FBs\MySQL\NextVise" />
     <Folder Include="POUs\FBs\MySQL\NextVise\DUTs" />
     <Folder Include="POUs\FBs\MySQL\UpdateVise\DUTs" />
+    <Folder Include="POUs\CNC_1" />
     <Folder Include="POUs\Temp" />
     <Folder Include="POUs\RobotViseStation" />
     <Folder Include="POUs\Temp\Fanuc" />

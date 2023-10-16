@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <TcEventSources Version="2">
 	<Source>
-		<GUID>{28111931-0002-0000-1260-F2130000D500}</GUID>
-		<Name LcId="1033">AX5106-0000-0213 EtherCAT Drive (SoE, 1 Ch.)</Name>
+		<GUID>{28111931-0002-0000-1260-F2130000D600}</GUID>
+		<Name LcId="1033">AX5106-0000-0214 EtherCAT Drive (SoE, 1 Ch.)</Name>
 		<DetailSource>
 			<Id>DiagReset</Id>
 			<Name LcId="1033">DiagReset</Name>
@@ -28989,8 +28989,8 @@ multiturnlength = "signal periods per rotation" * "length per signal period" mus
 		</Property>
 	</Source>
 	<Source>
-		<GUID>{28111931-0002-0000-1260-F2130000D600}</GUID>
-		<Name LcId="1033">AX5106-0000-0214 EtherCAT Drive (SoE, 1 Ch.)</Name>
+		<GUID>{28111931-0002-0000-1260-F2130000D500}</GUID>
+		<Name LcId="1033">AX5106-0000-0213 EtherCAT Drive (SoE, 1 Ch.)</Name>
 		<DetailSource>
 			<Id>DiagReset</Id>
 			<Name LcId="1033">DiagReset</Name>

@@ -50,6 +50,7 @@ Light();
 Mode();
 ViseProgram();
 RobotCncProgram();
+CNC_1();
 
 fbVisePos(nDistance=> );
 
