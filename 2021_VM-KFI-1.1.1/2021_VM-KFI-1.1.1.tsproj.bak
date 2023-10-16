@@ -1430,6 +1430,104 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
+			<Name GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}" AutoDeleteType="true">ST_Vise_Sensors</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>bViseIn</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ Robot]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bViseOut</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_In_Hold</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ Stopper 1]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_In_Release</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_Out_Hold</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ Stopper 2]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_Out_Release</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bInPos</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bOutPos</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bViseIsOut</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}" AutoDeleteType="true">ST_RGB_In</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>LifeSig</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>Resp</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..63] OF BYTE</Name>
+			<BitSize>512</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>64</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
 			<Name GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC" TcBaseType="true">NCTOPLC_AXIS_REF</Name>
 			<BitSize>2048</BitSize>
 			<SubItem>
@@ -1758,102 +1856,48 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}" AutoDeleteType="true">ST_Vise_Sensors</Name>
-			<BitSize>16</BitSize>
+			<Name GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}" AutoDeleteType="true">ST_RGB_Out</Name>
+			<BitSize>800</BitSize>
 			<SubItem>
-				<Name>bViseIn</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[ Robot]]></Comment>
-				<BitSize>1</BitSize>
+				<Name>arrRGB</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>24</Elements>
+				</ArrayInfo>
+				<BitSize>768</BitSize>
 				<BitOffs>0</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Output</Value>
+					</Property>
+				</Properties>
 			</SubItem>
-			<SubItem>
-				<Name>bViseOut</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_In_Hold</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[ Stopper 1]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_In_Release</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_Out_Hold</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[ Stopper 2]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_Out_Release</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bInPos</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bOutPos</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bViseIsOut</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}" AutoDeleteType="true">ST_RGB_In</Name>
-			<BitSize>32</BitSize>
 			<SubItem>
 				<Name>LifeSig</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
 				<BitSize>16</BitSize>
-				<BitOffs>0</BitOffs>
+				<BitOffs>768</BitOffs>
 				<Properties>
 					<Property>
 						<Name>TcAddressType</Name>
-						<Value>Input</Value>
+						<Value>Output</Value>
 					</Property>
 				</Properties>
 			</SubItem>
 			<SubItem>
-				<Name>Resp</Name>
+				<Name>Command</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
 				<BitSize>16</BitSize>
-				<BitOffs>16</BitOffs>
+				<BitOffs>784</BitOffs>
 				<Properties>
 					<Property>
 						<Name>TcAddressType</Name>
-						<Value>Input</Value>
+						<Value>Output</Value>
 					</Property>
 				</Properties>
 			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..63] OF BYTE</Name>
-			<BitSize>512</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>64</Elements>
-			</ArrayInfo>
 		</DataType>
 		<DataType>
 			<Name GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC" TcBaseType="true">PLCTONC_AXIS_REF</Name>
@@ -1986,50 +2030,6 @@ External Setpoint Generation:
 					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}"></Type>
 				</Relation>
 			</Relations>
-		</DataType>
-		<DataType>
-			<Name GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}" AutoDeleteType="true">ST_RGB_Out</Name>
-			<BitSize>800</BitSize>
-			<SubItem>
-				<Name>arrRGB</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<ArrayInfo>
-					<LBound>1</LBound>
-					<Elements>24</Elements>
-				</ArrayInfo>
-				<BitSize>768</BitSize>
-				<BitOffs>0</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Output</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>LifeSig</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>768</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Output</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>Command</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>784</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Output</Value>
-					</Property>
-				</Properties>
-			</SubItem>
 		</DataType>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000B00000008}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..7] OF UINT</Name>
@@ -4008,7 +4008,7 @@ only active in subscription mode]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{C9324648-006A-C356-01C0-2B80EB4B58F1}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{12DA8624-0EE1-30C0-BC0C-247DEEA3AD77}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -4024,10 +4024,6 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>RobotCncProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
-						</Var>
-						<Var>
-							<Name>Servo.fbServoVise.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.i_bLO1_CNC45</Name>
@@ -4419,6 +4415,10 @@ only active in subscription mode]]></Comment>
 							<Name>GVL_RFID.fbRFID_Readers[10].PnIoBoxState</Name>
 							<Type>UINT</Type>
 						</Var>
+						<Var>
+							<Name>Servo.fbServoVise.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
@@ -4439,10 +4439,6 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>GVL_Safety.q_bBlink</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>Servo.fbServoVise.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.q_bSafetyMasterOn_CNC45</Name>
@@ -5106,6 +5102,10 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[10].arrDataOut</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>Servo.fbServoVise.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-07-04T15:18:52">
@@ -7236,7 +7236,7 @@ only active in subscription mode]]></Comment>
 						<SyncMan>001880002600010001000000800080008000001826010000</SyncMan>
 						<SyncMan>001a80002200010002000000800080008000001a22010000</SyncMan>
 						<SyncMan>001008002400010003000000000000000000001024010000</SyncMan>
-						<SyncMan>00110a002200010004000000000000000000001122010000</SyncMan>
+						<SyncMan>00110c002200010004000000000000000000001122010000</SyncMan>
 						<SyncMan>002000002400010005000000000000000000002024010000</SyncMan>
 						<SyncMan>002400002000010006000000000000000000002420010000</SyncMan>
 						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
@@ -7306,6 +7306,9 @@ only active in subscription mode]]></Comment>
 							</Entry>
 							<Entry Name="Following distance" BitLen="32" Index="#x00bd">
 								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Torque/force feedback value" BitLen="16" Index="#x0054">
+								<Type>INT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="MDT" Index="#x0018" InOut="1" Flags="#x0001" SyncMan="2">
@@ -28206,6 +28209,7 @@ Submodule Info: In / Out Daten
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
 			<OwnerB Name="TIID^CNC_1^Drive 9 (AX5106-0000-0214)">
 				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="AT^Following distance"/>
+				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="AT^Torque/force feedback value"/>
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
 				<Link VarA="Drive^Inputs^In^nState2" VarB="AT^Drive status word"/>

@@ -9,10 +9,10 @@ VAR_INPUT
 	bManualMode				: BOOL;
 	lrOpenDistance			: LREAL; // [mm]
 	lrVisePosition			: LREAL; // [mm]
-	nOpenVelocity			: INT;   // [deg/s]
+	nOpenVelocity			: LREAL; // [mm/s]
 	nTorque					: INT;   // [%]
 	nTorqueRamp				: INT;   // [%/s]
-	nTorqueVelocityLimit	: UINT;  // [deg/s]
+	nTorqueVelocityLimit	: LREAL; // [mm/s]
 	nOverride				: UINT := 100; 
 	nAttachDegree 			: LREAL := 0.7;
 	nAttachVelocity			: LREAL := 1;
@@ -194,10 +194,12 @@ CASE nState OF
 		
 	30020:
 		fbTorqueControl.Execute := TRUE;
-		nState := nState + 20;
+		IF fbTorqueControl.Busy THEN
+			nState := nState + 20;
+		END_IF
 	
 	30040: (*Torque check*)
-		IF NOT fbTorqueControl.Busy THEN
+		IF fbTorqueControl.InTorque THEN
 			fbTorqueControl.Execute := FALSE;
 			nState := nState + 20;
 		END_IF
@@ -205,8 +207,22 @@ CASE nState OF
 		IF fbTorqueControl.Error THEN
 			nState := 250000;
 		END_IF	
-		
+
 	30060:
+		fbMoveRelative.Distance := 0;
+		fbMoveRelative.Execute := TRUE;
+		nState := nState + 20;
+		
+	30080: 
+		IF fbMoveRelative.Done THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := nState + 20;
+		END_IF
+		IF fbMoveRelative.Error THEN
+			nState := 250000;
+		END_IF
+
+	30100:
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
