@@ -1,0 +1,19 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{af33489e-b285-4309-a4c6-98e3290bc98a}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyApplication</RootNamespace>
+    <AssemblyName>MyApplication</AssemblyName>
+    <Name>Measurement Project1</Name>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Scope Project1.svdx">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Scope Project1.tcscopex">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+</Project>

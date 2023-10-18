@@ -3547,8 +3547,8 @@ only active in subscription mode]]></Comment>
 		<System>
 			<Licenses>
 				<Target>
-					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</ManualSelect>
+					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 				</Target>
 			</Licenses>
@@ -3871,7 +3871,9 @@ only active in subscription mode]]></Comment>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
-						<EncPara ScaleFactorNumerator="0.04" ScaleFactorDenominator="1048576" MaxCount="#xffffffff"/>
+						<EncPara ScaleFactorNumerator="0.04" ScaleFactorDenominator="1048576" MaxCount="#xffffffff">
+							<TimeComp TimeCompMode="1"/>
+						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -4008,7 +4010,7 @@ only active in subscription mode]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{73B27384-5C82-9A2B-FCF6-204188A0518B}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{3D2E18EF-9359-5803-70CA-E9EEAD145E57}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -7126,7 +7128,7 @@ only active in subscription mode]]></Comment>
 								</Element>
 								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>95</Index>
-									<Width>222</Width>
+									<Width>287</Width>
 								</Element>
 								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>32821</Index>
@@ -7145,6 +7147,7 @@ only active in subscription mode]]></Comment>
 								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>135</Index>
 									<SubItem>ActualOperationMode</SubItem>
+									<Width>182</Width>
 								</Element>
 								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33080</Index>
@@ -7235,8 +7238,8 @@ only active in subscription mode]]></Comment>
 					<EtherCAT SlaveType="2" PdiType="#x0c08" MboxDataLinkLayer="true" StateMBoxPolling="true" CfgModeSafeOp="true" DownloadPdoCfg="true" CycleMBoxPollingTime="0" FoeType="1" SoeChannels="1" VendorId="#x00000002" ProductCode="#x13f26012" RevisionNo="#x00d60000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutStateChange2="15000" TimeoutStateChange3="10000" TimeoutStateChange4="500" AutoRestoreAfterWcOk="true" CheckRevisionNoType="4" PortPhys="12305" IdentificationAdo="308" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="AX5106-0000-0214 EtherCAT Drive (SoE, 1 Ch.)" Desc="AX5106-0000-0214" PortABoxInfo="#x01000007">
 						<SyncMan>001880002600010001000000800080008000001826010000</SyncMan>
 						<SyncMan>001a80002200010002000000800080008000001a22010000</SyncMan>
-						<SyncMan>001008002400010003000000000000000000001024010000</SyncMan>
-						<SyncMan>00110c002200010004000000000000000000001122010000</SyncMan>
+						<SyncMan>001014002400010003000000000000000000001024010000</SyncMan>
+						<SyncMan>001110002200010004000000000000000000001122010000</SyncMan>
 						<SyncMan>002000002400010005000000000000000000002024010000</SyncMan>
 						<SyncMan>002400002000010006000000000000000000002420010000</SyncMan>
 						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
@@ -7297,6 +7300,8 @@ only active in subscription mode]]></Comment>
 						<MBoxUserCmdData>020005001800000011000000000000000000000000000000000000000000000003400282000000000c000c0001000000f401e803bc02000056656c6f63697479206f6273657276657200</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001a0000000000000000000000000000000000000000000000034021000000000001005365636f6e64617279206f7065726174696f6e206d6f6465203100</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001800000000000000000000000000000000000000000000000340d087000000000200436f6e6669677572656420736166657479206f7074696f6e00</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001a0000000000000000000000000000000000000000000000034022000000000002005365636f6e64617279206f7065726174696f6e206d6f6465203200</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001d00000000000000000000000000000000000000000000000340e681000000000100546f72717565206c696d69746174696f6e206f7074696f6e20636f646500</MBoxUserCmdData>
 						<Pdo Name="AT" Index="#x0010" Flags="#x0001" SyncMan="3">
 							<Entry Name="Drive status word" BitLen="16" Index="#x0087" Flags="#x00000800">
 								<Type>UINT</Type>
@@ -7304,22 +7309,34 @@ only active in subscription mode]]></Comment>
 							<Entry Name="Position feedback 1 value (motor feedback)" BitLen="32" Index="#x0033">
 								<Type>DINT</Type>
 							</Entry>
-							<Entry Name="Following distance" BitLen="32" Index="#x00bd">
-								<Type>DINT</Type>
-							</Entry>
 							<Entry Name="Torque/force feedback value" BitLen="16" Index="#x0054">
 								<Type>INT</Type>
+							</Entry>
+							<Entry Name="Velocity feedback 1 value" BitLen="32" Index="#x0028">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Following distance" BitLen="32" Index="#x00bd">
+								<Type>DINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="MDT" Index="#x0018" InOut="1" Flags="#x0001" SyncMan="2">
 							<Entry Name="Master control word" BitLen="16" Index="#x0086" Flags="#x00000800">
 								<Type>UINT</Type>
 							</Entry>
+							<Entry Name="Low velocity limit value" BitLen="32" Index="#x81e4">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="High velocity limit value" BitLen="32" Index="#x81e5">
+								<Type>DINT</Type>
+							</Entry>
 							<Entry Name="Position command value" BitLen="32" Index="#x002f">
 								<Type>DINT</Type>
 							</Entry>
 							<Entry Name="Torque/force command value" BitLen="16" Index="#x0050">
 								<Type>INT</Type>
+							</Entry>
+							<Entry Name="Velocity command value" BitLen="32" Index="#x0024">
+								<Type>DINT</Type>
 							</Entry>
 						</Pdo>
 					</EtherCAT>
@@ -7397,10 +7414,10 @@ only active in subscription mode]]></Comment>
 								<Entry Name="FSOE__FSOE Command" BitLen="8" Index="#xe600" Sub="#x01">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 STO" BitLen="1" Index="#x6640">
+								<Entry Name="FSOE__Axis 1 STO" BitLen="1" Index="#x6640" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SSM(1)" BitLen="1" Index="#x66e0" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SSM(1)" BitLen="1" Index="#x66e0" Sub="#x01" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="FSOE__Axis 1 SSM(2)" BitLen="1" Index="#x66e0" Sub="#x02">
@@ -7418,7 +7435,7 @@ only active in subscription mode]]></Comment>
 								<Entry Name="FSOE__Axis 1 SDI_n" BitLen="1" Index="#x66d1">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 Error" BitLen="1" Index="#x6632">
+								<Entry Name="FSOE__Axis 1 Error" BitLen="1" Index="#x6632" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry BitLen="1">
@@ -7456,10 +7473,10 @@ only active in subscription mode]]></Comment>
 								<Entry Name="FSOE__FSOE Command" BitLen="8" Index="#xe700" Sub="#x01">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 STO" BitLen="1" Index="#x6640">
+								<Entry Name="FSOE__Axis 1 STO" BitLen="1" Index="#x6640" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SS1(1)" BitLen="1" Index="#x6650" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SS1(1)" BitLen="1" Index="#x6650" Sub="#x01" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="FSOE__Axis 1 SS2(1)" BitLen="1" Index="#x6670" Sub="#x01">
@@ -7477,7 +7494,7 @@ only active in subscription mode]]></Comment>
 								<Entry Name="FSOE__Axis 1 SDI_n" BitLen="1" Index="#x66d1">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 Error_Ack" BitLen="1" Index="#x6632">
+								<Entry Name="FSOE__Axis 1 Error_Ack" BitLen="1" Index="#x6632" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry BitLen="1">
@@ -22376,7 +22393,7 @@ only active in subscription mode]]></Comment>
 			</Device>
 			<Device Id="2" DevType="119" AmsPort="28674" AmsNetId="192.168.81.10.3.1" RemoteName="Device 2 (EL6631)">
 				<Name>Device 2 (EL6631)</Name>
-				<DevData>000000003900000000000000a08601005465726d2031382028454c363633312900000000000000000000000000000000000000000000000000000000000000000000000000000a000164a8c000ffffff0001054433cf040000000000000000000000000000000000000000000000000000000000000000000000000000000000</DevData>
+				<DevData>000000003900000000000000a08601005465726d2031382028454c363633312900000000000000000000000000000000000000000000000000000000000000000000000000000a000164a8c000ffffff000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000</DevData>
 				<Image Id="2" AddrType="4" ImageType="3" SizeIn="664" SizeOut="688">
 					<Name>Image</Name>
 				</Image>
@@ -27495,7 +27512,7 @@ Submodule Info: In / Out Daten
 					</PNController>
 				</Profinet>
 			</Device>
-			<Device Id="3" DevType="160" AmsNetId="192.168.81.10.4.1">
+			<Device Id="3" DevType="160" AmsNetId="192.168.81.10.4.1" RemoteName="Device 3 (OPC UA Virtual)_Devices">
 				<Name>Device 3 (OPC UA Virtual)</Name>
 				<ImageId>1029</ImageId>
 				<DevData>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000</DevData>
@@ -28157,12 +28174,10 @@ Submodule Info: In / Out Daten
 		<MappingInfo Identifier="{030400C0-00C0-0304-C000-0403C0000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{030400C0-00F0-0304-C000-0403F0000403}" Id="#x02030040" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CNC_1">
-			<OwnerB Name="TIID^CNC_1^Drive 9 (AX5106-0000-0214)^Term 16 (AX5805)">
-				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionOutputs^Message_3 RxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE"/>
-			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="Box 15 (EP1957-0022)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^Message_4 RxPDO"/>
 				<Link VarA="Box 15 (EP1957-0022)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_4 TxPDO"/>
+				<Link VarA="Drive 9 (AX5106-0000-0214)^Term 16 (AX5805)^Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE" VarB="ConnectionOutputs^Message_3 RxPDO"/>
 				<Link VarA="Drive 9 (AX5106-0000-0214)^Term 16 (AX5805)^Module 1 (Safety Process Data, 1 axis)^Outputs (Controlword)^FSOE" VarB="ConnectionInputs^Message_3 TxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
@@ -28174,24 +28189,24 @@ Submodule Info: In / Out Daten
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_26 TxPDO" VarB="ConnectionOutputs^Message_18 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
+				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^Message_17 RxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 44 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_3 TxPDO"/>
-				<Link VarA="Term 41 (EK1100)^Term 46 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_5 RxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 45 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_18 TxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_22 TxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_22 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 43 (EL1918)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_17 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_17 RxPDO" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 44 (EL1904)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_3 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 45 (EL1904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_18 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_18 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 46 (EL2904)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_5 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
+				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_5 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^Vise">
@@ -28217,8 +28232,12 @@ Submodule Info: In / Out Daten
 				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
 				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
 				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="MDT^Position command value"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut2" VarB="MDT^Velocity command value"/>
 				<Link VarA="Drive^Outputs^Out^nDataOut4[0]" VarB="MDT^Torque/force command value"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut5" VarB="MDT^High velocity limit value"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut6" VarB="MDT^Low velocity limit value"/>
 				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="AT^Position feedback 1 value (motor feedback)"/>
+				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="AT^Velocity feedback 1 value"/>
 				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
@@ -28257,6 +28276,13 @@ Submodule Info: In / Out Daten
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIPC^PLC^PLC Instance">
+			<OwnerB Name="TIID^CNC_1^Box 10 (BNI ECT-508-105-Z015)">
+				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[1]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[2]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[3]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1"/>
+			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyDriveEnCnc1" VarB="StandardOutputs^Standard In Var 14"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyErrorAck_Main" VarB="StandardOutputs^Standard In Var 1"/>

@@ -33,6 +33,7 @@ VAR (* Drive *)
 	fbMoveRelative			: MC_MoveRelative;
 	fbTorqueControl			: MC_TorqueControl;	
 	fbJog					: MC_Jog;
+	
 	fbSoEReset				: FB_SoEReset;
 	fbReset					: MC_Reset;
 END_VAR
@@ -360,8 +361,8 @@ ActReset();]]></ST>
 	Relative:= FALSE, 
 	Torque:= nTorque, 
 	TorqueRamp:= nTorqueRamp, 
-	VelocityLimitHigh:= nTorqueVelocityLimit, 
-	VelocityLimitLow:= nTorqueVelocityLimit);]]></ST>
+	VelocityLimitHigh:= ,//nTorqueVelocityLimit, 
+	VelocityLimitLow:= );//nTorqueVelocityLimit);]]></ST>
       </Implementation>
     </Action>
   </POU>
