@@ -6,7 +6,7 @@ VAR_GLOBAL
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 0'}
 	i_stSensorHub_0 AT %I* : ST_CPI_Module;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 1'}
-	i_stSensorHub_1 : ST_CPI_Module;
+	i_stSensorHub_1 AT %I* : ST_CPI_Module;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 2'}
 	i_stSensorHub_2 AT %I* : ST_CPI_Module;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 3'}
