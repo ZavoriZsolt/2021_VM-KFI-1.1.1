@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_CPI_Module" Id="{5fc6a001-c85e-4c61-bbf2-5c649ed860ac}">
+    <Declaration><![CDATA[TYPE ST_CPI_Module :
+STRUCT
+	Channel_0	:BIT;
+	Channel_1	:BIT;
+	Channel_2	:BIT;
+	Channel_3	:BIT;
+	Channel_4	:BIT;
+	Channel_5	:BIT;
+	Channel_6	:BIT;
+	Channel_7	:BIT;
+	Channel_8	:BIT;
+	Channel_9	:BIT;
+	Channel_10	:BIT;
+	Channel_11	:BIT;
+	Channel_12	:BIT;
+	Channel_13	:BIT;
+	Channel_14	:BIT;
+	Channel_15	:BIT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

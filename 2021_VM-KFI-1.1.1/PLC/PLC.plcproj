@@ -17,6 +17,9 @@
     <LibraryReferences>{82d1281e-2994-43d2-9d74-4308c1cb2cc5}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\ConveyorSystem\ST_CPI_Module.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\RGB\ST_RGB_In.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +52,10 @@
     </Compile>
     <Compile Include="GVLs\GVL_Constant.TcGVL">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\GVL_ConveyorSystem.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="GVLs\GVL_IO.TcGVL">
       <SubType>Code</SubType>
@@ -345,6 +352,7 @@
     <Folder Include="DUTs\Cnc" />
     <Folder Include="DUTs\Executer" />
     <Folder Include="DUTs\MySQL" />
+    <Folder Include="DUTs\ConveyorSystem" />
     <Folder Include="DUTs\ServoVise" />
     <Folder Include="DUTs\RGB" />
     <Folder Include="DUTs\Vise" />

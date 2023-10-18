@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Test" Id="{a7f529f9-6639-4ddc-83fe-1d6592c310d9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Test
 VAR
@@ -46,9 +46,14 @@ END_VAR
 //	nCncNumber			: BYTE;										//Parameter in
 //	nViseNumber			: BYTE;										//Parameter out
 //END_VAR
-]]></Declaration>
+var
+	_test_usint : USINT;
+	_test : bool;
+END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//CASE nSqlState OF
+      <ST><![CDATA[_test_usint.0 := 1;
+_test := _test_usint.0;
+//CASE nSqlState OF
 //	0:
 //			IF bGetNextVase THEN
 //				nSqlState := nSqlState + 20;

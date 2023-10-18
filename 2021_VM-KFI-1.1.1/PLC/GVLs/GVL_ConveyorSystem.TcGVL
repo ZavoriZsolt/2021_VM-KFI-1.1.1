@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_ConveyorSystem" Id="{519636fd-f5fc-45be-b371-d63f77e16cb0}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 0'}
+	i_stSensorHub_0 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 1'}
+	i_stSensorHub_1 : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 2'}
+	i_stSensorHub_2 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 3'}
+	i_stSensorHub_3 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 4'}
+	i_stSensorHub_4 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 5'}
+	i_stSensorHub_5 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 6'}
+	i_stSensorHub_6 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 7'}
+	i_stSensorHub_7 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 8'}
+	i_stSensorHub_8 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 9'}
+	i_stSensorHub_9 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 10'}
+	i_stSensorHub_10 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 11'}
+	i_stSensorHub_11 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 12'}
+	i_stSensorHub_12 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 13'}
+	i_stSensorHub_13 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 14'}
+	i_stSensorHub_14 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 15'}
+	i_stSensorHub_15 AT %I* : ST_CPI_Module;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 0'}
+	i_stSensorHub_16 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 1'}
+	i_stSensorHub_17 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 2'}
+	i_stSensorHub_18 AT %I* : ST_CPI_Module;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 3'}
+	i_stSensorHub_19 AT %I* : ST_CPI_Module;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
