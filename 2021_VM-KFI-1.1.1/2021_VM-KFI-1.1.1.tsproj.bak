@@ -1412,15 +1412,6 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
-			<BitSize>32</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>4</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
 			<Name GUID="{06996938-A0CC-D594-2D93-F13C682B876A}" IecBaseType="true" AutoDeleteType="true">ARRAY [1..32] OF UINT</Name>
 			<BitSize>512</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
@@ -1953,6 +1944,15 @@ External Setpoint Generation:
 			<ArrayInfo>
 				<LBound>0</LBound>
 				<Elements>64</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
+			<BitSize>32</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>4</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -3647,8 +3647,8 @@ only active in subscription mode]]></Comment>
 		<System>
 			<Licenses>
 				<Target>
-					<ManualSelect>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</ManualSelect>
 					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
+					<ManualSelect>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 				</Target>
 			</Licenses>
@@ -4110,19 +4110,11 @@ only active in subscription mode]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{10E04E67-C39E-BA7C-7E2B-A23AFA2EB170}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{D1224C11-6E89-2CDC-005D-029C5C47E79D}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
-						<Var>
-							<Name>MAIN.fbVisePos.arrRaw</Name>
-							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbVisePos.nState</Name>
-							<Type>USINT</Type>
-						</Var>
 						<Var>
 							<Name>RobotCncProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
@@ -4133,6 +4125,10 @@ only active in subscription mode]]></Comment>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_1</Name>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
@@ -4596,6 +4592,14 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>GVL_Safety.i_bWaitClose_Main</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>Servo.fbVisePos.arrRaw</Name>
+							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>Servo.fbVisePos.nState</Name>
+							<Type>USINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -5383,6 +5387,17 @@ only active in subscription mode]]></Comment>
 							</OwnerB>
 							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
 								<Link VarA="Servo.Axis.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2023-10-19T12:19:15">
+						<OwnerA Name="InputDst" Prefix="TIPC^PLC^PLC Instance" Type="1">
+							<OwnerB Name="TIID^CNC_1^Box 10 (BNI ECT-508-105-Z015)">
+								<Link VarA="MAIN.fbVisePos.arrRaw[0]" TypeA="BITARR8" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000032}" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbVisePos.arrRaw[1]" TypeA="BITARR8" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000032}" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbVisePos.arrRaw[2]" TypeA="BITARR8" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000032}" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbVisePos.arrRaw[3]" TypeA="BITARR8" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000032}" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.fbVisePos.nState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -22575,10 +22590,7 @@ only active in subscription mode]]></Comment>
 				</Image>
 				<Box Id="96" BoxType="9121">
 					<Name>rfm1</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -23087,10 +23099,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="97" BoxType="9121">
 					<Name>rfm2</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -23601,10 +23610,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="98" BoxType="9121">
 					<Name>rfm3</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -24115,10 +24121,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="99" BoxType="9121">
 					<Name>rfm4</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -24629,10 +24632,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="100" BoxType="9121">
 					<Name>rfm5</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25143,10 +25143,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="101" BoxType="9121">
 					<Name>rfm6</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25657,10 +25654,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="102" BoxType="9121">
 					<Name>rfm7</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26171,10 +26165,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="103" BoxType="9121">
 					<Name>rfm8</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26685,10 +26676,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="104" BoxType="9121">
 					<Name>rfm9</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27199,10 +27187,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="105" BoxType="9121">
 					<Name>rfm10</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28483,11 +28468,11 @@ Submodule Info: In / Out Daten
 		</OwnerA>
 		<OwnerA Name="TIPC^PLC^PLC Instance">
 			<OwnerB Name="TIID^CNC_1^Box 10 (BNI ECT-508-105-Z015)">
-				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[1]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[2]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.arrRaw[3]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1"/>
+				<Link VarA="PlcTask Inputs^Servo.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Servo.fbVisePos.arrRaw[1]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Servo.fbVisePos.arrRaw[2]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Servo.fbVisePos.arrRaw[3]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Servo.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyDriveEnCnc1" VarB="StandardOutputs^Standard In Var 14"/>
@@ -29817,6 +29802,7 @@ Submodule Info: In / Out Daten
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Box 74 (CPX-FB37)">
 				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_0" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 0" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_1" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 1" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_10" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 10" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_11" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 11" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_12" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 12" AutoLink="true"/>

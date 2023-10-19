@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{f64088c3-f9a4-4ef8-a854-8e583a1e04fb}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -36,7 +36,6 @@ VAR
 	
 	bTestSWFC			: BOOL;
 	bTestSWWS			: BOOL;
-	fbVisePos			: FB_BTL1AR0;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[//InitTCPIP();
@@ -51,8 +50,6 @@ Mode();
 ViseProgram();
 RobotCncProgram();
 CNC_1();
-
-fbVisePos(nDistance=> );
 
 Test();
 SQL_Test();

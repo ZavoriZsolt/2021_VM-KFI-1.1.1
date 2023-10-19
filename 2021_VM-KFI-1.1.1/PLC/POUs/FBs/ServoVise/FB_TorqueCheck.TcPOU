@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_TorqueCheck" Id="{33f249c7-9606-4c7a-8eb7-07d47f9672dd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TorqueCheck
+VAR_IN_OUT
+    Axis 					: AXIS_REF;
+END_VAR
+VAR_INPUT
+	bEnable					: BOOL;
+	nTorque					: LREAL;
+	tTorqueStabTime			: TIME := T#500ms;
+END_VAR
+VAR_OUTPUT
+	bTorqueDone				: BOOL;
+END_VAR
+VAR
+	bAxisNotMove			: BOOL;
+	timNotMove				: TON;
+	bAxisInTorque			: BOOL;
+	timInTorque				: TON;
+	timStab					: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[timNotMove(IN:= ABS(Axis.NcToPlc.ActVelo)<0.01, PT:= T#200ms, Q=> bAxisNotMove, ET=> );
+timInTorque(IN:= ABS(ABS(Axis.NcToPlc.ActTorque) - ABS(nTorque))< 1, PT:= T#200ms, Q=>bAxisInTorque , ET=> );
+timStab(IN:= bAxisNotMove AND bAxisInTorque, PT:= tTorqueStabTime, Q=> , ET=> );
+bTorqueDone := timStab.Q AND bEnable;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

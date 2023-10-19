@@ -29,9 +29,6 @@
     <Compile Include="DUTs\RGB\ST_RGB_Out.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ServoVise\E_ServoVise_Command.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\Vise\E_Vise_State.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -196,9 +193,6 @@
     <Compile Include="POUs\FBs\FB_Server.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FBs\FB_ServoVise.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FBs\FB_SQL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -254,6 +248,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\MySQL\UpdateVise\FB_SP_spUpdateVise.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\ServoVise\DUTs\E_ServoVise_Command.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\ServoVise\FB_ServoVise.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\ServoVise\FB_TorqueCheck.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\InitTCPIP.TcPOU">
@@ -353,7 +356,6 @@
     <Folder Include="DUTs\Executer" />
     <Folder Include="DUTs\MySQL" />
     <Folder Include="DUTs\ConveyorSystem" />
-    <Folder Include="DUTs\ServoVise" />
     <Folder Include="DUTs\RGB" />
     <Folder Include="DUTs\Vise" />
     <Folder Include="GVLs" />
@@ -376,6 +378,8 @@
     <Folder Include="POUs\CNC_1" />
     <Folder Include="POUs\FBs\FanucKardex" />
     <Folder Include="POUs\FBs\FanucCNC" />
+    <Folder Include="POUs\FBs\ServoVise" />
+    <Folder Include="POUs\FBs\ServoVise\DUTs" />
     <Folder Include="POUs\Temp" />
     <Folder Include="POUs\RobotViseStation" />
     <Folder Include="POUs\Temp\Fanuc" />

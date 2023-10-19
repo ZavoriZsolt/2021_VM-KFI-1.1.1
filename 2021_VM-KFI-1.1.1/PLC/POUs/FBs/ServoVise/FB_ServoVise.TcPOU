@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_ServoVise" Id="{6aa55fe7-afee-4b40-bb31-d2de59dbb683}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ServoVise
+VAR_INPUT
+	bErrorAck				: BOOL;
+	bEnable					: BOOL;
+	eCommand				: E_ServoVise_Command;
+	bManualMode				: BOOL;
+	lrTargetDistance		: LREAL;			// [mm]		Target distance without torque limit
+	lrVisePosition			: LREAL;			// [mm]		Value of distance sensor
+	bVisePosValid			: BOOL;				// []		Distane sensor status
+	nTargetVelocity			: LREAL;			// [mm/s]
+	nTorque					: LREAL := 10.0;	// [%]
+	nTorqueRamp				: LREAL := 10.0;	// [%/s]
+	nTorqueVelocityLimit	: LREAL := 0.1;		// [mm/s]
+	nOverride				: LREAL := 100.0;	// [%] 
+	nAttachDistance 		: LREAL := 0.7;
+	nAttachVelocity			: LREAL := 0.1;
+	stAxisEvent				: TcEventEntry;	(*Event definition*)
+END_VAR
+VAR_OUTPUT
+	bReady					: BOOL;
+	bBusy 					: BOOL;
+	bDone 					: BOOL;
+	bError 					: BOOL;
+END_VAR
+VAR
+	lrCalculatedDistance	: LREAL;
+END_VAR
+VAR (* Drive *)
+	Axis					: AXIS_REF;
+	fbPower					: MC_Power;
+	fbMoveRelative			: MC_MoveRelative;
+	fbReadDriveOpMode		: MC_ReadDriveOperationMode;
+	fbWriteDriveOpMode		: MC_WriteDriveOperationMode;
+	fbStop					: MC_Halt;
+	fbHalt					: MC_Stop;
+	fbTorqueControl			: MC_TorqueControl;	
+	fbJog					: MC_Jog;
+	fbTorqueCheck			: FB_TorqueCheck;	
+
+	fbSoEReset				: FB_SoEReset;
+	fbReset					: MC_Reset;
+END_VAR
+VAR (* State control *)
+	nState 					: UDINT;
+	nLastState				: UDINT;
+	sState					: STRING;
+	
+	// Error control
+	bIsInitalized		:BOOL;
+	fbAlarm				:FB_TcAlarm;
+	nGlobalAxisErrorID	:UDINT;
+	
+	//LastStates
+	anLastStates				:ARRAY[0..500] OF UDINT;
+    iLastStates					:INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT bEnable THEN
+	fbPower.Enable := FALSE;
+	fbTorqueControl.Execute := FALSE;
+	fbMoveRelative.Execute := FALSE;
+	nState := 0;
+END_IF
+
+IF nLastState <> nState THEN
+	nLastState := nState;
+END_IF
+
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*State history ************************************************)
+IF(nState >= 100) AND (nState <= 20000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+(*Hiba kezelés Tc3_EventLogger//Error handling*)
+IF NOT bIsInitalized THEN
+	bIsInitalized  :=  TRUE;
+	fbAlarm.CreateEx(stAxisEvent, TRUE, 0);
+END_IF
+
+IF bErrorAck THEN
+	IF fbAlarm.eConfirmationState = 2 THEN
+		fbAlarm.Confirm(0);
+	END_IF
+END_IF
+
+IF Axis.Status.Error OR Axis.Status.DriveDeviceError OR fbPower.Error OR fbMoveRelative.Error OR fbTorqueControl.Error OR
+	fbJog.Error OR fbSoEReset.Error OR fbReset.Error
+THEN
+	bError  :=  TRUE;
+	IF (fbAlarm.eConfirmationState <> 2 AND fbAlarm.nTimeCleared <> 0 AND fbAlarm.nTimeConfirmed <> 0) OR //Ha már volt alarm, akkor van bennük érték
+		(fbAlarm.eConfirmationState = 1 AND fbAlarm.nTimeCleared = 0 AND fbAlarm.nTimeConfirmed = 0)	//Első futás esetén
+	THEN
+		//fb_DriveDiag(Execute :=  TRUE, Axis :=  Axis);
+		//IF NOT fb_DriveDiag.Busy THEN
+			//fb_DriveDiag(Execute :=  FALSE, Axis :=  Axis);
+			IF Axis.Status.ErrorID <> 0 THEN
+				nGlobalAxisErrorID  :=  Axis.Status.ErrorID;
+			ELSIF fbPower.ErrorID <> 0 THEN
+				nGlobalAxisErrorID  :=  fbPower.ErrorID;
+			ELSIF fbMoveRelative.ErrorID <> 0 THEN
+				nGlobalAxisErrorID  :=  fbMoveRelative.ErrorID;
+			ELSIF fbTorqueControl.ErrorID <> 0 THEN
+				nGlobalAxisErrorID  :=  fbTorqueControl.ErrorID;
+			ELSIF fbJog.ErrorID <> 0 THEN
+				nGlobalAxisErrorID  :=  fbJog.ErrorID;
+			ELSIF fbSoEReset.SercosErrId <> 0 THEN
+				nGlobalAxisErrorID  :=  fbSoEReset.SercosErrId;
+			ELSIF fbReset.ErrorID <> 0 THEN
+				nGlobalAxisErrorID  :=  fbReset.ErrorID;
+			END_IF
+			//fbAlarm.ipArguments.Clear().AddUDInt(nGlobalAxisErrorID).AddUDInt(fb_DriveDiag.DiagNumber);
+			fbAlarm.ipArguments.Clear().AddUDInt(nGlobalAxisErrorID);
+			fbAlarm.Raise(0);
+		//END_IF
+	END_IF
+END_IF
+
+Axis();
+
+CASE nState OF
+	0: (*Alaphelyzet*)
+		fbPower.Enable := FALSE;
+		fbReadDriveOpMode.Execute := FALSE;
+		fbWriteDriveOpMode.Execute := FALSE;
+		fbStop.Execute := FALSE;
+		fbHalt.Execute := FALSE;
+		fbTorqueControl.Execute := FALSE;
+		fbMoveRelative.Execute := FALSE;
+		bBusy := FALSE;
+		bDone := FALSE;
+		bError := FALSE;
+		IF bEnable THEN
+			nState := nState + 20;
+		END_IF
+		
+	20: (*Axis and Drive check*)
+		IF Axis.Status.Error OR Axis.Status.DriveDeviceError THEN
+			nState := 250000;
+		ELSIF bEnable THEN
+			nState := nState + 20;
+		END_IF
+
+	40: (*Read drive operation mode*)
+		fbReadDriveOpMode.Execute := TRUE;
+		IF fbReadDriveOpMode.Done THEN
+			IF fbReadDriveOpMode.DriveOperationMode <> Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default THEN
+				nState := 10000;
+			ELSE
+				nState := 100;
+			END_IF
+			fbReadDriveOpMode.Execute := FALSE;
+		END_IF
+
+	100: (*Change drive operation mode*)
+		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
+		fbWriteDriveOpMode.Execute := TRUE;
+		IF fbWriteDriveOpMode.Done THEN
+			fbWriteDriveOpMode.Execute := FALSE;
+			nState := 10000;
+		END_IF
+
+	
+	(* Alaphelyzet *********************************************************************)	
+	10000: (*Wait for command*)
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := FALSE;
+		IF eCommand = E_ServoVise_Command.MoveToPos THEN
+			bBusy := TRUE;
+			nState := 40000;
+		ELSIF eCommand = E_ServoVise_Command.Fix THEN
+			bBusy := TRUE;
+			nState := 20000;
+		END_IF
+	
+	(*-----=== Szervo BE ===-----*)
+	20000:
+		fbPower.Enable := TRUE;
+		IF fbPower.Status THEN
+			nState := nState + 20;
+		ELSIF fbPower.Error THEN
+			nState := 250000;
+		END_IF	
+
+	(*-----=== Szervo mozgatása kuplung zárás miatt ===-----*)
+	20020:
+		fbMoveRelative.Distance := nAttachDistance;
+		fbMoveRelative.Velocity := nAttachVelocity;
+		fbMoveRelative.Execute := TRUE;
+		IF fbMoveRelative.Done THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := 20100;
+		ELSIF fbMoveRelative.Error THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := 250000;
+		END_IF
+		
+	(*-----=== Zárás nyomatékra ===-----*)		
+	20100:
+		fbTorqueControl.Torque := -1 * ABS(nTorque);
+		fbTorqueControl.TorqueRamp := nTorqueRamp;
+		fbTorqueControl.VelocityLimitHigh := nTorqueVelocityLimit;
+		fbTorqueControl.VelocityLimitLow := -1 * nTorqueVelocityLimit;
+		fbTorqueControl.Execute := TRUE;
+		IF fbTorqueControl.Busy THEN
+			nState := nState + 20;
+		END_IF
+
+	(*-----=== Nyomaték figyelés ===-----*)
+	20120:
+		IF fbTorqueCheck.bTorqueDone THEN
+			fbTorqueControl.Execute := FALSE;
+			nState := nState + 20;
+		ELSIF fbTorqueControl.Error THEN
+			nState := 250000;
+		END_IF	
+
+	(*-----=== Váratla mozgások elkerülése ===-----*)
+	(*-----=== Axis Halt ===-----*)
+	20140:
+		fbHalt.Execute := TRUE;
+		IF fbHalt.Done THEN
+			fbHalt.Execute := FALSE;
+			nState:= nState + 20;
+		END_IF
+
+	(*-----=== Átkapcsolás pozíció módba ===-----*)
+	20160:
+		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
+		fbWriteDriveOpMode.Execute := TRUE;
+		IF fbWriteDriveOpMode.Done THEN
+			fbWriteDriveOpMode.Execute := FALSE;
+			nState := nState + 20;
+		END_IF
+
+	(*-----=== Szervo KI ===-----*)
+	20180:
+		fbPower.Enable := FALSE;
+		nState := nState + 20;
+
+	20200:
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_ServoVise_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+	
+	(*-----=== Nyítás ===-----*)		
+	40000: (*Open*)
+		lrCalculatedDistance := lrTargetDistance * 180;
+		fbMoveRelative.Distance := lrCalculatedDistance;
+		nState := nState + 20;
+		
+	40020:
+		fbMoveRelative.Execute := TRUE;
+		nState := nState + 20;
+		
+	40040: (*Move done or aborted*)
+		IF fbMoveRelative.Done THEN
+			nState := nState + 20;
+			fbMoveRelative.Execute := FALSE;
+		END_IF
+		
+		IF fbMoveRelative.Error THEN
+			nState := 250000;
+		END_IF
+		
+	40060:
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_ServoVise_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+	
+	(*-----=== Manual moed ===-----*)	
+	150000: (*Manual*)
+		fbJog.Mode := MC_JOGMODE_CONTINOUS;
+		IF NOT bManualMode THEN
+			nState := 10000;
+		END_IF
+		IF fbJog.Error THEN
+			nState := 250000;
+		END_IF
+	
+	(*-----=== Hiba ===-----*)	
+	250000: (*Error*)
+		bReady := FALSE;
+		bBusy := FALSE;
+		bDone := FALSE;
+		bError := TRUE;
+		IF bErrorAck THEN
+			nState := nState + 20;
+		END_IF
+		
+	250020: (*Error ACK*)
+		IF Axis.Status.DriveDeviceError THEN 
+			fbSoEReset.Execute := TRUE;
+			fbReset.Execute := TRUE;
+			nState := 250040;
+		ELSIF Axis.Status.Error THEN 
+			fbReset.Execute := TRUE;
+			nState := 250060;
+		ELSE
+			nState := 0;
+		END_IF
+		
+	250040: (*Drive Reset*)
+		IF NOT fbSoEReset.Busy THEN
+			fbSoEReset.Execute := FALSE;
+			nState := 0;
+		ELSIF fbSoEReset.Error THEN
+			nState := 0; 
+		END_IF
+		
+	250060: (*Reset*)
+		IF fbReset.Done THEN
+			fbReset.Execute := FALSE;
+			nState := 0;
+		ELSIF fbReset.Error THEN
+			nState := 0; 
+		END_IF	
+ELSE
+	sState := 'Not used step';	
+END_CASE
+
+ActPower();
+ActHalt();
+ActStop();
+ActMode();
+ActTorque();
+ActMoveRelative();
+ActJog();
+ActSoEReset();
+ActReset();]]></ST>
+    </Implementation>
+    <Action Name="ActHalt" Id="{e3aaa0fe-3cea-4fea-a021-0bd63a7bcba7}">
+      <Implementation>
+        <ST><![CDATA[fbHalt(Axis:= Axis);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActJog" Id="{dbec480c-3b95-4842-b96d-a3a6b738e551}">
+      <Implementation>
+        <ST><![CDATA[fbJog(
+	Axis:= Axis, 
+	JogForward:= TRUE, 
+	JogBackwards:= TRUE, 
+	Mode:= fbJog.Mode, 
+	Velocity:= 10);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActMode" Id="{f8ae5c0a-b76d-4cf9-8294-fc8ed7f21ff5}">
+      <Implementation>
+        <ST><![CDATA[fbReadDriveOpMode(
+	Axis:= Axis, 
+	Execute:= , 
+	Options:= , 
+	Done=> , 
+	Busy=> , 
+	Error=> , 
+	ErrorID=> , 
+	DriveOperationMode=> );
+
+fbWriteDriveOpMode(
+	Axis:= Axis, 
+	Execute:= , 
+	DriveOperationMode:= , 
+	Options:= , 
+	Done=> , 
+	Busy=> , 
+	Error=> , 
+	ErrorID=> );]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActMoveRelative" Id="{faed1f2c-59cc-4df3-b558-77214563147a}">
+      <Implementation>
+        <ST><![CDATA[fbMoveRelative(
+	Axis:= Axis);
+//, 
+//	Distance:= lrCalculatedDistance, 
+//	Velocity:= nOpenVelocity);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActPower" Id="{dab1f324-c7df-460d-9b39-6efd4ef1e589}">
+      <Implementation>
+        <ST><![CDATA[fbPower(
+	Axis:= Axis, 
+	Enable_Positive:= TRUE, 
+	Enable_Negative:= TRUE, 
+	Override:= nOverride);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActReset" Id="{f8efa3f5-5e55-468b-af9d-9a506b6e8629}">
+      <Implementation>
+        <ST><![CDATA[fbReset(Axis:= Axis);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActSoEReset" Id="{ee4f3b79-5d36-4fe1-8e3a-25aa07755642}">
+      <Implementation>
+        <ST><![CDATA[fbSoEReset(Axis:= Axis);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActStop" Id="{f39d1764-a57b-4254-8962-1c3d4265c9c5}">
+      <Implementation>
+        <ST><![CDATA[fbStop(Axis:= Axis);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ActTorque" Id="{d2bf8c67-a3a8-41bb-99a1-1ee7a27893c3}">
+      <Implementation>
+        <ST><![CDATA[fbTorqueControl(
+	Axis:= Axis, 
+	ContinuousUpdate:= FALSE, 
+	Relative:= FALSE, 
+	Torque:= , 
+	TorqueRamp:= , 
+	VelocityLimitHigh:= , 
+	VelocityLimitLow:= );
+
+fbTorqueCheck(
+	Axis:= Axis, 
+	bEnable:= fbTorqueControl.Execute, 
+	nTorque:= fbTorqueControl.Torque, 
+	tTorqueStabTime:= T#500ms, 
+	bTorqueDone=> );]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>
