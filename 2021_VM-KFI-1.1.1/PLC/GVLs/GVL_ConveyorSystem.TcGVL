@@ -44,6 +44,159 @@ VAR_GLOBAL
 	i_stSensorHub_18 AT %I* : ST_CPI_Module;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 3'}
 	i_stSensorHub_19 AT %I* : ST_CPI_Module;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bZ1_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bZ1_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bZ2_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bZ2_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bZ3_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bZ3_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bZ4_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bZ4_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bZ5_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bZ5_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bZ6_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bZ6_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bZ7 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bZ8 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bZ9 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bZ10 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bZ11 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bZ12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bZ13_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bZ13_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bZ14_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bZ14_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bZ15_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bZ15_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bZ16_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bZ16_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bZ17_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bZ17_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bZ18_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bZ18_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bZ19_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bZ19_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bZ20_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 8 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bZ20_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bZ21_14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bZ21_12 AT %Q* : BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bS1 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS2 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bS3 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS4 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bS5 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS6 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bS7 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS8 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bS9 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS10 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bS11 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS12 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bS13 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS14 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bS15 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS16 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bS17 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS18 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bS19 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS20 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bS21 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS22 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bS23 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS24 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
+	q_bS25 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS26 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
+	q_bS27 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS28 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
+	q_bS29 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS30 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
+	q_bS31 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS32 AT %Q* : BOOL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
