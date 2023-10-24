@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ConveyorSystem" Id="{f8767a66-2af5-4d3e-9e9a-eaea6bc70687}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM ConveyorSystem
+VAR
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Cylinders();
+Stoppers();]]></ST>
+    </Implementation>
+    <Action Name="Cylinders" Id="{9a689bda-b5d5-433f-b719-db3da72abe11}">
+      <Implementation>
+        <ST><![CDATA[fbZ1(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ1_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ1_14);
+	
+fbZ2(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ2_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ2_14);
+	
+fbZ3(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ3_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ3_14);
+	
+fbZ4(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ4_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ4_14);
+	
+fbZ5(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ5_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ5_14);
+	
+fbZ6(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ6_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ6_14);
+	
+fbZ7(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> , 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ7);
+	
+fbZ8(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> , 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ8);
+	
+fbZ9(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> , 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ9);
+	
+fbZ10(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> , 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ10);
+	
+fbZ11(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=>, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ11);
+	
+fbZ12(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> , 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ12);
+	
+fbZ13(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ13_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ13_14);
+	
+fbZ14(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ14_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ14_14);
+	
+fbZ15(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ15_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ15_14);
+	
+fbZ16(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ16_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ16_14);
+	
+fbZ17(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ17_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ17_14);
+	
+fbZ18(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ18_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ18_14);
+	
+fbZ19(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ19_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ19_14);
+	
+fbZ20(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ20_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ20_14);
+	
+fbZ21(
+	sName:= , 
+	bEn:= , 
+	bEHA:= , 
+	nEHMode:= , 
+	bDisableManualCmd:= , 
+	bAck:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ21_12, 
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ21_14);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
+      <Implementation>
+        <ST><![CDATA[fbS1(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS1);
+	
+fbS2(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
+	
+fbS3(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);	
+	
+fbS4(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
+	
+fbS5(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS5);
+	
+fbS6(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS6);
+	
+fbS7(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS7);
+	
+// Elbaszta aki számozta és nincs 8 vagy vak vagyok
+//fbS3(
+//	bNextReady:= , 
+//	bMotorRun:= , 
+//	bStationReady:= , 
+//	bStationFinished:= , 
+//	i_bPalettSensor:= , 
+//	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);
+	
+fbS9(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS9);
+	
+fbS10(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS10);
+	
+fbS11(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS11);
+	
+fbS12(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS12);
+	
+fbS13(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
+	
+fbS14(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS14);
+	
+fbS15(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS15);
+	
+fbS16(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS16);
+	
+fbS17(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
+	
+fbS18(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS18);
+	
+fbS19(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS19);
+	
+fbS20(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS20);
+	
+fbS21(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS21);
+	
+fbS22(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS22);
+	
+fbS23(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS23);
+	
+fbS24(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
+	
+fbS25(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS25);
+	
+fbS26(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS26);
+	
+fbS27(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS27);
+	
+// itt megint faszom sem tudja, vagy elbaszták a számozást vagy vak vagyok	
+//fbS28(
+//	bNextReady:= , 
+//	bMotorRun:= , 
+//	bStationReady:= , 
+//	bStationFinished:= , 
+//	i_bPalettSensor:= , 
+//	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);
+	
+fbS29(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS29);
+	
+fbS30(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS30);
+	
+fbS31(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS31);
+	
+fbS32(
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS32);]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

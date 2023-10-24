@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_ConveyorSystem" Id="{519636fd-f5fc-45be-b371-d63f77e16cb0}">
-    <Declaration><![CDATA[{attribute 'qualified_only'}
-VAR_GLOBAL
+    <Declaration><![CDATA[VAR_GLOBAL
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 0'}
 	i_stSensorHub_0 AT %I* : ST_CPI_Module;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 1'}
@@ -197,6 +196,63 @@ VAR_GLOBAL
 	q_bS31 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
 	q_bS32 AT %Q* : BOOL;
+END_VAR
+VAR_GLOBAL (* Stoppers *)
+	fbS1 : FB_Stopper;
+	fbS2 : FB_Stopper;
+	fbS3 : FB_Stopper;
+	fbS4 : FB_Stopper;
+	fbS5 : FB_Stopper;
+	fbS6 : FB_Stopper;
+	fbS7 : FB_Stopper;
+//	fbS8 : FB_Stopper; // 8 hol van nem tudom
+	fbS9 : FB_Stopper;
+	fbS10 : FB_Stopper;
+	fbS11 : FB_Stopper;
+	fbS12 : FB_Stopper;
+	fbS13 : FB_Stopper;
+	fbS14 : FB_Stopper;
+	fbS15 : FB_Stopper;
+	fbS16 : FB_Stopper;
+	fbS17 : FB_Stopper;
+	fbS18 : FB_Stopper;
+	fbS19 : FB_Stopper;
+	fbS20 : FB_Stopper;
+	fbS21 : FB_Stopper;
+	fbS22 : FB_Stopper;
+	fbS23 : FB_Stopper;
+	fbS24 : FB_Stopper;
+	fbS25 : FB_Stopper;
+	fbS26 : FB_Stopper;
+	fbS27 : FB_Stopper;
+//	fbS28 : FB_Stopper; // 28 hol faszom sem tudja
+	fbS29 : FB_Stopper;
+	fbS30 : FB_Stopper;
+	fbS31 : FB_Stopper;
+	fbS32 : FB_Stopper;
+END_VAR
+VAR_GLOBAL (* Cylinders *)
+	fbZ1 : FB_Bistabil;
+	fbZ2 : FB_Bistabil;
+	fbZ3 : FB_Bistabil;
+	fbZ4 : FB_Bistabil;
+	fbZ5 : FB_Bistabil;
+	fbZ6 : FB_Bistabil;
+	fbZ7 : FB_Bistabil;
+	fbZ8 : FB_Bistabil;
+	fbZ9 : FB_Bistabil;
+	fbZ10 : FB_Bistabil;
+	fbZ11 : FB_Bistabil;
+	fbZ12 : FB_Bistabil;
+	fbZ13 : FB_Bistabil;
+	fbZ14 : FB_Bistabil;
+	fbZ15 : FB_Bistabil;
+	fbZ16 : FB_Bistabil;
+	fbZ17 : FB_Bistabil;
+	fbZ18 : FB_Bistabil;
+	fbZ19 : FB_Bistabil;
+	fbZ20 : FB_Bistabil;
+	fbZ21 : FB_Bistabil;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
