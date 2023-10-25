@@ -4,13 +4,6 @@
     <Declaration><![CDATA[PROGRAM Servo
 VAR
 	fbServoVise				: FB_ServoVise;
-
-	{attribute 'TcLinkTo' := '		.arrRaw[0]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
-									.arrRaw[1] 	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 1;
-									.arrRaw[2]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 2;
-									.arrRaw[3]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 3;
-									.nState		:= TIIB(10)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
-	fbVisePos				: FB_BTL1AR0;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[fbVisePos();
