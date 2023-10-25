@@ -50,6 +50,7 @@ Mode();
 ViseProgram();
 RobotCncProgram();
 CNC_1();
+ConveyorSystem();
 
 Test();
 SQL_Test();
