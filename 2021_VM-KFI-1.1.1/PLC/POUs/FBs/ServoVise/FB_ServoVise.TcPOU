@@ -11,12 +11,16 @@ VAR_INPUT
 	lrVisePosition			: LREAL;			// [mm]		Value of distance sensor
 	bVisePosValid			: BOOL;				// []		Distane sensor status
 	nTargetVelocity			: LREAL;			// [mm/s]
-	nTorque					: LREAL := 10.0;	// [%]
+	nTorque					: LREAL := 20.0;	// [Nm]
 	nTorqueRamp				: LREAL := 10.0;	// [%/s]
 	nTorqueVelocityLimit	: LREAL := 0.1;		// [mm/s]
 	nOverride				: LREAL := 100.0;	// [%] 
 	nAttachDistance 		: LREAL := 0.7;
 	nAttachVelocity			: LREAL := 0.1;
+	nCalOffset_1			: LREAL := 22.32;
+	nCalOffset_2			: LREAL := 99.01;
+	nOpenOffset				: LREAL := 4;
+	eViseJawState			: E_ViseJawState := E_ViseJawState.P1_0_120;
 	stAxisEvent				: TcEventEntry;	(*Event definition*)
 END_VAR
 VAR_OUTPUT
@@ -24,9 +28,6 @@ VAR_OUTPUT
 	bBusy 					: BOOL;
 	bDone 					: BOOL;
 	bError 					: BOOL;
-END_VAR
-VAR
-	lrCalculatedDistance	: LREAL;
 END_VAR
 VAR (* Drive *)
 	Axis					: AXIS_REF;
@@ -49,15 +50,18 @@ VAR (* State control *)
 	sState					: STRING;
 	
 	// Error control
-	bIsInitalized		:BOOL;
-	fbAlarm				:FB_TcAlarm;
-	nGlobalAxisErrorID	:UDINT;
+	bIsInitalized			: BOOL;
+	fbAlarm					: FB_TcAlarm;
+	nGlobalAxisErrorID		: UDINT;
 	
 	//LastStates
-	anLastStates				:ARRAY[0..500] OF UDINT;
-    iLastStates					:INT;
+	anLastStates			: ARRAY[0..500] OF UDINT;
+    iLastStates				: INT;
+	nRealVisePos			: LREAL;
 END_VAR
-]]></Declaration>
+VAR CONSTANT									//																			%     Tmax    i   Theta															
+	nTScale					: LREAL := 2.3923;	// nTorque[Nm] / nTScale[Nm/%] = Required_torque_value[%]		{nTScale = 0.01 * 5.09 * 50 * 0.94}
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF NOT bEnable THEN
 	fbPower.Enable := FALSE;
@@ -72,6 +76,13 @@ END_IF
 
 IF bManualMode THEN
 	nState := 150000;
+END_IF
+
+(*Calculate Vise position **************************************)
+IF eViseJawState = E_ViseJawState.P1_0_120 THEN
+	nRealVisePos := lrVisePosition + nCalOffset_1;
+ELSE
+	nRealVisePos := lrVisePosition + nCalOffset_2;
 END_IF
 
 (*State history ************************************************)
@@ -179,12 +190,16 @@ CASE nState OF
 		bReady := TRUE;
 		bBusy := FALSE;
 		bDone := FALSE;
-		IF eCommand = E_ServoVise_Command.MoveToPos THEN
-			bBusy := TRUE;
-			nState := 40000;
-		ELSIF eCommand = E_ServoVise_Command.Fix THEN
+		IF eCommand = E_ServoVise_Command.Fix THEN
 			bBusy := TRUE;
 			nState := 20000;
+		ELSIF eCommand = E_ServoVise_Command.MoveToPos THEN
+			bBusy := TRUE;
+			nState := 40000;
+		ELSIF eCommand = E_ServoVise_Command.Release THEN
+			bBusy := TRUE;
+			nState := 60000;
+
 		END_IF
 	
 	(*-----=== Szervo BE ===-----*)
@@ -211,7 +226,7 @@ CASE nState OF
 		
 	(*-----=== Zárás nyomatékra ===-----*)		
 	20100:
-		fbTorqueControl.Torque := -1 * ABS(nTorque);
+		fbTorqueControl.Torque := -1 * ABS(nTorque/nTScale);
 		fbTorqueControl.TorqueRamp := nTorqueRamp;
 		fbTorqueControl.VelocityLimitHigh := nTorqueVelocityLimit;
 		fbTorqueControl.VelocityLimitLow := -1 * nTorqueVelocityLimit;
@@ -259,27 +274,68 @@ CASE nState OF
 			nState := 10000;
 		END_IF
 	
-	(*-----=== Nyítás ===-----*)		
-	40000: (*Open*)
-		lrCalculatedDistance := lrTargetDistance * 180;
-		fbMoveRelative.Distance := lrCalculatedDistance;
-		nState := nState + 20;
-		
-	40020:
-		fbMoveRelative.Execute := TRUE;
-		nState := nState + 20;
-		
-	40040: (*Move done or aborted*)
-		IF fbMoveRelative.Done THEN
+	(*-----=== Pozícióra mozgás ===-----*)
+	(*-----=== Szervo BE ===-----*)
+	40000:
+		fbPower.Enable := TRUE;
+		IF fbPower.Status THEN
 			nState := nState + 20;
-			fbMoveRelative.Execute := FALSE;
+		ELSIF fbPower.Error THEN
+			nState := 250000;
 		END_IF
-		
-		IF fbMoveRelative.Error THEN
+			
+	40020: (*Move*)
+		fbMoveRelative.Distance := (lrTargetDistance + nOpenOffset) - nRealVisePos;
+		fbMoveRelative.Velocity := nTargetVelocity;
+		fbMoveRelative.Execute := TRUE;
+		IF fbMoveRelative.Done THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := nState + 20;
+		ELSIF fbMoveRelative.Error THEN
+			fbMoveRelative.Execute := FALSE;
 			nState := 250000;
 		END_IF
 		
+	(*-----=== Szervo KI ===-----*)
+	40040:
+		fbPower.Enable := FALSE;
+		nState := nState + 20;
+
 	40060:
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_ServoVise_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+
+	(*-----=== Satu elengedés ===-----*)
+	(*-----=== Szervo BE ===-----*)
+	60000:
+		fbPower.Enable := TRUE;
+		IF fbPower.Status THEN
+			nState := nState + 20;
+		ELSIF fbPower.Error THEN
+			nState := 250000;
+		END_IF
+
+	60020: (*Move*)
+		fbMoveRelative.Distance := nOpenOffset;
+		fbMoveRelative.Velocity := nTargetVelocity;
+		fbMoveRelative.Execute := TRUE;
+		IF fbMoveRelative.Done THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := nState + 20;
+		ELSIF fbMoveRelative.Error THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := 250000;
+		END_IF
+
+	(*-----=== Szervo KI ===-----*)
+	60040:
+		fbPower.Enable := FALSE;
+		nState := nState + 20;
+		
+	60060:
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN

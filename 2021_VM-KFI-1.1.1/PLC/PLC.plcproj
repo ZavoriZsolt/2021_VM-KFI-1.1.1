@@ -253,6 +253,9 @@
     <Compile Include="POUs\FBs\ServoVise\DUTs\E_ServoVise_Command.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\ServoVise\DUTs\E_ViseJawState.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\ServoVise\FB_ServoVise.TcPOU">
       <SubType>Code</SubType>
     </Compile>
