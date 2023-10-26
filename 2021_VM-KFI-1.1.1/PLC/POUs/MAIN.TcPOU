@@ -51,6 +51,7 @@ ViseProgram();
 RobotCncProgram();
 CNC_1();
 ConveyorSystem();
+Mapping();
 
 Test();
 SQL_Test();
@@ -253,6 +254,13 @@ fbNotSmartLight(
 	bOutOfStock:= ,
 	bBuzzer := FALSE,
 	bBlink := bBL500p500);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Mapping" Id="{35b55974-b1cc-4f74-b0f7-031aa332c171}">
+      <Implementation>
+        <ST><![CDATA[fbGripperPos1(bValid=> , nDistance=> );
+fbGripperPos2(bValid=> , nDistance=> );
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="Mode" Id="{37f15e2b-fb65-4020-9798-fa6f49222fe7}">

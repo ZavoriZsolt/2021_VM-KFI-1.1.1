@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="U_to_int" Id="{5a9df393-86cc-4115-a122-663850c23627}">
+    <Declaration><![CDATA[TYPE U_to_int :
+UNION
+	arrRaw			: ARRAY [0..1] OF BITARR8;
+	nData			: INT;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

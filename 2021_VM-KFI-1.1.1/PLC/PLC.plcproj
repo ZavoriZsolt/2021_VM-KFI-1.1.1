@@ -20,6 +20,9 @@
     <Compile Include="DUTs\ConveyorSystem\ST_CPI_Module.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\OPC_UA\OPC_Data_Collection_Info.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\RGB\ST_RGB_In.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\BTL\FB_BTL1AR0.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\CNC_Servo\FB_CNC_Servo.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\FanucCNC\DUTs\E_CNC_Robot_Command.TcDUT">
@@ -245,6 +251,12 @@
     <Compile Include="POUs\FBs\ID200\FB_ID200.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\MPS\DUTs\U_to_int.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\MPS\FB_MPS100.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\MySQL\NextVise\DUTs\ST_ParaVal_GetNextVise.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -366,6 +378,7 @@
     <Folder Include="DUTs\Executer" />
     <Folder Include="DUTs\MySQL" />
     <Folder Include="DUTs\ConveyorSystem" />
+    <Folder Include="DUTs\OPC_UA" />
     <Folder Include="DUTs\RGB" />
     <Folder Include="DUTs\Vise" />
     <Folder Include="GVLs" />
@@ -380,6 +393,7 @@
     <Folder Include="POUs\FBs\AWEA" />
     <Folder Include="POUs\FBs\BTL" />
     <Folder Include="POUs\FBs\Fanuc" />
+    <Folder Include="POUs\FBs\MPS\DUTs" />
     <Folder Include="POUs\FBs\MySQL" />
     <Folder Include="POUs\FBs\MySQL\UpdateVise" />
     <Folder Include="POUs\FBs\MySQL\NextVise" />
@@ -388,6 +402,8 @@
     <Folder Include="POUs\CNC_1" />
     <Folder Include="POUs\FBs\FanucKardex" />
     <Folder Include="POUs\FBs\FanucCNC" />
+    <Folder Include="POUs\FBs\MPS" />
+    <Folder Include="POUs\FBs\CNC_Servo" />
     <Folder Include="POUs\FBs\ServoVise" />
     <Folder Include="POUs\FBs\ServoVise\DUTs" />
     <Folder Include="POUs\Temp" />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_IO" Id="{8f7182e2-9112-4843-9c09-3e2349d7be55}">
     <Declaration><![CDATA[VAR_GLOBAL
 (**************************************************Inputs*********************************************************)	
@@ -216,6 +216,16 @@ VAR_GLOBAL
 	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 11^Output'}
 	q_bConveyor_11				AT %Q*	:BOOL;		// Konvejor
 
+(**************************************************7Axis Fanuc*********************************************************)
+	{attribute 'TcLinkTo' := '		.arrRaw[0]	:= TIIB(8)^Module 1 (IOL_I_2byte)^TxPDO^input byte 0;	
+									.arrRaw[1] 	:= TIIB(8)^Module 1 (IOL_I_2byte)^TxPDO^input byte 1;
+									.nState		:= TIIB(8)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
+	fbGripperPos1				: FB_MPS100;
+	
+	{attribute 'TcLinkTo' := '		.arrRaw[0]	:= TIIB(8)^Module 2 (IOL_I_2byte)^TxPDO^input byte 0;	
+									.arrRaw[1] 	:= TIIB(8)^Module 2 (IOL_I_2byte)^TxPDO^input byte 1;
+									.nState		:= TIIB(8)^IO-Link DeviceState Inputs^Status of IO-Link Port 2;'}
+	fbGripperPos2				: FB_MPS100;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

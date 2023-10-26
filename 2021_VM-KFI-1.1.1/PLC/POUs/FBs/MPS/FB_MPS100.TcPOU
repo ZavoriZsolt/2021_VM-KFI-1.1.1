@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_MPS100" Id="{f469da73-d257-46c8-b89b-08467d2532c1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MPS100
+VAR_OUTPUT
+	bValid					: BOOL;
+	nDistance				: REAL;
+END_VAR
+VAR
+	arrRaw		AT %I*		: ARRAY [0..1] OF BITARR8;
+	nState		AT %I*		: USINT;
+	nTemp					: INT;
+	uConv2int				: U_to_int;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[uConv2int.arrRaw[1] := arrRaw[0];
+uConv2int.arrRaw[0] := arrRaw[1];
+IF nState = 3 THEN
+	bValid := TRUE;
+	nTemp := SHR(uConv2int.nData,4);
+	nDistance := INT_TO_REAL(nTemp)*0.05;
+ELSE
+	bValid := FALSE;
+	nDistance := 0;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

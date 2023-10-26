@@ -1439,6 +1439,15 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
+			<Name GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..1] OF BITARR8</Name>
+			<BitSize>16</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>2</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
 			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
 			<BitSize>32</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
@@ -1773,12 +1782,21 @@ External Setpoint Generation:
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000004}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..3] OF BIT</Name>
-			<BitSize>4</BitSize>
+			<Name GUID="{18071995-0000-0000-0000-002000000006}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..5] OF BIT</Name>
+			<BitSize>6</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
 				<LBound>0</LBound>
-				<Elements>4</Elements>
+				<Elements>6</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
+			<BitSize>5</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>5</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -2063,12 +2081,12 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000006}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..5] OF BIT</Name>
-			<BitSize>6</BitSize>
+			<Name GUID="{18071995-0000-0000-0000-002000000004}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..3] OF BIT</Name>
+			<BitSize>4</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
 				<LBound>0</LBound>
-				<Elements>6</Elements>
+				<Elements>4</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -3667,7 +3685,7 @@ only active in subscription mode]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{6509DEB4-892B-C393-8AE9-C46DA2E5D191}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{C7088849-9C8B-55DD-0368-70E2C1DCAE4A}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3715,6 +3733,28 @@ only active in subscription mode]]></Comment>
 							<Name>GVL_IO_CNC1.i_bCnc1ToolCheck</Name>
 							<Comment><![CDATA[ Szerszámellenörző]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC1</Name>
+							<Comment><![CDATA[-----=== CNC1 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos1.arrRaw</Name>
+							<Type GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}">ARRAY [0..1] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos1.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos2.arrRaw</Name>
+							<Type GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}">ARRAY [0..1] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos2.nState</Name>
+							<Type>USINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.fbS1.i_bPalettSensor</Name>
@@ -4356,11 +4396,6 @@ only active in subscription mode]]></Comment>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO_CNC1.q_bCnc1ServoMoveToWork1</Name>
-							<Comment><![CDATA[ Satu mozgató 1 mh.]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_IO_CNC1.q_bCnc1ServoMoveToBase1</Name>
 							<Comment><![CDATA[ Satu mozgató 1 ah.]]></Comment>
 							<Type>BOOL</Type>
@@ -4383,6 +4418,16 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>GVL_IO_CNC1.q_bCnc1ToolCheckBlower</Name>
 							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO_CNC1.q_bCnc1ServoMoveToWork1</Name>
+							<Comment><![CDATA[ Satu mozgató 1 mh.]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -5368,11 +5413,6 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>GVL_IO.q_bConveyor_11</Name>
 							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyDriveEnCnc1</Name>
-							<Comment><![CDATA[ Enable]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -8891,7 +8931,7 @@ only active in subscription mode]]></Comment>
 							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
 							<SyncMan>001217002400010003000000000000000200001224010000</SyncMan>
-							<SyncMan>001d24002000010004000000000000000200001d20010000</SyncMan>
+							<SyncMan>001d25002000010004000000000000000200001d20010000</SyncMan>
 							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
 							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
 							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
@@ -8923,6 +8963,17 @@ only active in subscription mode]]></Comment>
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
 							</Pdo>
+							<Pdo Name="StandardInputs" Index="#x1bf0" Flags="#x2011" SyncMan="3">
+								<Entry Name="Standard Out Var 20" Index="#x7000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Standard Out Var 21" Index="#x7000" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000006}">ARRAY [0..5] OF BIT</Type>
+								</Entry>
+							</Pdo>
 							<Pdo Name="StandardOutputs" Index="#x17f0" InOut="1" Flags="#x2011" SyncMan="2">
 								<Entry Name="Standard In Var 1" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
@@ -8930,14 +8981,11 @@ only active in subscription mode]]></Comment>
 								<Entry Name="Standard In Var 2" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Standard In Var 13" Index="#x6000" Sub="#x03">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="Standard In Var 14" Index="#x6000" Sub="#x04">
+								<Entry Name="Standard In Var 14" Index="#x6000" Sub="#x03">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry>
-									<Type GUID="{18071995-0000-0000-0000-002000000004}">ARRAY [0..3] OF BIT</Type>
+									<Type GUID="{18071995-0000-0000-0000-002000000005}">ARRAY [0..4] OF BIT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Connection Info Data" Index="#x1bf9" Flags="#x2011" SyncMan="3">
@@ -29592,9 +29640,9 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Inputs^GVL_IO_CNC1.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
-				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyDriveEnCnc1" VarB="StandardOutputs^Standard In Var 14"/>
+				<Link VarA="PlcTask Inputs^GVL_Safety.i_bLO1_CNC1" VarB="StandardInputs^Standard Out Var 21"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyErrorAck_Main" VarB="StandardOutputs^Standard In Var 1"/>
-				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyErrorAck_Main" VarB="StandardOutputs^Standard In Var 13"/>
+				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyOverrideCnc1" VarB="StandardOutputs^Standard In Var 14"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyRun" VarB="StandardOutputs^Standard In Var 2"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 13 (EL1809)">
@@ -31024,6 +31072,14 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ7" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ8" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ9" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Main^Box 75 (BNI ECT-508-105-Z015)">
+				<Link VarA="PlcTask Inputs^GVL_IO.fbGripperPos1.arrRaw[0]" VarB="Module 1 (IOL_I_2byte)^TxPDO^input byte 0" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.fbGripperPos1.arrRaw[1]" VarB="Module 1 (IOL_I_2byte)^TxPDO^input byte 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.fbGripperPos1.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.fbGripperPos2.arrRaw[0]" VarB="Module 2 (IOL_I_2byte)^TxPDO^input byte 0" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.fbGripperPos2.arrRaw[1]" VarB="Module 2 (IOL_I_2byte)^TxPDO^input byte 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.fbGripperPos2.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 2" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="PlcTask Inputs^GVL_Safety.i_bLO1EDMErr_Main" VarB="StandardInputs^Standard Out Var 15"/>

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="OPC_Data_Collection_Info" Id="{bad53535-6705-4a3c-b179-d73d1b4c75ec}">
+    <Declaration><![CDATA[TYPE OPC_Data_Collection_Info :
+	STRUCT
+		ar_OPC_Data_Info	:	ARRAY[1..40] OF NodeElementBase := [
+		{region Machine}
+			{region Channels}
+				{region 0}
+					(VariableName:= 'Cutter Location', Namespace := 1, Identifier := '100003'),	//Size of 5 array, of CutterLocationDataType	-	ns-1  i-100003
+					(VariableName:= 'Feed Override', Namespace := 1, Identifier := '100025'), 	//Uint32	-	ns-1  i-100025
+					(VariableName:= 'Channel ID', Namespace := 1, Identifier := '100001'),	//Uint32	-	ns-1  i-100001
+					(VariableName:= 'Operating Mode', Namespace := 1, Identifier := '100024'),	//NcOperatingMode	-	ns-1  i-100024
+					{region Program(OBJECT)}
+						(VariableName:= 'Program current call', Namespace := 1, Identifier := '100005'),	//STRING	-	ns-1  i-100005
+						(VariableName:= 'Execution Stack', Namespace := 1, Identifier := '100006'),//Size of 1 array, of ProgramPositionDataType	-	ns-1  i-100006
+						{region ExecutionState(OBJECT)}
+							(VariableName:= 'Channel 0 - Current State', Namespace := 1, Identifier := '100010'),	//LocalizedText	-	ns-1  i-100010
+							(VariableName:= 'Channel 0 - Last Transition', Namespace := 1, Identifier := '100008'),	//LocalizedText - 	ns-1  i-100008
+						{endregion}
+						(VariableName:= 'Program Name', Namespace := 1, Identifier := '100022'),	//STRING	-	ns-1  i-100022	
+					{endregion}					 
+					(VariableName:= 'Rapid Override', Namespace := 1, Identifier := '100029'),	//Uint32	-	ns-1  i-100029
+					(VariableName:= 'Rapid Traverse Active', Namespace := 1, Identifier := '100031'),	//Bool	-	 ns-1  i-100031
+					(VariableName:= 'Speed Override', Namespace := 1, Identifier := '100027'),	//Uint32	-  ns-1  i-100027
+				{endregion}
+			{endregion}
+			{region Control Info}	 
+			{endregion}
+			{region Error}
+				{region AllActiveErrors(OBJECT)}
+					{region Channel0ActiveErros(OBJECT)}
+					{endregion}
+				{endregion}
+			{endregion}
+			{region FileSystem}
+				{region TNC(OBJECT)}
+					{region OPCUA(OBJECT)}
+						{region tool.t (OBJECT - Program)}	//NS 1 - ID 303467
+						{endregion}   
+						{region tool_p.tch (OBJECT - Program)} //NS 1 - ID 303472
+						{endregion}   
+					{endregion}
+				{endregion}	 
+			{endregion}
+			(VariableName:= 'Host Computer Mode', Namespace := 1, Identifier := '51006'),	//BOOL - ns-1 i-51006
+			{region ManufacturerExtensions (OBJECT)}	//Object  ns-1	i-60000
+				{region Control Status (OBJECT)}	//Object  ns-4 i-10000
+					(VariableName:= 'Control Status - Control Ready', Namespace := 4, Identifier := '10002'),	//BOOL ns-4  i-10002
+					(VariableName:= 'Control Status - Error', Namespace := 4, Identifier := '10007'),	//BOOL ns-4  i-10007
+					(VariableName:= 'Control Status - Program End', Namespace := 4, Identifier := '10015'),	//BOOL ns-4  i-10015
+					(VariableName:= 'Control Status - Program Running', Namespace := 4, Identifier := '10016'),	//BOOL ns-4  i-10016
+					(VariableName:= 'Control Status - Robot Mode Active', Namespace := 4, Identifier := '10017'),	//BOOL ns-4 i-10017
+					(VariableName:= 'Control Status - Start Program', Namespace := 4, Identifier := '10018'),	//BOOL ns-4  i-10018
+				{endregion}
+				{region Door Control}
+					(VariableName:= 'Door Control - Close Door', Namespace := 4, Identifier := '10006'),	//BOOL ns-4  i-10006
+					(VariableName:= 'Door Control - Door Closed', Namespace := 4, Identifier := '10003'),	//BOOL ns-4  i-10003
+					(VariableName:= 'Door Control - Door Opened', Namespace := 4, Identifier := '10004'),	//BOOL ns-4  i-10004
+					(VariableName:= 'Door Control - Open Door', Namespace := 4, Identifier := '10014'),	//BOOL ns-4  i-10014
+				{endregion}
+				{region Magazine Table}
+					(VariableName:= 'Magazine Table - Error', Namespace := 4, Identifier := '10021'),	//BOOL ns-4  i-10021
+					(VariableName:= 'Magazine Table - OK', Namespace := 4, Identifier := '10022'),	//BOOL ns-4  i-10022
+					(VariableName:= 'Magazine Table - Trigger', Namespace := 4, Identifier := '10023'),	//BOOL ns-4  i-10023
+				{endregion}
+				{region Miscellaneous functions}
+					(VariableName:= 'M401 Acknowledge', Namespace := 4, Identifier := '10008'),	//BOOL ns-4  i-10008
+					(VariableName:= 'M401 Active', Namespace := 4, Identifier := '10009'),	//BOOL ns-4  i-10009
+					(VariableName:= 'M402 Acknowledge', Namespace := 4, Identifier := '10010'),	//BOOL ns-4  i-10010
+					(VariableName:= 'M402 Active', Namespace := 4, Identifier := '10011'),	//BOOL ns-4  i-10011
+					(VariableName:= 'M403 Acknowledge', Namespace := 4, Identifier := '10012'),	//BOOL ns-4  i-10012
+					(VariableName:= 'M403 Active', Namespace := 4, Identifier := '10013'),	//BOOL ns-4  i-10013
+				{endregion}
+				{region Tool Table}
+					(VariableName:= 'Tool Table - Error', Namespace := 4, Identifier := '10024'),	//BOOL ns-4  i-10024
+					(VariableName:= 'Tool Table -  Ok', Namespace := 4, Identifier := '10025'),	//BOOL ns-4  i-10025
+					(VariableName:= 'Tool Table - Trigger', Namespace := 4, Identifier := '10026'),	//BOOL ns-4  i-10026
+				{endregion}	 
+			{endregion}
+			{region Manufacturer Info}
+			{endregion}
+			{region Operating Times}
+				(VariableName:= 'Control Uptime', Namespace := 1, Identifier := '56031'),	//Duration type   ns-1   i-56031
+				(VariableName:= 'Machine Uptime', Namespace := 1, Identifier := '56033'),	//Duration type   ns-1   i-56033
+				(VariableName:= 'Program Execution Time', Namespace := 1, Identifier := '56032'),	//Duration type   ns-1   i-56032
+			{endregion}
+			{region OperatorInfo}	 
+			{endregion}
+			{region State}	//Object -  ns-1	i-51001  
+				(VariableName:= 'State - Current State', Namespace := 1, Identifier := '51002'),	//LocalizedText	-	ns-1  i-51002
+				(VariableName:= 'State - Last Transition', Namespace := 1, Identifier := '51004')	//LocalizedText - 	ns-1  i-51004
+			{endregion}
+		{endregion}
+		];
+	END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

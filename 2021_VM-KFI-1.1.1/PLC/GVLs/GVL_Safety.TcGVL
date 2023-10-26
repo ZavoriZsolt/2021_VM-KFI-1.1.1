@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_Safety" Id="{7831800b-3b8a-4161-88f7-8e1c36003963}">
     <Declaration><![CDATA[VAR_GLOBAL
 (*-----=== Common ===-----*)
 (***************************************************Test**********************************************************)	
-	q_bSafetyDriveEnCnc1			AT %Q*	:BOOL;	// Enable
+	q_bSafetyOverrideCnc1			AT %Q*	:BOOL;	// Enable
 (**************************************************Inputs*********************************************************)	
 
 
@@ -44,6 +44,10 @@
 	q_bSafetyMasterOn_Main			AT %Q*	:BOOL;	// Master on
 	q_bCellEmptyAck_Main			AT %Q*	:BOOL;	// Cell empty ack
 	q_bSafetyErrorAck_Main			AT %Q*	:BOOL;	// Safety ack
+
+(*-----=== CNC1 ===-----*)
+(**************************************************Inputs*********************************************************)
+	i_bLO1_CNC1						AT %I*	:BOOL;	
 END_VAR
 
 
