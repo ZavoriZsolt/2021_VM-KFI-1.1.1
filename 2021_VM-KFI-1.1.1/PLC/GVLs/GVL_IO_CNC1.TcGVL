@@ -2,47 +2,40 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_IO_CNC1" Id="{a0c795ed-153c-4519-9ae6-cc232a4de683}">
     <Declaration><![CDATA[VAR_GLOBAL
-(**************************************************Inputs*********************************************************)	
-	// 1.x
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 1^Input'} 
-	i_bCnc1ServoInWorkPos1			AT %I*	:BOOL;		// Satu mozgató 1 mh.
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 2^Input'}
-	i_bCnc1ServoInBasePos1			AT %I*	:BOOL;		// Satu mozgató 1 ah.
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 3^Input'}
-	i_bCnc1ServoInWorkPos2			AT %I*	:BOOL;		// Satu mozgató 2 mh.
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 4^Input'}
-	i_bCnc1ServoInBasePos2			AT %I*	:BOOL;		// Satu mozgató 2 ah.
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 5^Input'}
-	i_bCnc1ServoLockInWorkPos		AT %I*	:BOOL;		// Satu rögzítő mh.
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 6^Input'}
-	i_bCnc1ServoLockInBasePos		AT %I*	:BOOL;		// Satu rögzítő ah.
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 7^Input'}
-	i_bCnc1ViseLockInPos			AT %I*	:BOOL;		// Satu rögzítő pozícióban.
-	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 8^Input'}
-	i_bCnc1ToolCheck				AT %I*	:BOOL;		// Szerszámellenörző
+//(**************************************************Inputs*********************************************************)	
+//	// 1.x
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 1^Input'} 
+//	i_bCnc1ServoInWorkPos1			AT %I*	:BOOL;		// Satu mozgató 1 mh.
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 2^Input'}
+//	i_bCnc1ServoInBasePos1			AT %I*	:BOOL;		// Satu mozgató 1 ah.
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 3^Input'}
+//	i_bCnc1ServoInWorkPos2			AT %I*	:BOOL;		// Satu mozgató 2 mh.
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 4^Input'}
+//	i_bCnc1ServoInBasePos2			AT %I*	:BOOL;		// Satu mozgató 2 ah.
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 5^Input'}
+//	i_bCnc1ServoLockInWorkPos		AT %I*	:BOOL;		// Satu rögzítő mh.
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 6^Input'}
+//	i_bCnc1ServoLockInBasePos		AT %I*	:BOOL;		// Satu rögzítő ah.
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 7^Input'}
+//	i_bCnc1ViseLockInPos			AT %I*	:BOOL;		// Satu rögzítő pozícióban.
+//	{attribute 'TcLinkTo' := 'TIIB(13)^Channel 8^Input'}
+//	i_bCnc1ToolCheck				AT %I*	:BOOL;		// Szerszámellenörző
 	
 
-(**************************************************Outputs*********************************************************)
-	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 1^Output'}
-	q_bCnc1ServoMoveToWork1			AT %Q*	:BOOL;		// Satu mozgató 1 mh.
-	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 2^Output'}
-	q_bCnc1ServoMoveToBase1			AT %Q*	:BOOL;		// Satu mozgató 1 ah.
-	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 3^Output'}
-	q_bCnc1ServoMoveToWork2			AT %Q*	:BOOL;		// Satu mozgató 2 mh.
-	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 4^Output'}
-	q_bCnc1ServoMoveToBase2			AT %Q*	:BOOL;		// Satu mozgató 2 ah.
-	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 5^Output'}
-	q_bCnc1ServoLiickMoveToWork		AT %Q*	:BOOL;		// Satu rözítő mh. (kioldás)
-	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 6^Output'}
-	q_bCnc1ToolCheckBlower 			AT %Q*	:BOOL;		// Szerszám ellenőrző tisztítás
+//(**************************************************Outputs*********************************************************)
+//	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 1^Output'}
+//	q_bCnc1ServoMoveToWork1			AT %Q*	:BOOL;		// Satu mozgató 1 mh.
+//	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 2^Output'}
+//	q_bCnc1ServoMoveToBase1			AT %Q*	:BOOL;		// Satu mozgató 1 ah.
+//	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 3^Output'}
+//	q_bCnc1ServoMoveToWork2			AT %Q*	:BOOL;		// Satu mozgató 2 mh.
+//	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 4^Output'}
+//	q_bCnc1ServoMoveToBase2			AT %Q*	:BOOL;		// Satu mozgató 2 ah.
+//	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 5^Output'}
+//	q_bCnc1ServoLiickMoveToWork		AT %Q*	:BOOL;		// Satu rözítő mh. (kioldás)
+//	{attribute 'TcLinkTo' := 'TIIB(14)^Channel 6^Output'}
+//	q_bCnc1ToolCheckBlower 			AT %Q*	:BOOL;		// Szerszám ellenőrző tisztítás
 
-(**************************************************IO-Link*********************************************************)
-	{attribute 'TcLinkTo' := '		.arrRaw[0]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
-									.arrRaw[1] 	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 1;
-									.arrRaw[2]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 2;
-									.arrRaw[3]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 3;
-									.nState		:= TIIB(10)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
-	fbVisePos				: FB_BTL1AR0;	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

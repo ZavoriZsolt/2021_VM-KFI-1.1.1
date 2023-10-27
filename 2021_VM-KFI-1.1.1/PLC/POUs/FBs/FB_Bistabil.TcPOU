@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_Bistabil" Id="{b135a1dc-ecdb-4a1f-a51f-db2d83392e97}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Bistabil
 VAR_INPUT
@@ -17,8 +17,8 @@ VAR_INPUT
 	timWorkPos			:TIME:=T#5S;		(*Time fort work position*)
 	timBasePosStab		:TIME:=T#200MS;		(*Time to set base position*)
 	timWorkPosStab		:TIME:=T#200MS;		(*Time to set work position*)
-	i_bBasePos			:BOOL;				(*Base position*)
-	i_bWorkPos			:BOOL;				(*Work position*)
+	i_bBasePos			AT %I*	:BOOL;		(*Base position*)
+	i_bWorkPos			AT %I*	:BOOL;		(*Work position*)
 	sSourceName			:STRING(10);		(*Station name - if there are multiple monitors*)
 	stBasePosEvent		:TcEventEntry;		(*Event definition*)
 	stWorkPosEvent		:TcEventEntry;		(*Event definition*)
@@ -213,64 +213,5 @@ IF fbWorkPosAlarm.eConfirmationState = 3 AND NOT bError THEN
 END_IF	
 ]]></ST>
     </Implementation>
-    <LineIds Name="FB_Bistabil">
-      <LineId Id="1496" Count="12" />
-      <LineId Id="1523" Count="0" />
-      <LineId Id="1891" Count="1" />
-      <LineId Id="1848" Count="0" />
-      <LineId Id="1524" Count="1" />
-      <LineId Id="1681" Count="0" />
-      <LineId Id="1688" Count="5" />
-      <LineId Id="1539" Count="0" />
-      <LineId Id="1495" Count="0" />
-      <LineId Id="1617" Count="0" />
-      <LineId Id="1611" Count="2" />
-      <LineId Id="1740" Count="0" />
-      <LineId Id="1838" Count="1" />
-      <LineId Id="1841" Count="1" />
-      <LineId Id="1844" Count="1" />
-      <LineId Id="1936" Count="0" />
-      <LineId Id="1847" Count="0" />
-      <LineId Id="1843" Count="0" />
-      <LineId Id="1840" Count="0" />
-      <LineId Id="1610" Count="0" />
-      <LineId Id="1616" Count="0" />
-      <LineId Id="1093" Count="6" />
-      <LineId Id="1605" Count="4" />
-      <LineId Id="1604" Count="0" />
-      <LineId Id="1100" Count="0" />
-      <LineId Id="1600" Count="0" />
-      <LineId Id="1102" Count="1" />
-      <LineId Id="1105" Count="2" />
-      <LineId Id="1619" Count="3" />
-      <LineId Id="1618" Count="0" />
-      <LineId Id="1108" Count="7" />
-      <LineId Id="1117" Count="2" />
-      <LineId Id="1624" Count="3" />
-      <LineId Id="1623" Count="0" />
-      <LineId Id="1120" Count="7" />
-      <LineId Id="1129" Count="38" />
-      <LineId Id="1170" Count="2" />
-      <LineId Id="1175" Count="0" />
-      <LineId Id="1183" Count="0" />
-      <LineId Id="1265" Count="0" />
-      <LineId Id="1445" Count="0" />
-      <LineId Id="1419" Count="1" />
-      <LineId Id="1422" Count="1" />
-      <LineId Id="1439" Count="0" />
-      <LineId Id="1426" Count="1" />
-      <LineId Id="1440" Count="0" />
-      <LineId Id="1430" Count="1" />
-      <LineId Id="1441" Count="0" />
-      <LineId Id="1434" Count="1" />
-      <LineId Id="1442" Count="0" />
-      <LineId Id="1438" Count="0" />
-      <LineId Id="1446" Count="1" />
-      <LineId Id="1444" Count="0" />
-      <LineId Id="1027" Count="0" />
-      <LineId Id="1630" Count="5" />
-      <LineId Id="1628" Count="0" />
-      <LineId Id="311" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

@@ -3,15 +3,139 @@
   <POU Name="FB_CNC_Servo" Id="{0744176a-84fd-48f9-b591-7047c81fb408}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_CNC_Servo
 VAR_INPUT
+	sName						: STRING;
+	bErrorAck					: BOOL;
+	bEnable						: BOOL;
+	bManualMode					: BOOL;
 END_VAR
 VAR_OUTPUT
+	bReady						: BOOL;
+	bBusy 						: BOOL;
+	bDone 						: BOOL;
+	bError 						: BOOL;
 END_VAR
 VAR
-
+	fbMoveUpper					: FB_Bistabil;
+	fbMoveLower					: FB_Bistabil;
+	fbLock						: FB_Bistabil;
+	fbVisePos					: FB_BTL1AR0;
+	fbServoVise					: FB_ServoVise;
+	q_bToolCheckBlower 	AT %Q*	: BOOL;		// Szerszám ellenőrző tisztítás
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[Servo();
+Pneu();
+]]></ST>
     </Implementation>
+    <Action Name="Pneu" Id="{92f54c0d-25ad-42ae-a42f-cb0f982d2885}">
+      <Implementation>
+        <ST><![CDATA[fbMoveUpper(
+	sName:= , 
+	sBasePosSensor:= , 
+	sWorkPosSensor:= , 
+	bEn:= bEnable, 
+	bEHA:= NOT bManualMode, 
+	nEHMode:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bBasePosCmd:= , 
+	bWorkPosCmd:= , 
+	bAck:= bErrorAck, 
+	timBasePos:= , 
+	timWorkPos:= , 
+	timBasePosStab:= , 
+	timWorkPosStab:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	bBasePosStab=> , 
+	bWorkPosStab=> , 
+	bError=> , 
+	sError=> , 
+	q_bBasePos=> , 
+	q_bWorkPos=> );
+
+fbMoveLower(
+	sName:= , 
+	sBasePosSensor:= , 
+	sWorkPosSensor:= , 
+	bEn:= bEnable, 
+	bEHA:= NOT bManualMode, 
+	nEHMode:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bBasePosCmd:= , 
+	bWorkPosCmd:= , 
+	bAck:= bErrorAck, 
+	timBasePos:= , 
+	timWorkPos:= , 
+	timBasePosStab:= , 
+	timWorkPosStab:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	bBasePosStab=> , 
+	bWorkPosStab=> , 
+	bError=> , 
+	sError=> , 
+	q_bBasePos=> , 
+	q_bWorkPos=> );
+
+fbLock(
+	sName:= , 
+	sBasePosSensor:= , 
+	sWorkPosSensor:= , 
+	bEn:= bEnable, 
+	bEHA:= NOT bManualMode, 
+	nEHMode:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bBasePosCmd:= , 
+	bWorkPosCmd:= , 
+	bAck:= bErrorAck, 
+	timBasePos:= , 
+	timWorkPos:= , 
+	timBasePosStab:= , 
+	timWorkPosStab:= , 
+	i_bBasePos:= , 
+	i_bWorkPos:= , 
+	sSourceName:= , 
+	stBasePosEvent:= , 
+	stWorkPosEvent:= , 
+	bBasePosStab=> , 
+	bWorkPosStab=> , 
+	bError=> , 
+	sError=> , 
+	q_bBasePos=> , 
+	q_bWorkPos=> );]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Servo" Id="{4cf33395-403a-4dac-b66a-09f9e675dd2f}">
+      <Implementation>
+        <ST><![CDATA[fbVisePos();
+fbServoVise(
+	bErrorAck:= , 
+	bEnable:= , 
+	eCommand:= , 
+	bManualMode:= , 
+	lrTargetDistance:= , 
+	lrVisePosition:= fbVisePos.nDistance, 
+	bVisePosValid:= fbVisePos.bValid, 
+	nTargetVelocity:= , 
+	nTorque:= , 
+	nTorqueRamp:= , 
+	nTorqueVelocityLimit:= , 
+	nOverride:= , 
+	nAttachDistance:= , 
+	nAttachVelocity:= , 
+	stAxisEvent:= , 
+	bReady=> , 
+	bBusy=> , 
+	bDone=> , 
+	bError=> );]]></ST>
+      </Implementation>
+    </Action>
   </POU>
 </TcPlcObject>

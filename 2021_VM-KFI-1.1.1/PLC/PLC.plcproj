@@ -89,9 +89,6 @@
     <Compile Include="POUs\CNC_1\CNC_1.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\CNC_1\Servo.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\ConveyorSystem.TcPOU">
       <SubType>Code</SubType>
     </Compile>

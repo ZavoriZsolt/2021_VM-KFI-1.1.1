@@ -1,14 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="CNC_1" Id="{067559b7-2cc8-4a74-b07e-41eb917a7856}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM CNC_1
 VAR
-		
+	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(13)^Channel 2^Input;
+									.fbMoveUpper.i_bWorkPos	:= TIIB(13)^Channel 1^Input;
+									.fbMoveUpper.q_bBasePos	:= TIIB(14)^Channel 2^Output;
+									.fbMoveUpper.q_bWorkPos	:= TIIB(14)^Channel 1^Output;
+									.fbMoveLower.i_bBasePos	:= TIIB(13)^Channel 4^Input;
+									.fbMoveLower.i_bWorkPos	:= TIIB(13)^Channel 3^Input;
+									.fbMoveLower.q_bBasePos	:= TIIB(14)^Channel 4^Output;
+									.fbMoveLower.q_bWorkPos	:= TIIB(14)^Channel 3^Output;
+									.fbLock.i_bBasePos	:= TIIB(13)^Channel 6^Input;
+									.fbLock.i_bWorkPos	:= TIIB(13)^Channel 5^Input;
+									.fbLock.q_bWorkPos	:= TIIB(14)^Channel 5^Output;
+									.q_bToolCheckBlower := TIIB(14)^Channel 6^Output;
+									.fbVisePos.arrRaw[0]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
+									.fbVisePos.arrRaw[1] 	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 1;
+									.fbVisePos.arrRaw[2]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 2;
+									.fbVisePos.arrRaw[3]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 3;
+									.fbVisePos.nState		:= TIIB(10)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
+	fbCNC1			: FB_CNC_Servo;	
 
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Servo();]]></ST>
+      <ST><![CDATA[fbCNC1(
+	sName:= 'AWEA_1', 
+	bErrorAck:= bAckP, 
+	bEnable:= , 
+	bManualMode:= bManualMode, 
+	bReady=> , 
+	bBusy=> , 
+	bDone=> , 
+	bError=> );]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
