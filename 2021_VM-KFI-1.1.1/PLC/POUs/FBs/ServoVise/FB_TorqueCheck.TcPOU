@@ -23,7 +23,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[timNotMove(IN:= ABS(Axis.NcToPlc.ActVelo)<0.01, PT:= T#200ms, Q=> bAxisNotMove, ET=> );
-timInTorque(IN:= ABS(ABS(Axis.NcToPlc.ActTorque) - ABS(nTorque))< 1, PT:= T#200ms, Q=>bAxisInTorque , ET=> );
+timInTorque(IN:= ABS(ABS(Axis.NcToPlc.ActTorque) - ABS(nTorque))< 3, PT:= T#200ms, Q=>bAxisInTorque , ET=> );
 timStab(IN:= bAxisNotMove AND bAxisInTorque, PT:= tTorqueStabTime, Q=> , ET=> );
 bTorqueDone := timStab.Q AND bEnable;]]></ST>
     </Implementation>

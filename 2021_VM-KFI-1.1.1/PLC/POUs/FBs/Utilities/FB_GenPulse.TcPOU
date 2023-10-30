@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_GenPulse" Id="{48889932-ae81-4a0e-82d3-125856963242}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_GenPulse
 VAR_INPUT
@@ -27,12 +27,5 @@ timON(IN:= enq AND NOT(timOFF.Q), PT:=PTH);
 timOFF(IN:= timON.Q, PT:=PTL);
 Q:=timON.Q AND NOT(timOFF.Q);]]></ST>
     </Implementation>
-    <LineIds Name="FB_GenPulse">
-      <LineId Id="35" Count="0" />
-      <LineId Id="25" Count="3" />
-      <LineId Id="31" Count="0" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="9" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

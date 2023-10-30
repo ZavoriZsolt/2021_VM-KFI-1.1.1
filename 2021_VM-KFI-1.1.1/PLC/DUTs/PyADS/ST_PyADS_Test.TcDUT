@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_PyADS_Test" Id="{abbf95ea-605c-4d19-bbb0-10cfb26bb9ae}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '1'}
+TYPE ST_PyADS_Test :
+STRUCT
+  	rVar : LREAL;
+    rVar2 : REAL;
+    iVar : INT;
+    iVar2 : ARRAY [1..3] OF DINT;
+    sVar : STRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

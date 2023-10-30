@@ -172,33 +172,33 @@ CASE nFileCheckState OF
         END_IF
 END_CASE
 
-IF i_bTest_Up OR i_bTest_Down THEN
-	q_bConveyor_1 := TRUE;
-END_IF
-IF i_bTest_Stop THEN
-	q_bConveyor_1 := FALSE;
-	q_bConveyor_2 := q_bConveyor_1;
-	q_bConveyor_3 := q_bConveyor_1;
-	q_bConveyor_4 := q_bConveyor_1;
-	q_bConveyor_5 := q_bConveyor_1;
-	q_bConveyor_6 := q_bConveyor_1;
-	q_bConveyor_7 := q_bConveyor_1;
-	q_bConveyor_8 := q_bConveyor_1;
-	q_bConveyor_9 := q_bConveyor_1;
-	q_bConveyor_10 := q_bConveyor_1;
-	q_bConveyor_11 := q_bConveyor_1;
-END_IF
+//IF i_bTest_Up OR i_bTest_Down THEN
+//	q_bConveyor_1 := TRUE;
+//END_IF
+//IF i_bTest_Stop THEN
+//	q_bConveyor_1 := FALSE;
+//	q_bConveyor_2 := q_bConveyor_1;
+//	q_bConveyor_3 := q_bConveyor_1;
+//	q_bConveyor_4 := q_bConveyor_1;
+//	q_bConveyor_5 := q_bConveyor_1;
+//	q_bConveyor_6 := q_bConveyor_1;
+//	q_bConveyor_7 := q_bConveyor_1;
+//	q_bConveyor_8 := q_bConveyor_1;
+//	q_bConveyor_9 := q_bConveyor_1;
+//	q_bConveyor_10 := q_bConveyor_1;
+//	q_bConveyor_11 := q_bConveyor_1;
+//END_IF
 
-q_bConveyor_2 := q_bConveyor_1;
-q_bConveyor_3 := q_bConveyor_1;
-q_bConveyor_4 := q_bConveyor_1;
-q_bConveyor_5 := q_bConveyor_1;
-q_bConveyor_6 := q_bConveyor_1;
-q_bConveyor_7 := q_bConveyor_1;
-q_bConveyor_8 := q_bConveyor_1;
-q_bConveyor_9 := q_bConveyor_1;
-q_bConveyor_10 := q_bConveyor_1;
-q_bConveyor_11 := q_bConveyor_1;
+//q_bConveyor_2 := q_bConveyor_1;
+//q_bConveyor_3 := q_bConveyor_1;
+//q_bConveyor_4 := q_bConveyor_1;
+//q_bConveyor_5 := q_bConveyor_1;
+//q_bConveyor_6 := q_bConveyor_1;
+//q_bConveyor_7 := q_bConveyor_1;
+//q_bConveyor_8 := q_bConveyor_1;
+//q_bConveyor_9 := q_bConveyor_1;
+//q_bConveyor_10 := q_bConveyor_1;
+//q_bConveyor_11 := q_bConveyor_1;
 ]]></ST>
     </Implementation>
     <Action Name="SqlInitSpPara" Id="{d521c26e-15d1-436b-be7c-e9be3715b6df}">

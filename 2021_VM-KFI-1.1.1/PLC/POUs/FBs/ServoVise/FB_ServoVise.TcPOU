@@ -15,7 +15,6 @@ VAR_INPUT
 	nTorqueRamp				: LREAL := 10.0;	// [%/s]
 	nTorqueVelocityLimit	: LREAL := 0.1;		// [mm/s]
 	nOverride				: LREAL := 100.0;	// [%] 
-	nAttachDistance 		: LREAL := 0.7;
 	nAttachVelocity			: LREAL := 0.1;
 	nCalOffset_1			: LREAL := 22.32;
 	nCalOffset_2			: LREAL := 99.01;
@@ -48,6 +47,7 @@ VAR (* State control *)
 	nState 					: UDINT;
 	nLastState				: UDINT;
 	sState					: STRING;
+	tTorqueRelief			: TON;
 	
 	// Error control
 	bIsInitalized			: BOOL;
@@ -63,17 +63,34 @@ VAR CONSTANT									//																			%     Tmax    i   Theta
 	nTScale					: LREAL := 2.3923;	// nTorque[Nm] / nTScale[Nm/%] = Required_torque_value[%]		{nTScale = 0.01 * 5.09 * 50 * 0.94}
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF NOT bEnable THEN
+      <ST><![CDATA[(* Timers **************************************)
+tTorqueRelief(IN:= fbTorqueControl.Busy, PT:= T#500MS, Q=> , ET=> );
+
+(* Enable **************************************)
+IF NOT bEnable THEN
 	fbPower.Enable := FALSE;
 	fbTorqueControl.Execute := FALSE;
 	fbMoveRelative.Execute := FALSE;
 	nState := 0;
 END_IF
 
+(* States **************************************)
 IF nLastState <> nState THEN
 	nLastState := nState;
 END_IF
 
+(* State history ************************************************)
+IF(nState >= 100) AND (nState <= 20000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+(* Manual mode **************************************)
 IF bManualMode THEN
 	nState := 150000;
 END_IF
@@ -85,23 +102,13 @@ ELSE
 	nRealVisePos := lrVisePosition + nCalOffset_2;
 END_IF
 
-(*State history ************************************************)
-IF(nState >= 100) AND (nState <= 20000) THEN
-(*Steps before any state*)
-	IF anLastStates[0] <> nState THEN
-		FOR iLastStates:=500 TO 1 BY -1 DO
-			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
-		END_FOR
-		anLastStates[0]:= nState;
-	END_IF
-END_IF	
-
-(*Hiba kezelés Tc3_EventLogger//Error handling*)
+(* Error handling Tc3_EventLogger *******************************)
 IF NOT bIsInitalized THEN
 	bIsInitalized  :=  TRUE;
 	fbAlarm.CreateEx(stAxisEvent, TRUE, 0);
 END_IF
 
+(* Error acknoledge **************************************)
 IF bErrorAck THEN
 	IF fbAlarm.eConfirmationState = 2 THEN
 		fbAlarm.Confirm(0);
@@ -199,30 +206,19 @@ CASE nState OF
 		ELSIF eCommand = E_ServoVise_Command.Release THEN
 			bBusy := TRUE;
 			nState := 60000;
-
+		ELSIF eCommand = E_ServoVise_Command.Attach THEN
+			bBusy := TRUE;
+			nState := 80000;
 		END_IF
 	
 	(*-----=== Szervo BE ===-----*)
 	20000:
 		fbPower.Enable := TRUE;
 		IF fbPower.Status THEN
-			nState := nState + 20;
+			nState := 20100;
 		ELSIF fbPower.Error THEN
 			nState := 250000;
 		END_IF	
-
-	(*-----=== Szervo mozgatása kuplung zárás miatt ===-----*)
-	20020:
-		fbMoveRelative.Distance := nAttachDistance;
-		fbMoveRelative.Velocity := nAttachVelocity;
-		fbMoveRelative.Execute := TRUE;
-		IF fbMoveRelative.Done THEN
-			fbMoveRelative.Execute := FALSE;
-			nState := 20100;
-		ELSIF fbMoveRelative.Error THEN
-			fbMoveRelative.Execute := FALSE;
-			nState := 250000;
-		END_IF
 		
 	(*-----=== Zárás nyomatékra ===-----*)		
 	20100:
@@ -244,9 +240,29 @@ CASE nState OF
 			nState := 250000;
 		END_IF	
 
+	(*-----=== Feszmentesítés ===-----*)		
+	20140:
+		fbTorqueControl.Torque := 1;
+		fbTorqueControl.TorqueRamp := nTorqueRamp;
+		fbTorqueControl.VelocityLimitHigh := nTorqueVelocityLimit;
+		fbTorqueControl.VelocityLimitLow := -1 * nTorqueVelocityLimit;
+		fbTorqueControl.Execute := TRUE;
+		IF fbTorqueControl.Busy THEN
+			nState := nState + 20;
+		END_IF
+
+	(*-----=== Várakozás feszmentesítésre ===-----*)
+	20160:
+		IF tTorqueRelief.Q THEN
+			fbTorqueControl.Execute := FALSE;
+			nState := nState + 20;
+		ELSIF fbTorqueControl.Error THEN
+			nState := 250000;
+		END_IF
+
 	(*-----=== Váratla mozgások elkerülése ===-----*)
 	(*-----=== Axis Halt ===-----*)
-	20140:
+	20180:
 		fbHalt.Execute := TRUE;
 		IF fbHalt.Done THEN
 			fbHalt.Execute := FALSE;
@@ -254,7 +270,7 @@ CASE nState OF
 		END_IF
 
 	(*-----=== Átkapcsolás pozíció módba ===-----*)
-	20160:
+	20200:
 		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
 		fbWriteDriveOpMode.Execute := TRUE;
 		IF fbWriteDriveOpMode.Done THEN
@@ -263,11 +279,11 @@ CASE nState OF
 		END_IF
 
 	(*-----=== Szervo KI ===-----*)
-	20180:
+	20220:
 		fbPower.Enable := FALSE;
 		nState := nState + 20;
 
-	20200:
+	20240:
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
@@ -341,6 +357,59 @@ CASE nState OF
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
+
+	(*-----=== Satu csatlakoztatás ===-----*)
+	(*-----=== Szervo BE ===-----*)
+	80000:
+		fbPower.Enable := TRUE;
+		IF fbPower.Status THEN
+			nState := nState + 20;
+		ELSIF fbPower.Error THEN
+			nState := 250000;
+		END_IF	
+		
+	(*-----=== Zárás nyomatékra ===-----*)		
+	80020:
+		fbTorqueControl.Torque := -5;
+		fbTorqueControl.TorqueRamp := nTorqueRamp;
+		fbTorqueControl.VelocityLimitHigh := nAttachVelocity;
+		fbTorqueControl.VelocityLimitLow := -1 * nAttachVelocity;
+		fbTorqueControl.Execute := TRUE;
+		IF fbTorqueControl.Busy THEN
+			nState := nState + 20;
+		END_IF
+
+	80040:
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_ServoVise_Command.NoCommand THEN
+			fbTorqueControl.Execute := FALSE;
+			nState:= nState + 20;
+		END_IF
+
+	(*-----=== Váratla mozgások elkerülése ===-----*)
+	(*-----=== Axis Halt ===-----*)
+	80060:
+		fbHalt.Execute := TRUE;
+		IF fbHalt.Done THEN
+			fbHalt.Execute := FALSE;
+			nState:= nState + 20;
+		END_IF
+
+	(*-----=== Átkapcsolás pozíció módba ===-----*)
+	80080:
+		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
+		fbWriteDriveOpMode.Execute := TRUE;
+		IF fbWriteDriveOpMode.Done THEN
+			fbWriteDriveOpMode.Execute := FALSE;
+			nState := nState + 20;
+		END_IF
+
+	(*-----=== Szervo KI ===-----*)
+	80100:
+		fbPower.Enable := FALSE;
+		nState := 10000;
+
 	
 	(*-----=== Manual moed ===-----*)	
 	150000: (*Manual*)

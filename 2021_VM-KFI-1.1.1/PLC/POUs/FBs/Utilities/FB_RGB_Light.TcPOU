@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_RGB_Light" Id="{9c0efa59-1cdb-4687-9ee3-0f1ff7387e34}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RGB_Light
 VAR_INPUT

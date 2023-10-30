@@ -145,12 +145,6 @@
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>Active</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
               <Title>ActTorque</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
@@ -163,25 +157,7 @@
               <Children />
             </Node>
             <Node>
-              <Title>Busy</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>eCommand</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>Execute</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>InTorque</Title>
+              <Title>SetTorque</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -205,50 +181,25 @@
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>Active</Title>
+                  <Title>ActTorque (1)</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>Execute</Title>
+                  <Title>ActVelo (1)</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>Busy</Title>
+                  <Title>SetTorque (1)</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>InTorque</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-              </Children>
-            </Node>
-            <Node>
-              <Title>Axis Group (1)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children>
-                <Node>
-                  <Title>ActTorque</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>ActVelo</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>SetVelo</Title>
+                  <Title>SetVelo (1)</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />

@@ -23,6 +23,9 @@
     <Compile Include="DUTs\OPC_UA\OPC_Data_Collection_Info.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\PyADS\ST_PyADS_Test.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\RGB\ST_RGB_In.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +52,10 @@
     </Compile>
     <Compile Include="DUTs\Executer\E_Executer_State.TcDUT">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\GVL_Ads.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="GVLs\GVL_Constant.TcGVL">
       <SubType>Code</SubType>
@@ -176,28 +183,10 @@
     <Compile Include="POUs\FBs\Fanuc\FB_Fanuc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FBs\FB_Bistabil.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_CommandLineExecuter.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FBs\FB_Conveyor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\FB_Door.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_FullCycleTime.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_GenPulse.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_Not_SmartLight.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_RGB_Light.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\FB_Server.TcPOU">
@@ -206,25 +195,7 @@
     <Compile Include="POUs\FBs\FB_SQL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FBs\FB_Stopper.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_Stopper2.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_TcEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_UpsC69xx.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_UserLed.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FBs\FB_Vise_Station.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FBs\FB_WorkLight.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\ID200\DUTs\E_CarrierType.TcTLEO">
@@ -266,6 +237,15 @@
     <Compile Include="POUs\FBs\MySQL\UpdateVise\FB_SP_spUpdateVise.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\Pneumatics\FB_Bistabil.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Pneumatics\FB_Stopper.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Pneumatics\FB_Stopper2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\ServoVise\DUTs\E_ServoVise_Command.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
@@ -278,10 +258,40 @@
     <Compile Include="POUs\FBs\ServoVise\FB_TorqueCheck.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_CommandLineExecuter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_FullCycleTime.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_GenPulse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_Not_SmartLight.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_RGB_Light.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_TcEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_UpsC69xx.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_UserLed.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\Utilities\FB_WorkLight.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\InitTCPIP.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Robot7AxisStation\Robot7AxisProgram.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\RobotViseStation\RobotCncProgram.TcPOU">
@@ -375,6 +385,7 @@
     <Folder Include="DUTs\Executer" />
     <Folder Include="DUTs\MySQL" />
     <Folder Include="DUTs\ConveyorSystem" />
+    <Folder Include="DUTs\PyADS" />
     <Folder Include="DUTs\OPC_UA" />
     <Folder Include="DUTs\RGB" />
     <Folder Include="DUTs\Vise" />
@@ -401,8 +412,11 @@
     <Folder Include="POUs\FBs\FanucCNC" />
     <Folder Include="POUs\FBs\MPS" />
     <Folder Include="POUs\FBs\CNC_Servo" />
+    <Folder Include="POUs\FBs\Utilities" />
+    <Folder Include="POUs\FBs\Pneumatics" />
     <Folder Include="POUs\FBs\ServoVise" />
     <Folder Include="POUs\FBs\ServoVise\DUTs" />
+    <Folder Include="POUs\Robot7AxisStation" />
     <Folder Include="POUs\Temp" />
     <Folder Include="POUs\RobotViseStation" />
     <Folder Include="POUs\Temp\Fanuc" />

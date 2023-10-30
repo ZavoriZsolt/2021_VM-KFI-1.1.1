@@ -11,8 +11,8 @@ VAR
 									.fbMoveLower.i_bWorkPos	:= TIIB(13)^Channel 3^Input;
 									.fbMoveLower.q_bBasePos	:= TIIB(14)^Channel 4^Output;
 									.fbMoveLower.q_bWorkPos	:= TIIB(14)^Channel 3^Output;
-									.fbLock.i_bBasePos	:= TIIB(13)^Channel 6^Input;
-									.fbLock.i_bWorkPos	:= TIIB(13)^Channel 5^Input;
+									.fbLock.i_bBasePos	:= TIIB(13)^Channel 5^Input;
+									.fbLock.i_bWorkPos	:= TIIB(13)^Channel 6^Input;
 									.fbLock.q_bWorkPos	:= TIIB(14)^Channel 5^Output;
 									.q_bToolCheckBlower := TIIB(14)^Channel 6^Output;
 									.fbVisePos.arrRaw[0]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
@@ -33,7 +33,12 @@ END_VAR
 	bReady=> , 
 	bBusy=> , 
 	bDone=> , 
-	bError=> );]]></ST>
+	bError=> );
+
+fbCNC1.bTestUp := i_bTest_Up;
+fbCNC1.bTestDown := i_bTest_Down;
+fbCNC1.bTestStop := i_bTest_Stop;
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

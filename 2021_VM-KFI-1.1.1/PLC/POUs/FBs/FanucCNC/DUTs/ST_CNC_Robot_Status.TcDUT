@@ -16,17 +16,16 @@ STRUCT
 (*-----=== Byte 02 ===-----*)
 	bBatteryVoltageDrop		:BIT;				// 02.1	Battery voltage drop
 	bBusy					:BIT;				// 02.1	During operation
-	nAckProgNumber			:BYTE;
-//	bAckSNO1				:BIT;				// 02.1	Selected program number
-//	bAckSNO2				:BIT;				// 02.2	Selected program number
-//	bAckSNO3				:BIT;				// 02.3	Selected program number
-//	bAckSNO4				:BIT;				// 02.4	Selected program number
-//	bAckSNO5				:BIT;				// 02.5	Selected program number
-//	bAckSNO6				:BIT;				// 02.6	Selected program number
+	bAckSNO1				:BIT;				// 02.1	Selected program number
+	bAckSNO2				:BIT;				// 02.2	Selected program number
+	bAckSNO3				:BIT;				// 02.3	Selected program number
+	bAckSNO4				:BIT;				// 02.4	Selected program number
+	bAckSNO5				:BIT;				// 02.5	Selected program number
+	bAckSNO6				:BIT;				// 02.6	Selected program number
 
 (*-----=== Byte 03 ===-----*)
-//	bAckSNO7				:BIT;				// 03.1	Selected program number
-//	bAckSNO8				:BIT;				// 03.2	Selected program number
+	bAckSNO7				:BIT;				// 03.1	Selected program number
+	bAckSNO8				:BIT;				// 03.2	Selected program number
 	bSnAck					:BIT;				// 03.3	Response signal to PNS
 	{attribute 'hide'}
 	_reserved_03_04			:BIT;
@@ -39,20 +38,20 @@ STRUCT
 	_reserved_04			:BYTE;
 	
 (*-----=== Byte 05 ===-----*)
-	bCNC_1_Set				:BIT;				// 05.1	Robot CNC-1-be mehet SET
-	bCNC_1_ViseClose_Set	:BIT;				// 05.2	Robot CNC-1 satu zárva SET
-	bCNC_1_ViseOpen_Set		:BIT;				// 05.3	Robot CNC-1 satu nyitva SET
-	bCNC_2_Set				:BIT;				// 05.4	Robot CNC-2-be mehet SET
-	bCNC_2_ViseClose_Set	:BIT;				// 05.5	Robot CNC-2 satu zárva SET
-	bCNC_2_ViseOpen_Set		:BIT;				// 05.6	Robot CNC-2 satu nyitva SET
-	bCNC_3_Set				:BIT;				// 05.7	Robot CNC-3-be mehet SET
-	bCNC_3_ViseClose_Set	:BIT;				// 05.8	Robot CNC-3 satu zárva SET
+	bCNC_1_Set				:BIT;				// 05.1	Robot CNC-1-be menne
+	bCNC_1_ViseClose_Set	:BIT;				// 05.2	Robot CNC-1 satu zárásra vár
+	bCNC_1_ViseOpen_Set		:BIT;				// 05.3	Robot CNC-1 satu nyitásra vár
+	bCNC_2_Set				:BIT;				// 05.4	Robot CNC-2-be menne
+	bCNC_2_ViseClose_Set	:BIT;				// 05.5	Robot CNC-2 satu zárásra vár
+	bCNC_2_ViseOpen_Set		:BIT;				// 05.6	Robot CNC-2 satu nyitásra vár
+	bCNC_3_Set				:BIT;				// 05.7	Robot CNC-3-be menne
+	bCNC_3_ViseClose_Set	:BIT;				// 05.8	Robot CNC-3 satu zárásra vár
 	
 (*-----=== Byte 06 ===-----*)
-	bCNC_3_ViseOpen_Set		:BIT;				// 06.1	Robot CNC-3 satu nyitva SET
-	bPalette_1_Set			:BIT;				// 06.2	Robot Kiemelő 1-hez mehet SET
-	bPalette_2_Set			:BIT;				// 06.3	Robot Kiemelő 2-höz mehet SET
-	bPalette_3_Set			:BIT;				// 06.4	Robot Kiemelő 3-hoz mehet SET
+	bCNC_3_ViseOpen_Set		:BIT;				// 06.1	Robot CNC-3 satu nyitásra vár
+	bPalette_1_Set			:BIT;				// 06.2	Robot Kiemelő 1-hez menne
+	bPalette_2_Set			:BIT;				// 06.3	Robot Kiemelő 2-höz menne
+	bPalette_3_Set			:BIT;				// 06.4	Robot Kiemelő 3-hoz menne
 	bGripperClosed_Set		:BIT;				// 06.5	Robot megfogó zárás SET
 	{attribute 'hide'}
 	_reserved_06_06			:BIT;		

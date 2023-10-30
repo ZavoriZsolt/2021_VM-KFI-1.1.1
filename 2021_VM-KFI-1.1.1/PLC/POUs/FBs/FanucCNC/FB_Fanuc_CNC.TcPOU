@@ -28,7 +28,7 @@ VAR_INPUT
 	bPalette_1_Reset		:BOOL;				(* Handshake *)
 	bPalette_2_Reset		:BOOL;				(* Handshake *)
 	bPalette_3_Reset		:BOOL;				(* Handshake *)
-	bGripperClosed_ReReset	:BOOL;				(* Handshake *)
+	bGripperClosed_Reset	:BOOL;				(* Handshake *)
 	timeBaseState			:TIME:=T#20S;		(* Alaphelyzet felvételi idő*)
 	bAck					:BOOL; 				(* Hibanyugta *)
 	bOverride				:BYTE := 10;		(* PLC Override  10 - 100%*)
@@ -100,6 +100,7 @@ bCNC_3_ViseOpen_Set := RobotIn.Status.bCNC_3_ViseOpen_Set;
 bPalette_1_Set := RobotIn.Status.bPalette_1_Set;
 bPalette_2_Set := RobotIn.Status.bPalette_2_Set;
 bPalette_3_Set := RobotIn.Status.bPalette_3_Set;
+bGripperClosed_Set := RobotIn.Status.bGripperClosed_Set;
 RobotOut.Control.bCNC_1_Reset := bCNC_1_Reset;
 RobotOut.Control.bCNC_1_ViseClose_Reset := bCNC_1_ViseClose_Reset;
 RobotOut.Control.bCNC_1_ViseOpen_Reset := bCNC_1_ViseOpen_Reset;
@@ -112,6 +113,7 @@ RobotOut.Control.bCNC_3_ViseOpen_Reset := bCNC_3_ViseOpen_Reset;
 RobotOut.Control.bPalette_1_Reset := bPalette_1_Reset;
 RobotOut.Control.bPalette_2_Reset := bPalette_2_Reset;
 RobotOut.Control.bPalette_3_Reset := bPalette_3_Reset;
+RobotOut.Control.bGripperClosed_Reset := bGripperClosed_Reset;
 RobotOut.Control.nWeight := nWeight;
 
 (*Időzítők***************************************************)
@@ -966,74 +968,5 @@ nReal := INT_TO_REAL(nWhole) + nSign * (UINT_TO_REAL(nFraction)/LREAL_TO_REAL(EX
 WHOLE_AND_FRACTION_TO_REAL := (ABS(nReal) >= ABS(INT_TO_REAL(nWhole))) AND (ABS(nReal) <= ABS(INT_TO_REAL(nWhole)) + 1.0);]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_Fanuc_CNC">
-      <LineId Id="2964" Count="24" />
-      <LineId Id="3717" Count="0" />
-      <LineId Id="2989" Count="230" />
-      <LineId Id="3222" Count="84" />
-      <LineId Id="3710" Count="0" />
-      <LineId Id="3712" Count="4" />
-      <LineId Id="3711" Count="0" />
-      <LineId Id="3308" Count="20" />
-      <LineId Id="3718" Count="29" />
-      <LineId Id="3355" Count="5" />
-      <LineId Id="3748" Count="5" />
-      <LineId Id="3755" Count="2" />
-      <LineId Id="3754" Count="0" />
-      <LineId Id="3766" Count="1" />
-      <LineId Id="3363" Count="25" />
-      <LineId Id="3773" Count="11" />
-      <LineId Id="3395" Count="20" />
-      <LineId Id="3896" Count="0" />
-      <LineId Id="3417" Count="3" />
-      <LineId Id="3785" Count="11" />
-      <LineId Id="3427" Count="25" />
-      <LineId Id="3810" Count="1" />
-      <LineId Id="3813" Count="1" />
-      <LineId Id="3816" Count="1" />
-      <LineId Id="3815" Count="0" />
-      <LineId Id="3819" Count="1" />
-      <LineId Id="3818" Count="0" />
-      <LineId Id="3822" Count="1" />
-      <LineId Id="3821" Count="0" />
-      <LineId Id="3825" Count="1" />
-      <LineId Id="3824" Count="0" />
-      <LineId Id="3828" Count="1" />
-      <LineId Id="3827" Count="0" />
-      <LineId Id="3454" Count="25" />
-      <LineId Id="3831" Count="16" />
-      <LineId Id="3830" Count="0" />
-      <LineId Id="3481" Count="25" />
-      <LineId Id="3848" Count="16" />
-      <LineId Id="3809" Count="0" />
-      <LineId Id="3797" Count="11" />
-      <LineId Id="3513" Count="25" />
-      <LineId Id="3865" Count="16" />
-      <LineId Id="3545" Count="0" />
-      <LineId Id="3883" Count="11" />
-      <LineId Id="3882" Count="0" />
-      <LineId Id="3546" Count="19" />
-      <LineId Id="3592" Count="39" />
-      <LineId Id="3635" Count="10" />
-      <LineId Id="3649" Count="10" />
-      <LineId Id="3895" Count="0" />
-      <LineId Id="3664" Count="38" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_Fanuc_CNC.REAL_TO_WHOLE_AND_FRACTION">
-      <LineId Id="14" Count="0" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="20" Count="1" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="11" Count="0" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="24" Count="0" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="13" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_Fanuc_CNC.WHOLE_AND_FRACTION_TO_REAL">
-      <LineId Id="44" Count="12" />
-      <LineId Id="28" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

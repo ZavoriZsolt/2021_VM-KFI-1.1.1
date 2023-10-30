@@ -49,6 +49,7 @@ Light();
 Mode();
 ViseProgram();
 RobotCncProgram();
+Robot7AxisProgram();
 CNC_1();
 ConveyorSystem();
 Mapping();
@@ -66,7 +67,7 @@ sTime := MID((SYSTEMTIME_TO_STRING(fbTime.systemTime)),8,12);
     <Action Name="Alarm" Id="{74b54fed-c5dc-49fb-9aa9-6cad65b323d1}">
       <Implementation>
         <ST><![CDATA[// Creating error acknowladge impulse
-rtAck(CLK:= i_bVisePos1ErrorAckBtn OR i_bVisePos2ErrorAckBtn OR bAckHMI, Q=> bAckP);
+rtAck(CLK:= i_bVisePos1ErrorAckBtn OR i_bVisePos2ErrorAckBtn OR bAckHMI OR i_bErrorAckBtn_Main, Q=> bAckP);
 IF rtAck.Q THEN
 	afbAlarms[1].Confirm(0); afbAlarms[2].Confirm(0); afbAlarms[3].Confirm(0); afbAlarms[4].Confirm(0);
 	afbAlarms[5].Confirm(0); afbAlarms[6].Confirm(0); afbAlarms[7].Confirm(0); 
@@ -258,9 +259,7 @@ fbNotSmartLight(
     </Action>
     <Action Name="Mapping" Id="{35b55974-b1cc-4f74-b0f7-031aa332c171}">
       <Implementation>
-        <ST><![CDATA[fbGripperPos1(bValid=> , nDistance=> );
-fbGripperPos2(bValid=> , nDistance=> );
-]]></ST>
+        <ST><![CDATA[;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Mode" Id="{37f15e2b-fb65-4020-9798-fa6f49222fe7}">

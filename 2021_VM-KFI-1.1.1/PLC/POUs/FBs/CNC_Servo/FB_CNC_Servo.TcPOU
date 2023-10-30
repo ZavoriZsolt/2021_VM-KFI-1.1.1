@@ -8,6 +8,11 @@ VAR_INPUT
 	bEnable						: BOOL;
 	bManualMode					: BOOL;
 END_VAR
+VAR_INPUT		// TEST
+	bTestUp						: BOOL;
+	bTestDown					: BOOL;
+	bTestStop					: BOOL;
+END_VAR
 VAR_OUTPUT
 	bReady						: BOOL;
 	bBusy 						: BOOL;
@@ -24,7 +29,23 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Servo();
+      <ST><![CDATA[IF bTestStop THEN
+	fbMoveUpper.bBasePosCmd := FALSE;
+	fbMoveUpper.bWorkPosCmd := FALSE;
+	fbMoveLower.bBasePosCmd := FALSE;
+	fbMoveLower.bWorkPosCmd := FALSE;
+ELSIF bTestUp THEN
+	fbMoveUpper.bBasePosCmd := TRUE;
+	fbMoveUpper.bWorkPosCmd := FALSE;
+	fbMoveLower.bBasePosCmd := TRUE;
+	fbMoveLower.bWorkPosCmd := FALSE;
+ELSIF bTestDown THEN
+	fbMoveUpper.bBasePosCmd := FALSE;
+	fbMoveUpper.bWorkPosCmd := TRUE;
+	fbMoveLower.bBasePosCmd := FALSE;
+	fbMoveLower.bWorkPosCmd := TRUE;
+END_IF
+Servo();
 Pneu();
 ]]></ST>
     </Implementation>
@@ -116,7 +137,7 @@ fbLock(
       <Implementation>
         <ST><![CDATA[fbVisePos();
 fbServoVise(
-	bErrorAck:= , 
+	bErrorAck:= bAckP, 
 	bEnable:= , 
 	eCommand:= , 
 	bManualMode:= , 
@@ -128,7 +149,6 @@ fbServoVise(
 	nTorqueRamp:= , 
 	nTorqueVelocityLimit:= , 
 	nOverride:= , 
-	nAttachDistance:= , 
 	nAttachVelocity:= , 
 	stAxisEvent:= , 
 	bReady=> , 
