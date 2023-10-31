@@ -47,7 +47,7 @@ VAR (* State control *)
 	nState 					: UDINT;
 	nLastState				: UDINT;
 	sState					: STRING;
-	tTorqueRelief			: TON;
+	nTorqueRelief			: LREAL := 0.005;	// 0.005mm = 0.9°
 	
 	// Error control
 	bIsInitalized			: BOOL;
@@ -64,7 +64,6 @@ VAR CONSTANT									//																			%     Tmax    i   Theta
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(* Timers **************************************)
-tTorqueRelief(IN:= fbTorqueControl.Busy, PT:= T#500MS, Q=> , ET=> );
 
 (* Enable **************************************)
 IF NOT bEnable THEN
@@ -116,7 +115,7 @@ IF bErrorAck THEN
 END_IF
 
 IF Axis.Status.Error OR Axis.Status.DriveDeviceError OR fbPower.Error OR fbMoveRelative.Error OR fbTorqueControl.Error OR
-	fbJog.Error OR fbSoEReset.Error OR fbReset.Error
+	fbJog.Error OR fbSoEReset.Error OR fbReset.Error OR fbHalt.Error OR fbStop.Error OR fbReadDriveOpMode.Error OR fbWriteDriveOpMode.Error
 THEN
 	bError  :=  TRUE;
 	IF (fbAlarm.eConfirmationState <> 2 AND fbAlarm.nTimeCleared <> 0 AND fbAlarm.nTimeConfirmed <> 0) OR //Ha már volt alarm, akkor van bennük érték
@@ -150,7 +149,11 @@ END_IF
 Axis();
 
 CASE nState OF
-	0: (*Alaphelyzet*)
+{region "Alaphelyzet felvétel"}
+	(****************************************************************************************)
+	(******************************* Alaphelyzetfelvétel ************************************)
+	(****************************************************************************************)	
+	0:		(*-----=== Kimenetek törlése ===-----*)
 		fbPower.Enable := FALSE;
 		fbReadDriveOpMode.Execute := FALSE;
 		fbWriteDriveOpMode.Execute := FALSE;
@@ -165,14 +168,14 @@ CASE nState OF
 			nState := nState + 20;
 		END_IF
 		
-	20: (*Axis and Drive check*)
+	20:		(*-----=== Axis és Drive hibák ellenőrzése ===-----*)
 		IF Axis.Status.Error OR Axis.Status.DriveDeviceError THEN
 			nState := 250000;
 		ELSIF bEnable THEN
 			nState := nState + 20;
 		END_IF
 
-	40: (*Read drive operation mode*)
+	40:		(*-----=== Drive Op. mód ellenörzés ===-----*)
 		fbReadDriveOpMode.Execute := TRUE;
 		IF fbReadDriveOpMode.Done THEN
 			IF fbReadDriveOpMode.DriveOperationMode <> Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default THEN
@@ -183,36 +186,43 @@ CASE nState OF
 			fbReadDriveOpMode.Execute := FALSE;
 		END_IF
 
-	100: (*Change drive operation mode*)
+	100:		(*-----=== Drive átkapcsolása PtP módba ===-----*)
 		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
 		fbWriteDriveOpMode.Execute := TRUE;
 		IF fbWriteDriveOpMode.Done THEN
 			fbWriteDriveOpMode.Execute := FALSE;
 			nState := 10000;
 		END_IF
+{endregion}
 
-	
-	(* Alaphelyzet *********************************************************************)	
-	10000: (*Wait for command*)
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Alaphelyzet ****************************************)
+	(****************************************************************************************)	
+	10000:		(*-----=== Várakozás parancsra ===-----*)
 		bReady := TRUE;
 		bBusy := FALSE;
 		bDone := FALSE;
-		IF eCommand = E_ServoVise_Command.Fix THEN
+		IF eCommand = E_ServoVise_Command.Fix THEN				// Nyomatékra húzás
 			bBusy := TRUE;
 			nState := 20000;
-		ELSIF eCommand = E_ServoVise_Command.MoveToPos THEN
+		ELSIF eCommand = E_ServoVise_Command.MoveToPos THEN		// Pozícionálás
 			bBusy := TRUE;
 			nState := 40000;
-		ELSIF eCommand = E_ServoVise_Command.Release THEN
+		ELSIF eCommand = E_ServoVise_Command.Release THEN		// Kioldás
 			bBusy := TRUE;
 			nState := 60000;
-		ELSIF eCommand = E_ServoVise_Command.Attach THEN
+		ELSIF eCommand = E_ServoVise_Command.Attach THEN		// Tengelykapcsoló csatlakoztatása
 			bBusy := TRUE;
 			nState := 80000;
 		END_IF
-	
-	(*-----=== Szervo BE ===-----*)
-	20000:
+{endregion}
+
+{region "Satu nyomatékrahúzása"}
+	(****************************************************************************************)
+	(****************************** Satu nyomatékrahúzás ************************************)
+	(****************************************************************************************)	
+	20000:		(*-----=== Szervo BE ===-----*)
 		fbPower.Enable := TRUE;
 		IF fbPower.Status THEN
 			nState := 20100;
@@ -220,88 +230,46 @@ CASE nState OF
 			nState := 250000;
 		END_IF	
 		
-	(*-----=== Zárás nyomatékra ===-----*)		
-	20100:
-		fbTorqueControl.Torque := -1 * ABS(nTorque/nTScale);
+	20100:		(*-----=== Zárás nyomatékra ===-----*)
+		fbTorqueControl.Torque := -1 * ABS(nTorque/nTScale);					// Nyomaték átszámítása Nm-ből %-ba
 		fbTorqueControl.TorqueRamp := nTorqueRamp;
 		fbTorqueControl.VelocityLimitHigh := nTorqueVelocityLimit;
 		fbTorqueControl.VelocityLimitLow := -1 * nTorqueVelocityLimit;
 		fbTorqueControl.Execute := TRUE;
 		IF fbTorqueControl.Busy THEN
+			nTorqueRelief := ((ABS(nTorque))/6000 + (1/300));					// A feszültségmentesítési szög nyomatékfüggő!! Y=m*X+b	{m=1/6000, b=1/300}
 			nState := nState + 20;
 		END_IF
-
-	(*-----=== Nyomaték figyelés ===-----*)
-	20120:
+	
+	20120:		(*-----=== Nyomaték figyelés ===-----*)
 		IF fbTorqueCheck.bTorqueDone THEN
 			fbTorqueControl.Execute := FALSE;
 			nState := nState + 20;
 		ELSIF fbTorqueControl.Error THEN
 			nState := 250000;
-		END_IF	
-
-	(*-----=== Feszmentesítés ===-----*)		
-	20140:
-		fbTorqueControl.Torque := 1;
-		fbTorqueControl.TorqueRamp := nTorqueRamp;
-		fbTorqueControl.VelocityLimitHigh := nTorqueVelocityLimit;
-		fbTorqueControl.VelocityLimitLow := -1 * nTorqueVelocityLimit;
-		fbTorqueControl.Execute := TRUE;
-		IF fbTorqueControl.Busy THEN
-			nState := nState + 20;
-		END_IF
-
-	(*-----=== Várakozás feszmentesítésre ===-----*)
-	20160:
-		IF tTorqueRelief.Q THEN
-			fbTorqueControl.Execute := FALSE;
-			nState := nState + 20;
-		ELSIF fbTorqueControl.Error THEN
+		ELSIF (lrVisePosition < 0) AND bVisePosValid THEN						// Minimális pozíció elérve -> Hiba
 			nState := 250000;
-		END_IF
-
-	(*-----=== Váratla mozgások elkerülése ===-----*)
-	(*-----=== Axis Halt ===-----*)
-	20180:
+		ELSIF (nRealVisePos < (lrTargetDistance - 4)) THEN						// Satupozíció 4mm-el kissebb mint a nominál méret -> Hiba
+			nState := 250000;
+		END_IF	
+	
+	20140:		(*-----=== Axis Halt ===-----*)(*-----=== Váratla mozgások elkerülése ===-----*)
 		fbHalt.Execute := TRUE;
 		IF fbHalt.Done THEN
 			fbHalt.Execute := FALSE;
 			nState:= nState + 20;
 		END_IF
-
-	(*-----=== Átkapcsolás pozíció módba ===-----*)
-	20200:
+	
+	20160:		(*-----=== Átkapcsolás pozíció módba ===-----*)
 		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
 		fbWriteDriveOpMode.Execute := TRUE;
 		IF fbWriteDriveOpMode.Done THEN
 			fbWriteDriveOpMode.Execute := FALSE;
 			nState := nState + 20;
 		END_IF
-
-	(*-----=== Szervo KI ===-----*)
-	20220:
-		fbPower.Enable := FALSE;
-		nState := nState + 20;
-
-	20240:
-		bBusy := FALSE;
-		bDone := TRUE;
-		IF eCommand = E_ServoVise_Command.NoCommand THEN
-			nState := 10000;
-		END_IF
 	
-	(*-----=== Pozícióra mozgás ===-----*)
-	(*-----=== Szervo BE ===-----*)
-	40000:
-		fbPower.Enable := TRUE;
-		IF fbPower.Status THEN
-			nState := nState + 20;
-		ELSIF fbPower.Error THEN
-			nState := 250000;
-		END_IF
-			
-	40020: (*Move*)
-		fbMoveRelative.Distance := (lrTargetDistance + nOpenOffset) - nRealVisePos;
+	20180:		(*-----=== Szervo Mozgatás PtP ===-----*)
+		fbMoveRelative.Distance := nTorqueRelief;
 		fbMoveRelative.Velocity := nTargetVelocity;
 		fbMoveRelative.Execute := TRUE;
 		IF fbMoveRelative.Done THEN
@@ -311,30 +279,72 @@ CASE nState OF
 			fbMoveRelative.Execute := FALSE;
 			nState := 250000;
 		END_IF
-		
-	(*-----=== Szervo KI ===-----*)
-	40040:
+	
+	20200:		(*-----=== Szervo KI ===-----*)
 		fbPower.Enable := FALSE;
 		nState := nState + 20;
-
-	40060:
+	
+	20220:		(*-----=== Várakozás parancs törlésre ===-----*)
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
+{endregion}
 
-	(*-----=== Satu elengedés ===-----*)
-	(*-----=== Szervo BE ===-----*)
-	60000:
+{region "Satu pzícionálás"}
+	(****************************************************************************************)
+	(********************************* Satu pozícionálás ************************************)
+	(****************************************************************************************)	
+	40000:		(*-----=== Szervo BE ===-----*)
 		fbPower.Enable := TRUE;
 		IF fbPower.Status THEN
 			nState := nState + 20;
 		ELSIF fbPower.Error THEN
 			nState := 250000;
 		END_IF
+			
+	40020:		(*-----=== Szervo Mozgatás PtP ===-----*)
+		fbMoveRelative.Distance := (lrTargetDistance + nOpenOffset) - nRealVisePos;
+		fbMoveRelative.Velocity := nTargetVelocity;
+		fbMoveRelative.Execute := TRUE;
+		IF fbMoveRelative.Done THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := nState + 20;
+		ELSIF fbMoveRelative.Error THEN
+			fbMoveRelative.Execute := FALSE;
+			nState := 250000;
+		ELSIF (lrVisePosition < 0) AND bVisePosValid THEN						// Minimális pozíció elérve -> Hiba
+			nState := 250000;
+		ELSIF (nRealVisePos < (lrTargetDistance - 4)) THEN						// Satupozíció 4mm-el kissebb mint a nominál méret -> Hiba
+			nState := 250000;
+		END_IF
+		
+	40040:		(*-----=== Szervo KI ===-----*)
+		fbPower.Enable := FALSE;
+		nState := nState + 20;
+	
+	40060:		(*-----=== Várakozás parancs törlésre ===-----*)
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_ServoVise_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
 
-	60020: (*Move*)
+{region "Satu oldása"}
+	(****************************************************************************************)
+	(************************************ Satu elengedés ************************************)
+	(****************************************************************************************)
+	60000:		(*-----=== Szervo BE ===-----*)
+		fbPower.Enable := TRUE;
+		IF fbPower.Status THEN
+			nState := nState + 20;
+		ELSIF fbPower.Error THEN
+			nState := 250000;
+		END_IF
+	
+	60020:		(*-----=== Szervo Mozgatás PtP ===-----*)
 		fbMoveRelative.Distance := nOpenOffset;
 		fbMoveRelative.Velocity := nTargetVelocity;
 		fbMoveRelative.Execute := TRUE;
@@ -345,22 +355,24 @@ CASE nState OF
 			fbMoveRelative.Execute := FALSE;
 			nState := 250000;
 		END_IF
-
-	(*-----=== Szervo KI ===-----*)
-	60040:
+	
+	60040:		(*-----=== Szervo KI ===-----*)
 		fbPower.Enable := FALSE;
 		nState := nState + 20;
 		
-	60060:
+	60060:		(*-----=== Várakozás parancs törlésre ===-----*)
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
 			nState := 10000;
 		END_IF
+{endregion}
 
-	(*-----=== Satu csatlakoztatás ===-----*)
-	(*-----=== Szervo BE ===-----*)
-	80000:
+{region "Satu csatlakoztatása"}
+	(****************************************************************************************)
+	(********************************** Satu csatlakoztatás *********************************)
+	(****************************************************************************************)
+	80000:		(*-----=== Szervo BE ===-----*)
 		fbPower.Enable := TRUE;
 		IF fbPower.Status THEN
 			nState := nState + 20;
@@ -368,8 +380,7 @@ CASE nState OF
 			nState := 250000;
 		END_IF	
 		
-	(*-----=== Zárás nyomatékra ===-----*)		
-	80020:
+	80020:		(*-----=== Zárás nyomatékra ===-----*)
 		fbTorqueControl.Torque := -5;
 		fbTorqueControl.TorqueRamp := nTorqueRamp;
 		fbTorqueControl.VelocityLimitHigh := nAttachVelocity;
@@ -378,41 +389,40 @@ CASE nState OF
 		IF fbTorqueControl.Busy THEN
 			nState := nState + 20;
 		END_IF
-
-	80040:
+	
+	80040:		(*-----=== Várakozás parancs törlésre ===-----*)
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
 			fbTorqueControl.Execute := FALSE;
 			nState:= nState + 20;
 		END_IF
-
-	(*-----=== Váratla mozgások elkerülése ===-----*)
-	(*-----=== Axis Halt ===-----*)
-	80060:
+	
+	80060:		(*-----=== Axis Halt ===-----*)(*-----=== Váratla mozgások elkerülése ===-----*)
 		fbHalt.Execute := TRUE;
 		IF fbHalt.Done THEN
 			fbHalt.Execute := FALSE;
 			nState:= nState + 20;
 		END_IF
-
-	(*-----=== Átkapcsolás pozíció módba ===-----*)
-	80080:
+	
+	80080:		(*-----=== Átkapcsolás pozíció módba ===-----*)
 		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
 		fbWriteDriveOpMode.Execute := TRUE;
 		IF fbWriteDriveOpMode.Done THEN
 			fbWriteDriveOpMode.Execute := FALSE;
 			nState := nState + 20;
 		END_IF
-
-	(*-----=== Szervo KI ===-----*)
-	80100:
+	
+	80100:		(*-----=== Szervo KI ===-----*)
 		fbPower.Enable := FALSE;
 		nState := 10000;
+{endregion}
 
-	
-	(*-----=== Manual moed ===-----*)	
-	150000: (*Manual*)
+{region "Manual mód"}
+	(****************************************************************************************)
+	(*************************************** Kézi üzem **************************************)
+	(****************************************************************************************)	
+	150000:		(*-----=== Manual mode ===-----*)
 		fbJog.Mode := MC_JOGMODE_CONTINOUS;
 		IF NOT bManualMode THEN
 			nState := 10000;
@@ -420,30 +430,54 @@ CASE nState OF
 		IF fbJog.Error THEN
 			nState := 250000;
 		END_IF
-	
-	(*-----=== Hiba ===-----*)	
-	250000: (*Error*)
+{endregion}
+
+{region "Hibakezelés"}
+	(****************************************************************************************)
+	(************************************* Hibakezelés **************************************)
+	(****************************************************************************************)	
+	250000:		(*-----=== Error ===-----*)
 		bReady := FALSE;
 		bBusy := FALSE;
 		bDone := FALSE;
 		bError := TRUE;
+		fbReadDriveOpMode.Execute := FALSE;
+		fbWriteDriveOpMode.Execute := FALSE;
+		fbStop.Execute := FALSE;
+		fbHalt.Execute := FALSE;
+		fbTorqueControl.Execute := FALSE;
+		fbMoveRelative.Execute := FALSE;
+		IF Axis.Status.HasJob THEN
+			nState := nState + 20;
+		ELSE
+			nState := nState + 40;
+		END_IF
+	
+	250020:	(* Axis halt *)
+		fbHalt.Execute := TRUE;
+		IF fbHalt.Done THEN
+			fbHalt.Execute := FALSE;
+			nState:= nState + 20;
+		END_IF
+	
+	250040: (*Wait error ACK*)
 		IF bErrorAck THEN
 			nState := nState + 20;
 		END_IF
 		
-	250020: (*Error ACK*)
+	250060: (*Error ACK*)
 		IF Axis.Status.DriveDeviceError THEN 
 			fbSoEReset.Execute := TRUE;
 			fbReset.Execute := TRUE;
-			nState := 250040;
+			nState := 250080;
 		ELSIF Axis.Status.Error THEN 
 			fbReset.Execute := TRUE;
-			nState := 250060;
+			nState := 250100;
 		ELSE
 			nState := 0;
 		END_IF
 		
-	250040: (*Drive Reset*)
+	250080: (*Drive Reset*)
 		IF NOT fbSoEReset.Busy THEN
 			fbSoEReset.Execute := FALSE;
 			nState := 0;
@@ -451,16 +485,18 @@ CASE nState OF
 			nState := 0; 
 		END_IF
 		
-	250060: (*Reset*)
+	250100: (*Reset*)
 		IF fbReset.Done THEN
 			fbReset.Execute := FALSE;
 			nState := 0;
 		ELSIF fbReset.Error THEN
 			nState := 0; 
 		END_IF	
+{endregion}
 ELSE
 	sState := 'Not used step';	
 END_CASE
+
 
 ActPower();
 ActHalt();
