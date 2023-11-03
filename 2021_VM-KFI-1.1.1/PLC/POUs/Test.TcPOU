@@ -49,9 +49,20 @@ END_VAR
 var
 	_test_usint : USINT;
 	_test : bool;
+	fbCmdExecute			: Tc2_Utilities.NT_StartProcess;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[_test_usint.0 := 1;
+      <ST><![CDATA[fbCmdExecute(
+	NETID:= '', 
+	PATHSTR:= 'C:\Users\Administrator\AppData\Local\Programs\Python\Python312\python.exe', 
+	DIRNAME:= 'C:\Python_Test', 
+	COMNDLINE:= 'cmd_test.py', 
+	START:= , 
+	TMOUT:= , 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+_test_usint.0 := 1;
 _test := _test_usint.0;
 //CASE nSqlState OF
 //	0:

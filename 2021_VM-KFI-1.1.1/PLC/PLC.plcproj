@@ -114,6 +114,9 @@
     <Compile Include="POUs\FBs\BTL\FB_BTL1AR0.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\Camera\FB_TCP_IP_Comm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\CNC_Servo\FB_CNC_Servo.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -412,6 +415,7 @@
     <Folder Include="POUs\FBs\FanucCNC" />
     <Folder Include="POUs\FBs\MPS" />
     <Folder Include="POUs\FBs\CNC_Servo" />
+    <Folder Include="POUs\FBs\Camera" />
     <Folder Include="POUs\FBs\Utilities" />
     <Folder Include="POUs\FBs\Pneumatics" />
     <Folder Include="POUs\FBs\ServoVise" />
@@ -439,6 +443,9 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_TcpIp">
+      <DefaultResolution>Tc2_TcpIp, * (Beckhoff Automation GmbH)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Utilities">
       <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>

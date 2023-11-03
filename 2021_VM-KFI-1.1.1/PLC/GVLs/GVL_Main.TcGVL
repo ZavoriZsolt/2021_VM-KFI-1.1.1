@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_Main" Id="{3b5d4a0b-a75d-4b2d-96e2-aa85a6e849c2}">
     <Declaration><![CDATA[VAR_GLOBAL
 	// Blink
@@ -140,6 +140,8 @@
 								.q_stRGB_Out.arrRGB[23] := TIIB(87)^Outputs^RGB_23;
 								.q_stRGB_Out.arrRGB[24] := TIIB(87)^Outputs^RGB_24;'}
 	fbRgbLights					:FB_RGB_Light;
+
+	fb3DCam					:FB_TCP_IP_Comm;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_TCP_IP_Comm" Id="{c1992312-48d2-4717-b75b-dedc24e610ec}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TCP_IP_Comm
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbConnect 			: FB_SocketConnect;
+	fbSend 				: FB_SocketSend;
+	fbReceive 			: FB_SocketReceive;
+	fbClose				: FB_SocketClose;
+	sTxBuffer			: STRING;
+	sRxBuffer			: STRING;
+	sRequest			: STRING;
+	sResponse			: STRING;
+	sResultTmp			: STRING;
+	nReadSeqStep		: INT := 0;
+	nCamCheckStep		: INT := 0;
+
+(*-----=== HMI ===-----*)
+	bReadSR1000			: BOOL;
+	sCode				: STRING;
+	bCamCheck			: BOOL;
+	rtCamReset			: R_TRIG;
+	nProgNr				: UINT;
+	nDimX				: LREAL;
+	nDimY				: LREAL;
+	nDimZ				: LREAL;
+	nErrorId			: UDINT;
+
+	_Name				:STRING;
+	_RemoteHost			:STRING(15);
+	_RemotePort			:UDINT;
+	_ConnectTimeout		:TIME;
+	_SendTimeout		:TIME;
+	_ReceiveTimeout		:TIME;
+	_CloseTimeout		:TIME;
+	_Pass				:BOOL;
+	_Fail				:BOOL;
+	_Results			:ARRAY [1..100] OF STRING(255);
+	_SavePath			:STRING(255);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bReadSR1000 THEN
+	IF ReadSR1000(sCode, nErrorId) THEN
+		bReadSR1000 := FALSE;
+	END_IF
+END_IF
+
+rtCamReset(CLK:= bCamCheck);
+
+IF rtCamReset.Q THEN
+		ResetCam();
+END_IF
+IF bCamCheck THEN
+	IF CamCheck(nProgNr, nDimX, nDimY, nDimZ, nErrorId) THEN
+		bCamCheck := FALSE;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <Folder Name="Propertiess" Id="{688bddbe-441e-45f0-b1d2-baabf8e92a04}" />
+    <Method Name="CamCheck" Id="{d10c2bc3-8334-4187-a266-ef73af9e445d}">
+      <Declaration><![CDATA[METHOD CamCheck : BOOL
+VAR_INPUT
+	nProgNr		: REFERENCE TO UINT;
+	nDimX		: REFERENCE TO LREAL;
+	nDimY		: REFERENCE TO LREAL;
+	nDimZ		: REFERENCE TO LREAL;
+	nErrorId	: REFERENCE TO UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CamCheck := FALSE;
+CASE nCamCheckStep OF
+0:		_Pass := FALSE;
+		_Fail := FALSE;
+		sRequest := UINT_TO_STRING(nProgNr);							// Trigger parancs összeállítása
+		sRequest := CONCAT('P', sRequest);
+		sRequest := CONCAT(sRequest, ' [');
+		sRequest := CONCAT(sRequest, LREAL_TO_STRING(nDimX));
+		sRequest := CONCAT(sRequest, ';');
+		sRequest := CONCAT(sRequest, LREAL_TO_STRING(nDimY));
+		sRequest := CONCAT(sRequest, ';');
+		sRequest := CONCAT(sRequest, LREAL_TO_STRING(nDimZ));
+		sRequest := CONCAT(sRequest, ']');
+		sRequest := CONCAT(sRequest, '$r$n');
+		nCamCheckStep := nCamCheckStep + 20;
+
+20:		IF ReadSequence(sRequest, sResponse, nErrorId) THEN				// Kamera kommunikáció
+			_Pass := Left(sResponse,1)='P';								//Kapott válasz kiértékelése
+			_Fail := NOT _Pass;
+			nCamCheckStep := nCamCheckStep + 20;
+		END_IF
+
+40:		IF _Pass THEN
+			sResultTmp := sResponse;										// Válasz másolása		P1 [3.206;-2.853;-130.009]$R$N  
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, '['), 1);		// P1 [ törlése
+			_Results[1] := LEFT(sResultTmp, FIND(sResultTmp, ';')-1);		// X offszet másolása	3.206
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ';'), 1);		// X offszet törlése	3.206;
+			_Results[2] := LEFT(sResultTmp, FIND(sResultTmp, ';')-1);		// Y offszet másolása	-2.853
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ';'), 1);		// Y offszet törlése	-2.853;
+			_Results[3] := LEFT(sResultTmp, FIND(sResultTmp, ']')-1);		// Z offszet másolása	-130.009
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ']'), 1);		// Z offszet törlése	-130.009]
+			nCamCheckStep := nCamCheckStep + 20;
+		ELSE
+			nCamCheckStep := nCamCheckStep + 20;
+		END_IF
+
+60:		CamCheck := TRUE;
+//		nCamCheckStep := 0;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f2913ec0-01f4-4c18-b5af-8b6b9b8444c0}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nCamCheckStep := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="p_CloseTimeout" Id="{33efcc88-4d1f-4a0d-a66f-024f934a305e}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_CloseTimeout :  TIME]]></Declaration>
+      <Get Name="Get" Id="{4966c05f-1d94-411b-965b-58a684b4f3ab}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_CloseTimeout := _CloseTimeout;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{292f1ddb-7331-4589-985f-101eb2259b4c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF p_CloseTimeout > T#100MS AND p_CloseTimeout <  T#60S THEN
+	_CloseTimeout := p_CloseTimeout;
+ELSE
+	_CloseTimeout := T#1S;					// default value
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_ConnectTimeout" Id="{68ecfdb7-b451-4f54-8bd2-8444a4217bd6}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_ConnectTimeout : TIME]]></Declaration>
+      <Get Name="Get" Id="{eb607fda-6909-4f86-92d4-ac9010a2d0cf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_ConnectTimeout := _ConnectTimeout;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{0e6be276-9ba1-473f-b24d-bec570ef9f1a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF p_ConnectTimeout > T#100MS AND p_ConnectTimeout <  T#60S THEN
+	_ConnectTimeout := p_ConnectTimeout;
+ELSE
+	_ConnectTimeout := T#1S;					// default value
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_Fail" Id="{716af276-d2f3-4b25-b472-4a1ada9da8ce}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_Fail : Bool]]></Declaration>
+      <Get Name="Get" Id="{048e3bcd-f069-4e33-a7b4-a9a429c675df}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_Fail := _Fail;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{6bd7000b-4fb9-4016-8f75-e40a771ee0ca}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Fail := p_Fail;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_Name" Id="{796980d1-6b97-4ba9-b50f-91af5bed6d2f}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_Name : STRING]]></Declaration>
+      <Get Name="Get" Id="{8726d236-4126-4159-920c-e0762da7c100}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_Name := _Name;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2b9fa5ed-70d1-4c52-976f-08bee9e94903}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Name := p_Name;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_Pass" Id="{095cf77e-256c-46e2-8a8d-ec2b82c127b3}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_Pass : Bool]]></Declaration>
+      <Get Name="Get" Id="{aca0bd9e-4057-4a8e-8d02-e07850633e04}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_Pass := _Pass;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{b46894c3-08d2-4f2e-be23-e00c2f97d2b8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Pass := p_Pass;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_ReceiveTimeout" Id="{6404b7be-21a9-4f82-afde-9c4caf99ac5c}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_ReceiveTimeout : TIME]]></Declaration>
+      <Get Name="Get" Id="{5f6211ca-a6c7-4229-be2c-432fd78345cb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_ReceiveTimeout := _ReceiveTimeout;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2f7f67d5-dfa2-441c-ad3b-be678a1a0e96}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF p_ReceiveTimeout > T#100MS AND p_ReceiveTimeout <  T#60S THEN
+	_ReceiveTimeout := p_ReceiveTimeout;
+ELSE
+	_ReceiveTimeout := T#1S;					// default value
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_RemoteHost" Id="{6410b7dd-aba4-46b5-bb08-1a52573537e2}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_RemoteHost : STRING]]></Declaration>
+      <Get Name="Get" Id="{85983c59-cdfc-43fe-9397-394c0e0fe3d3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_RemoteHost := _RemoteHost;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{f10f651a-0e78-4cd4-ac26-0592c7d3eee4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_RemoteHost := p_RemoteHost;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_RemotePort" Id="{476652d5-9c57-48d3-a4af-30d9ce9c2fd7}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_RemotePort : UDINT]]></Declaration>
+      <Get Name="Get" Id="{e31b448d-62ee-4b86-974a-88f0ce58c6aa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_RemotePort := _RemotePort;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4bbc407c-7873-4e47-838b-8cecf3c28298}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_RemotePort := p_RemotePort;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_Results" Id="{2bfb21da-9c96-44db-9e91-6c4dc72fb9cf}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_Results : ARRAY [1..100] OF STRING(255)]]></Declaration>
+      <Get Name="Get" Id="{3b035c81-6f61-4e9f-9ada-bfb5e1498ecd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_Results := _Results;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c2f23526-cd9b-454f-b26e-6e7b82295988}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Results := p_Results;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_SavePath" Id="{f2c5f911-bd14-4d85-ac87-d63b0d4867eb}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_SavePath : STRING(255)]]></Declaration>
+      <Get Name="Get" Id="{dca60baa-f788-4d04-a7a2-bcc1dc84f5d0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_SavePath := _SavePath;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4385f37f-8526-4434-867b-65a066c7b7a6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_SavePath := p_SavePath;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="p_SendTimeout" Id="{40941df4-96e4-4d20-b218-a904a47fa97c}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY p_SendTimeout : TIME]]></Declaration>
+      <Get Name="Get" Id="{8de5fe80-9f61-48cc-9420-8ad10714abdc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_SendTimeout := _SendTimeout;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{f9fe7f6a-b01b-4c3c-ba2e-87be848c6417}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF p_SendTimeout > T#100MS AND p_SendTimeout <  T#60S THEN
+	_SendTimeout := p_SendTimeout;
+ELSE
+	_SendTimeout := T#1S;					// default value
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="ReadSequence" Id="{081b331a-73a1-497e-9928-39348f42e145}">
+      <Declaration><![CDATA[METHOD ReadSequence : BOOL
+VAR_INPUT
+	sRequest		:REFERENCE TO STRING;
+	sResponse		:REFERENCE TO STRING;
+	nErrorId		:REFERENCE TO UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TCP_Com();
+ReadSequence := FALSE;
+CASE nReadSeqStep OF
+0:		fbConnect.bExecute := TRUE;
+		sResponse := '';
+		nReadSeqStep := nReadSeqStep + 20;
+	
+20:		IF NOT fbConnect.bBusy THEN
+			fbConnect.bExecute := FALSE;
+			nReadSeqStep := nReadSeqStep + 20;
+		ELSIF fbConnect.bError THEN
+			sResponse := '';
+			nErrorId := fbConnect.nErrId;
+			fbConnect.bExecute := FALSE;
+			nReadSeqStep := 200;
+		END_IF
+	
+40:		sTxBuffer := sRequest;
+		fbSend.bExecute := TRUE;
+		nReadSeqStep := nReadSeqStep + 20;
+	
+60:		IF NOT fbSend.bBusy THEN
+			fbSend.bExecute := FALSE;
+			nReadSeqStep := 100;
+		ELSIF fbSend.bError THEN
+			sResponse := '';
+			nErrorId := fbSend.nErrId;
+			fbSend.bExecute := FALSE;
+			nReadSeqStep := 200;
+		END_IF
+	
+100:	fbReceive.bExecute := TRUE;
+		nReadSeqStep := nReadSeqStep + 20;
+	
+120:	IF NOT fbReceive.bBusy THEN
+			IF NOT fbReceive.bError THEN
+					fbReceive.bExecute := FALSE;
+					nReadSeqStep := nReadSeqStep + 20;
+			ELSE
+					sResponse := '';
+					nErrorId := fbReceive.nErrId;
+					fbReceive.bExecute := FALSE;
+					nReadSeqStep := 200;
+			END_IF
+		END_IF
+
+140:	IF fbReceive.nRecBytes > 0 THEN
+			sResponse := CONCAT(sResponse, Left(sRxBuffer,UDINT_TO_INT(fbReceive.nRecBytes)));
+		END_IF
+		IF 		Right(sResponse, 2) = '$r$n' THEN
+					nErrorId := fbReceive.nErrId;
+					Delete(sResponse,2,Find(sResponse,'$r$n'));
+					nReadSeqStep := 200;
+		ELSIF	Right(sResponse, 1) = '$r' THEN
+					nErrorId := fbReceive.nErrId;
+					Delete(sResponse,1,Find(sResponse,'$r'));
+					nReadSeqStep := 200;
+		ELSE				
+					nReadSeqStep := 100;
+		END_IF
+		
+200:	fbClose.bExecute := TRUE;
+		nReadSeqStep := nReadSeqStep + 20;
+	
+220:	IF NOT fbClose.bBusy THEN
+			fbClose.bExecute := FALSE;
+			nReadSeqStep := 500;
+		ELSIF fbClose.bError THEN
+			sResponse := '';
+			nErrorId := fbClose.nErrId;
+			fbClose.bExecute := FALSE;
+			nReadSeqStep := 500;
+		END_IF
+
+500:
+		ReadSequence := TRUE;
+		nReadSeqStep := 0;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReadSR1000" Id="{7d109c9e-4119-4422-a584-cc1ea3132383}">
+      <Declaration><![CDATA[METHOD ReadSR1000 : BOOL
+VAR_INPUT
+	sCode						:REFERENCE TO STRING;
+	nErrorId					:REFERENCE TO UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TCP_Com();
+ReadSR1000 := FALSE;
+
+CASE nCamCheckStep OF
+0:		sRequest := 'LON$R$N';
+		nCamCheckStep := nCamCheckStep + 20;
+
+20:		IF ReadSequence(sRequest, sCode, nErrorId) THEN
+			nCamCheckStep := nCamCheckStep + 20;
+		END_IF
+
+40:		ReadSR1000 := TRUE;
+		nCamCheckStep := 0;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetCam" Id="{490af206-099a-4a6b-aa9d-d658d90edb01}">
+      <Declaration><![CDATA[METHOD ResetCam : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nCamCheckStep := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TCP_Com" Id="{6fb11f8f-d5c4-409d-9054-2d5f0d95f976}">
+      <Declaration><![CDATA[METHOD PRIVATE TCP_Com : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbConnect(
+	sSrvNetId:= '', 
+	sRemoteHost:= _RemoteHost, 
+	nRemotePort:= _RemotePort, 
+	bExecute:= , 
+	tTimeout:= _ConnectTimeout, 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> , 
+	hSocket=> );
+	
+fbSend(
+	sSrvNetId:= '', 
+	hSocket:= fbConnect.hSocket, 
+	cbLen:= INT_TO_UDINT(LEN(sTxBuffer)), 
+	pSrc:= ADR(sTxBuffer), 
+	bExecute:= , 
+	tTimeout:= _SendTimeout, 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> );
+
+fbReceive(
+	sSrvNetId:= '', 
+	hSocket:= fbConnect.hSocket, 
+	cbLen:= SIZEOF(sRxBuffer), 
+	pDest:= ADR(sRxBuffer), 
+	bExecute:= , 
+	tTimeout:= _ReceiveTimeout, 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> , 
+	nRecBytes=> );
+
+fbClose(
+	sSrvNetId:= '', 
+	hSocket:= fbConnect.hSocket, 
+	bExecute:= , 
+	tTimeout:= , 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> );	
+	]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

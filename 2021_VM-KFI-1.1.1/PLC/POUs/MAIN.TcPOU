@@ -230,6 +230,15 @@ END_IF
 	afbAlarms[5].CreateEx(TC_Events.MyEvents.SafetyGroupOtherErr, TRUE, 0);
 	afbAlarms[6].CreateEx(TC_Events.MyEvents.LO1EDMErr, TRUE, 0);
 	afbAlarms[7].CreateEx(TC_Events.MyEvents.LO2EDMErr, TRUE, 0);
+	
+	fb3DCam.p_ConnectTimeout := T#2S;
+	fb3DCam.p_SendTimeout := T#2S;
+	fb3DCam.p_ReceiveTimeout := T#20S;
+	fb3DCam.p_CloseTimeout := T#2S;
+	fb3DCam.p_Name := '3D Camera';
+	fb3DCam.p_RemoteHost := '192.168.81.100';
+	fb3DCam.p_RemotePort := 24056;
+
 	bFirstCycle := FALSE;
 END_IF]]></ST>
       </Implementation>
