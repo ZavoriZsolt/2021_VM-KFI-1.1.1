@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_Dut_Data" Id="{a019439f-84b2-42ba-b932-0ab9fe2b7b56}">
+    <Declaration><![CDATA[TYPE ST_Dut_Data :
+STRUCT
+	nDutId			: ULINT;
+	sSerNr			: STRING;
+	nPaletteId		: INT;
+	nCamFileId		: ULINT;
+	nDimX			: REAL;
+	nDimY			: REAL;
+	nDimZ			: REAL;
+	nPosX			: REAL;
+	nPosY			: REAL;
+	bPass			: BOOL;
+	bDutInVise		: BOOL;
+	bDone			: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

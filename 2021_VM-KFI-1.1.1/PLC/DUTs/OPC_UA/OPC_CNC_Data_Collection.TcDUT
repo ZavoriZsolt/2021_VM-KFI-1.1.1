@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="OPC_CNC_Data_Collection" Id="{361b6c57-6e1b-418b-ab56-c8a06fa4a939}">
+    <Declaration><![CDATA[TYPE OPC_CNC_Data_Collection :
+	STRUCT
+	HeartBeat						:	DINT;
+	ErrorMessage					:	STRING;
+	ToolTablePath					:	STRING(80);
+	MagazineTablePath				:	STRING(80);
+	ProgramPath						:	STRING(80);
+	ProgramLoadTrigger				:	BOOL;
+	ToolTableLoadTrigger			:	BOOL;
+	MagazineTableLoadTrigger		:	BOOL;
+		{region Machine}
+			{region Channels}
+				{region 0}
+					CutterLocation					: 	ARRAY[0..4] OF LREAL;
+					FeedOverride					: 	UDINT;
+					ChannelID						: 	UDINT;
+					OperatingMode					: 	STRING;											//Manual, MDI, RFP, SingleStepp, Automatic, Other, Handweel
+					{region Program(OBJECT)}
+						ProgramCurrentCall			: 	STRING;
+						//ExecutionStack				: 	OpcUa_ProgramPositionArrayType;
+						{region ExecutionState(OBJECT)}
+							CurentState_Program		: 	STRING;//OpcUa_LocalizedText;					//Idle, Running, Stopped, Finished, Error, Interrupted
+							//LastTransition_Program		:	OpcUa_LocalizedText;
+							StartCNCProgram				:	BOOL;
+							StopCNCProgram				:	BOOL;
+							CancelCNCProgram			:	BOOL;
+							SelectCNCProgramByNodeID	:	BOOL;
+							SelectCNCPrograBlockNumber	:	BOOL;
+						{endregion}
+						ProgramName					: 	STRING;
+					{endregion}					 
+					RapidOverride					: 	UDINT;
+					RapidTraverseActive				: 	BOOL;
+					SpeedOverride					: 	UDINT;
+				{endregion}
+			{endregion}
+			{region Control Info}
+				;	 
+			{endregion}
+			{region Error}
+				{region AllActiveErrors(OBJECT)}
+					{region Channel0ActiveErros(OBJECT)}
+						;
+					{endregion}
+				{endregion}
+			{endregion}
+			HostComputerMode	:	BOOL;
+			{region ManufacturerExtensions (OBJECT)}
+				{region Control Status (OBJECT)}
+					ControlStatus_ControlReady				:	BOOL;
+					ControlStatus_Error						:	BOOL;
+					ControlStatus_PocketAtLoadingPosition	:	INT;
+					ControlStatus_RobotModeActive			:	BOOL;
+					ControlStatus_T0Active					:	BOOL;
+				{endregion}
+				{region Door Control}
+					DoorControl_CloseDoor			:	BOOL;
+					DoorControl_DoorClosed			:	BOOL;
+					DoorControl_DoorOpened			:	BOOL;
+					DoorControl_OpenDoor			:	BOOL;
+					DoorControl_DoorClosing			:	BOOL;
+					DoorControl_DoorOpening			:	BOOL;
+					DoorControl_Error				:	BOOL;
+				{endregion}
+				{region Magazine Table}
+					MagazineTable_Error				:	BOOL;
+					MagazineTable_Ok				:	BOOL;
+					MagazineTable_Busy				:	BOOL;
+					MagazineTable_Trigger			:	BOOL;
+				{endregion}
+				{region Miscellaneous functions}
+					M401_Acknowledge				:	BOOL;
+					M401_Active						:	BOOL;
+					M402_Acknowledge				:	BOOL;
+					M402_Active						:	BOOL;
+					M403_Acknowledge				:	BOOL;
+					M403_Active						:	BOOL;
+				{endregion}
+				{region Tool Table}
+					ToolTable_Error					:	BOOL;
+					ToolTable_Ok					:	BOOL;
+					ToolTable_Busy					:	BOOL;
+					ToolTable_Trigger				:	BOOL;
+				{endregion}	 
+			{endregion}
+			{region Manufacturer Info}
+				 ;
+			{endregion}
+			{region Operating Times}
+				ControlUpTime						:	LREAL;
+				MachineUpTime						:	LREAL;
+				ProgramExecutionTime				:	LREAL;
+			{endregion}
+			{region OperatorInfo}
+				;	 
+			{endregion}
+			{region State}	//Object -  ns-1	i-51001  
+				CurrentState_State					: 	STRING;						// NCIsNotConnected, NCIsConnected, NCIsBooted, NCIsInitializing, NCIsAvailable, NCIsShuttingDown
+				//LastTransition_State				:	OpcUa_LocalizedText;
+			{endregion}
+		{endregion}
+		{region Server}
+			{region Server Status}
+				ServerState							:	STRING;						// Running, Failed	,NoConfiguration, Suspended, Shutdown, Test, CommunicationFault, Unknown 
+			{endregion}
+		{endregion}
+	END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

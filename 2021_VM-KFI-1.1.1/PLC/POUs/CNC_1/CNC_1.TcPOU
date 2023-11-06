@@ -3,15 +3,17 @@
   <POU Name="CNC_1" Id="{067559b7-2cc8-4a74-b07e-41eb917a7856}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM CNC_1
 VAR	(* Control *)
-	nState						:UDINT;
-	nStatePrevious				:UDINT;
-	sState						:STRING(500);
-	fbCycleTime					:TON;
-	nCycleTime					:REAL;
+	nState						: UDINT;
+	nStatePrevious				: UDINT;
+	sState						: STRING(500);
+	fbCycleTime					: TON;
+	nCycleTime					: REAL;
+	bError						: BOOL;
+	stDutData					: ST_Dut_Data;
 END_VAR
 VAR (* LastStates *)
-	anLastStates				:ARRAY[0..500] OF UDINT;
-    iLastStates					:INT;
+	anLastStates				: ARRAY[0..500] OF UDINT;
+    iLastStates					: INT;
 END_VAR
 VAR (* Var IO *)
 	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(13)^Channel 2^Input;
@@ -34,11 +36,21 @@ VAR (* Var IO *)
 	fbCncServoVise				: FB_CNC_Servo;	
 
 END_VAR
-VAR (* Test variables *)
+VAR (* OPC_UA *)
+	stCNC_Data					: POINTER TO OPC_CNC_Data_Collection;
+	tHeartBeatDelay				: TON;
 END_VAR
+
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*Error handling*)
+      <ST><![CDATA[(* OPC_UA *)
+stCNC_Data := ADR(OPC_UA_CNC1);
+tHeartBeatDelay(IN := stCNC_Data^.HeartBeat = 99, PT := T#500MS, Q=>);
+IF tHeartBeatDelay.Q THEN
+	stCNC_Data^.HeartBeat := 0;
+END_IF
+
+(*Error handling*)
 IF nState > 0 AND nState < 150000 THEN
 	nStatePrevious := nState;
 END_IF
@@ -64,6 +76,12 @@ IF(nState >= 1000) AND (nState < 150000) THEN
 	END_IF
 END_IF	
 
+IF fbCncServoVise.bError OR stCNC_Data^.ControlStatus_Error
+THEN
+	bError  :=  TRUE;
+END_IF
+
+
 CASE nState OF
 {region "Alaphelyzet felvétel"}
 	(****************************************************************************************)
@@ -72,13 +90,89 @@ CASE nState OF
 	0:		(*-----=== Kimenetek törlése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
 		IF i_bLO1_Main AND NOT bManualMode THEN		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!
+			stCNC_Data^.DoorControl_CloseDoor := FALSE;
+			stCNC_Data^.DoorControl_OpenDoor := FALSE;
+			stCNC_Data^.MagazineTable_Trigger := FALSE;
+			stCNC_Data^.ToolTable_Trigger := FALSE;
+			stCNC_Data^.M401_Acknowledge := FALSE;
+			stCNC_Data^.M402_Acknowledge := FALSE;
+			stCNC_Data^.M403_Acknowledge := FALSE;
+			stCNC_Data^.StartCNCProgram := FALSE;
+			stCNC_Data^.StopCNCProgram := FALSE;
+			stCNC_Data^.CancelCNCProgram := FALSE;
+			stCNC_Data^.SelectCNCProgramByNodeID := FALSE;
+			stCNC_Data^.SelectCNCPrograBlockNumber := FALSE;
+//			stCNC_Data^.ToolTablePath := '';
+			stCNC_Data^.ToolTableLoadTrigger := FALSE;
+			stCNC_Data^.MagazineTableLoadTrigger := FALSE;
+			stCNC_Data^.ProgramLoadTrigger := FALSE;
 			IF bStepEnable THEN
 				nState := nState + 20;
 			END_IF
 		END_IF
 
-	20:		(*-----=== Alaphelyzet ellenőrzés ===-----*)
-		;
+	20:		(*-----=== CNC ellenőrzés ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ellenőrzése');
+		IF stCNC_Data^.ServerState = 'Running' AND
+		   stCNC_Data^.CurrentState_State = 'NCIsAvailable' THEN
+				IF		stCNC_Data^.CurentState_Program = 'Running' THEN
+					nState := 140001;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére. MÉG NINCS LÉPÉSSZÁM !!!!!!
+				ELSIF	stCNC_Data^.CurentState_Program = 'Idle' OR stCNC_Data^.CurentState_Program = 'NotSelected' OR stCNC_Data^.CurentState_Program = 'Interrupted' THEN
+					IF stDutData.nDutId > 0 AND stDutData.bDone THEN
+						IF bStepEnable THEN									// Késztermék a satuban
+							nState := 140001;
+						END_IF
+					ELSE
+						IF bStepEnable THEN									// A satu üres
+							nState := nState + 20;
+						END_IF
+					END_IF
+				END_IF
+		END_IF
+
+	40:		(*-----=== CNC ajtó nnyitása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ajtó nyitása');
+		stCNC_Data^.DoorControl_OpenDoor := TRUE;
+		IF stCNC_Data^.DoorControl_DoorOpened THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_OpenDoor := FALSE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	60:
+		nState := 10000;
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Alaphelyzet ****************************************)
+	(****************************************************************************************)	
+	10000:		(*-----=== Várakozás berakásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás alapanyagra');
+		IF stDutData.nDutId > 0 THEN											// Alapanyag a robotnál
+			IF bStepEnable THEN	
+				nState := 11000;			// -> Alapanyag fogadása
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alapanyag fogadása"}
+	(****************************************************************************************)
+	(******************************** Alapanyag fogadása ************************************)
+	(****************************************************************************************)	
+	11000:		(*-----=== Várakozás parancsra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
+		fbCncServoVise.eCommand := E_CncServoCommand.MovePos;
+		IF fbCncServoVise.bDone THEN
+			IF bStepEnable THEN
+				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
+				nState := nState + 20;
+			END_IF
+		END_IF
+{endregion}
+
+
 
 
 
@@ -96,8 +190,8 @@ CASE nState OF
 		IF bAckP THEN
 			CASE nStatePrevious OF
 				0..9999: nState := 0;
-				10000..25000: nState := 10000;
-				30000..31000: nState := 30000;
+//				10000..25000: nState := 10000;
+//				30000..31000: nState := 30000;
 			ELSE nState := 0;
 			END_CASE
 		END_IF	

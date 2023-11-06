@@ -35,10 +35,17 @@ VAR
 	fbVisePos					: FB_BTL1AR0;
 	fbServoVise					: FB_ServoVise;
 	q_bToolCheckBlower 	AT %Q*	: BOOL;		// Szerszám ellenőrző tisztítás
+	bRotate						: BOOL := FALSE;
+	tAttach						: TON;
+	tFillUp						: TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*Error handling*)
+      <ST><![CDATA[(* Timers *)
+tAttach(IN:= fbMoveLower.bWorkPosCmd AND fbMoveUpper.bWorkPosCmd AND NOT bRotate, PT:= T#2500MS, Q=> , ET=> );
+tFillUp(IN:= fbMoveLower.bWorkPosCmd AND fbMoveLower.bBasePosCmd, PT:= T#800MS, Q=> , ET=> );
+
+(*Error handling*)
 IF nState > 0 AND nState < 150000 THEN
 	nStatePrevious := nState;
 END_IF
@@ -64,6 +71,13 @@ IF(nState >= 1000) AND (nState < 150000) THEN
 	END_IF
 END_IF	
 
+IF fbMoveUpper.bError OR fbMoveLower.bError OR fbLock.bError OR fbServoVise.bError
+THEN
+	bError  :=  TRUE;
+END_IF
+
+
+
 CASE nState OF
 {region "Alaphelyzet felvétel"}
 	(****************************************************************************************)
@@ -87,21 +101,84 @@ CASE nState OF
 		END_IF
 
 	20:		(*-----=== Alaphelyzet ellenőrzés ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzetfelvétel: - Hengerek ellenőrzése');
 		IF	fbLock.i_bBasePos AND
 			fbMoveLower.i_bBasePos AND
 			fbMoveUpper.i_bBasePos THEN
-				fbLock.bBasePosCmd := TRUE;
-				fbLock.bWorkPosCmd := FALSE;
-				fbMoveLower.bBasePosCmd := TRUE;
-				fbMoveLower.bWorkPosCmd := FALSE;
-				fbMoveUpper.bBasePosCmd := TRUE;
-				fbMoveUpper.bWorkPosCmd := FALSE;
-				IF bStepEnable THEN
-					nState := 10000;
-				END_IF
+					fbLock.bBasePosCmd := TRUE;									// Hengerek alaphelyzetben -> Vezérlést ráadni és hajrá!!
+					fbLock.bWorkPosCmd := FALSE;
+					fbMoveLower.bBasePosCmd := TRUE;
+					fbMoveLower.bWorkPosCmd := FALSE;
+					fbMoveUpper.bBasePosCmd := TRUE;
+					fbMoveUpper.bWorkPosCmd := FALSE;
+					IF bStepEnable THEN
+						nState := 60;
+					END_IF
+		ELSIF	fbMoveLower.i_bBasePos AND
+				fbMoveUpper.i_bBasePos THEN
+					fbLock.bBasePosCmd := FALSE;								// Hengerek munkahelyzetben -> Vezérlést ráadni és hajrá!! 
+					fbLock.bWorkPosCmd := TRUE;
+					fbMoveLower.bBasePosCmd := FALSE;
+					fbMoveLower.bWorkPosCmd := TRUE;
+					fbMoveUpper.bBasePosCmd := FALSE;
+					fbMoveUpper.bWorkPosCmd := TRUE;
+					IF bStepEnable THEN
+						nState := nState + 40;
+					END_IF
 		ELSE
+					fbLock.bBasePosCmd := FALSE;								// Hengerek se itt se ott -> feltöltés szükséges
+					fbLock.bWorkPosCmd := TRUE;
+					fbMoveLower.bBasePosCmd := TRUE;
+					fbMoveLower.bWorkPosCmd := TRUE;
+					fbMoveUpper.bBasePosCmd := TRUE;
+					fbMoveUpper.bWorkPosCmd := TRUE;
+					IF bStepEnable THEN
+						nState := nState + 20;
+					END_IF
+		END_IF
+	
+	40:		(*-----=== Hengerek feltöltése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzetfelvétel: - Hengerek feltöltése');
+		IF tFillUp.Q THEN
+			fbMoveLower.bBasePosCmd := TRUE;
+			fbMoveLower.bWorkPosCmd := FALSE;
+			fbMoveUpper.bBasePosCmd := TRUE;
+			fbMoveUpper.bWorkPosCmd := FALSE;
+			nState := nState + 20;
+		END_IF
+
+	
+	60:		(*-----=== fbLock munkahelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzetfelvétel: - Lock henger munkahelyzetbe');
+		fbLock.bBasePosCmd := FALSE;
+		fbLock.bWorkPosCmd := TRUE;
+		IF fbLock.bWorkPosStab THEN
 			IF bStepEnable THEN
 				nState := nState + 20;
+			END_IF
+		END_IF
+		
+	80:		(*-----=== fbMoveLower & fbMoveUpper alaphelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzetfelvétel: - Mozgató hengerek alaphelyzetbe');
+		fbMoveLower.bBasePosCmd := TRUE;
+		fbMoveLower.bWorkPosCmd := FALSE;
+		fbMoveUpper.bBasePosCmd := TRUE;
+		fbMoveUpper.bWorkPosCmd := FALSE;
+		IF fbMoveLower.bBasePosStab AND fbMoveUpper.bBasePosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	100:		(*-----=== fbLock alaphelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzetfelvétel: - Lock henger alaphelyzetbe');
+		fbLock.bBasePosCmd := TRUE;
+		fbLock.bWorkPosCmd := FALSE;
+		IF fbLock.bBasePosStab THEN
+			IF bStepEnable THEN
+				bBusy := FALSE;
+				bDone := TRUE;
+				nState := 10000;
 			END_IF
 		END_IF
 {endregion}
@@ -111,6 +188,7 @@ CASE nState OF
 	(*********************************** Alaphelyzet ****************************************)
 	(****************************************************************************************)	
 	10000:		(*-----=== Várakozás parancsra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet, várakozás parancsra');
 		IF eCommand = E_CncServoCommand.NoCommand THEN
 				bReady := TRUE;
 				bBusy := FALSE;
@@ -130,6 +208,7 @@ CASE nState OF
 	(***************************** Alaphelyzetbe mozgás *************************************)
 	(****************************************************************************************)	
 	11000:		(*-----=== fbLock munkahelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Lock henger munkahelyzetbe');
 		fbLock.bBasePosCmd := FALSE;
 		fbLock.bWorkPosCmd := TRUE;
 		IF fbLock.bWorkPosStab THEN
@@ -139,6 +218,7 @@ CASE nState OF
 		END_IF
 		
 	11020:		(*-----=== fbMoveLower & fbMoveUpper alaphelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mozgató hengerek alaphelyzetbe');
 		fbMoveLower.bBasePosCmd := TRUE;
 		fbMoveLower.bWorkPosCmd := FALSE;
 		fbMoveUpper.bBasePosCmd := TRUE;
@@ -150,6 +230,7 @@ CASE nState OF
 		END_IF
 
 	11040:		(*-----=== fbLock alaphelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Lock henger alaphelyzetbe');
 		fbLock.bBasePosCmd := TRUE;
 		fbLock.bWorkPosCmd := FALSE;
 		IF fbLock.bBasePosStab THEN
@@ -161,6 +242,7 @@ CASE nState OF
 		END_IF
 	
 	11060:		(*-----=== Várakozás parancstörlésre ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás parancs törlésre');
 		IF eCommand = E_CncServoCommand.NoCommand THEN
 			bBusy := FALSE;
 			bDone := FALSE;
@@ -173,17 +255,23 @@ CASE nState OF
 	(***************************** Satu Csatlakoztatás **************************************)
 	(****************************************************************************************)	
 	12000:		(*-----=== Csatlakoztatás ellenőrzése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Csatlakoztatás ellenőrzése');
 		IF fbMoveLower.bWorkPosStab AND fbMoveUpper.bWorkPosStab THEN
 			IF bStepEnable THEN
 				nState := 12200;							// A szervo már csatlakoztatva van
 			END_IF
 		ELSE
 			IF bStepEnable THEN
-				nState := nState + 20;						// A szervó alaphelyzetbe van -> csatlakoztatás
+				IF bRotate THEN
+					nState := nState + 20;					// A szervó alaphelyzetbe van -> csatlakoztatás forgatással
+				ELSE
+					nState := nState + 40;					// A szervó alaphelyzetbe van -> csatlakoztatás forgatás nélkül
+				END_IF
 			END_IF
 		END_IF
 
 	12020:		(*-----=== fbServoVise csatlakoztatás program indítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Csatlakoztatási segédmozgás indítása');
 		fbServoVise.eCommand := E_ServoVise_Command.Attach;
 		IF fbServoVise.bDone THEN
 			IF bStepEnable THEN
@@ -192,6 +280,7 @@ CASE nState OF
 		END_IF
 
 	12040:		(*-----=== fbLock munkahelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Lock henger munkahelyzetbe');
 		fbLock.bBasePosCmd := FALSE;
 		fbLock.bWorkPosCmd := TRUE;
 		IF fbLock.bWorkPosStab THEN
@@ -201,6 +290,7 @@ CASE nState OF
 		END_IF
 		
 	12060:		(*-----=== fbMoveLower & fbMoveUpper munkahelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mozgató hengerek munkahelyzetbe');
 		fbMoveLower.bBasePosCmd := FALSE;
 		fbMoveLower.bWorkPosCmd := TRUE;
 		fbMoveUpper.bBasePosCmd := FALSE;
@@ -209,13 +299,20 @@ CASE nState OF
 			IF bStepEnable THEN
 				nState := nState + 20;
 			END_IF
+		ELSIF tAttach.Q THEN										// Sikertelen csatlakozás -> Szervo bekapcsolása
+			IF bStepEnable THEN
+				bRotate := TRUE;
+				nState := 12000;
+			END_IF
 		END_IF
 
 	12080:		(*-----=== fbServoVise csatlakoztatás program leállítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Csatlakoztatási segédmozgás leállítása');
 		fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
 		IF NOT fbServoVise.bDone THEN
 			IF bStepEnable THEN
-				nState := nState + 20;
+				bRotate := FALSE;
+				nState := 12200;
 			END_IF
 		END_IF
 
@@ -239,10 +336,12 @@ CASE nState OF
 	(******************************** Satu pozícionálás *************************************)
 	(****************************************************************************************)	
 	13000:		(*-----=== Pozícionálás indítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
 		fbServoVise.eCommand := E_ServoVise_Command.MoveToPos;
 		IF fbServoVise.bDone THEN
 			IF bStepEnable THEN
 				fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
+				bRotate := FALSE;
 				nState := 11000;
 			END_IF
 		END_IF
@@ -253,10 +352,12 @@ CASE nState OF
 	(*********************************** Satu Rögzítés **************************************)
 	(****************************************************************************************)	
 	14000:		(*-----=== Rögzítés indítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
 		fbServoVise.eCommand := E_ServoVise_Command.Fix;
 		IF fbServoVise.bDone THEN
 			IF bStepEnable THEN
 				fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
+				bRotate := FALSE;
 				nState := 11000;
 			END_IF
 		END_IF
@@ -267,10 +368,12 @@ CASE nState OF
 	(************************************ Satu Kioldás **************************************)
 	(****************************************************************************************)	
 	15000:		(*-----=== Kioldás indítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu kioldása');
 		fbServoVise.eCommand := E_ServoVise_Command.Release;
 		IF fbServoVise.bDone THEN
 			IF bStepEnable THEN
 				fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
+				bRotate := FALSE;
 				nState := 11000;
 			END_IF
 		END_IF
@@ -290,8 +393,8 @@ CASE nState OF
 		IF bAckP THEN
 			CASE nStatePrevious OF
 				0..9999: nState := 0;
-				10000..25000: nState := 10000;
-				30000..31000: nState := 30000;
+//				10000..25000: nState := 10000;
+//				30000..31000: nState := 30000;
 			ELSE nState := 0;
 			END_CASE
 		END_IF	
@@ -311,7 +414,7 @@ Pneu();
 	sBasePosSensor:= , 
 	sWorkPosSensor:= , 
 	bEn:= bEnable, 
-	bEHA:= NOT bManualMode, 
+	bEHA:= NOT bManualMode AND NOT fbMoveUpper.bWorkPosCmd, 
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bBasePosCmd:= , 
@@ -338,7 +441,7 @@ fbMoveLower(
 	sBasePosSensor:= , 
 	sWorkPosSensor:= , 
 	bEn:= bEnable, 
-	bEHA:= NOT bManualMode, 
+	bEHA:= NOT bManualMode AND NOT fbMoveLower.bWorkPosCmd, 
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bBasePosCmd:= , 
@@ -404,7 +507,7 @@ fbServoVise(
 	nTorqueRamp:= 10, 
 	nTorqueVelocityLimit:= 0.5, 
 	nOverride:= 100, 
-	nAttachVelocity:= 0.01, 
+	nAttachVelocity:= 0.05, 
 	stAxisEvent:= , 
 	bReady=> , 
 	bBusy=> , 

@@ -20,7 +20,7 @@
     <Compile Include="DUTs\ConveyorSystem\ST_CPI_Module.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\OPC_UA\OPC_Data_Collection_Info.TcDUT">
+    <Compile Include="DUTs\OPC_UA\OPC_CNC_Data_Collection.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\PyADS\ST_PyADS_Test.TcDUT">
@@ -33,6 +33,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\RGB\ST_RGB_Out.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_Dut_Data.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\Vise\E_Vise_State.TcDUT">
@@ -55,7 +58,6 @@
     </Compile>
     <Compile Include="GVLs\GVL_Ads.TcGVL">
       <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="GVLs\GVL_Constant.TcGVL">
       <SubType>Code</SubType>
@@ -387,9 +389,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
-    <Folder Include="DUTs\Cnc" />
     <Folder Include="DUTs\Executer" />
-    <Folder Include="DUTs\MySQL" />
     <Folder Include="DUTs\ConveyorSystem" />
     <Folder Include="DUTs\PyADS" />
     <Folder Include="DUTs\OPC_UA" />

@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <GVL Name="GVL_Ads" Id="{7e362bda-4518-4d8c-953b-2044b03a7bff}">
-    <Declaration><![CDATA[
+  <GVL Name="GVL_Ads" Id="{45647672-8d59-42da-97d4-01981f07b73a}">
+    <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
-		bTest			: BOOL;
-		nTest			: INT;
-		rlTest			: REAL;
-		stTest			: ST_PyADS_Test;
+	OPC_UA_CNC1					: OPC_CNC_Data_Collection;	
+	OPC_UA_CNC2					: OPC_CNC_Data_Collection;	
+	OPC_UA_CNC3					: OPC_CNC_Data_Collection;	
+	OPC_UA_CNC4					: OPC_CNC_Data_Collection;	
+	OPC_UA_CNC5					: OPC_CNC_Data_Collection;	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

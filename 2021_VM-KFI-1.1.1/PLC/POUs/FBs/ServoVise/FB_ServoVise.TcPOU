@@ -79,7 +79,7 @@ IF nLastState <> nState THEN
 END_IF
 
 (* State history ************************************************)
-IF(nState >= 100) AND (nState <= 20000) THEN
+IF(nState >= 100) AND (nState <= 100000) THEN
 (*Steps before any state*)
 	IF anLastStates[0] <> nState THEN
 		FOR iLastStates:=500 TO 1 BY -1 DO
@@ -332,7 +332,7 @@ CASE nState OF
 			nState := 250000;
 		ELSIF (lrVisePosition < 0) AND bVisePosValid THEN						// Minimális pozíció elérve -> Hiba
 			nState := 250000;
-		ELSIF (nRealVisePos < (lrTargetDistance - 4)) THEN						// Satupozíció 4mm-el kissebb mint a nominál méret -> Hiba
+		ELSIF (lrVisePosition > 125) AND bVisePosValid THEN						// Maximális pozíció elérve -> Hiba
 			nState := 250000;
 		END_IF
 		
