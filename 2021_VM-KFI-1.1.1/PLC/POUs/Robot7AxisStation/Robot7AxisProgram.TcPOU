@@ -23,11 +23,15 @@ VAR (* Test variables *)
 	nTestIndex					: BYTE;
 	nTestCncIndex				: BYTE;
 	bCamTest					: BOOL;
+	rtCamReset					: R_TRIG;
 	nProgNr						: UINT;
 	nDimX						: LREAL;
 	nDimY						: LREAL;
 	nDimZ						: LREAL;
+	nPosX						: LREAL;
+	nPosY						: LREAL;
 	nErrorId					: UDINT;
+	
 END_VAR
 VAR // MySQL
 	
@@ -35,7 +39,11 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[MySQL();
 Camera();
+rtCamReset(CLK:= bCamTest);
 
+IF rtCamReset.Q THEN
+		fb3DCam.ResetCam();
+END_IF
 IF bCamTest THEN
 	IF fb3DCam.CamCheck(nProgNr, nDimX, nDimY, nDimZ, nErrorId) THEN
 		bCamTest := FALSE;
@@ -53,7 +61,7 @@ IF bManualMode THEN
 END_IF
 
 (*Emergency*)
-IF NOT i_bLO1_CNC45 OR NOT i_bLO2_CNC45 THEN
+IF NOT i_bLO1_Main THEN
 	nState := 0;
 END_IF
 
@@ -72,18 +80,17 @@ CASE nState OF
 	(* Emergency circuit broken - Base state *)
 	0:(* Operation stop - Emergency circuit check *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
-		fbRobot.eCommand := E_Robot_Command.NoCommand;
+		fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
 		
-		
-		IF i_bLO1_CNC45 AND i_bLO2_CNC45 AND NOT bManualMode THEN
+		IF i_bLO1_Main AND NOT bManualMode AND NOT fbRobot.bPendantMode THEN
 			nState := nState + 20;
 		END_IF
 
 	20: 
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetfelvétel');
-		fbRobot.eCommand := E_Robot_Command.Home;
+		fbRobot.eCommand := E_CNC_Robot_Command.Home;
 		IF NOT fbRobot.bBusy AND fbRobot.bReady THEN
-			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
 			nState := nState + 20;
 		END_IF
 
@@ -95,9 +102,114 @@ CASE nState OF
 	(* Automatic mode - Base position *)
 	10000: 
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet');
-//		IF fbRobot.RobotIn.Status.bGripperClose AND fbRobot.RobotIn.Status.bVisePresent THEN
-//			;
-//		END_IF 
+
+
+
+	(****************************************************************************************)
+	(********************************** Kiemelő -> CNC **************************************)
+	(****************************************************************************************)
+	20000:		(*-----=== Szkennelési pozícióba ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot kamara pozícióba');
+		fbRobot.nCncNumber := 1;
+		fbRobot.eLifterNumber := E_Lifter.Lifter_1A;
+		fbRobot.nOffset_X := 0;
+		fbRobot.nOffset_Y := 0;
+		fbRobot.nOffset_Z := 0;
+		fbRobot.nOffset_W := 0;
+		fbRobot.nOffset_P := 0;
+		fbRobot.nOffset_R := 0;
+		fbRobot.eCommand := E_CNC_Robot_Command.Camera_Lifter;
+		IF fbRobot.bBusy THEN
+			nState := nState + 20;
+		END_IF
+		
+	20020:		(*-----=== Várakozás Robotmozgásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
+		IF NOT fbRobot.bBusy THEN
+			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
+			fb3DCam.ResetCam();
+			nState := nState + 20;
+		END_IF
+
+	20040:		(*-----=== 3D kamera triggerelése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - 3D kamera triggerelése');
+		IF fb3DCam.CamCheck(nProgNr, nDimX, nDimY, nDimZ, nErrorId) THEN
+			nState := nState + 20;
+		END_IF
+
+	20060:		(*-----=== Darabfelvétel ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot felvételi pozícióba');
+		fbRobot.nCncNumber := 1;
+		fbRobot.eLifterNumber := E_Lifter.Lifter_1A;
+		fbRobot.nOffset_X := fb3DCam.p_PosX;
+		fbRobot.nOffset_Y := fb3DCam.p_PosY;
+		fbRobot.nOffset_Z := fb3DCam.p_PosZ;
+		fbRobot.nOffset_W := fb3DCam.p_PosW;
+		fbRobot.nOffset_P := fb3DCam.p_PosP;
+		fbRobot.nOffset_R := fb3DCam.p_PosR;
+		fbRobot.eCommand := E_CNC_Robot_Command.Pick_Up_Lifter;
+		IF fbRobot.bBusy THEN
+			nState := nState + 20;
+		END_IF
+		
+	20080:		(*-----=== Várakozás Robotmozgásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
+		IF NOT fbRobot.bBusy THEN
+			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
+			fb3DCam.ResetCam();
+			nState := nState + 20;
+		END_IF
+
+	20100:		(*-----=== Darab lerakása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Darab lerakása CNC1-be');
+		nPosX := 62.5;
+		nPosY := (nDimX+4)/2+1;
+		fbRobot.nCncNumber := 1;
+		fbRobot.eLifterNumber := E_Lifter.Lifter_1A;
+		fbRobot.nOffset_X := nPosX;
+		fbRobot.nOffset_Y := nPosY;
+		fbRobot.nOffset_Z := 0;
+		fbRobot.nOffset_W := 0;
+		fbRobot.nOffset_P := 0;
+		fbRobot.nOffset_R := 0;
+		fbRobot.eCommand := E_CNC_Robot_Command.Put_Down_CNC;
+		IF fbRobot.bBusy THEN
+			nState := nState + 20;
+		END_IF
+		
+	20120:		(*-----=== Várakozás Robotmozgásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
+		IF NOT fbRobot.bBusy THEN
+			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
+			fb3DCam.ResetCam();
+			nState := nState + 20;
+		END_IF
+
+	20140:		(*-----=== Szkennelési pozícióba ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot HOME pozícióba');
+		fbRobot.nCncNumber := 1;
+		fbRobot.eLifterNumber := E_Lifter.Lifter_1A;
+		fbRobot.nOffset_X := 0;
+		fbRobot.nOffset_Y := 0;
+		fbRobot.nOffset_Z := 0;
+		fbRobot.nOffset_W := 0;
+		fbRobot.nOffset_P := 0;
+		fbRobot.nOffset_R := 0;
+		fbRobot.eCommand := E_CNC_Robot_Command.Home;
+		IF fbRobot.bBusy THEN
+			nState := nState + 20;
+		END_IF
+		
+	20160:		(*-----=== Várakozás Robotmozgásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
+		IF NOT fbRobot.bBusy THEN
+			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
+			fb3DCam.ResetCam();
+			nState := nState + 20;
+		END_IF
+
+	20180:
+		nState := 10000;
 (*	
 	(*-----=== CNC 4 felvétel ===-----*)
 {region "CNC 4 felvétel"}
@@ -518,7 +630,7 @@ arRobotEvents[8] := TC_EVENTS.MyEvents.RobotBasePosErr;
 (*-----=== Gripper jelek kezelése ===-----*)
 fbGripperPos1(
 	nCalOffset:= 36, 
-	nReqDistance:= , 
+	nReqDistance:= nDimX, 
 	bPendantMode:= fbRobot.bPendantMode, 
 	bValid=> , 
 	nDistance=> , 
@@ -526,7 +638,7 @@ fbGripperPos1(
 
 fbGripperPos2(
 	nCalOffset:= 36.1, 
-	nReqDistance:= , 
+	nReqDistance:= nDimX, 
 	bPendantMode:= fbRobot.bPendantMode, 
 	bValid=> , 
 	nDistance=> , 

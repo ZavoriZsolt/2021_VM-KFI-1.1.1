@@ -31,7 +31,7 @@ IF nState = 3 THEN
 	IF bPendantMode THEN
 		bGripperInPos := nPendantTimer.Q;
 	ELSE
-		bGripperInPos := ABS(nDistance - nReqDistance) < 0.5;
+		bGripperInPos := ABS(nDistance - nReqDistance) < 5;
 	END_IF
 	
 ELSE

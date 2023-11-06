@@ -9,6 +9,7 @@ TYPE E_CNC_Robot_Programs :
 	Home						:= 1,	// Robot Zóna-6-ba megy és bemozog alaphelyzetbe
 	Park						:= 2,	// Robot Zóna-6-ba megy és bemozog parkoló pozícióba.
 	Service						:= 3,	// Robot elmegy szerviz pozícióba.
+	QuickHome					:= 4,	// Robot aktuális pozícióból elmegy gyors alaphelyzetbe. (A güdelen az aktuális ponton marad a robot.)
 	CNC_1_PutDown				:= 11,	// CNC 1-be rakás
 	CNC_1_PickUp 				:= 12,	// CNC 1-ből kivétel
 	CNC_2_PutDown 				:= 21,	// CNC 2-be rakás
@@ -72,6 +73,11 @@ END_TYPE
             <o>
               <v n="TextID">"Service"</v>
               <v n="TextDefault">"3"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"QuickHome"</v>
+              <v n="TextDefault">"4"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

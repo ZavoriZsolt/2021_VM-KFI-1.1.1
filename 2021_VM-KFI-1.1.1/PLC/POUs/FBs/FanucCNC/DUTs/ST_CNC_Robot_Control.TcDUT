@@ -88,13 +88,17 @@ STRUCT
 	
 (*-----=== Byte 15 ===-----*)
 	nMode					:BYTE;				// 15. PLC által meghatározott robot üzemmód, 1-2
+
+(*-----=== Byte 16 ===-----*)
+	{attribute 'hide'}
+	_reserved_16			:BYTE;	
 	
-(*-----=== Byte 16-17 ===-----*)
+(*-----=== Byte 17-18 ===-----*)
 	nWeight					:UINT;				// 16. PLC által megadott súly
 
-(*-----=== Byte 18-20 ===-----*)
+(*-----=== Byte 19-20 ===-----*)
 	{attribute 'hide'}
-	_reserved_18_20			:ARRAY [18..20] OF BYTE;	
+	_reserved_19_20			:ARRAY [19..20] OF BYTE;	
 	
 (*-----=== Byte 21-22 ===-----*)
 	nOffset_ID				:UINT;				// 21-22. PLC által megadott offszet érték.

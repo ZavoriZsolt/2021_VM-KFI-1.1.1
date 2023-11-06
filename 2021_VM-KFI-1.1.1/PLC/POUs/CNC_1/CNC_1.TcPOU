@@ -2,7 +2,18 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="CNC_1" Id="{067559b7-2cc8-4a74-b07e-41eb917a7856}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM CNC_1
-VAR
+VAR	(* Control *)
+	nState						:UDINT;
+	nStatePrevious				:UDINT;
+	sState						:STRING(500);
+	fbCycleTime					:TON;
+	nCycleTime					:REAL;
+END_VAR
+VAR (* LastStates *)
+	anLastStates				:ARRAY[0..500] OF UDINT;
+    iLastStates					:INT;
+END_VAR
+VAR (* Var IO *)
 	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(13)^Channel 2^Input;
 									.fbMoveUpper.i_bWorkPos	:= TIIB(13)^Channel 1^Input;
 									.fbMoveUpper.q_bBasePos	:= TIIB(14)^Channel 2^Output;
@@ -20,25 +31,105 @@ VAR
 									.fbVisePos.arrRaw[2]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 2;
 									.fbVisePos.arrRaw[3]	:= TIIB(10)^Module 1 (IOL_I_4byte)^TxPDO^input byte 3;
 									.fbVisePos.nState		:= TIIB(10)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
-	fbCNC1			: FB_CNC_Servo;	
+	fbCncServoVise				: FB_CNC_Servo;	
 
+END_VAR
+VAR (* Test variables *)
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fbCNC1(
+      <ST><![CDATA[(*Error handling*)
+IF nState > 0 AND nState < 150000 THEN
+	nStatePrevious := nState;
+END_IF
+
+(*Maintance*)
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*Emergency*)
+IF NOT i_bLO1_Main THEN
+	nState := 0;
+END_IF
+
+(*Last states*)
+IF(nState >= 1000) AND (nState < 150000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+CASE nState OF
+{region "Alaphelyzet felvétel"}
+	(****************************************************************************************)
+	(******************************* Alaphelyzetfelvétel ************************************)
+	(****************************************************************************************)	
+	0:		(*-----=== Kimenetek törlése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
+		IF i_bLO1_Main AND NOT bManualMode THEN		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	20:		(*-----=== Alaphelyzet ellenőrzés ===-----*)
+		;
+
+
+
+	150000: (* Maintenance *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
+		IF NOT bManualMode THEN
+			nState := 0;
+		END_IF
+		
+	200000:(* Error handling *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
+		nState := 200020;
+
+	200020:(* Error handling *)
+		IF bAckP THEN
+			CASE nStatePrevious OF
+				0..9999: nState := 0;
+				10000..25000: nState := 10000;
+				30000..31000: nState := 30000;
+			ELSE nState := 0;
+			END_CASE
+		END_IF	
+		
+	ELSE //Not a real step, for test purposes
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
+END_CASE
+
+(*Timers***************************************************)
+fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+IF nState > 10000 AND nState <= 95000 THEN
+	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+END_IF
+
+ServoVise();
+//fbCncServoVise.bTestUp := i_bTest_Up;
+//fbCncServoVise.bTestDown := i_bTest_Down;
+//fbCncServoVise.bTestStop := i_bTest_Stop;
+]]></ST>
+    </Implementation>
+    <Action Name="ServoVise" Id="{9fda3dba-8ece-4c49-ae6f-63cd1a546591}">
+      <Implementation>
+        <ST><![CDATA[fbCncServoVise(
 	sName:= 'AWEA_1', 
 	bErrorAck:= bAckP, 
-	bEnable:= , 
+	bEnable:= i_bLO1_Main,		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!, 
 	bManualMode:= bManualMode, 
 	bReady=> , 
 	bBusy=> , 
 	bDone=> , 
-	bError=> );
-
-fbCNC1.bTestUp := i_bTest_Up;
-fbCNC1.bTestDown := i_bTest_Down;
-fbCNC1.bTestStop := i_bTest_Stop;
-]]></ST>
-    </Implementation>
+	bError=> );]]></ST>
+      </Implementation>
+    </Action>
   </POU>
 </TcPlcObject>

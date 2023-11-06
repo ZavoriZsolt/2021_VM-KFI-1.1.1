@@ -4,14 +4,23 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_CNC_Servo
 VAR_INPUT
 	sName						: STRING;
+	eCommand					: E_CncServoCommand;
+	nPosition					: LREAL;				// Termék nominális mérete
+	nTorque						: REAL;					// Meghúzási nyomaték
 	bErrorAck					: BOOL;
 	bEnable						: BOOL;
 	bManualMode					: BOOL;
 END_VAR
-VAR_INPUT		// TEST
-	bTestUp						: BOOL;
-	bTestDown					: BOOL;
-	bTestStop					: BOOL;
+VAR	(* Control *)
+	nState						:UDINT;
+	nStatePrevious				:UDINT;
+	sState						:STRING(500);
+	fbCycleTime					:TON;
+	nCycleTime					:REAL;
+END_VAR
+VAR //LastStates
+	anLastStates				:ARRAY[0..500] OF UDINT;
+    iLastStates					:INT;
 END_VAR
 VAR_OUTPUT
 	bReady						: BOOL;
@@ -29,22 +38,268 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF bTestStop THEN
-	fbMoveUpper.bBasePosCmd := FALSE;
-	fbMoveUpper.bWorkPosCmd := FALSE;
-	fbMoveLower.bBasePosCmd := FALSE;
-	fbMoveLower.bWorkPosCmd := FALSE;
-ELSIF bTestUp THEN
-	fbMoveUpper.bBasePosCmd := TRUE;
-	fbMoveUpper.bWorkPosCmd := FALSE;
-	fbMoveLower.bBasePosCmd := TRUE;
-	fbMoveLower.bWorkPosCmd := FALSE;
-ELSIF bTestDown THEN
-	fbMoveUpper.bBasePosCmd := FALSE;
-	fbMoveUpper.bWorkPosCmd := TRUE;
-	fbMoveLower.bBasePosCmd := FALSE;
-	fbMoveLower.bWorkPosCmd := TRUE;
+      <ST><![CDATA[(*Error handling*)
+IF nState > 0 AND nState < 150000 THEN
+	nStatePrevious := nState;
 END_IF
+
+(*Maintance*)
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*Emergency*)
+IF NOT bEnable THEN
+	nState := 0;
+END_IF
+
+(*Last states*)
+IF(nState >= 1000) AND (nState < 150000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+CASE nState OF
+{region "Alaphelyzet felvétel"}
+	(****************************************************************************************)
+	(******************************* Alaphelyzetfelvétel ************************************)
+	(****************************************************************************************)	
+	0:		(*-----=== Kimenetek törlése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
+		bReady := FALSE;
+		bBusy := FALSE;
+		bDone := FALSE;
+		fbLock.bBasePosCmd := FALSE;
+		fbLock.bWorkPosCmd := FALSE;
+		fbMoveLower.bBasePosCmd := FALSE;
+		fbMoveLower.bWorkPosCmd := FALSE;
+		fbMoveUpper.bBasePosCmd := FALSE;
+		fbMoveUpper.bWorkPosCmd := FALSE;
+		IF bEnable THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	20:		(*-----=== Alaphelyzet ellenőrzés ===-----*)
+		IF	fbLock.i_bBasePos AND
+			fbMoveLower.i_bBasePos AND
+			fbMoveUpper.i_bBasePos THEN
+				fbLock.bBasePosCmd := TRUE;
+				fbLock.bWorkPosCmd := FALSE;
+				fbMoveLower.bBasePosCmd := TRUE;
+				fbMoveLower.bWorkPosCmd := FALSE;
+				fbMoveUpper.bBasePosCmd := TRUE;
+				fbMoveUpper.bWorkPosCmd := FALSE;
+				IF bStepEnable THEN
+					nState := 10000;
+				END_IF
+		ELSE
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Alaphelyzet ****************************************)
+	(****************************************************************************************)	
+	10000:		(*-----=== Várakozás parancsra ===-----*)
+		IF eCommand = E_CncServoCommand.NoCommand THEN
+				bReady := TRUE;
+				bBusy := FALSE;
+				bDone := FALSE;
+		ELSIF eCommand = E_CncServoCommand.Base THEN
+				bBusy := TRUE;
+				nState := 11000;
+		ELSE
+				bBusy := TRUE;
+				nState := 12000;
+		END_IF
+		
+{endregion}
+
+{region "Alaphelyzetbe mozgás"}
+	(****************************************************************************************)
+	(***************************** Alaphelyzetbe mozgás *************************************)
+	(****************************************************************************************)	
+	11000:		(*-----=== fbLock munkahelyzetbe ===-----*)
+		fbLock.bBasePosCmd := FALSE;
+		fbLock.bWorkPosCmd := TRUE;
+		IF fbLock.bWorkPosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+		
+	11020:		(*-----=== fbMoveLower & fbMoveUpper alaphelyzetbe ===-----*)
+		fbMoveLower.bBasePosCmd := TRUE;
+		fbMoveLower.bWorkPosCmd := FALSE;
+		fbMoveUpper.bBasePosCmd := TRUE;
+		fbMoveUpper.bWorkPosCmd := FALSE;
+		IF fbMoveLower.bBasePosStab AND fbMoveUpper.bBasePosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11040:		(*-----=== fbLock alaphelyzetbe ===-----*)
+		fbLock.bBasePosCmd := TRUE;
+		fbLock.bWorkPosCmd := FALSE;
+		IF fbLock.bBasePosStab THEN
+			IF bStepEnable THEN
+				bBusy := FALSE;
+				bDone := TRUE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+	
+	11060:		(*-----=== Várakozás parancstörlésre ===-----*)
+		IF eCommand = E_CncServoCommand.NoCommand THEN
+			bBusy := FALSE;
+			bDone := FALSE;
+			nState := 10000;
+		END_IF
+{endregion}
+
+{region "Satu Csatlakoztatás"}
+	(****************************************************************************************)
+	(***************************** Satu Csatlakoztatás **************************************)
+	(****************************************************************************************)	
+	12000:		(*-----=== Csatlakoztatás ellenőrzése ===-----*)
+		IF fbMoveLower.bWorkPosStab AND fbMoveUpper.bWorkPosStab THEN
+			IF bStepEnable THEN
+				nState := 12200;							// A szervo már csatlakoztatva van
+			END_IF
+		ELSE
+			IF bStepEnable THEN
+				nState := nState + 20;						// A szervó alaphelyzetbe van -> csatlakoztatás
+			END_IF
+		END_IF
+
+	12020:		(*-----=== fbServoVise csatlakoztatás program indítása ===-----*)
+		fbServoVise.eCommand := E_ServoVise_Command.Attach;
+		IF fbServoVise.bDone THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	12040:		(*-----=== fbLock munkahelyzetbe ===-----*)
+		fbLock.bBasePosCmd := FALSE;
+		fbLock.bWorkPosCmd := TRUE;
+		IF fbLock.bWorkPosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+		
+	12060:		(*-----=== fbMoveLower & fbMoveUpper munkahelyzetbe ===-----*)
+		fbMoveLower.bBasePosCmd := FALSE;
+		fbMoveLower.bWorkPosCmd := TRUE;
+		fbMoveUpper.bBasePosCmd := FALSE;
+		fbMoveUpper.bWorkPosCmd := TRUE;
+		IF fbMoveLower.bWorkPosStab AND fbMoveUpper.bWorkPosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	12080:		(*-----=== fbServoVise csatlakoztatás program leállítása ===-----*)
+		fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
+		IF NOT fbServoVise.bDone THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	12200:		(*-----=== A parancs ellenőrzése ===-----*)
+		IF eCommand = E_CncServoCommand.NoCommand THEN
+				nState := 10000;
+		ELSIF eCommand = E_CncServoCommand.Base THEN
+				nState := 11000;
+		ELSIF eCommand = E_CncServoCommand.MovePos THEN
+				nState := 13000;
+		ELSIF eCommand = E_CncServoCommand.Fixed THEN
+				nState := 14000;
+		ELSIF eCommand = E_CncServoCommand.Release THEN
+				nState := 15000;
+		END_IF
+		
+{endregion}
+
+{region "Satu pozícionálás"}
+	(****************************************************************************************)
+	(******************************** Satu pozícionálás *************************************)
+	(****************************************************************************************)	
+	13000:		(*-----=== Pozícionálás indítása ===-----*)
+		fbServoVise.eCommand := E_ServoVise_Command.MoveToPos;
+		IF fbServoVise.bDone THEN
+			IF bStepEnable THEN
+				fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
+				nState := 11000;
+			END_IF
+		END_IF
+{endregion}
+
+{region "Satu Rögzytés"}
+	(****************************************************************************************)
+	(*********************************** Satu Rögzítés **************************************)
+	(****************************************************************************************)	
+	14000:		(*-----=== Rögzítés indítása ===-----*)
+		fbServoVise.eCommand := E_ServoVise_Command.Fix;
+		IF fbServoVise.bDone THEN
+			IF bStepEnable THEN
+				fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
+				nState := 11000;
+			END_IF
+		END_IF
+{endregion}
+
+{region "Satu Kioldás"}
+	(****************************************************************************************)
+	(************************************ Satu Kioldás **************************************)
+	(****************************************************************************************)	
+	15000:		(*-----=== Kioldás indítása ===-----*)
+		fbServoVise.eCommand := E_ServoVise_Command.Release;
+		IF fbServoVise.bDone THEN
+			IF bStepEnable THEN
+				fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
+				nState := 11000;
+			END_IF
+		END_IF
+{endregion}
+
+	150000: (* Maintenance *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
+		IF NOT bManualMode THEN
+			nState := 0;
+		END_IF
+		
+	200000:(* Error handling *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
+		nState := 200020;
+
+	200020:(* Error handling *)
+		IF bAckP THEN
+			CASE nStatePrevious OF
+				0..9999: nState := 0;
+				10000..25000: nState := 10000;
+				30000..31000: nState := 30000;
+			ELSE nState := 0;
+			END_CASE
+		END_IF	
+		
+	ELSE //Not a real step, for test purposes
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
+END_CASE
+
 Servo();
 Pneu();
 ]]></ST>
@@ -138,18 +393,18 @@ fbLock(
         <ST><![CDATA[fbVisePos();
 fbServoVise(
 	bErrorAck:= bAckP, 
-	bEnable:= , 
+	bEnable:= bEnable, 
 	eCommand:= , 
-	bManualMode:= , 
-	lrTargetDistance:= , 
+	bManualMode:= bManualMode, 
+	lrTargetDistance:= nPosition, 
 	lrVisePosition:= fbVisePos.nDistance, 
 	bVisePosValid:= fbVisePos.bValid, 
-	nTargetVelocity:= , 
-	nTorque:= , 
-	nTorqueRamp:= , 
-	nTorqueVelocityLimit:= , 
-	nOverride:= , 
-	nAttachVelocity:= , 
+	nTargetVelocity:= 4, 
+	nTorque:= nTorque, 
+	nTorqueRamp:= 10, 
+	nTorqueVelocityLimit:= 0.5, 
+	nOverride:= 100, 
+	nAttachVelocity:= 0.01, 
 	stAxisEvent:= , 
 	bReady=> , 
 	bBusy=> , 

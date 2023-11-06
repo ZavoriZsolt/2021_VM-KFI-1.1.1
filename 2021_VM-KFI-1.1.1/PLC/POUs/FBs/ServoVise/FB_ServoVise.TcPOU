@@ -227,7 +227,9 @@ CASE nState OF
 		IF fbPower.Status THEN
 			nState := 20100;
 		ELSIF fbPower.Error THEN
-			nState := 250000;
+			IF bStepEnable THEN
+				nState := 250000;
+			END_IF
 		END_IF	
 		
 	20100:		(*-----=== Zárás nyomatékra ===-----*)
@@ -237,14 +239,18 @@ CASE nState OF
 		fbTorqueControl.VelocityLimitLow := -1 * nTorqueVelocityLimit;
 		fbTorqueControl.Execute := TRUE;
 		IF fbTorqueControl.Busy THEN
-			nTorqueRelief := ((ABS(nTorque))/6000 + (1/300));					// A feszültségmentesítési szög nyomatékfüggő!! Y=m*X+b	{m=1/6000, b=1/300}
-			nState := nState + 20;
+			IF bStepEnable THEN
+				nTorqueRelief := ((ABS(nTorque))/6000 + (1/300));					// A feszültségmentesítési szög nyomatékfüggő!! Y=m*X+b	{m=1/6000, b=1/300}
+				nState := nState + 20;
+			END_IF
 		END_IF
 	
 	20120:		(*-----=== Nyomaték figyelés ===-----*)
 		IF fbTorqueCheck.bTorqueDone THEN
-			fbTorqueControl.Execute := FALSE;
-			nState := nState + 20;
+			IF bStepEnable THEN
+				fbTorqueControl.Execute := FALSE;
+				nState := nState + 20;
+			END_IF
 		ELSIF fbTorqueControl.Error THEN
 			nState := 250000;
 		ELSIF (lrVisePosition < 0) AND bVisePosValid THEN						// Minimális pozíció elérve -> Hiba
@@ -256,16 +262,20 @@ CASE nState OF
 	20140:		(*-----=== Axis Halt ===-----*)(*-----=== Váratla mozgások elkerülése ===-----*)
 		fbHalt.Execute := TRUE;
 		IF fbHalt.Done THEN
-			fbHalt.Execute := FALSE;
-			nState:= nState + 20;
+			IF bStepEnable THEN
+				fbHalt.Execute := FALSE;
+				nState:= nState + 20;
+			END_IF
 		END_IF
 	
 	20160:		(*-----=== Átkapcsolás pozíció módba ===-----*)
 		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
 		fbWriteDriveOpMode.Execute := TRUE;
 		IF fbWriteDriveOpMode.Done THEN
-			fbWriteDriveOpMode.Execute := FALSE;
-			nState := nState + 20;
+			IF bStepEnable THEN
+				fbWriteDriveOpMode.Execute := FALSE;
+				nState := nState + 20;
+			END_IF
 		END_IF
 	
 	20180:		(*-----=== Szervo Mozgatás PtP ===-----*)
@@ -273,8 +283,10 @@ CASE nState OF
 		fbMoveRelative.Velocity := nTargetVelocity;
 		fbMoveRelative.Execute := TRUE;
 		IF fbMoveRelative.Done THEN
-			fbMoveRelative.Execute := FALSE;
-			nState := nState + 20;
+			IF bStepEnable THEN
+				fbMoveRelative.Execute := FALSE;
+				nState := nState + 20;
+			END_IF
 		ELSIF fbMoveRelative.Error THEN
 			fbMoveRelative.Execute := FALSE;
 			nState := 250000;
@@ -288,7 +300,9 @@ CASE nState OF
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
-			nState := 10000;
+			IF bStepEnable THEN
+				nState := 10000;
+			END_IF
 		END_IF
 {endregion}
 
@@ -309,8 +323,10 @@ CASE nState OF
 		fbMoveRelative.Velocity := nTargetVelocity;
 		fbMoveRelative.Execute := TRUE;
 		IF fbMoveRelative.Done THEN
-			fbMoveRelative.Execute := FALSE;
-			nState := nState + 20;
+			IF bStepEnable THEN
+				fbMoveRelative.Execute := FALSE;
+				nState := nState + 20;
+			END_IF
 		ELSIF fbMoveRelative.Error THEN
 			fbMoveRelative.Execute := FALSE;
 			nState := 250000;
@@ -328,7 +344,9 @@ CASE nState OF
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
-			nState := 10000;
+			IF bStepEnable THEN
+				nState := 10000;
+			END_IF
 		END_IF
 {endregion}
 
@@ -349,8 +367,10 @@ CASE nState OF
 		fbMoveRelative.Velocity := nTargetVelocity;
 		fbMoveRelative.Execute := TRUE;
 		IF fbMoveRelative.Done THEN
-			fbMoveRelative.Execute := FALSE;
-			nState := nState + 20;
+			IF bStepEnable THEN
+				fbMoveRelative.Execute := FALSE;
+				nState := nState + 20;
+			END_IF
 		ELSIF fbMoveRelative.Error THEN
 			fbMoveRelative.Execute := FALSE;
 			nState := 250000;
@@ -364,7 +384,9 @@ CASE nState OF
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
-			nState := 10000;
+			IF bStepEnable THEN
+				nState := 10000;
+			END_IF
 		END_IF
 {endregion}
 
@@ -387,30 +409,38 @@ CASE nState OF
 		fbTorqueControl.VelocityLimitLow := -1 * nAttachVelocity;
 		fbTorqueControl.Execute := TRUE;
 		IF fbTorqueControl.Busy THEN
-			nState := nState + 20;
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
 		END_IF
 	
 	80040:		(*-----=== Várakozás parancs törlésre ===-----*)
 		bBusy := FALSE;
 		bDone := TRUE;
 		IF eCommand = E_ServoVise_Command.NoCommand THEN
-			fbTorqueControl.Execute := FALSE;
-			nState:= nState + 20;
+			IF bStepEnable THEN
+				fbTorqueControl.Execute := FALSE;
+				nState:= nState + 20;
+			END_IF
 		END_IF
 	
 	80060:		(*-----=== Axis Halt ===-----*)(*-----=== Váratla mozgások elkerülése ===-----*)
 		fbHalt.Execute := TRUE;
 		IF fbHalt.Done THEN
-			fbHalt.Execute := FALSE;
-			nState:= nState + 20;
+			IF bStepEnable THEN
+				fbHalt.Execute := FALSE;
+				nState:= nState + 20;
+			END_IF
 		END_IF
 	
 	80080:		(*-----=== Átkapcsolás pozíció módba ===-----*)
 		fbWriteDriveOpMode.DriveOperationMode := Tc2_MC2.E_DriveOperationMode.DriveOperationMode_Default;
 		fbWriteDriveOpMode.Execute := TRUE;
 		IF fbWriteDriveOpMode.Done THEN
-			fbWriteDriveOpMode.Execute := FALSE;
-			nState := nState + 20;
+			IF bStepEnable THEN
+				fbWriteDriveOpMode.Execute := FALSE;
+				nState := nState + 20;
+			END_IF
 		END_IF
 	
 	80100:		(*-----=== Szervo KI ===-----*)
@@ -456,8 +486,10 @@ CASE nState OF
 	250020:	(* Axis halt *)
 		fbHalt.Execute := TRUE;
 		IF fbHalt.Done THEN
-			fbHalt.Execute := FALSE;
-			nState:= nState + 20;
+			IF bStepEnable THEN
+				fbHalt.Execute := FALSE;
+				nState:= nState + 20;
+			END_IF
 		END_IF
 	
 	250040: (*Wait error ACK*)
@@ -466,13 +498,17 @@ CASE nState OF
 		END_IF
 		
 	250060: (*Error ACK*)
-		IF Axis.Status.DriveDeviceError THEN 
-			fbSoEReset.Execute := TRUE;
-			fbReset.Execute := TRUE;
-			nState := 250080;
-		ELSIF Axis.Status.Error THEN 
-			fbReset.Execute := TRUE;
-			nState := 250100;
+		IF Axis.Status.DriveDeviceError THEN
+			IF bStepEnable THEN 
+				fbSoEReset.Execute := TRUE;
+				fbReset.Execute := TRUE;
+				nState := 250080;
+			END_IF
+		ELSIF Axis.Status.Error THEN
+			IF bStepEnable THEN 
+				fbReset.Execute := TRUE;
+				nState := 250100;
+			END_IF
 		ELSE
 			nState := 0;
 		END_IF

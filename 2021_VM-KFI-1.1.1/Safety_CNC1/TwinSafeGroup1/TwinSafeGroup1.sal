@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<safetyApplication Crc="4276571529" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.4.0.0" Id="cf56a0dd-8cba-4148-92c9-cd46b2c12268" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
+<safetyApplication Crc="777679538" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.4.0.0" Id="cf56a0dd-8cba-4148-92c9-cd46b2c12268" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
   <networks>
     <safetyApplicationHasNetworks Id="912f3f33-7d9c-46ad-bc06-6bdd7822729c">
       <Network Id="cf43a696-13be-42aa-8291-7175a773ab06" name="Network1" networkName="SafeMon" intId="1" networkOrderId="0">
@@ -802,8 +802,8 @@
           <variableHasSourceUsages Id="6c86dae4-3af2-4238-b827-59a674e77976">
             <variableUsages Id="4208e33b-e8f8-4ae7-8935-782f7d110700">
               <usages>
-                <variableUsagesHasUsages Id="e0bf56de-ac29-43bb-991e-5dabc743c526">
-                  <aliasDeviceIoUsage Id="6ea34619-77d9-42e9-9a3e-7f98d9d033cf" sdsId="4" channelId="11" functionId="1616969985" />
+                <variableUsagesHasUsages Id="4d216f6b-f41d-4201-97bb-c4f4f27a5482">
+                  <aliasDeviceIoUsage Id="c10a4714-1674-4f29-a561-6938e6dd84b7" sdsId="4" channelId="12" functionId="1616970241" />
                 </variableUsagesHasUsages>
               </usages>
             </variableUsages>

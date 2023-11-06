@@ -85,9 +85,36 @@ VAR (* Error handling*)
 	anLastStates				:ARRAY[0..500] OF UDINT;
     iLastStates					:INT;
 END_VAR
+VAR
+// TEST !!!!!!!!!!!!!!!!!!!!!!
+	bTestConvert		: BOOL;
+END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*Handshake**************************************************)
+      <ST><![CDATA[(*Test*) //TÖRÖLNI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+IF bTestConvert THEN
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);
+		bTestConvert := FALSE;
+END_IF
+
+(*Handshake**************************************************)
 bCNC_1_Set := RobotIn.Status.bCNC_1_Set;
 bCNC_1_ViseClose_Set := RobotIn.Status.bCNC_1_ViseClose_Set;
 bCNC_1_ViseOpen_Set := RobotIn.Status.bCNC_1_ViseOpen_Set;
@@ -324,6 +351,8 @@ CASE nState OF
 			bDone := FALSE;
 			IF eCommand = E_CNC_Robot_Command.Home THEN			
 				nState := 11000;	
+			ELSIF eCommand = E_CNC_Robot_Command.QuickHome THEN	
+				nState := 11500;
 			ELSIF eCommand = E_CNC_Robot_Command.Wait THEN	
 				nState := 12000;
 			ELSIF eCommand = E_CNC_Robot_Command.Service THEN	
@@ -374,7 +403,33 @@ CASE nState OF
 			nState := 10000;
 		END_IF
 {endregion}
-	 
+
+{region "Move to Quick Home"}
+	 	(*-----=== Move to quick home program végrehajtása ===-----*)
+	11500:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetbe küldése');	
+		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.QuickHome);
+		IF RobotOut.Control.nProgramNumber = RobotIn.Status.nProgramNumber THEN
+			RobotOut.Control.nProgramNumber := 0;
+			nState := nState + 20;
+		END_IF
+		
+	11520:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás a robotprogram végére.');	
+		IF RobotIn.Status.bProgramEnd AND NOT RobotIn.Status.bProgramRun THEN
+			nState := nState + 20;
+		END_IF
+		
+	11540:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás mozgásparancs törlésére.');
+		bReady := TRUE;
+		bBusy := FALSE;
+		bDone := TRUE;
+		IF eCommand = E_CNC_Robot_Command.NoCommand THEN
+			nState := 10000;
+		END_IF
+{endregion}
+
 {region "Move to Wait"}
 	(*-----=== Move to wait program végrehajtása ===-----*)
 	12000:	
@@ -431,6 +486,24 @@ CASE nState OF
 	(*-----=== CNC pick up program végrehajtása ===-----*)
 	14000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kivétel CNC-ből');
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);
 		IF nCncNumber  = 1 THEN
 			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_1_PickUp);
 		ELSIF nCncNumber  = 2 THEN
@@ -463,6 +536,24 @@ CASE nState OF
 	(*-----=== CNC put down program végrehajtása ===-----*)
 	15000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Berakás CNC-be');
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);
 		IF nCncNumber  = 1 THEN
 			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.CNC_1_PutDown);
 		ELSIF nCncNumber  = 2 THEN
@@ -495,6 +586,24 @@ CASE nState OF
 	(*-----=== Lifter pick up program végrehajtása ===-----*)
 	16000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Felvétel kiemelőről');
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
+									nWhole => RobotOut.Control.nOffset_X_Whole,
+									nFraction => RobotOut.Control.nOffset_X_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
+									nWhole => RobotOut.Control.nOffset_Y_Whole,
+									nFraction => RobotOut.Control.nOffset_Y_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
+									nWhole => RobotOut.Control.nOffset_Z_Whole,
+									nFraction => RobotOut.Control.nOffset_Z_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
+									nWhole => RobotOut.Control.nOffset_W_Whole,
+									nFraction => RobotOut.Control.nOffset_W_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
+									nWhole => RobotOut.Control.nOffset_P_Whole,
+									nFraction => RobotOut.Control.nOffset_P_Fractional);
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
+									nWhole => RobotOut.Control.nOffset_R_Whole,
+									nFraction => RobotOut.Control.nOffset_R_Fractional);
 		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
 			RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Lifter_1A_PickUp);
 		ELSIF eLifterNumber  = E_Lifter.Lifter_1B THEN
@@ -610,22 +719,22 @@ CASE nState OF
 	19000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester darab felvétele');
 		RobotOut.Control.nOffset_ID := nOffset_ID;
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
 									nWhole => RobotOut.Control.nOffset_X_Whole,
 									nFraction => RobotOut.Control.nOffset_X_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
 									nWhole => RobotOut.Control.nOffset_Y_Whole,
 									nFraction => RobotOut.Control.nOffset_Y_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
 									nWhole => RobotOut.Control.nOffset_Z_Whole,
 									nFraction => RobotOut.Control.nOffset_Z_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
 									nWhole => RobotOut.Control.nOffset_W_Whole,
 									nFraction => RobotOut.Control.nOffset_W_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
 									nWhole => RobotOut.Control.nOffset_P_Whole,
 									nFraction => RobotOut.Control.nOffset_P_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
 									nWhole => RobotOut.Control.nOffset_R_Whole,
 									nFraction => RobotOut.Control.nOffset_R_Fractional);
 		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Master_Part_PickUp);
@@ -654,22 +763,22 @@ CASE nState OF
 	(*-----=== Master put down program végrehajtása ===-----*)
 	20000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester darab lerakása');
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
 									nWhole => RobotOut.Control.nOffset_X_Whole,
 									nFraction => RobotOut.Control.nOffset_X_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
 									nWhole => RobotOut.Control.nOffset_Y_Whole,
 									nFraction => RobotOut.Control.nOffset_Y_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
 									nWhole => RobotOut.Control.nOffset_Z_Whole,
 									nFraction => RobotOut.Control.nOffset_Z_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
 									nWhole => RobotOut.Control.nOffset_W_Whole,
 									nFraction => RobotOut.Control.nOffset_W_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
 									nWhole => RobotOut.Control.nOffset_P_Whole,
 									nFraction => RobotOut.Control.nOffset_P_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
 									nWhole => RobotOut.Control.nOffset_R_Whole,
 									nFraction => RobotOut.Control.nOffset_R_Fractional);
 		RobotOut.Control.nProgramNumber := TO_BYTE(E_CNC_Robot_Programs.Master_Part_PutDown);
@@ -698,22 +807,22 @@ CASE nState OF
 	(*-----=== Pick up Master from Lifter program végrehajtása ===-----*)
 	21000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester felvétel kiemelőből');
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
 									nWhole => RobotOut.Control.nOffset_X_Whole,
 									nFraction => RobotOut.Control.nOffset_X_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
 									nWhole => RobotOut.Control.nOffset_Y_Whole,
 									nFraction => RobotOut.Control.nOffset_Y_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
 									nWhole => RobotOut.Control.nOffset_Z_Whole,
 									nFraction => RobotOut.Control.nOffset_Z_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
 									nWhole => RobotOut.Control.nOffset_W_Whole,
 									nFraction => RobotOut.Control.nOffset_W_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
 									nWhole => RobotOut.Control.nOffset_P_Whole,
 									nFraction => RobotOut.Control.nOffset_P_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
 									nWhole => RobotOut.Control.nOffset_R_Whole,
 									nFraction => RobotOut.Control.nOffset_R_Fractional);													   
 		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
@@ -754,22 +863,22 @@ CASE nState OF
 	(*-----=== Put down Master to Lifter program végrehajtása ===-----*)
 	22000:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Mester lerakás kiemelőbe');
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
 									nWhole => RobotOut.Control.nOffset_X_Whole,
 									nFraction => RobotOut.Control.nOffset_X_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Y,
 									nWhole => RobotOut.Control.nOffset_Y_Whole,
 									nFraction => RobotOut.Control.nOffset_Y_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_Z,
 									nWhole => RobotOut.Control.nOffset_Z_Whole,
 									nFraction => RobotOut.Control.nOffset_Z_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_W,
 									nWhole => RobotOut.Control.nOffset_W_Whole,
 									nFraction => RobotOut.Control.nOffset_W_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_P,
 									nWhole => RobotOut.Control.nOffset_P_Whole,
 									nFraction => RobotOut.Control.nOffset_P_Fractional);
-		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R, nAccuracy := nDecimalPlaces,
+		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_R,
 									nWhole => RobotOut.Control.nOffset_R_Whole,
 									nFraction => RobotOut.Control.nOffset_R_Fractional);
 		IF eLifterNumber  = E_Lifter.Lifter_1A THEN
@@ -913,25 +1022,26 @@ END_FOR
       <Declaration><![CDATA[METHOD PRIVATE REAL_TO_WHOLE_AND_FRACTION : BOOL
 VAR_INPUT
 	nReal		:	REAL;				// The real number you want to split into whole and fractional parts
-	nAccuracy	:	USINT 	:= 3; 		// The decimal places of the fractional part (MIN: 0 - MAX: 3)
 END_VAR
 VAR_OUTPUT
 	nWhole		:	INT;				// The whole part of the input
 	nFraction	:	UINT;				// The fractional part of the input (multiplied by 1000)
 END_VAR
 VAR
-	nDecimalPlaces	: USINT;
+	sTemp		: STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF nAccuracy > 3 THEN
-	nDecimalPlaces := 3;
-ELSE
-	nDecimalPlaces := nAccuracy;
-END_IF
-nWhole := REAL_TO_INT(nReal);
-nFraction := REAL_TO_UINT(ABS((nReal-nWhole)*EXPT(10,nDecimalPlaces)));
-
+        <ST><![CDATA[sTemp := REAL_TO_STRING(nReal);
+nWhole := STRING_TO_INT(LEFT(sTEMP, FIND(sTemp, '.')));
+sTemp := DELETE(sTEmp, FIND(sTemp, '.'), 1);
+CASE LEN(sTemp) OF
+	0:		sTemp := '000';
+	1:		sTemp := CONCAT(sTemp, '00');
+	2:		sTemp := CONCAT(sTemp, '0');
+	ELSE	sTemp := LEFT(sTemp, 3);
+END_CASE
+nFraction := STRING_TO_UINT(sTemp);
 REAL_TO_WHOLE_AND_FRACTION := TRUE;
 ]]></ST>
       </Implementation>
@@ -939,33 +1049,19 @@ REAL_TO_WHOLE_AND_FRACTION := TRUE;
     <Method Name="WHOLE_AND_FRACTION_TO_REAL" Id="{4f0f4fde-e274-4938-8ead-ead6002da15e}">
       <Declaration><![CDATA[METHOD PRIVATE WHOLE_AND_FRACTION_TO_REAL : BOOL
 VAR_INPUT
-	nWhole		:INT;					// The whole part of the numbers you want to combine into real
-	nFraction	:UINT;					// The fractional part of the numbers you want to combine into real
-	nAccuracy	:USINT := 3;			// The decimal places of the fractional part (MIN: 0 - MAX: 3)
+	nWhole		: INT;					// The whole part of the numbers you want to combine into real
+	nFraction	: UINT;					// The fractional part of the numbers you want to combine into real
 END_VAR
 VAR_OUTPUT
-	nReal 	:REAL;					// The result real number
+	nReal 		: REAL;					// The result real number
 END_VAR
 VAR
-	nSign			:REAL := 1;			// The sign of the number
-	nDecimalPlaces	: USINT;			// The number of decimal places
+	sTemp		: STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF nAccuracy > 3 THEN
-	nDecimalPlaces := 3;
-ELSE
-	nDecimalPlaces := nAccuracy;
-END_IF
-IF nWhole >= 0 THEN
-	nSign :=  1.0;
-ELSE
-	nSign := -1.0;
-END_IF
-nReal := INT_TO_REAL(nWhole) + nSign * (UINT_TO_REAL(nFraction)/LREAL_TO_REAL(EXPT(10,nDecimalPlaces)));
-
-// Raise error flag if the difference is bigger than 1 between the whole part and the result number 
-WHOLE_AND_FRACTION_TO_REAL := (ABS(nReal) >= ABS(INT_TO_REAL(nWhole))) AND (ABS(nReal) <= ABS(INT_TO_REAL(nWhole)) + 1.0);]]></ST>
+        <ST><![CDATA[nReal := STRING_TO_REAL(CONCAT(CONCAT(INT_TO_STRING(nWhole),'.'), UINT_TO_STRING(nFraction)));
+WHOLE_AND_FRACTION_TO_REAL := TRUE;]]></ST>
       </Implementation>
     </Method>
   </POU>

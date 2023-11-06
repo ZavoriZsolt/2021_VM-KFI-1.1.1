@@ -117,6 +117,9 @@
     <Compile Include="POUs\FBs\Camera\FB_TCP_IP_Comm.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\CNC_Servo\DUTs\E_CncServoCommand.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\CNC_Servo\FB_CNC_Servo.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -396,6 +399,7 @@
     <Folder Include="POUs\FBs" />
     <Folder Include="POUs\FBs\AWEA\DUTs" />
     <Folder Include="POUs\FBs\BTL\DUTs" />
+    <Folder Include="POUs\FBs\CNC_Servo\DUTs" />
     <Folder Include="POUs\FBs\FanucCNC\DUTs" />
     <Folder Include="POUs\FBs\FanucKardex\DUTs" />
     <Folder Include="POUs\FBs\Fanuc\DUTs" />
@@ -421,6 +425,7 @@
     <Folder Include="POUs\FBs\ServoVise" />
     <Folder Include="POUs\FBs\ServoVise\DUTs" />
     <Folder Include="POUs\Robot7AxisStation" />
+    <Folder Include="POUs\Robot7AxisStation\DUTs" />
     <Folder Include="POUs\Temp" />
     <Folder Include="POUs\RobotViseStation" />
     <Folder Include="POUs\Temp\Fanuc" />

@@ -1439,15 +1439,6 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
-			<BitSize>32</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>4</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
 			<Name GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}" AutoDeleteType="true">ST_Vise_Sensors</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
@@ -1652,6 +1643,15 @@ External Setpoint Generation:
 			<ArrayInfo>
 				<LBound>0</LBound>
 				<Elements>2</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
+			<BitSize>32</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>4</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -3685,7 +3685,7 @@ only active in subscription mode]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{4170DBD4-2CFA-DE9D-1647-84CCCAB2AA3D}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{9C700D14-DC24-0E0A-20B1-7D29791AEBCD}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3693,48 +3693,6 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>RobotCncProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveUpper.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveUpper.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveLower.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveLower.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbLock.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbLock.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbVisePos.arrRaw</Name>
-							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbVisePos.nState</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbServoVise.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.i_bLO1_CNC45</Name>
@@ -5036,51 +4994,54 @@ only active in subscription mode]]></Comment>
 							<Name>Robot7AxisProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.arrRaw</Name>
+							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
 							<Name>RobotCncProgram.fbRobot.RobotOut.aStdOut</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveUpper.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveUpper.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveLower.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbMoveLower.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbLock.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbLock.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.fbServoVise.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCNC1.q_bToolCheckBlower</Name>
-							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
@@ -6364,6 +6325,45 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>Robot7AxisProgram.fbRobot.RobotOut.aStdOut</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.q_bToolCheckBlower</Name>
+							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-07-04T15:18:52">
@@ -9922,7 +9922,7 @@ only active in subscription mode]]></Comment>
 							<Entry Name="FSOE__FSIN Module 1.Channel 1.Input" Index="#x6041" Sub="#x01" Flags="#x00008020">
 								<Type>BIT</Type>
 							</Entry>
-							<Entry Name="FSOE__FSIN Module 1.Channel 2.Input" Index="#x6041" Sub="#x02">
+							<Entry Name="FSOE__FSIN Module 1.Channel 2.Input" Index="#x6041" Sub="#x02" Flags="#x00008020">
 								<Type>BIT</Type>
 							</Entry>
 							<Entry Name="FSOE__FSIN Module 1.Module Fault" Index="#x6042" Sub="#x01" Flags="#x00008020">
@@ -9931,7 +9931,7 @@ only active in subscription mode]]></Comment>
 							<Entry Name="FSOE__FSIN Module 2.Channel 1.Input" Index="#x6051" Sub="#x01" Flags="#x00008020">
 								<Type>BIT</Type>
 							</Entry>
-							<Entry Name="FSOE__FSIN Module 2.Channel 2.Input" Index="#x6051" Sub="#x02">
+							<Entry Name="FSOE__FSIN Module 2.Channel 2.Input" Index="#x6051" Sub="#x02" Flags="#x00008020">
 								<Type>BIT</Type>
 							</Entry>
 							<Entry Name="FSOE__FSIN Module 2.Module Fault" Index="#x6052" Sub="#x01" Flags="#x00008020">
@@ -9940,7 +9940,7 @@ only active in subscription mode]]></Comment>
 							<Entry Name="FSOE__FSIN Module 3.Channel 1.Input" Index="#x6061" Sub="#x01" Flags="#x00008020">
 								<Type>BIT</Type>
 							</Entry>
-							<Entry Name="FSOE__FSIN Module 3.Channel 2.Input" Index="#x6061" Sub="#x02">
+							<Entry Name="FSOE__FSIN Module 3.Channel 2.Input" Index="#x6061" Sub="#x02" Flags="#x00008020">
 								<Type>BIT</Type>
 							</Entry>
 							<Entry Name="FSOE__FSIN Module 3.Module Fault" Index="#x6062" Sub="#x01" Flags="#x00008020">
@@ -30311,33 +30311,34 @@ Submodule Info: In / Out Daten
 		</OwnerA>
 		<OwnerA Name="TIPC^PLC^PLC Instance">
 			<OwnerB Name="TIID^CNC_1^Box 10 (BNI ECT-508-105-Z015)">
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbVisePos.arrRaw[1]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbVisePos.arrRaw[2]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbVisePos.arrRaw[3]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbVisePos.arrRaw[1]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbVisePos.arrRaw[2]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbVisePos.arrRaw[3]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="PlcTask Inputs^GVL_Safety.i_bLO1_CNC1" VarB="StandardInputs^Standard Out Var 21"/>
+				<Link VarA="PlcTask Inputs^GVL_Safety.i_bRobotDoorOpened_CNC1" VarB="StandardInputs^Standard Out Var 20"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyErrorAck_Main" VarB="StandardOutputs^Standard In Var 1"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyOverrideCnc1" VarB="StandardOutputs^Standard In Var 14"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyRun" VarB="StandardOutputs^Standard In Var 2"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 13 (EL1809)">
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbLock.i_bBasePos" VarB="Channel 5^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbLock.i_bWorkPos" VarB="Channel 6^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbMoveLower.i_bBasePos" VarB="Channel 4^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbMoveLower.i_bWorkPos" VarB="Channel 3^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbMoveUpper.i_bBasePos" VarB="Channel 2^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbMoveUpper.i_bWorkPos" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbLock.i_bBasePos" VarB="Channel 5^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbLock.i_bWorkPos" VarB="Channel 6^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos" VarB="Channel 4^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbMoveLower.i_bWorkPos" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbMoveUpper.i_bBasePos" VarB="Channel 2^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbMoveUpper.i_bWorkPos" VarB="Channel 1^Input" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 14 (EL2809-0015)">
-				<Link VarA="PlcTask Outputs^CNC_1.fbCNC1.fbLock.q_bWorkPos" VarB="Channel 5^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_1.fbCNC1.fbMoveLower.q_bBasePos" VarB="Channel 4^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_1.fbCNC1.fbMoveLower.q_bWorkPos" VarB="Channel 3^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_1.fbCNC1.fbMoveUpper.q_bBasePos" VarB="Channel 2^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_1.fbCNC1.fbMoveUpper.q_bWorkPos" VarB="Channel 1^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_1.fbCNC1.q_bToolCheckBlower" VarB="Channel 6^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbLock.q_bWorkPos" VarB="Channel 5^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbMoveLower.q_bBasePos" VarB="Channel 4^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbMoveLower.q_bWorkPos" VarB="Channel 3^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos" VarB="Channel 2^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos" VarB="Channel 1^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.q_bToolCheckBlower" VarB="Channel 6^Output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EL6631)^rfm1">
 				<Link VarA="PlcTask Inputs^GVL_RFID.fbRFID_Readers[1].PnIoBoxState" VarB="Inputs^PnIoBoxState" AutoLink="true"/>
@@ -32007,8 +32008,8 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^GVL_IO.q_bCNC4_Program_Start" VarB="Channel 3^Output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
-				<Link VarA="PlcTask Inputs^CNC_1.fbCNC1.fbServoVise.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^CNC_1.fbCNC1.fbServoVise.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
+				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

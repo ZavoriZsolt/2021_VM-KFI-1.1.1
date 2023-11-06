@@ -236,7 +236,7 @@ END_IF
 	fb3DCam.p_ReceiveTimeout := T#20S;
 	fb3DCam.p_CloseTimeout := T#2S;
 	fb3DCam.p_Name := '3D Camera';
-	fb3DCam.p_RemoteHost := '192.168.81.100';
+	fb3DCam.p_RemoteHost := '192.168.81.19';
 	fb3DCam.p_RemotePort := 24056;
 
 	bFirstCycle := FALSE;
@@ -290,7 +290,7 @@ ELSE
 END_IF
 
 // Step mode for testing
-rtStep(CLK:= bStepHMI OR i_bMasterOn_CNC45, Q=> bStepP);
+rtStep(CLK:= bStepHMI OR i_bMasterOn_CNC45 OR i_bMasterOn_Main, Q=> bStepP);
 IF bStepMode AND bStepP OR NOT bStepMode THEN
 	bStepEnable := TRUE;
 ELSE

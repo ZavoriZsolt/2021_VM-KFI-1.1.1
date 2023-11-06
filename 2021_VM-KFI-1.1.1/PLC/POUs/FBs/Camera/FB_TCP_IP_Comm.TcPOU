@@ -39,8 +39,15 @@ VAR
 	_CloseTimeout		:TIME;
 	_Pass				:BOOL;
 	_Fail				:BOOL;
-	_Results			:ARRAY [1..100] OF STRING(255);
+	_Results			:ARRAY [1..10] OF STRING;
 	_SavePath			:STRING(255);
+	_Pos_X				:REAL;
+	_Pos_Y				:REAL;
+	_Pos_Z				:REAL;
+	_Pos_W				:REAL;
+	_Pos_P				:REAL;
+	_Pos_R				:REAL;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -77,7 +84,7 @@ END_VAR
 CASE nCamCheckStep OF
 0:		_Pass := FALSE;
 		_Fail := FALSE;
-		sRequest := UINT_TO_STRING(nProgNr);							// Trigger parancs összeállítása
+		sRequest := UINT_TO_STRING(nProgNr);										// Trigger parancs összeállítása
 		sRequest := CONCAT('P', sRequest);
 		sRequest := CONCAT(sRequest, ' [');
 		sRequest := CONCAT(sRequest, LREAL_TO_STRING(nDimX));
@@ -89,28 +96,31 @@ CASE nCamCheckStep OF
 		sRequest := CONCAT(sRequest, '$r$n');
 		nCamCheckStep := nCamCheckStep + 20;
 
-20:		IF ReadSequence(sRequest, sResponse, nErrorId) THEN				// Kamera kommunikáció
-			_Pass := Left(sResponse,1)='P';								//Kapott válasz kiértékelése
+20:		IF ReadSequence(sRequest, sResponse, nErrorId) THEN							// Kamera kommunikáció
+			_Pass := Left(sResponse,2) = Left(sRequest,2);							//Kapott válasz kiértékelése
 			_Fail := NOT _Pass;
 			nCamCheckStep := nCamCheckStep + 20;
 		END_IF
 
 40:		IF _Pass THEN
-			sResultTmp := sResponse;										// Válasz másolása		P1 [3.206;-2.853;-130.009]$R$N  
-			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, '['), 1);		// P1 [ törlése
-			_Results[1] := LEFT(sResultTmp, FIND(sResultTmp, ';')-1);		// X offszet másolása	3.206
-			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ';'), 1);		// X offszet törlése	3.206;
-			_Results[2] := LEFT(sResultTmp, FIND(sResultTmp, ';')-1);		// Y offszet másolása	-2.853
-			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ';'), 1);		// Y offszet törlése	-2.853;
-			_Results[3] := LEFT(sResultTmp, FIND(sResultTmp, ']')-1);		// Z offszet másolása	-130.009
-			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ']'), 1);		// Z offszet törlése	-130.009]
+			sResultTmp := sResponse;												// Válasz másolása		P1 [3.206;-2.853;-130.009]$R$N  
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, '['), 1);				// P1 [ törlése
+			_Pos_X := STRING_TO_REAL(LEFT(sResultTmp, FIND(sResultTmp, ';')-1));	// X offszet másolása	3.206
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ';'), 1);				// X offszet törlése	3.206;
+			_Pos_Y := STRING_TO_REAL(LEFT(sResultTmp, FIND(sResultTmp, ';')-1));	// Y offszet másolása	-2.853
+			_Pos_Z := 0;															// Nincs használva
+			_Pos_W := 0;															// Nincs használva
+			_Pos_P := 0;															// Nincs használva
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ';'), 1);				// Y offszet törlése	-2.853;
+			_Pos_R := STRING_TO_REAL(LEFT(sResultTmp, FIND(sResultTmp, ']')-1));	// Z offszet másolása	-130.009
+			sResultTmp := DELETE(sResultTmp, FIND(sResultTmp, ']'), 1);				// Z offszet törlése	-130.009]
 			nCamCheckStep := nCamCheckStep + 20;
 		ELSE
 			nCamCheckStep := nCamCheckStep + 20;
 		END_IF
 
 60:		CamCheck := TRUE;
-//		nCamCheckStep := 0;
+//		nCamCheckStep := 0;															// Nincs automatikus alaphelyzet HMI miatt, trigger előtt Reset() methode hívás!
 END_CASE
 ]]></ST>
       </Implementation>
@@ -182,14 +192,6 @@ END_VAR
           <ST><![CDATA[p_Fail := _Fail;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{6bd7000b-4fb9-4016-8f75-e40a771ee0ca}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_Fail := p_Fail;]]></ST>
-        </Implementation>
-      </Set>
     </Property>
     <Property Name="p_Name" Id="{796980d1-6b97-4ba9-b50f-91af5bed6d2f}" FolderPath="Propertiess\">
       <Declaration><![CDATA[PROPERTY p_Name : STRING]]></Declaration>
@@ -220,14 +222,72 @@ END_VAR
           <ST><![CDATA[p_Pass := _Pass;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{b46894c3-08d2-4f2e-be23-e00c2f97d2b8}">
+    </Property>
+    <Property Name="p_PosP" Id="{9ad80d79-fbbe-4481-8a95-46b007289655}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY PUBLIC p_PosP : REAL]]></Declaration>
+      <Get Name="Get" Id="{14084aa9-5343-487d-bcdd-f204d01e3b1d}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_Pass := p_Pass;]]></ST>
+          <ST><![CDATA[p_PosP := _Pos_P;]]></ST>
         </Implementation>
-      </Set>
+      </Get>
+    </Property>
+    <Property Name="p_PosR" Id="{4e252329-50ff-4b36-8b22-07b5382ef201}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY PUBLIC p_PosR : REAL]]></Declaration>
+      <Get Name="Get" Id="{3ba36c27-cb09-460f-a9b0-c7bd53015ffb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_PosR := _Pos_R;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="p_PosW" Id="{4be38860-e70e-43dd-88cb-ff967c272281}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY PUBLIC p_PosW : REAL]]></Declaration>
+      <Get Name="Get" Id="{400600c4-94c0-4e5b-a696-7213d123642a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_PosW := _Pos_W;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="p_PosX" Id="{47a43877-7e27-4161-aba9-4e2ea3e5be88}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY PUBLIC p_PosX : REAL]]></Declaration>
+      <Get Name="Get" Id="{3521843c-fb0a-42b0-ae44-48546f50131a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_PosX := _Pos_X;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="p_PosY" Id="{303148ed-eb0b-44e5-af6c-620acfbbb7ee}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY PUBLIC p_PosY : REAL]]></Declaration>
+      <Get Name="Get" Id="{8547ad83-74b6-4270-a360-1e77000af26b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_PosY := _Pos_Y;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="p_PosZ" Id="{651b9161-dbf9-4a20-a628-ee6f4c75d4d4}" FolderPath="Propertiess\">
+      <Declaration><![CDATA[PROPERTY PUBLIC p_PosZ : REAL]]></Declaration>
+      <Get Name="Get" Id="{42ab39a5-6db7-4f3a-acae-26e8761dcce2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[p_PosZ := _Pos_Z;]]></ST>
+        </Implementation>
+      </Get>
     </Property>
     <Property Name="p_ReceiveTimeout" Id="{6404b7be-21a9-4f82-afde-9c4caf99ac5c}" FolderPath="Propertiess\">
       <Declaration><![CDATA[PROPERTY p_ReceiveTimeout : TIME]]></Declaration>
@@ -291,7 +351,7 @@ END_VAR
       </Set>
     </Property>
     <Property Name="p_Results" Id="{2bfb21da-9c96-44db-9e91-6c4dc72fb9cf}" FolderPath="Propertiess\">
-      <Declaration><![CDATA[PROPERTY p_Results : ARRAY [1..100] OF STRING(255)]]></Declaration>
+      <Declaration><![CDATA[PROPERTY p_Results : ARRAY [1..10] OF STRING]]></Declaration>
       <Get Name="Get" Id="{3b035c81-6f61-4e9f-9ada-bfb5e1498ecd}">
         <Declaration><![CDATA[VAR
 END_VAR
