@@ -172,6 +172,12 @@ CASE nState OF
 		fbRobot.nOffset_W := 0;
 		fbRobot.nOffset_P := 0;
 		fbRobot.nOffset_R := 0;
+		stDutData_Cnc1.nDimX := nDimX;
+		stDutData_Cnc1.nDimY := nDimY;
+		stDutData_Cnc1.nDimZ := nDimZ;
+		stDutData_Cnc1.nPosX := nPosX;
+		stDutData_Cnc1.nPosY := nPosY;
+		stDutData_Cnc1.nDutId := 1;
 		fbRobot.eCommand := E_CNC_Robot_Command.Put_Down_CNC;
 		IF fbRobot.bBusy THEN
 			nState := nState + 20;
@@ -648,11 +654,14 @@ fbGripperPos2(
 
 (*-----=== Hand shake jelek kezelése ===-----*)
 fbRobot.bCNC_1_Reset := 			fbRobot.bCNC_1_Set AND				// 05.1	Robot CNC-1-be menne
-									i_bRobotDoorOpened_CNC1;
+									i_bRobotDoorOpened_CNC1 AND
+									CNC_1.nState = 11100;
 
-fbRobot.bCNC_1_ViseClose_Reset := 	fbRobot.bCNC_1_ViseClose_Set;		// 05.2	Robot CNC-1 satu zárásra vár
+fbRobot.bCNC_1_ViseClose_Reset := 	fbRobot.bCNC_1_ViseClose_Set AND	// 05.2	Robot CNC-1 satu zárásra vár
+									CNC_1.nState = 11300;
 
-fbRobot.bCNC_1_ViseOpen_Reset := 	fbRobot.bCNC_1_ViseOpen_Set;		// 05.3	Robot CNC-1 satu nyitásra vár
+fbRobot.bCNC_1_ViseOpen_Reset := 	fbRobot.bCNC_1_ViseOpen_Set AND		// 05.3	Robot CNC-1 satu nyitásra vár
+									CNC_1.nState = 12000;
 
 fbRobot.bCNC_2_Reset := 			fbRobot.bCNC_2_Set AND				// 05.4	Robot CNC-2-be menne
 									i_bRobotDoorOpened_CNC2;

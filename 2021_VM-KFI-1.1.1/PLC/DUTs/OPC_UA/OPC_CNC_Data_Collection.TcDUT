@@ -3,20 +3,25 @@
   <DUT Name="OPC_CNC_Data_Collection" Id="{361b6c57-6e1b-418b-ab56-c8a06fa4a939}">
     <Declaration><![CDATA[TYPE OPC_CNC_Data_Collection :
 	STRUCT
-	HeartBeat						:	DINT;
-	ErrorMessage					:	STRING;
-	ToolTablePath					:	STRING(80);
-	MagazineTablePath				:	STRING(80);
-	ProgramPath						:	STRING(80);
-	ProgramLoadTrigger				:	BOOL;
-	ToolTableLoadTrigger			:	BOOL;
-	MagazineTableLoadTrigger		:	BOOL;
+	HeartBeat						:	DINT;		//Heart beat signal with the C# data-exchanger program
+	ErrorMessage					:	STRING;		//Error message from the CNC
+	ToolTablePath					:	STRING(80);	//Ensure that the "ToolTablePath" variable here is not empty. This path is used for both for the Read and Load triggers
+	MagazineTablePath				:	STRING(80); //Ensure that the "MagazineTablePath" variable here is not empty. This path is used for both for the Read and Load triggers
+	ProgramPath						:	STRING(80);	//The path to the program to be executed. It may be a direct path to the CNC file? 
+	ProgramLoadTrigger				:	BOOL;		//Not yet useable at 2023.11.07.
+	ToolTableLoadTrigger			:	BOOL;		//Change the data of the ToolTable file with the name of the path's filename to the name data of the file under the path  "ToolTablePath"
+	MagazineTableLoadTrigger		:	BOOL;		//Change the data of the MagazineTable file with the name of the path's filename to the name data of the file under the path  "MagazineTablePath"
+	ReadActualToolTable				:	BOOL;		//Reads the actual tool table's content on the CNC and save it to the given path in ToolTablePath
+	ReadActualMagazineTable			:	BOOL;		//Reads the actual magazine table's content on the CNC and save it to the given path in MagazineTablePath
+	ReadActualTableDone				:	BOOL;	(*	Only true, if the readed data is saved to the target path, AND if the saved data equals to the data to be saved.
+													So this way, the saved data is checked
+													This bool is both for Tool and Magazine table. *)
 		{region Machine}
 			{region Channels}
 				{region 0}
-					CutterLocation					: 	ARRAY[0..4] OF LREAL;
+					CutterLocation					: 	ARRAY[0..4] OF LREAL;	//Actual position of the CNC's Axises
 					FeedOverride					: 	UDINT;
-					ChannelID						: 	UDINT;
+					//ChannelID						: 	UDINT;
 					OperatingMode					: 	STRING;											//Manual, MDI, RFP, SingleStepp, Automatic, Other, Handweel
 					{region Program(OBJECT)}
 						ProgramCurrentCall			: 	STRING;
@@ -47,7 +52,7 @@
 					{endregion}
 				{endregion}
 			{endregion}
-			HostComputerMode	:	BOOL;
+			//HostComputerMode	:	BOOL;
 			{region ManufacturerExtensions (OBJECT)}
 				{region Control Status (OBJECT)}
 					ControlStatus_ControlReady				:	BOOL;
@@ -90,21 +95,21 @@
 				 ;
 			{endregion}
 			{region Operating Times}
-				ControlUpTime						:	LREAL;
-				MachineUpTime						:	LREAL;
-				ProgramExecutionTime				:	LREAL;
+				//ControlUpTime						:	LREAL;
+				//MachineUpTime						:	LREAL;
+				//ProgramExecutionTime				:	LREAL;
 			{endregion}
 			{region OperatorInfo}
 				;	 
 			{endregion}
 			{region State}	//Object -  ns-1	i-51001  
-				CurrentState_State					: 	STRING;						// NCIsNotConnected, NCIsConnected, NCIsBooted, NCIsInitializing, NCIsAvailable, NCIsShuttingDown
+				CurrentState_State					: 	STRING;					// NCIsNotConnected, NCIsConnected, NCIsBooted, NCIsInitializing, NCIsAvailable, NCIsShuttingDown
 				//LastTransition_State				:	OpcUa_LocalizedText;
 			{endregion}
 		{endregion}
 		{region Server}
 			{region Server Status}
-				ServerState							:	STRING;						// Running, Failed	,NoConfiguration, Suspended, Shutdown, Test, CommunicationFault, Unknown 
+				ServerState							:	STRING;	 				// Running, Failed	,NoConfiguration, Suspended, Shutdown, Test, CommunicationFault, Unknown 
 			{endregion}
 		{endregion}
 	END_STRUCT

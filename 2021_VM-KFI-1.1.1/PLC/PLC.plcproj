@@ -59,6 +59,10 @@
     <Compile Include="GVLs\GVL_Ads.TcGVL">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\GVL_CNC1.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_Constant.TcGVL">
       <SubType>Code</SubType>
     </Compile>

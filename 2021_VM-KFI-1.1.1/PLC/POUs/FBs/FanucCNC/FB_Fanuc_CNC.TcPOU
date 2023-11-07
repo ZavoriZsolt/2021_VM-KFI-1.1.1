@@ -54,6 +54,14 @@ VAR_OUTPUT
 	bGripperClosed_Set		:BOOL;				(* Handshake *)
 	bError					:BOOL;				(* Hiba bit*)
 	sError					:STRING(255);		(* Hiba string*)
+	bZoneCnc1				:BOOL;				(* Robot bent a területen Zone 1*)
+	bZoneCnc2				:BOOL;				(* Robot bent a területen Zone 2*)
+	bZoneCnc3				:BOOL;				(* Robot bent a területen Zone 3*)
+	bZoneLift1				:BOOL;				(* Robot bent a területen Zone 4*)
+	bZoneLift2				:BOOL;				(* Robot bent a területen Zone 5*)
+	bZoneLift3				:BOOL;				(* Robot bent a területen Zone 6*)
+	bZoneGudel				:BOOL;				(* Robot bent a területen Zone 7*)
+	bZoneMaster				:BOOL;				(* Robot bent a területen Zone 8*)
 END_VAR
 VAR CONSTANT
 	nMaxAlarmNr			:INT := 15;
@@ -91,7 +99,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*Test*) //TÖRÖLNI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      <ST><![CDATA[(*Test*) //TÖRÖLNI HA MÁR HOMÁR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 IF bTestConvert THEN
 		REAL_TO_WHOLE_AND_FRACTION(nReal := nOffset_X,
 									nWhole => RobotOut.Control.nOffset_X_Whole,
@@ -142,6 +150,17 @@ RobotOut.Control.bPalette_2_Reset := bPalette_2_Reset;
 RobotOut.Control.bPalette_3_Reset := bPalette_3_Reset;
 RobotOut.Control.bGripperClosed_Reset := bGripperClosed_Reset;
 RobotOut.Control.nWeight := nWeight;
+
+(*Zónák******************************************************)
+bZoneCnc1 :=  RobotIn.Status.bZone_1_CNC_1;
+bZoneCnc2 := RobotIn.Status.bZone_2_CNC_2;
+bZoneCnc3 := RobotIn.Status.bZone_3_CNC_3;
+bZoneLift1 := RobotIn.Status.bZone_4_Lifter_1;
+bZoneLift2 := RobotIn.Status.bZone_5_Lifter_2;
+bZoneLift3 := RobotIn.Status.bZone_6_Lifter_3;
+bZoneGudel := RobotIn.Status.bZone_7_Gudel;
+bZoneMaster := RobotIn.Status.bZone_8_Master;
+
 
 (*Időzítők***************************************************)
 tBaseState(IN:= (nState > 0 AND nState < 10000), PT:= timeBaseState);

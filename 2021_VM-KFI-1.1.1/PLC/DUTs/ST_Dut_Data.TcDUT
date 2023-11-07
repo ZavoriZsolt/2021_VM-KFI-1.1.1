@@ -12,6 +12,7 @@ STRUCT
 	nDimZ			: REAL;
 	nPosX			: REAL;
 	nPosY			: REAL;
+	nTorque			: REAL;
 	bPass			: BOOL;
 	bDutInVise		: BOOL;
 	bDone			: BOOL;

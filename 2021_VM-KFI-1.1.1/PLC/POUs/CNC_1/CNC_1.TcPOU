@@ -9,7 +9,6 @@ VAR	(* Control *)
 	fbCycleTime					: TON;
 	nCycleTime					: REAL;
 	bError						: BOOL;
-	stDutData					: ST_Dut_Data;
 END_VAR
 VAR (* LastStates *)
 	anLastStates				: ARRAY[0..500] OF UDINT;
@@ -116,11 +115,11 @@ CASE nState OF
 		IF stCNC_Data^.ServerState = 'Running' AND
 		   stCNC_Data^.CurrentState_State = 'NCIsAvailable' THEN
 				IF		stCNC_Data^.CurentState_Program = 'Running' THEN
-					nState := 140001;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére. MÉG NINCS LÉPÉSSZÁM !!!!!!
+					nState := 11500;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére.
 				ELSIF	stCNC_Data^.CurentState_Program = 'Idle' OR stCNC_Data^.CurentState_Program = 'NotSelected' OR stCNC_Data^.CurentState_Program = 'Interrupted' THEN
-					IF stDutData.nDutId > 0 AND stDutData.bDone THEN
+					IF stDutData_Cnc1.nDutId > 0 AND stDutData_Cnc1.bDone THEN
 						IF bStepEnable THEN									// Késztermék a satuban
-							nState := 140001;
+							nState := 11600;
 						END_IF
 					ELSE
 						IF bStepEnable THEN									// A satu üres
@@ -150,7 +149,7 @@ CASE nState OF
 	(****************************************************************************************)	
 	10000:		(*-----=== Várakozás berakásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás alapanyagra');
-		IF stDutData.nDutId > 0 THEN											// Alapanyag a robotnál
+		IF stDutData_Cnc1.nDutId > 0 THEN											// Alapanyag a robotnál
 			IF bStepEnable THEN	
 				nState := 11000;			// -> Alapanyag fogadása
 			END_IF
@@ -161,20 +160,146 @@ CASE nState OF
 	(****************************************************************************************)
 	(******************************** Alapanyag fogadása ************************************)
 	(****************************************************************************************)	
-	11000:		(*-----=== Várakozás parancsra ===-----*)
+	11000:		(*-----=== Satu pozícionálása ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
+		fbCncServoVise.nPosition := stDutData_Cnc1.nDimX;
 		fbCncServoVise.eCommand := E_CncServoCommand.MovePos;
 		IF fbCncServoVise.bDone THEN
 			IF bStepEnable THEN
 				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
+				nState := 11100;
+			END_IF
+		END_IF
+
+	11100:		(*-----=== Várakozás alapanyag berakásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alapanyag berakás');
+		IF Robot7AxisProgram.fbRobot.bCNC_1_ViseClose_Set THEN
+			IF bStepEnable THEN
+				stDutData_Cnc1.bDutInVise := TRUE;
+				nState := 11200;
+			END_IF
+		END_IF
+	
+	11200:		(*-----=== Satu rögzítése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
+		fbCncServoVise.nTorque := stDutData_Cnc1.nTorque;
+		fbCncServoVise.eCommand := E_CncServoCommand.Fixed;
+		IF fbCncServoVise.bDone THEN
+			IF bStepEnable THEN
+				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
+				nState := 11300;
+			END_IF
+		END_IF
+
+	11300:		(*-----=== Várakozás robot távozásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
+		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+			IF bStepEnable THEN
+				nState := 11400;
+			END_IF
+		END_IF
+
+	11400:		(*-----=== CNC ajtó zárása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ajtó zárása');
+		stCNC_Data^.DoorControl_CloseDoor := TRUE;
+		IF stCNC_Data^.DoorControl_DoorClosed THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_CloseDoor := FALSE;
 				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11420:		(*-----=== CNC előkészítése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC előkészítése');
+		IF TRUE THEN															// Külön FB-be rakni mert még képlékeny CAM file letöltése, ellenőrzése, felmásolása, betöltése, ........ 
+			IF bStepEnable THEN	
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11440:		(*-----=== CAM program indítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - CAM program indítása');
+		stCNC_Data^.StartCNCProgram := TRUE;
+		IF stCNC_Data^.CurentState_Program = 'Running' THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.StartCNCProgram := FALSE;
+				nState := 11500;
+			END_IF
+		END_IF
+	
+	11500:		(*-----=== Várakozás CAM program végére ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás CAM program végére');
+		IF stCNC_Data^.CurentState_Program = 'Finished' THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_CloseDoor := FALSE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11520:		(*-----=== CNC folyamat befejezése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC folyamat befejezése');
+		IF TRUE THEN															// Külön FB-be rakni mert még képlékeny: minőségellenőrzés, mérési adatok, .... 
+			IF bStepEnable THEN	
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11540:		(*-----=== CAM program leállítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - CAM program leállítása');
+		stCNC_Data^.CancelCNCProgram := TRUE;
+		IF stCNC_Data^.CurentState_Program = 'Idle' THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.CancelCNCProgram := FALSE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11560:		(*-----=== CNC ajtó nnyitása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ajtó nyitása');
+		stCNC_Data^.DoorControl_OpenDoor := TRUE;
+		IF stCNC_Data^.DoorControl_DoorOpened THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_OpenDoor := FALSE;
+				nState := 11600;
+			END_IF
+		END_IF
+	
+	11600:		(*-----=== Satu pozícionálása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
+		fbCncServoVise.nPosition := stDutData_Cnc1.nDimX;
+		fbCncServoVise.eCommand := E_CncServoCommand.MovePos;
+		IF fbCncServoVise.bDone THEN
+			IF bStepEnable THEN
+				stDutData_Cnc1.bDone := TRUE;
+				stDutData_Cnc1.bPass := TRUE;
+				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
+				nState := 12000;
 			END_IF
 		END_IF
 {endregion}
 
-
-
-
+{region "Alapanyag küldése"}
+(****************************************************************************************)
+	(******************************** Alapanyag küldése ************************************)
+	(****************************************************************************************)	
+	12000:		(*-----=== Várakozás alapanyag kivételre ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alapanyag kivétel');
+		IF Robot7AxisProgram.fbRobot.bCNC_1_ViseOpen_Set THEN
+			IF bStepEnable THEN
+				nState := 12100;
+			END_IF
+		END_IF
+	
+	12100:		(*-----=== Várakozás robot távozásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
+		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+			IF bStepEnable THEN
+				stDutData_Cnc1.bDutInVise := FALSE;
+				stDutData_Cnc1.nDutId := 0;
+				nState := 10000;
+			END_IF
+		END_IF
+{endregion}
 
 	150000: (* Maintenance *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
