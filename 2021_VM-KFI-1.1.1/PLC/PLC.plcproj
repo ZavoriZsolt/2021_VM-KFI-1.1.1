@@ -81,6 +81,10 @@
     <Compile Include="GVLs\GVL_Main.TcGVL">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\GVL_Palette.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_Python.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -130,6 +134,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\FanucCNC\DUTs\E_CNC_Robot_Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\FanucCNC\DUTs\E_CNC_Robot_Path.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FBs\FanucCNC\DUTs\E_CNC_Robot_Programs.TcTLEO">

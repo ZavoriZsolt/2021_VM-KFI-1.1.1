@@ -995,8 +995,8 @@ CASE nState OF
 			RobotOut.Control.bProductOnRobot_Reset := FALSE;
 			RobotOut.Control.bGripperOpenError_Reset := FALSE;
 			RobotOut.Control.bGripperCloseError_Reset := FALSE;
-			RobotOut.Control.bOffsetError_Reset := TRUE;
-			RobotOut.Control.bWeightError_Reset := TRUE;
+			RobotOut.Control.bOffsetError_Reset := FALSE;
+			RobotOut.Control.bWeightError_Reset := FALSE;
 			bErrNotReady := FALSE;
 			bErrBaseTimeout := FALSE;
 			nState := 0;

@@ -13,9 +13,11 @@ STRUCT
 	nPosX			: REAL;
 	nPosY			: REAL;
 	nTorque			: REAL;
+	nWeight			: UINT;
 	bPass			: BOOL;
 	bDutInVise		: BOOL;
 	bDone			: BOOL;
+	nState			: UINT;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

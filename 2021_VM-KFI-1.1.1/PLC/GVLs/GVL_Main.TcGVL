@@ -16,7 +16,7 @@
 	bTakt500ms						:BOOL; // Takt 500ms
 	bTakt1s							:BOOL; // Takt 1000ms
 
-	bFirstCycle						:BOOL; 
+	bFirstCycle						:BOOL := TRUE; 
 	wLifeSignal						:WORD;
 	bManualMode						:BOOL;				(* Manual mode *)
 	bManualModeRequest				:BOOL;

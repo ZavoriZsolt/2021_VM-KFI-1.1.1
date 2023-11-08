@@ -9,6 +9,9 @@
     <Name>Measurement Project1</Name>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Distance.tcscopex">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Relief_1.svdx">
       <SubType>Content</SubType>
     </Content>

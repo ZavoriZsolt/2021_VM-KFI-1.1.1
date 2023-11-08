@@ -330,9 +330,9 @@ CASE nState OF
 		ELSIF fbMoveRelative.Error THEN
 			fbMoveRelative.Execute := FALSE;
 			nState := 250000;
-		ELSIF (lrVisePosition < 0) AND bVisePosValid THEN						// Minimális pozíció elérve -> Hiba
+		ELSIF (lrVisePosition < 0) AND bVisePosValid AND fbMoveRelative.Distance < 0 THEN						// Minimális pozíció elérve -> Hiba
 			nState := 250000;
-		ELSIF (lrVisePosition > 125) AND bVisePosValid THEN						// Maximális pozíció elérve -> Hiba
+		ELSIF (lrVisePosition > 125) AND bVisePosValid AND fbMoveRelative.Distance > 0 THEN						// Maximális pozíció elérve -> Hiba
 			nState := 250000;
 		END_IF
 		

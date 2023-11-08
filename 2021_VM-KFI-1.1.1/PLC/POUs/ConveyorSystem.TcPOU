@@ -13,14 +13,14 @@ Stoppers();]]></ST>
     <Action Name="Cylinders" Id="{9a689bda-b5d5-433f-b719-db3da72abe11}">
       <Implementation>
         <ST><![CDATA[fbZ1(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Kiemelő 1A', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
+	i_bBasePos:= i_stSensorHub_7.Channel_1 AND i_stSensorHub_7.Channel_3, 
+	i_bWorkPos:= i_stSensorHub_7.Channel_0 AND i_stSensorHub_7.Channel_2, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -28,12 +28,12 @@ Stoppers();]]></ST>
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ1_14);
 	
 fbZ2(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Kiemelő 1B', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -43,12 +43,12 @@ fbZ2(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ2_14);
 	
 fbZ3(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Kiemelő 2A', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -58,12 +58,12 @@ fbZ3(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ3_14);
 	
 fbZ4(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Kiemelő 2B', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -73,12 +73,12 @@ fbZ4(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ4_14);
 	
 fbZ5(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Kiemelő 3A', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -88,12 +88,12 @@ fbZ5(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ5_14);
 	
 fbZ6(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Kiemelő 3B', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -103,14 +103,14 @@ fbZ6(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ6_14);
 	
 fbZ7(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Paletta megfogó 1A', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
+	i_bBasePos:= i_stSensorHub_7.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_7.Channel_5, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -118,12 +118,12 @@ fbZ7(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ7);
 	
 fbZ8(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Paletta megfogó 1B', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -133,12 +133,12 @@ fbZ8(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ8);
 	
 fbZ9(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Paletta megfogó 2A', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -148,12 +148,12 @@ fbZ9(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ9);
 	
 fbZ10(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Paletta megfogó 2B', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -163,12 +163,12 @@ fbZ10(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ10);
 	
 fbZ11(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Paletta megfogó 3A', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -178,12 +178,12 @@ fbZ11(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ11);
 	
 fbZ12(
-	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	sName:= 'Paletta megfogó 3B', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -194,11 +194,11 @@ fbZ12(
 	
 fbZ13(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -209,11 +209,11 @@ fbZ13(
 	
 fbZ14(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -224,11 +224,11 @@ fbZ14(
 	
 fbZ15(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -239,11 +239,11 @@ fbZ15(
 	
 fbZ16(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -254,11 +254,11 @@ fbZ16(
 	
 fbZ17(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -269,11 +269,11 @@ fbZ17(
 	
 fbZ18(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -284,11 +284,11 @@ fbZ18(
 	
 fbZ19(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -299,11 +299,11 @@ fbZ19(
 	
 fbZ20(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -314,11 +314,11 @@ fbZ20(
 	
 fbZ21(
 	sName:= , 
-	bEn:= , 
-	bEHA:= , 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
 	nEHMode:= , 
-	bDisableManualCmd:= , 
-	bAck:= , 
+	bDisableManualCmd:= NOT bManualMode, 
+	bAck:= bAckP, 
 	i_bBasePos:= , 
 	i_bWorkPos:= , 
 	sSourceName:= , 
@@ -387,7 +387,7 @@ fbS7(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS7);
 	
 // Elbaszta aki számozta és nincs 8 vagy vak vagyok
-//fbS3(
+//fbS8(
 //	bNextReady:= , 
 //	bMotorRun:= , 
 //	bStationReady:= , 

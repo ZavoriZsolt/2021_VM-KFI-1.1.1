@@ -42,7 +42,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(* Timers *)
-tAttach(IN:= fbMoveLower.bWorkPosCmd AND fbMoveUpper.bWorkPosCmd AND NOT bRotate, PT:= T#2500MS, Q=> , ET=> );
+tAttach(IN:= fbMoveLower.bWorkPosCmd AND fbMoveUpper.bWorkPosCmd AND NOT bRotate, PT:= T#5000MS, Q=> , ET=> );
 tFillUp(IN:= fbMoveLower.bWorkPosCmd AND fbMoveLower.bBasePosCmd, PT:= T#800MS, Q=> , ET=> );
 
 (*Error handling*)
@@ -94,6 +94,7 @@ CASE nState OF
 		fbMoveLower.bWorkPosCmd := FALSE;
 		fbMoveUpper.bBasePosCmd := FALSE;
 		fbMoveUpper.bWorkPosCmd := FALSE;
+		fbServoVise.eCommand := E_ServoVise_Command.NoCommand;
 		IF bEnable THEN
 			IF bStepEnable THEN
 				nState := nState + 20;
@@ -317,18 +318,19 @@ CASE nState OF
 		END_IF
 
 	12200:		(*-----=== A parancs ellenőrzése ===-----*)
-		IF eCommand = E_CncServoCommand.NoCommand THEN
-				nState := 10000;
-		ELSIF eCommand = E_CncServoCommand.Base THEN
-				nState := 11000;
-		ELSIF eCommand = E_CncServoCommand.MovePos THEN
-				nState := 13000;
-		ELSIF eCommand = E_CncServoCommand.Fixed THEN
-				nState := 14000;
-		ELSIF eCommand = E_CncServoCommand.Release THEN
-				nState := 15000;
+		IF fbVisePos.bValid THEN								// Csak ha az útmérő is észhez tért!  Egy timeout kell majd mert hátha egyszer megdöglik!!!!!
+			IF eCommand = E_CncServoCommand.NoCommand THEN
+					nState := 10000;
+			ELSIF eCommand = E_CncServoCommand.Base THEN
+					nState := 11000;
+			ELSIF eCommand = E_CncServoCommand.MovePos THEN
+					nState := 13000;
+			ELSIF eCommand = E_CncServoCommand.Fixed THEN
+					nState := 14000;
+			ELSIF eCommand = E_CncServoCommand.Release THEN
+					nState := 15000;
+			END_IF
 		END_IF
-		
 {endregion}
 
 {region "Satu pozícionálás"}
