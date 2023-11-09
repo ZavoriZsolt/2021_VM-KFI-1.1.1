@@ -179,16 +179,85 @@ VAR_GLOBAL
 END_VAR
 VAR_GLOBAL
 (**************************************************Inputs*********************************************************)	
-	// 1.x
-	// Satuzó 1-7
+	// I20.x
+	// Main EK1100/1 (with safety plc)
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 1^Input'}
+	i_bConveyor_1_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 2^Input'}
+	i_bConveyor_2_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 3^Input'}
+	i_bConveyor_3_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 4^Input'}
+	i_bConveyor_4_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 5^Input'}
+	i_bConveyor_5_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 6^Input'}
+	i_bConveyor_6_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 7^Input'}
+	i_bConveyor_7_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 8^Input'}
+	i_bConveyor_8_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 9^Input'}
+	i_bConveyor_9_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 10^Input'}
+	i_bConveyor_10_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 11^Input'}
+	i_bConveyor_11_Ok			AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 12^Input'}
+	i_bTerm48_Ch12				AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 13^Input'}
+	i_bTerm48_Ch13				AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 14^Input'}
+	i_bTerm48_Ch14				AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 15^Input'}
+	i_bTerm48_Ch15				AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(48)^Channel 16^Input'}
+	i_bTerm48_Ch16				AT %I*	:BOOL;		// Konvejor
+	
+	// I21.x
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 1^Input'}
+	i_bEMYStop10				AT %I*	:BOOL;		// Vészstop 10
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 2^Input'}
+	i_bEMYStop11				AT %I*	:BOOL;		// Vészstop 11
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 3^Input'}
+	i_bEMYStop12				AT %I*	:BOOL;		// Vészstop 12
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 4^Input'}
+	i_bEMYStop13				AT %I*	:BOOL;		// Vészstop 13
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 5^Input'}
+	i_bEMYStop14				AT %I*	:BOOL;		// Vészstop 14
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 6^Input'}
+	i_bEMYStop15				AT %I*	:BOOL;		// Vészstop 15
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 7^Input'}
+	i_bEMYStop16				AT %I*	:BOOL;		// Vészstop 16
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 8^Input'}
+	i_bEMYStop17				AT %I*	:BOOL;		// Vészstop 17
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 9^Input'}
+	i_bDoorClosed_Kardex		AT %I*	:BOOL;		// Ajtó nyitva/zárva
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 10^Input'}
+	i_bMasterOn_Kardex			AT %I*	:BOOL;		// Vezérlés
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 11^Input'}
+	i_bDoorRequest_Kardex		AT %I*	:BOOL;		// Ajtó nyítás kérés
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 12^Input'}
+	i_bDoorClosed_Main			AT %I*	:BOOL;		// Ajtó nyitva/zárva
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 13^Input'}
+	i_bMasterOn_Main			AT %I*	:BOOL;		// Vezérlés
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 14^Input'}
+	i_bDoorRequest_Main			AT %I*	:BOOL;		// Ajtó nyítás kérés
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 15^Input'}
+	i_bTerm49_Ch15				AT %I*	:BOOL;		// Konvejor
+	{attribute 'TcLinkTo' := 'TIIB(49)^Channel 16^Input'}
+	i_bTerm49_Ch16				AT %I*	:BOOL;		// Konvejor
+
+
+	// I22.x
 	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 1^Input'} 
 	i_bTest_01					AT %I*	:BOOL;		// Test 01
 	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 2^Input'}
 	i_bErrorAckBtn_Main			AT %I*	:BOOL;		// Error Ack
 	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 3^Input'}
 	i_bTest03					AT %I*	:BOOL;		// Test 03
-	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 4^Input'}
-	i_bMasterOn_Main			AT %I*	:BOOL;		// Master On
+//	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 4^Input'}
+//	i_bMasterOn_Main			AT %I*	:BOOL;		// Master On
 	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 5^Input'}
 	i_bTest_Up					AT %I*	:BOOL;		// Master On
 	{attribute 'TcLinkTo' := 'TIIB(50)^Channel 6^Input'}
@@ -197,8 +266,15 @@ VAR_GLOBAL
 	i_bTest_Down				AT %I*	:BOOL;		// Master On
 
 (**************************************************Outputs*********************************************************)
-	{attribute 'TcLinkTo' := 'TIIB(51)^Channel 4^Output'}
+	// Q20.x
+	{attribute 'TcLinkTo' := 'TIIB(51)^Channel 1^Output'}
+	q_bMasterOnLED_Kardex		AT %Q*	:BOOL;		// Vezérlés LED
+	{attribute 'TcLinkTo' := 'TIIB(51)^Channel 2^Output'}
+	q_bDoorRequestLED_Kardex	AT %Q*	:BOOL;		// Ajtó nyítás kérés LED
+	{attribute 'TcLinkTo' := 'TIIB(51)^Channel 3^Output'}
 	q_bMasterOnLED_Main			AT %Q*	:BOOL;		// Vezérlés LED
+	{attribute 'TcLinkTo' := 'TIIB(51)^Channel 4^Output'}
+	q_bDoorRequestLED_Main	AT %Q*	:BOOL;		// Ajtó nyítás kérés LED
 
 	{attribute 'TcLinkTo' := 'TIIB(54)^Channel 1^Output'}
 	q_bConveyor_1				AT %Q*	:BOOL;		// Konvejor

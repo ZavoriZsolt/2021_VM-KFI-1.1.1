@@ -8,7 +8,9 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Cylinders();
-Stoppers();]]></ST>
+Stoppers();
+Motors();
+Lift();]]></ST>
     </Implementation>
     <Action Name="Cylinders" Id="{9a689bda-b5d5-433f-b719-db3da72abe11}">
       <Implementation>
@@ -16,7 +18,7 @@ Stoppers();]]></ST>
 	sName:= 'Kiemelő 1A', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
 	i_bBasePos:= i_stSensorHub_7.Channel_1 AND i_stSensorHub_7.Channel_3, 
@@ -31,11 +33,11 @@ fbZ2(
 	sName:= 'Kiemelő 1B', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_6.Channel_1 AND i_stSensorHub_6.Channel_3, 
+	i_bWorkPos:= i_stSensorHub_6.Channel_0 AND i_stSensorHub_6.Channel_2, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -106,7 +108,7 @@ fbZ7(
 	sName:= 'Paletta megfogó 1A', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
 	i_bBasePos:= i_stSensorHub_7.Channel_4, 
@@ -121,11 +123,11 @@ fbZ8(
 	sName:= 'Paletta megfogó 1B', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_6.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_6.Channel_5, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -328,14 +330,241 @@ fbZ21(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ21_14);]]></ST>
       </Implementation>
     </Action>
+    <Action Name="Lift" Id="{22af94cf-26d8-4ff5-aa99-7395cb159dd0}">
+      <Implementation>
+        <ST><![CDATA[fbLift_1A(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	stTagData:= fbRFID_Readers[1].Ch2_TagData, 
+	fbLift:= ADR(fbZ1), 
+	fbLock:= ADR(fbZ7), 
+	fbStopper:= ADR(fbS1),
+	arrPaletteData:= ADR(arrPalette));]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Motors" Id="{b9d1ee0e-1d9c-4705-9d0c-08b115909584}">
+      <Implementation>
+        <ST><![CDATA[fbConveyor_1(
+	sName:= 'Konveyor motor M1', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_1_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_1, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_2(
+	sName:= 'Konveyor motor M2', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_2_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_2, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_3(
+	sName:= 'Konveyor motor M3', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_3_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_3, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_4(
+	sName:= 'Konveyor motor M4', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_4_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_4, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_5(
+	sName:= 'Konveyor motor M5', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_5_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_5, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_6(
+	sName:= 'Konveyor motor M6', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_6_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_6, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_7(
+	sName:= 'Konveyor motor M7', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_7_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_7, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_8(
+	sName:= 'Konveyor motor M8', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_8_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_8, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_9(
+	sName:= 'Konveyor motor M9', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_9_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_9, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_10(
+	sName:= 'Konveyor motor M10', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_10_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_10, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+
+fbConveyor_11(
+	sName:= 'Konveyor motor M11', 
+	bEn:= i_bLO1_Main, 
+	bEHA:= NOT bManualMode, 
+	bDisableManualCmd:= NOT bManualMode, 
+	bConveyorOnL:= , 
+	bConveyorOnR:= , 
+	timReset:= , 
+	bAck:= bAckP, 
+	i_bConveyorOK:= i_bConveyor_11_Ok, 
+	stStartEvent:= , 
+	stRunEvent:= , 
+	bMotorOn=> , 
+	bError=> , 
+	sError=> , 
+	q_bConveyorOnL=> q_bConveyor_11, 
+	q_bConveyorOnR=> , 
+	q_bConveyorRst=> );
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
       <Implementation>
         <ST><![CDATA[fbS1(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= fbConveyor_5.bMotorOn, 
 	bStationReady:= , 
 	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_7.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS1);
 	
 fbS2(
@@ -461,10 +690,10 @@ fbS16(
 	
 fbS17(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= fbConveyor_5.bMotorOn, 
 	bStationReady:= , 
 	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_6.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
 	
 fbS18(

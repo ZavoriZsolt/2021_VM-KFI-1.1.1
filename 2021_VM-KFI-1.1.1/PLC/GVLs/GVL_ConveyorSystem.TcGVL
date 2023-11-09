@@ -253,6 +253,22 @@ VAR_GLOBAL (* Cylinders *)
 	fbZ19 : FB_Bistabil;
 	fbZ20 : FB_Bistabil;
 	fbZ21 : FB_Bistabil;
+END_VAR
+VAR_GLOBAL	(* Conveyors *)
+	fbConveyor_1		: FB_Conveyor;
+	fbConveyor_2		: FB_Conveyor;
+	fbConveyor_3		: FB_Conveyor;
+	fbConveyor_4		: FB_Conveyor;
+	fbConveyor_5		: FB_Conveyor;
+	fbConveyor_6		: FB_Conveyor;
+	fbConveyor_7		: FB_Conveyor;
+	fbConveyor_8		: FB_Conveyor;
+	fbConveyor_9		: FB_Conveyor;
+	fbConveyor_10		: FB_Conveyor;
+	fbConveyor_11		: FB_Conveyor;
+END_VAR
+VAR_GLOBAL
+	fbLift_1A			: FB_Lift;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

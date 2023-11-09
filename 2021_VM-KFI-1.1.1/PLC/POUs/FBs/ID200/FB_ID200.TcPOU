@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_ID200" Id="{9ca0a875-8b0e-4419-869e-8dbf2f083a59}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_ID200
 VAR_INPUT
@@ -43,6 +43,25 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[_ch1_tag_data := Ch1_TagData;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Ch2_TagData" Id="{af49a636-3540-4aa1-8a9a-e862519e831e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Ch2_TagData : ST_Tag_Data]]></Declaration>
+      <Get Name="Get" Id="{44c1da05-738c-4aef-92d6-3e093b58a064}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Ch2_TagData := _ch2_tag_data;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c0c0b82c-b818-45da-adbc-26565ca3f564}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_ch2_tag_data := Ch2_TagData;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -97,11 +116,11 @@ END_VAR
 Channel.0 := arrDataIn[1].1;
 Channel.1 := arrDataIn[1].2;
 Channel.2 := arrDataIn[1].3;
-TagData.RawData[0] := arrDataIn[4];
-TagData.RawData[1] := arrDataIn[5];
+TagData.RawData[4] := arrDataIn[4];
+TagData.RawData[3] := arrDataIn[5];
 TagData.RawData[2] := arrDataIn[6];
-TagData.RawData[3] := arrDataIn[7];
-TagData.RawData[4] := arrDataIn[8];
+TagData.RawData[1] := arrDataIn[7];
+TagData.RawData[0] := arrDataIn[8];
 RawData.Raw := TagData.RawData;
 TagData.Code := RawData.Number;
 
