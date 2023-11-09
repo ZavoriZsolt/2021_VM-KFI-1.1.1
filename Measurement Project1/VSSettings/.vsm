@@ -5,12 +5,12 @@
   <Children>
     <Node>
       <Title>Distance</Title>
-      <Expanded>False</Expanded>
-      <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Distance.tcscopex</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Distance.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -47,12 +47,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -99,12 +99,12 @@
     </Node>
     <Node>
       <Title>Relief_1</Title>
-      <Expanded>False</Expanded>
-      <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Relief_1.svdx</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Relief_1.svdx</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -141,12 +141,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Torque</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -165,7 +165,7 @@
             </Node>
             <Node>
               <Title>Velo</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -184,7 +184,7 @@
             </Node>
             <Node>
               <Title>Pos</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -219,12 +219,12 @@
     </Node>
     <Node>
       <Title>Relief_2</Title>
-      <Expanded>False</Expanded>
-      <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Relief_2.svdx</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Relief_2.svdx</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -261,12 +261,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Torque</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -285,7 +285,7 @@
             </Node>
             <Node>
               <Title>Velo</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -304,7 +304,7 @@
             </Node>
             <Node>
               <Title>Pos</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -339,12 +339,12 @@
     </Node>
     <Node>
       <Title>Scope Project1</Title>
-      <Expanded>False</Expanded>
-      <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Scope Project1.tcscopex</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Scope Project1.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -381,12 +381,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Torque</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -405,7 +405,7 @@
             </Node>
             <Node>
               <Title>Velo</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -424,7 +424,7 @@
             </Node>
             <Node>
               <Title>Pos</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -459,12 +459,12 @@
     </Node>
     <Node>
       <Title>Test_1</Title>
-      <Expanded>False</Expanded>
-      <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Test_1.svdx</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Test_1.svdx</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -519,12 +519,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -555,7 +555,7 @@
             </Node>
             <Node>
               <Title>Axis Group (1)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>

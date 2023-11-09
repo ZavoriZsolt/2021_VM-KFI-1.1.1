@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="FB_SP_spGetNextVise" Id="{f3397782-5da9-41f5-9ce9-052b12b66b3f}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_SP_spGetNextVise
+  <POU Name="FB_SP_spSetViseStae" Id="{573a7705-5b27-4303-8138-86f54005a167}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SP_spSetViseStae
 VAR_INPUT
 	Target						: BYTE;		// 0:empty;		1:wait operator;		4,5: wait cnc;
 	nRecordStartIndex			: UDINT;
@@ -55,7 +55,7 @@ END_VAR
 			END_IF
 		END_IF
 	2:
-		IF fbSQLDatabase.CreateSP('spGetNextVise', ADR(arrParaInfo), SIZEOF(arrParaInfo), ADR(fbSQLStoredProcedure)) THEN
+		IF fbSQLDatabase.CreateSP('spSetViseStae', ADR(arrParaInfo), SIZEOF(arrParaInfo), ADR(fbSQLStoredProcedure)) THEN
 			IF fbSQLDatabase.bError THEN
 				nErrState:=2;
 				nState:=255;

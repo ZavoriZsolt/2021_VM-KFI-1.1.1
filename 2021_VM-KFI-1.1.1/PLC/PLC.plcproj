@@ -38,6 +38,9 @@
     <Compile Include="DUTs\ST_Dut_Data.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\Vise\E_ViseSocketState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\Vise\E_Vise_State.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -250,6 +253,12 @@
     <Compile Include="POUs\FBs\MySQL\NextVise\FB_SP_spGetNextVise.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\MySQL\SetViseState\DUTs\ST_ParaVal_SetViseStae.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FBs\MySQL\SetViseState\FB_SP_spSetViseStae.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\MySQL\UpdateVise\DUTs\ST_ParaVal_UpdateVise.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -421,6 +430,8 @@
     <Folder Include="POUs\FBs\Fanuc" />
     <Folder Include="POUs\FBs\MPS\DUTs" />
     <Folder Include="POUs\FBs\MySQL" />
+    <Folder Include="POUs\FBs\MySQL\SetViseState" />
+    <Folder Include="POUs\FBs\MySQL\SetViseState\DUTs" />
     <Folder Include="POUs\FBs\MySQL\UpdateVise" />
     <Folder Include="POUs\FBs\MySQL\NextVise" />
     <Folder Include="POUs\FBs\MySQL\NextVise\DUTs" />

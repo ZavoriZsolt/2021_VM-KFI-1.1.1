@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="ViseProgram" Id="{6d9b958e-c489-4500-98fd-04fa45676c6e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ViseProgram
 VAR CONSTANT
@@ -355,6 +355,7 @@ CASE nState OF
 	50180:
 		IF fbViseStation[index].fbStopper_In.bWorkPosStab THEN
 			aViseStatus[index].eState := E_Vise_State.Empty;
+			eCommand := E_Vise_Command.Load;
 			nState := 10000;
 		END_IF	
 {endregion}

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_SP_spUpdateVise" Id="{9c4801bb-6349-4c0e-999e-5ee6044339d0}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_SP_spUpdateVise
 VAR_INPUT
@@ -22,7 +22,7 @@ VAR
 	fbSQLDatabase				: FB_SQLDatabaseEvt(sNetID := '', tTimeout := TIME#5s0ms);
 	fbSQLStoredProcedure		: FB_SQLStoredProcedureEvt(sNetID := '', tTimeout := TIME#5s0ms);
 	fbSQLResult					: FB_SQLResultEvt(sNetID := '', tTimeout := TIME#5s0ms);
-	arrParaInfo					: ARRAY[0..4] OF ST_SQLSPParameter;
+	arrParaInfo					: ARRAY[0..5] OF ST_SQLSPParameter;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -66,6 +66,7 @@ END_VAR
 				arrParaInfo[4].eParameterType := E_SPParameterType.Input;
 				arrParaInfo[4].eParameterDataType := E_ColumnType.TinyInt;
 				arrParaInfo[4].nParameterSize := 1;
+				
 				nState:= 2;
 			END_IF
 		END_IF

@@ -168,6 +168,13 @@ VAR_GLOBAL
 	q_bCNC4_M402_Ack			AT %Q*	:BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 6^Output'}
 	q_bCNC4_M403_Ack			AT %Q*	:BOOL;
+	
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 7^Output'}
+	q_bCNC4_Fix_Vise			AT %Q*	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 8^Output'}
+	q_bCNC4_Release_Vise		AT %Q* 	:BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(92)^Channel 9^Output'}
+	q_bCNC4_CleanTool			AT %Q* 	:BOOL;
 
 END_VAR
 VAR_GLOBAL
