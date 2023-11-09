@@ -3685,7 +3685,7 @@ only active in subscription mode]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{5AC5C778-0D7F-1D18-6BFC-5D1C7EA88432}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{E1227A4A-5354-0725-60ED-1E24D87E2BCB}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3693,6 +3693,166 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>RobotCncProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_1_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_2_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_3_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_4_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_5_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_6_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_7_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_8_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_9_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_10_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_11_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch12</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch13</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch14</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch15</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch16</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop10</Name>
+							<Comment><![CDATA[ Vészstop 10]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop11</Name>
+							<Comment><![CDATA[ Vészstop 11]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop12</Name>
+							<Comment><![CDATA[ Vészstop 12]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop13</Name>
+							<Comment><![CDATA[ Vészstop 13]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop14</Name>
+							<Comment><![CDATA[ Vészstop 14]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop15</Name>
+							<Comment><![CDATA[ Vészstop 15]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop16</Name>
+							<Comment><![CDATA[ Vészstop 16]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop17</Name>
+							<Comment><![CDATA[ Vészstop 17]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorClosed_Kardex</Name>
+							<Comment><![CDATA[ Ajtó nyitva/zárva]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bMasterOn_Kardex</Name>
+							<Comment><![CDATA[ Vezérlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorRequest_Kardex</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorClosed_Main</Name>
+							<Comment><![CDATA[ Ajtó nyitva/zárva]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorRequest_Main</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm49_Ch15</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm49_Ch16</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.i_bLO1_CNC45</Name>
@@ -3988,7 +4148,7 @@ only active in subscription mode]]></Comment>
 						</Var>
 						<Var>
 							<Name>GVL_IO.i_bMasterOn_Main</Name>
-							<Comment><![CDATA[ Master On]]></Comment>
+							<Comment><![CDATA[ Vezérlés]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -4871,6 +5031,11 @@ only active in subscription mode]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[1].arrDataIn</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
@@ -4991,6 +5156,51 @@ only active in subscription mode]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>Robot7AxisProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
@@ -5042,6 +5252,36 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>RobotCncProgram.fbRobot.RobotOut.aStdOut</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bMasterOnLED_Kardex</Name>
+							<Comment><![CDATA[ Vezérlés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bDoorRequestLED_Kardex</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bDoorRequestLED_Main</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
@@ -6283,6 +6523,21 @@ only active in subscription mode]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[1].arrDataOut</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
@@ -6321,6 +6576,141 @@ only active in subscription mode]]></Comment>
 						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[10].arrDataOut</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>Robot7AxisProgram.fbRobot.RobotOut.aStdOut</Name>
@@ -31779,9 +32169,44 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyMasterOn_Main" VarB="StandardOutputs^Standard In Var 7"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyRun" VarB="StandardOutputs^Standard In Var 2"/>
 			</OwnerB>
+			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 48 (EL1809)">
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_10_Ok" VarB="Channel 10^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_11_Ok" VarB="Channel 11^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_1_Ok" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_2_Ok" VarB="Channel 2^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_3_Ok" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_4_Ok" VarB="Channel 4^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_5_Ok" VarB="Channel 5^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_6_Ok" VarB="Channel 6^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_7_Ok" VarB="Channel 7^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_8_Ok" VarB="Channel 8^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bConveyor_9_Ok" VarB="Channel 9^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bTerm48_Ch12" VarB="Channel 12^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bTerm48_Ch13" VarB="Channel 13^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bTerm48_Ch14" VarB="Channel 14^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bTerm48_Ch15" VarB="Channel 15^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bTerm48_Ch16" VarB="Channel 16^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 49 (EL1809)">
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bDoorClosed_Kardex" VarB="Channel 9^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bDoorClosed_Main" VarB="Channel 12^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bDoorRequest_Kardex" VarB="Channel 11^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bDoorRequest_Main" VarB="Channel 14^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop10" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop11" VarB="Channel 2^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop12" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop13" VarB="Channel 4^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop14" VarB="Channel 5^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop15" VarB="Channel 6^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop16" VarB="Channel 7^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bEMYStop17" VarB="Channel 8^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bMasterOn_Kardex" VarB="Channel 10^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bMasterOn_Main" VarB="Channel 13^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bTerm49_Ch15" VarB="Channel 15^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.i_bTerm49_Ch16" VarB="Channel 16^Input" AutoLink="true"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 50 (EL1809)">
 				<Link VarA="PlcTask Inputs^GVL_IO.i_bErrorAckBtn_Main" VarB="Channel 2^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^GVL_IO.i_bMasterOn_Main" VarB="Channel 4^Input" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.i_bTest03" VarB="Channel 3^Input" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.i_bTest_01" VarB="Channel 1^Input" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.i_bTest_Down" VarB="Channel 7^Input" AutoLink="true"/>
@@ -31789,7 +32214,10 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Inputs^GVL_IO.i_bTest_Up" VarB="Channel 5^Input" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 51 (EL2809)">
-				<Link VarA="PlcTask Outputs^GVL_IO.q_bMasterOnLED_Main" VarB="Channel 4^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.q_bDoorRequestLED_Kardex" VarB="Channel 2^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.q_bDoorRequestLED_Main" VarB="Channel 4^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.q_bMasterOnLED_Kardex" VarB="Channel 1^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.q_bMasterOnLED_Main" VarB="Channel 3^Output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 54 (EL2809-0015)">
 				<Link VarA="PlcTask Outputs^GVL_IO.q_bConveyor_1" VarB="Channel 1^Output" AutoLink="true"/>

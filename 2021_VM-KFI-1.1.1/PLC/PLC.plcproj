@@ -238,6 +238,9 @@
     <Compile Include="POUs\FBs\ID200\FB_ID200.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\Lift\FB_Lift.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\MPS\DUTs\U_to_int.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -419,6 +422,7 @@
     <Folder Include="POUs\FBs\AWEA" />
     <Folder Include="POUs\FBs\BTL" />
     <Folder Include="POUs\FBs\Fanuc" />
+    <Folder Include="POUs\FBs\Lift\DUTs" />
     <Folder Include="POUs\FBs\MPS\DUTs" />
     <Folder Include="POUs\FBs\MySQL" />
     <Folder Include="POUs\FBs\MySQL\UpdateVise" />
@@ -431,6 +435,7 @@
     <Folder Include="POUs\FBs\MPS" />
     <Folder Include="POUs\FBs\CNC_Servo" />
     <Folder Include="POUs\FBs\Camera" />
+    <Folder Include="POUs\FBs\Lift" />
     <Folder Include="POUs\FBs\Utilities" />
     <Folder Include="POUs\FBs\Pneumatics" />
     <Folder Include="POUs\FBs\ServoVise" />

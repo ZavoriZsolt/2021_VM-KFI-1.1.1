@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Lift" Id="{58c42596-054a-4907-a5ff-52e1d3d33db9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Lift
+VAR_INPUT
+	bEnable					: BOOL;
+	bErrorAck				: BOOL;
+	bManualMode				: BOOL;
+	bStepEnable				: BOOL;
+	stTagData				: ST_Tag_Data;
+END_VAR
+VAR_INPUT
+	fbLift					: POINTER TO FB_Bistabil;
+	fbLock					: POINTER TO FB_Bistabil;
+	fbStopper				: POINTER TO FB_Stopper;
+	arrPaletteData			: POINTER TO ARRAY [1..100] OF ST_Dut_Data;
+END_VAR
+VAR_OUTPUT
+	nTagID					: ULINT;
+END_VAR
+VAR	(* Control *)
+	nState						: UDINT;
+	nStatePrevious				: UDINT;
+	sState						: STRING(500);
+	fbCycleTime					: TON;
+	nCycleTime					: REAL;
+	bError						: BOOL;
+	tRFID_Timeout				: TON;
+END_VAR
+VAR (* LastStates *)
+	anLastStates				: ARRAY[0..500] OF UDINT;
+    iLastStates					: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Error handling*)
+IF nState > 0 AND nState < 150000 THEN
+	nStatePrevious := nState;
+END_IF
+
+(*Maintance*)
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*Emergency*)
+IF NOT bEnable THEN
+	nState := 0;
+END_IF
+
+(*Last states*)
+IF(nState >= 1000) AND (nState < 150000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+IF fbLift^.bError OR fbLock^.bError
+THEN
+	bError  :=  TRUE;
+END_IF
+
+
+CASE nState OF
+{region "Alaphelyzet felvétel"}
+	(****************************************************************************************)
+	(******************************* Alaphelyzetfelvétel ************************************)
+	(****************************************************************************************)	
+	0:		(*-----=== Kimenetek törlése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
+		fbLift^.bBasePosCmd := FALSE;
+		fbLift^.bWorkPosCmd := FALSE;
+		fbLock^.bBasePosCmd := FALSE;
+		fbLock^.bWorkPosCmd := FALSE;
+		bError := FALSE;
+		IF bEnable THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	20:		(*-----=== Állapotok ellenőrzése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Állapotok ellenőrzése');
+		IF fbLift^.i_bBasePos AND fbLock^.i_bBasePos THEN						// Lift lent és rőgzítő oldva -> Ki lehet adni az alaphelyzet vezérlést és kész
+			IF bStepEnable THEN
+				nState := 100;
+			END_IF
+		ELSE																	// Vagy fent van vagy félállapot NIMCS RÁ SZENZOR, hogy van-e nála paletta -> feltételezem, hogy van!
+			IF bStepEnable THEN
+				nState := 200;
+			END_IF
+		END_IF
+	
+	100:		(*-----=== Hengerek alaphelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Hengerek alaphelyzetbe');
+		fbLift^.bBasePosCmd := TRUE;
+		fbLift^.bWorkPosCmd := FALSE;
+		fbLock^.bBasePosCmd := TRUE;
+		fbLock^.bWorkPosCmd := FALSE;
+		IF fbLift^.bBasePosStab AND fbLock^.bBasePosStab THEN
+			IF bStepEnable THEN
+				nState := 10000;
+			END_IF
+		END_IF
+
+	200:		(*-----=== Hengerek munkahelyzetbe ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Hengerek alaphelyzetbe');
+		fbLift^.bBasePosCmd := FALSE;
+		fbLift^.bWorkPosCmd := TRUE;
+		fbLock^.bBasePosCmd := FALSE;
+		fbLock^.bWorkPosCmd := TRUE;
+		IF fbLift^.bWorkPosStab AND fbLock^.bWorkPosStab THEN
+			IF bStepEnable THEN
+				nState := 13000;
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Alaphelyzet ****************************************)
+	(****************************************************************************************)	
+	10000:		(*-----=== Várakozás berakásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás palettára');
+		IF fbStopper^.bPalletAtStopper THEN									// Paletta a stopperen
+			IF bStepEnable THEN	
+				nState := 11000;											// -> Alapanyag fogadása
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Paletta fogadása ***********************************)
+	(****************************************************************************************)	
+	11000:		(*-----=== RFID ellenőrzése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - RFID ellenőrzés');
+		IF stTagData.Status <> E_TagStatus.NotPresent THEN
+			IF stTagData.Code > 0 AND stTagData.Code <= 100 THEN
+				IF bStepEnable THEN	
+					nState := nState + 20;							// -> Valid RFID adat
+				END_IF
+			END_IF
+		ELSIF tRFID_Timeout.Q THEN
+			nState := 14000;										// -> RFID hiba -> tovább küldés
+		END_IF
+
+	11020:		(*-----=== Paletta adat ellenőrzése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adat ellenőrzés');
+		IF arrPaletteData^[stTagData.Code].nState.0 AND NOT arrPaletteData^[stTagData.Code].nState.3 THEN	
+			IF bStepEnable THEN
+				nTagID := stTagData.Code;						// Van darab a palettán és még nincs kész -> Kiemelés 
+				nState := nState + 20;
+			END_IF
+		ELSE
+			IF bStepEnable THEN	
+				nState := 14000;								// Vagy nincs darab vagy kész -> mehet tovább
+			END_IF
+		END_IF
+
+	11040:		(*-----=== Paletta rögzítése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta rögzítése');
+		fbLock^.bBasePosCmd := FALSE;
+		fbLock^.bWorkPosCmd := TRUE;
+		IF fbLock^.bWorkPosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11060:		(*-----=== Paletta kiemelése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta kiemelése');
+		fbLift^.bBasePosCmd := FALSE;
+		fbLift^.bWorkPosCmd := TRUE;
+		IF fbLift^.bWorkPosStab THEN
+			IF bStepEnable THEN
+				arrPaletteData^[nTagID].nState.1 := TRUE;;
+				nState := 12000;
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(**************************** Várakozás megmunkálásra ***********************************)
+	(****************************************************************************************)	
+	12000:		(*-----=== Várakozás megmunkálásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás megmunkálásra');
+		IF arrPaletteData^[nTagID].nState.3 THEN
+			IF bStepEnable THEN	
+				nState := 13000;							// -> Kész a megmunkáls mehet lefelé
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(******************************** Paletta leengedése ************************************)
+	(****************************************************************************************)	
+	13000:		(*-----=== Paletta leengedése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta leengedése');
+		IF NOT fbStopper^.bPalletAtStopper THEN
+			IF bStepEnable THEN	
+				nState := nState + 20;							// Nincs a kiemelő alatt paletta -> mehet lefele
+			END_IF
+		END_IF
+
+	13020:		(*-----=== Paletta leengedése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta leengedése');
+		fbLift^.bBasePosCmd := TRUE;
+		fbLift^.bWorkPosCmd := FALSE;
+		IF fbLift^.bBASEPosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	13040:		(*-----=== Paletta kioldása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta kioldása');
+		fbLock^.bBasePosCmd := TRUE;
+		fbLock^.bWorkPosCmd := FALSE;
+		IF fbLock^.bBASEPosStab THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	13060:		(*-----=== Paletta státusz ellenőrzése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta státusz ellenőrzése');
+		IF arrPaletteData^[nTagID].nState.3 THEN
+			IF bStepEnable THEN
+				nState := 14000;					// Ez egy kész darab -> Mehet a paletta elengedése
+			END_IF
+		ELSE
+			IF bStepEnable THEN
+				nState := 10000;					// Felemelt vagy félállapotú paletta(alaphelyzet felvétel)-> elleőrizni kell
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(************************ Várakozás paletta elengedésére ********************************)
+	(****************************************************************************************)	
+	14000:		(*-----=== Várakozás paletta elengedésére ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás paletta elengedésére');
+		IF NOT fbStopper^.bPalletAtStopper THEN
+			IF bStepEnable THEN
+				nState := 10000;
+			END_IF
+		END_IF
+{endregion}
+
+	150000: (* Maintenance *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
+		IF NOT bManualMode THEN
+			nState := 0;
+		END_IF
+		
+	200000:(* Error handling *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
+		nState := 200020;
+
+	200020:(* Error handling *)
+		IF bAckP THEN
+			CASE nStatePrevious OF
+				0..9999: nState := 0;
+//				10000..25000: nState := 10000;
+//				30000..31000: nState := 30000;
+			ELSE nState := 0;
+			END_CASE
+		END_IF	
+		
+	ELSE //Not a real step, for test purposes
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
+END_CASE
+
+(*Timers***************************************************)
+fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+IF nState > 10000 AND nState <= 95000 THEN
+	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+END_IF
+
+tRFID_Timeout(IN:= fbStopper^.bPalletAtStopper AND stTagData.Status = E_TagStatus.NotPresent, PT:= T#2s, Q=> , ET=> );
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

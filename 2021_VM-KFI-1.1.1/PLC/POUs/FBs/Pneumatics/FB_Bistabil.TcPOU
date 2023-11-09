@@ -8,7 +8,7 @@ VAR_INPUT
 	sWorkPosSensor		:STRING(10);		(*Work position sensor*)
 	bEn					:BOOL;				(*Enable signal*)
 	bEHA				:BOOL; 				(*Error-handling active *)
-	nEHMode				:BYTE;				(*0: Delete output commant, 1: Control device to the opposite direction*)
+	nEHMode				:BYTE;				(*0: Delete output commant, 1: Control device to the opposite direction, 2: No change control if an error occurs*)
 	bDisableManualCmd	:BOOL;				(*Manual control disable*)
 	bBasePosCmd			:BOOL;				(*Control to Base pos*)
 	bWorkPosCmd			:BOOL;				(*Control to work pos*)
@@ -170,6 +170,17 @@ CASE nEHMode OF
 		END_IF
 		IF bEn AND bWorkPosCmd AND (NOT bEHA OR NOT bError)
 			OR (bEn AND bBasePosCmd AND bEHA AND bErrBasePos1 AND NOT i_bWorkPos) THEN
+			q_bWorkPos := TRUE;
+		ELSE
+			q_bWorkPos := FALSE;
+		END_IF
+	2:	(*No change control if an error occurs*)
+		IF bEn AND bBaseposCmd THEN
+			q_bBasePos := TRUE;
+		ELSE
+			q_bBasePos := FALSE;
+		END_IF
+		IF bEn  AND bWorkPosCmd THEN
 			q_bWorkPos := TRUE;
 		ELSE
 			q_bWorkPos := FALSE;
