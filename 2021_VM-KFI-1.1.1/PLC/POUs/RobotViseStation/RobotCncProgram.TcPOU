@@ -49,6 +49,8 @@ VAR (* OPC_UA CNC4*)
 	bCNC4Finished				:	BOOL;
 	bCNC4HandshakeTimeout		:	BOOL;
 	tCNC4HandshakeTimer			:	TON;
+	bCNCMidwareShutdownPossible	: 	BOOL;	//12500, 14000, cnc4 = 0 or cnc4 >= 50000
+	bShutdownIsProcessing		:	BOOL;
 	
 	(*CNC 4 Thread State Machine process*)
 	nStateCNC4					:	UDINT;
@@ -73,18 +75,39 @@ END_VAR]]></Declaration>
 CNC4Thread();
 Robot();
 
-(* =================================== OPC_UA =========================================== *)
+(* =================================== OPC_UA Hearbeat handling =========================================== *)
 stCNC4_Data := ADR(OPC_UA_CNC2);
 tCNC4HeartBeatDelay(IN := stCNC4_Data^.HeartBeat = 99, PT := T#500MS, Q=>);
 IF tCNC4HeartBeatDelay.Q THEN
 	stCNC4_Data^.HeartBeat := 0;
 END_IF
 
-tCNC4HandshakeTimer(	IN :=((stCNC4_Data^.HeartBeat = 0) OR
-						 (stCNC4_Data^.HeartBeat = 99)) AND
-						 (nState >= 100) AND (nState < 200000),
-					PT := T#3S,
-					Q=>bCNC4HandshakeTimeout);
+tCNC4HandshakeTimer(	IN :=	((stCNC4_Data^.HeartBeat = 0) OR
+						 		(stCNC4_Data^.HeartBeat = 99)),
+						PT := T#3S,
+						Q=>bCNC4HandshakeTimeout);
+					
+					
+(* =================================== OPC_UA Automatic Shutdown handling =========================================== *)					
+bCNCMidwareShutdownPossible := 	nState <= 11000;
+								
+IF bCNCMidwareShutdownPossible AND stCNC4_Data^.MidwareRequestedShutdown AND (NOT bCNC4HandshakeTimeout) THEN
+	stCNC4_Data^.ApproveShutdownRequest := TRUE;
+END_IF
+
+IF stCNC4_Data^.ApproveShutdownRequest THEN
+	IF bCNC4HandshakeTimeout THEN
+		bShutdownIsProcessing := TRUE;
+	END_IF
+END_IF
+
+IF bShutdownIsProcessing THEN
+	stCNC4_Data^.ApproveShutdownRequest := FALSE;
+	stCNC4_Data^.MidwareRequestedShutdown := FALSE;
+	IF (NOT bCNC4HandshakeTimeout) THEN
+		bShutdownIsProcessing := FALSE;
+	END_IF
+END_IF
 					
 
 (* =================================== Error handling ===================================*)
@@ -136,7 +159,7 @@ IF 	fbrobot.bError OR
 	stCNC4_Data^.ControlStatus_Error OR
 	(NOT bCNC4SystemReady) OR
 	(NOT bCNC4ServerRunning) OR 
-	bCNC4HandshakeTimeout OR
+	(bCNC4HandshakeTimeout AND (NOT bShutdownIsProcessing)) OR
 	bErrorCNC4
 THEN	
 	bError := TRUE;
@@ -255,6 +278,10 @@ CASE nState OF
 	
 		(*Currently (2023.11.09) Only CNC 4 is available. This way, CNC is constantly 4 yet*)
 		nUsedCNC := 4;
+		
+		IF stCNC4_Data^.ApproveShutdownRequest THEN
+			nState  := 11010;
+		END_IF
 
 		(*Check if there is a Ready to CNC Vise *)
 		FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO
@@ -312,6 +339,12 @@ CASE nState OF
 		//If none of the above ran, then send the robot to Wait pos (Prg2)
 		IF (NOT fbRobot.bBusy) THEN
 			nState := 16000;
+		END_IF
+		
+	(*Wait for CNC to finish shutdown*)		
+	11010:
+	 	IF (NOT bCNC4HandshakeTimeout) AND (NOT bShutdownIsProcessing) THEN
+			nState := 11000;
 		END_IF
 	
 		
