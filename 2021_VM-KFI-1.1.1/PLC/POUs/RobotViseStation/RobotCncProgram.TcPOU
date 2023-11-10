@@ -197,7 +197,7 @@ CASE nState OF
 				IF stCNC4_Data^.CurentState_Program = 'Running' THEN
 					nState := 11500;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére.
 				ELSIF	stCNC4_Data^.CurentState_Program = 'Idle' OR stCNC4_Data^.CurentState_Program = 'NotSelected' OR stCNC4_Data^.CurentState_Program = 'Interrupted' THEN
-					IF stDutData_Cnc1.nDutId > 0 AND stDutData_Cnc1.bDone THEN ezt a feltételt átgondolni
+					IF stDutData_Cnc1.nDutId > 0 AND stDutData_Cnc1.bDone THEN 
 						IF bStepEnable THEN									// Késztermék a satuban
 							nState := 11600;
 						END_IF

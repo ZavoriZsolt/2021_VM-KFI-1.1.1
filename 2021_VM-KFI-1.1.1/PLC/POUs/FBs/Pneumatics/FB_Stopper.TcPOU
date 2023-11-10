@@ -15,6 +15,7 @@ END_VAR
 VAR_OUTPUT
 	bReady				:BOOL;
 	bPalletAtStopper	:BOOL;
+	bPalletSent			:BOOL;				(* Paletta küldés folyamatban/bekapcsolás *)
 	q_bStopperDown		AT %Q* :BOOL;
 END_VAR
 VAR_IN_OUT
@@ -57,7 +58,7 @@ END_VAR
 						bStationFinished:= nState = 95020 //ebben a státuszban az állomás végzett, paletta elengedésre vár);
 *)
 
-fbToNextStopper(IN:= bMotorRun AND NOT q_bStopperDown, PT:= tToNextStopper);
+fbToNextStopper(IN:= bMotorRun AND NOT q_bStopperDown, PT:= tToNextStopper, Q=> bPalletSent);
 fbPalettOut(IN:= q_bStopperDown AND NOT i_bPalettSensor AND bMotorRun, PT:= tPalettOut);
 fbEmpty(IN:= NOT i_bPalettSensor AND NOT q_bStopperDown AND bMotorRun AND bStationReady, PT:= T#10MS, Q=> bReady);			// PT:= T#3S eredetileg
 
