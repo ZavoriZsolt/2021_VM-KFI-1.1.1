@@ -3,46 +3,46 @@
   <GVL Name="GVL_ConveyorSystem" Id="{519636fd-f5fc-45be-b371-d63f77e16cb0}">
     <Declaration><![CDATA[VAR_GLOBAL
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 0'}
-	i_stSensorHub_0 AT %I* : ST_CPI_Module;
+	i_stSensorHub_0 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 1'}
-	i_stSensorHub_1 AT %I* : ST_CPI_Module;
+	i_stSensorHub_1 AT %I* : ST_CPI_Module;					// S314
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 2'}
-	i_stSensorHub_2 AT %I* : ST_CPI_Module;
+	i_stSensorHub_2 AT %I* : ST_CPI_Module;					// S324
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 3'}
-	i_stSensorHub_3 AT %I* : ST_CPI_Module;
+	i_stSensorHub_3 AT %I* : ST_CPI_Module;					// S344
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 4'}
-	i_stSensorHub_4 AT %I* : ST_CPI_Module;
+	i_stSensorHub_4 AT %I* : ST_CPI_Module;					// S352
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 5'}
-	i_stSensorHub_5 AT %I* : ST_CPI_Module;
+	i_stSensorHub_5 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 6'}
-	i_stSensorHub_6 AT %I* : ST_CPI_Module;
+	i_stSensorHub_6 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 7'}
-	i_stSensorHub_7 AT %I* : ST_CPI_Module;
+	i_stSensorHub_7 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 8'}
-	i_stSensorHub_8 AT %I* : ST_CPI_Module;
+	i_stSensorHub_8 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 9'}
-	i_stSensorHub_9 AT %I* : ST_CPI_Module;
+	i_stSensorHub_9 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 10'}
-	i_stSensorHub_10 AT %I* : ST_CPI_Module;
+	i_stSensorHub_10 AT %I* : ST_CPI_Module;				// S321
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 11'}
-	i_stSensorHub_11 AT %I* : ST_CPI_Module;
+	i_stSensorHub_11 AT %I* : ST_CPI_Module;				// S322
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 12'}
-	i_stSensorHub_12 AT %I* : ST_CPI_Module;
+	i_stSensorHub_12 AT %I* : ST_CPI_Module;				// S343
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 13'}
-	i_stSensorHub_13 AT %I* : ST_CPI_Module;
+	i_stSensorHub_13 AT %I* : ST_CPI_Module;			// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 14'}
-	i_stSensorHub_14 AT %I* : ST_CPI_Module;
+	i_stSensorHub_14 AT %I* : ST_CPI_Module;			// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 15'}
-	i_stSensorHub_15 AT %I* : ST_CPI_Module;
+	i_stSensorHub_15 AT %I* : ST_CPI_Module;			// S
 	
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 0'}
-	i_stSensorHub_16 AT %I* : ST_CPI_Module;
+	i_stSensorHub_16 AT %I* : ST_CPI_Module;			// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 1'}
-	i_stSensorHub_17 AT %I* : ST_CPI_Module;
+	i_stSensorHub_17 AT %I* : ST_CPI_Module;			// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 2'}
-	i_stSensorHub_18 AT %I* : ST_CPI_Module;
+	i_stSensorHub_18 AT %I* : ST_CPI_Module;			// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 3'}
-	i_stSensorHub_19 AT %I* : ST_CPI_Module;
+	i_stSensorHub_19 AT %I* : ST_CPI_Module;			// S
 	
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 4 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
 	q_bZ1_14 AT %Q* : BOOL;
@@ -132,69 +132,69 @@
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
 	q_bZ21_12 AT %Q* : BOOL;
 	
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
-	q_bS1 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS1 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
 	q_bS2 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
-	q_bS3 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS3 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
 	q_bS4 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
-	q_bS5 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS5 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
 	q_bS6 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
-	q_bS7 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS7 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
 	q_bS8 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
-	q_bS9 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS9 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
 	q_bS10 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
-	q_bS11 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS11 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
 	q_bS12 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
-	q_bS13 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS13 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
 	q_bS14 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
-	q_bS15 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS15 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
 	q_bS16 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
-	q_bS17 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS17 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
 	q_bS18 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
-	q_bS19 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS19 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
 	q_bS20 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
-	q_bS21 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS21 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
 	q_bS22 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
-	q_bS23 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS23 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
 	q_bS24 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
-	q_bS25 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3'}
+	q_bS25 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2'}
 	q_bS26 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
-	q_bS27 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5'}
+	q_bS27 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4'}
 	q_bS28 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
-	q_bS29 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7'}
+	q_bS29 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6'}
 	q_bS30 AT %Q* : BOOL;
-	{attribute 'TcLinkTo' := 'TIIB(74)^Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
-	q_bS31 AT %Q* : BOOL;
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1'}
+	q_bS31 AT %Q* : BOOL;
+	{attribute 'TcLinkTo' := 'TIIB(74)^Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0'}
 	q_bS32 AT %Q* : BOOL;
 END_VAR
 VAR_GLOBAL (* Stoppers *)
@@ -269,6 +269,11 @@ VAR_GLOBAL	(* Conveyors *)
 END_VAR
 VAR_GLOBAL
 	fbLift_1A			: FB_Lift;
+	fbLift_1B			: FB_Lift;
+	fbLift_2A			: FB_Lift;
+	fbLift_2B			: FB_Lift;
+	fbLift_3A			: FB_Lift;
+	fbLift_3B			: FB_Lift;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

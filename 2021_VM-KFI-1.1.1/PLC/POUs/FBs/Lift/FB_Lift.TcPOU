@@ -7,6 +7,7 @@ VAR_INPUT
 	bErrorAck				: BOOL;
 	bManualMode				: BOOL;
 	bStepEnable				: BOOL;
+	bBeforeStopperSent		: BOOL;
 	stTagData				: ST_Tag_Data;
 END_VAR
 VAR_INPUT
@@ -203,7 +204,7 @@ CASE nState OF
 	(****************************************************************************************)	
 	13000:		(*-----=== Paletta leengedése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta leengedése');
-		IF NOT fbStopper^.bPalletAtStopper THEN
+		IF NOT fbStopper^.bPalletAtStopper AND NOT bBeforeStopperSent THEN
 			IF bStepEnable THEN	
 				nState := nState + 20;							// Nincs a kiemelő alatt paletta -> mehet lefele
 			END_IF

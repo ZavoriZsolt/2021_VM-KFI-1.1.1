@@ -1439,93 +1439,13 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}" AutoDeleteType="true">ST_Vise_Sensors</Name>
-			<BitSize>16</BitSize>
-			<SubItem>
-				<Name>bViseIn</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[ Robot]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bViseOut</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_In_Hold</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[ Stopper 1]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_In_Release</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_Out_Hold</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[ Stopper 2]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bStopper_Out_Release</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bInPos</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bOutPos</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bViseIsOut</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}" AutoDeleteType="true">ST_RGB_In</Name>
+			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
 			<BitSize>32</BitSize>
-			<SubItem>
-				<Name>LifeSig</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>0</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>Resp</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>16</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>4</Elements>
+			</ArrayInfo>
 		</DataType>
 		<DataType>
 			<Name GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}" AutoDeleteType="true">ST_CPI_Module</Name>
@@ -1628,13 +1548,65 @@ External Setpoint Generation:
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..63] OF BYTE</Name>
-			<BitSize>512</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>64</Elements>
-			</ArrayInfo>
+			<Name GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}" AutoDeleteType="true">ST_Vise_Sensors</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>bViseIn</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ Robot]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bViseOut</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_In_Hold</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ Stopper 1]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_In_Release</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_Out_Hold</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ Stopper 2]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bStopper_Out_Release</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bInPos</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bOutPos</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bViseIsOut</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
 		</DataType>
 		<DataType>
 			<Name GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..1] OF BITARR8</Name>
@@ -1646,12 +1618,40 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
+			<Name GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}" AutoDeleteType="true">ST_RGB_In</Name>
 			<BitSize>32</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
+			<SubItem>
+				<Name>LifeSig</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>Resp</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..63] OF BYTE</Name>
+			<BitSize>512</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
 			<ArrayInfo>
 				<LBound>0</LBound>
-				<Elements>4</Elements>
+				<Elements>64</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -3135,6 +3135,7 @@ External Setpoint Generation:
 		<System>
 			<Licenses>
 				<Target>
+					<ManualSelect>{648F394E-7DD1-499C-8112-7C38E161A94C}</ManualSelect>
 					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 				</Target>
@@ -3597,7 +3598,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{8B49FD76-87F1-6C46-8DE1-26D0F27B4B62}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{04D88B8B-8066-74A4-EE63-14B9492715BC}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3607,158 +3608,514 @@ External Setpoint Generation:
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_1_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>Robot7AxisProgram.fbRobot.RobotIn.aStdIn</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_2_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_3_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_4_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_5_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_6_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_7_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.arrRaw</Name>
+							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_1</Name>
+							<Comment><![CDATA[ S314]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_2</Name>
+							<Comment><![CDATA[ S324]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_3</Name>
+							<Comment><![CDATA[ S344]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_4</Name>
+							<Comment><![CDATA[ S352]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_5</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_6</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_7</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_8</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_9</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_10</Name>
+							<Comment><![CDATA[ S321]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_11</Name>
+							<Comment><![CDATA[ S322]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_12</Name>
+							<Comment><![CDATA[ S343]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_13</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_14</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_15</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_16</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_17</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_18</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_19</Name>
+							<Comment><![CDATA[ S]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bVisePos1InBtn</Name>
+							<Comment><![CDATA[ Satu be 1-7]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_8_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS1.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_9_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS2.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_10_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS3.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bConveyor_11_Ok</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS4.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bTerm48_Ch12</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS5.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bTerm48_Ch13</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS6.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bTerm48_Ch14</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS7.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bTerm48_Ch15</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS9.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bTerm48_Ch16</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS10.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop10</Name>
-							<Comment><![CDATA[ Vészstop 10]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop11</Name>
-							<Comment><![CDATA[ Vészstop 11]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS12.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop12</Name>
-							<Comment><![CDATA[ Vészstop 12]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS13.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop13</Name>
-							<Comment><![CDATA[ Vészstop 13]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS14.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop14</Name>
-							<Comment><![CDATA[ Vészstop 14]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop15</Name>
-							<Comment><![CDATA[ Vészstop 15]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop16</Name>
-							<Comment><![CDATA[ Vészstop 16]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS17.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bEMYStop17</Name>
-							<Comment><![CDATA[ Vészstop 17]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bDoorClosed_Kardex</Name>
-							<Comment><![CDATA[ Ajtó nyitva/zárva]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS19.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bMasterOn_Kardex</Name>
-							<Comment><![CDATA[ Vezérlés]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bDoorRequest_Kardex</Name>
-							<Comment><![CDATA[ Ajtó nyítás kérés]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS21.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bDoorClosed_Main</Name>
-							<Comment><![CDATA[ Ajtó nyitva/zárva]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS22.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bDoorRequest_Main</Name>
-							<Comment><![CDATA[ Ajtó nyítás kérés]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS23.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bTerm49_Ch15</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bTerm49_Ch16</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Name>GVL_ConveyorSystem.fbS25.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS27.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS29.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS30.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS31.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS32.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ1.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ1.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ2.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ2.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ3.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ3.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ4.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ4.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ5.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ5.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ6.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ6.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ7.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ7.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ8.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ8.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ9.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ9.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ10.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ10.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ11.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ11.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ12.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ12.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ13.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ13.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ14.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ14.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ15.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ15.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ16.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ16.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ17.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ17.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ18.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ18.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ19.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ19.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ20.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ20.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ21.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ21.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -3767,82 +4124,53 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC45</Name>
-							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
-*************************************************Inputs********************************************************]]></Comment>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bLO2_CNC45</Name>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bLO2EDMErr_CNC45</Name>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupComErr_CNC45</Name>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupFBErr_CNC45</Name>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupOtherErr_CNC45</Name>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bWaitClose_CNC45</Name>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bLO1_Main</Name>
-							<Comment><![CDATA[-----=== Main ===-----
-*************************************************Inputs********************************************************]]></Comment>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bLO2_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1EDMErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO2EDMErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupComErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupFBErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupOtherErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bWaitClose_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC1</Name>
-							<Comment><![CDATA[-----=== CNC1 ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bVisePos1InBtn</Name>
-							<Comment><![CDATA[ Satu be 1-7]]></Comment>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -4044,6 +4372,166 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_IO.i_bConveyor_1_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_2_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_3_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_4_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_5_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_6_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_7_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_8_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_9_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_10_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bConveyor_11_Ok</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch12</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch13</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch14</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch15</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm48_Ch16</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop10</Name>
+							<Comment><![CDATA[ Vészstop 10]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop11</Name>
+							<Comment><![CDATA[ Vészstop 11]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop12</Name>
+							<Comment><![CDATA[ Vészstop 12]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop13</Name>
+							<Comment><![CDATA[ Vészstop 13]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop14</Name>
+							<Comment><![CDATA[ Vészstop 14]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop15</Name>
+							<Comment><![CDATA[ Vészstop 15]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop16</Name>
+							<Comment><![CDATA[ Vészstop 16]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bEMYStop17</Name>
+							<Comment><![CDATA[ Vészstop 17]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorClosed_Kardex</Name>
+							<Comment><![CDATA[ Ajtó nyitva/zárva]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bMasterOn_Kardex</Name>
+							<Comment><![CDATA[ Vezérlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorRequest_Kardex</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorClosed_Main</Name>
+							<Comment><![CDATA[ Ajtó nyitva/zárva]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bMasterOn_Main</Name>
+							<Comment><![CDATA[ Vezérlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bDoorRequest_Main</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm49_Ch15</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bTerm49_Ch16</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_IO.i_bTest_01</Name>
 							<Comment><![CDATA[ Test 01]]></Comment>
 							<Type>BOOL</Type>
@@ -4056,11 +4544,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_bTest03</Name>
 							<Comment><![CDATA[ Test 03]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bMasterOn_Main</Name>
-							<Comment><![CDATA[ Vezérlés]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -4077,6 +4560,22 @@ External Setpoint Generation:
 							<Name>GVL_IO.i_bTest_Down</Name>
 							<Comment><![CDATA[ Master On]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos1.arrRaw</Name>
+							<Type GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}">ARRAY [0..1] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos1.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos2.arrRaw</Name>
+							<Type GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}">ARRAY [0..1] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.fbGripperPos2.nState</Name>
+							<Type>USINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Main.fbViseStation[1].fbVise.i_bBasePos</Name>
@@ -4503,451 +5002,6 @@ External Setpoint Generation:
 							<Type GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}">ST_RGB_In</Type>
 						</Var>
 						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_1</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_2</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_3</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_4</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_5</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_6</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_7</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_8</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_9</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_10</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_11</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_12</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_13</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_14</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_15</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_16</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_17</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_18</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.i_stSensorHub_19</Name>
-							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS1.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS2.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS3.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS4.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS5.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS6.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS7.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS9.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS10.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS12.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS13.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS14.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS17.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS19.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS21.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS22.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS23.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS25.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS27.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS29.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS30.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS31.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS32.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ1.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ1.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ2.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ2.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ3.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ3.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ4.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ4.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ5.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ5.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ6.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ6.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ7.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ7.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ8.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ8.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ9.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ9.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ10.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ10.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ11.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ11.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ12.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ12.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ13.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ13.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ14.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ14.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ15.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ15.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ16.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ16.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ17.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ17.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ18.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ18.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ19.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ19.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ20.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ20.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ21.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbZ21.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_2.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[1].arrDataIn</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
@@ -5028,20 +5082,78 @@ External Setpoint Generation:
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.fbGripperPos1.arrRaw</Name>
-							<Type GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}">ARRAY [0..1] OF BITARR8</Type>
+							<Name>GVL_Safety.i_bLO1_CNC45</Name>
+							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.fbGripperPos1.nState</Name>
-							<Type>USINT</Type>
+							<Name>GVL_Safety.i_bLO2_CNC45</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.fbGripperPos2.arrRaw</Name>
-							<Type GUID="{FEDDC989-CC82-7DBD-2F11-766EFEA556EF}">ARRAY [0..1] OF BITARR8</Type>
+							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.fbGripperPos2.nState</Name>
-							<Type>USINT</Type>
+							<Name>GVL_Safety.i_bLO2EDMErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupComErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupFBErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupOtherErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bWaitClose_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_Main</Name>
+							<Comment><![CDATA[-----=== Main ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1EDMErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2EDMErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupComErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupFBErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupOtherErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bWaitClose_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC1</Name>
+							<Comment><![CDATA[-----=== CNC1 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.i_bRobotDoorOpened_CNC1</Name>
@@ -5067,786 +5179,59 @@ External Setpoint Generation:
 							<Name>GVL_Safety.i_bRobotDoorOpened_CNC3</Name>
 							<Type>BOOL</Type>
 						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_3.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_4.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_5.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_6.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_7.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_8.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_9.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_10.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_11.i_bConveyorOK</Name>
-							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>Robot7AxisProgram.fbRobot.RobotIn.aStdIn</Name>
-							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbVisePos.arrRaw</Name>
-							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbVisePos.nState</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_Fix_Vise</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_Release_Vise</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_CleanTool</Name>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>RobotCncProgram.fbRobot.RobotOut.aStdOut</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.q_bMasterOnLED_Kardex</Name>
-							<Comment><![CDATA[ Vezérlés LED]]></Comment>
-							<Type>BOOL</Type>
+							<Name>Robot7AxisProgram.fbRobot.RobotOut.aStdOut</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.q_bDoorRequestLED_Kardex</Name>
-							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bDoorRequestLED_Main</Name>
-							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnL</Name>
-							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnR</Name>
-							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorRst</Name>
-							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
-							<Comment><![CDATA[ Enable]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyRun</Name>
-							<Comment><![CDATA[ Safety run]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bBlink</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyMasterOn_CNC45</Name>
-							<Comment><![CDATA[ Master on]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bCellEmptyAck_CNC45</Name>
-							<Comment><![CDATA[ Cell empty ack]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyErrorAck_CNC45</Name>
-							<Comment><![CDATA[ Safety ack]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyMasterOn_Main</Name>
-							<Comment><![CDATA[ Master on]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bCellEmptyAck_Main</Name>
-							<Comment><![CDATA[ Cell empty ack]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
-							<Comment><![CDATA[ Safety ack]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bMasterOnLED</Name>
-							<Comment><![CDATA[ Vezérlés LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bDoorRequestLED</Name>
-							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise1InLED</Name>
-							<Comment><![CDATA[ Satu be 1-7 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise1ReqestLED</Name>
-							<Comment><![CDATA[ Satu kérés 1-7 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise1CleanLED</Name>
-							<Comment><![CDATA[ Satu tisztítás 1-7 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise1ErrorAckLED</Name>
-							<Comment><![CDATA[ Satu hibanyugta 1-7 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise2InLED</Name>
-							<Comment><![CDATA[ Satu be 8-14 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise2RequestLED</Name>
-							<Comment><![CDATA[ Satu kérés 8-14 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise2CleanLED</Name>
-							<Comment><![CDATA[ Satu tisztítás 8-14 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bVise2ErrorAckBtnLED</Name>
-							<Comment><![CDATA[ Satu hibanyugta 8-14 LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bDoorLock</Name>
-							<Comment><![CDATA[ Ajtó zárás]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCellAckLED</Name>
-							<Comment><![CDATA[ Satuzó ajtó zárás nyugtázás - kék gomb LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_Door_Open</Name>
-							<Comment><![CDATA[*************************************************CNC45 Outputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_Door_Close</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_Program_Start</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_M401_Ack</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_M402_Ack</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bCNC4_M403_Ack</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bMasterOnLED_Main</Name>
-							<Comment><![CDATA[ Vezérlés LED]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_1</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_2</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_3</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_4</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_5</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_6</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_7</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_8</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_9</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_10</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.q_bConveyor_11</Name>
-							<Comment><![CDATA[ Konvejor]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbNotSmartLight.q_bGreenColor</Name>
-							<Type>BIT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbNotSmartLight.q_bYellowColor</Name>
-							<Type>BIT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbNotSmartLight.q_bRedColor</Name>
-							<Type>BIT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbNotSmartLight.q_bBuzzer</Name>
-							<Type>BIT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[1].fbVise.q_bBasePos</Name>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
 							<Comment><![CDATA[Control to base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Main.fbViseStation[1].fbVise.q_bWorkPos</Name>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
 							<Comment><![CDATA[Control to work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Main.fbViseStation[1].fbStopper_In.q_bBasePos</Name>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
 							<Comment><![CDATA[Control to base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Main.fbViseStation[1].fbStopper_In.q_bWorkPos</Name>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
 							<Comment><![CDATA[Control to work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Main.fbViseStation[1].fbStopper_Out.q_bBasePos</Name>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bBasePos</Name>
 							<Comment><![CDATA[Control to base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Main.fbViseStation[1].fbStopper_Out.q_bWorkPos</Name>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bWorkPos</Name>
 							<Comment><![CDATA[Control to work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Main.fbViseStation[2].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Main.fbViseStation[2].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[2].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[2].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[2].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[2].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[3].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[3].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[3].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[3].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[3].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[3].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[4].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[4].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[4].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[4].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[4].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[4].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[5].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[5].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[5].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[5].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[5].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[5].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[6].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[6].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[6].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[6].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[6].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[6].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[7].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[7].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[7].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[7].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[7].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[7].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[8].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[8].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[8].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[8].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[8].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[8].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[9].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[9].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[9].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[9].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[9].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[9].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[10].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[10].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[10].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[10].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[10].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[10].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[11].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[11].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[11].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[11].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[11].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[11].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[12].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[12].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[12].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[12].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[12].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[12].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[13].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[13].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[13].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[13].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[13].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[13].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[14].fbVise.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[14].fbVise.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[14].fbStopper_In.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[14].fbStopper_In.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[14].fbStopper_Out.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbViseStation[14].fbStopper_Out.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.q_bViseOut_1_7</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.q_bViseOut_8_14</Name>
+							<Name>CNC_1.fbCncServoVise.q_bToolCheckBlower</Name>
+							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_14</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main.fbRgbLights.q_stRGB_Out</Name>
-							<Type GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}">ST_RGB_Out</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_12</Name>
@@ -6447,6 +5832,21 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorOnL</Name>
 							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
 							<Type>BOOL</Type>
@@ -6460,46 +5860,6 @@ External Setpoint Generation:
 							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorRst</Name>
 							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[1].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[2].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[3].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[4].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[5].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[6].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[7].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[8].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[9].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[10].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.fbConveyor_3.q_bConveyorOnL</Name>
@@ -6637,46 +5997,707 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>Robot7AxisProgram.fbRobot.RobotOut.aStdOut</Name>
-							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+							<Name>GVL_IO.q_bMasterOnLED</Name>
+							<Comment><![CDATA[ Vezérlés LED]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
+							<Name>GVL_IO.q_bDoorRequestLED</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise1InLED</Name>
+							<Comment><![CDATA[ Satu be 1-7 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise1ReqestLED</Name>
+							<Comment><![CDATA[ Satu kérés 1-7 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise1CleanLED</Name>
+							<Comment><![CDATA[ Satu tisztítás 1-7 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise1ErrorAckLED</Name>
+							<Comment><![CDATA[ Satu hibanyugta 1-7 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise2InLED</Name>
+							<Comment><![CDATA[ Satu be 8-14 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise2RequestLED</Name>
+							<Comment><![CDATA[ Satu kérés 8-14 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise2CleanLED</Name>
+							<Comment><![CDATA[ Satu tisztítás 8-14 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bVise2ErrorAckBtnLED</Name>
+							<Comment><![CDATA[ Satu hibanyugta 8-14 LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bDoorLock</Name>
+							<Comment><![CDATA[ Ajtó zárás]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCellAckLED</Name>
+							<Comment><![CDATA[ Satuzó ajtó zárás nyugtázás - kék gomb LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_Door_Open</Name>
+							<Comment><![CDATA[*************************************************CNC45 Outputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_Door_Close</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_Program_Start</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_M401_Ack</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_M402_Ack</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_M403_Ack</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_Fix_Vise</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_Release_Vise</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bCNC4_CleanTool</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bMasterOnLED_Kardex</Name>
+							<Comment><![CDATA[ Vezérlés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bDoorRequestLED_Kardex</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bMasterOnLED_Main</Name>
+							<Comment><![CDATA[ Vezérlés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bDoorRequestLED_Main</Name>
+							<Comment><![CDATA[ Ajtó nyítás kérés LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_1</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_2</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_3</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_4</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_5</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_6</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_7</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_8</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_9</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_10</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.q_bConveyor_11</Name>
+							<Comment><![CDATA[ Konvejor]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.q_bViseOut_1_7</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.q_bViseOut_8_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyRun</Name>
+							<Comment><![CDATA[ Safety run]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bBlink</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbNotSmartLight.q_bGreenColor</Name>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbNotSmartLight.q_bYellowColor</Name>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbNotSmartLight.q_bRedColor</Name>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbNotSmartLight.q_bBuzzer</Name>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[1].fbVise.q_bBasePos</Name>
 							<Comment><![CDATA[Control to base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
+							<Name>GVL_Main.fbViseStation[1].fbVise.q_bWorkPos</Name>
 							<Comment><![CDATA[Control to work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
+							<Name>GVL_Main.fbViseStation[1].fbStopper_In.q_bBasePos</Name>
 							<Comment><![CDATA[Control to base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
+							<Name>GVL_Main.fbViseStation[1].fbStopper_In.q_bWorkPos</Name>
 							<Comment><![CDATA[Control to work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.q_bBasePos</Name>
+							<Name>GVL_Main.fbViseStation[1].fbStopper_Out.q_bBasePos</Name>
 							<Comment><![CDATA[Control to base position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.q_bWorkPos</Name>
+							<Name>GVL_Main.fbViseStation[1].fbStopper_Out.q_bWorkPos</Name>
 							<Comment><![CDATA[Control to work position]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+							<Name>GVL_Main.fbViseStation[2].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_1.fbCncServoVise.q_bToolCheckBlower</Name>
-							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
+							<Name>GVL_Main.fbViseStation[2].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[2].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[2].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[2].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[2].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[3].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[3].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[3].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[3].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[3].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[3].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[4].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[4].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[4].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[4].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[4].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[4].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[5].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[5].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[5].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[5].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[5].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[5].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[6].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[6].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[6].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[6].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[6].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[6].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[7].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[7].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[7].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[7].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[7].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[7].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[8].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[8].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[8].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[8].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[8].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[8].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[9].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[9].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[9].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[9].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[9].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[9].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[10].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[10].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[10].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[10].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[10].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[10].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[11].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[11].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[11].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[11].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[11].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[11].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[12].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[12].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[12].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[12].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[12].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[12].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[13].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[13].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[13].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[13].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[13].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[13].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[14].fbVise.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[14].fbVise.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[14].fbStopper_In.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[14].fbStopper_In.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[14].fbStopper_Out.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbViseStation[14].fbStopper_Out.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main.fbRgbLights.q_stRGB_Out</Name>
+							<Type GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}">ST_RGB_Out</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[1].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[2].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[3].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[4].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[5].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[6].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[7].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[8].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[9].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[10].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyMasterOn_CNC45</Name>
+							<Comment><![CDATA[ Master on]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bCellEmptyAck_CNC45</Name>
+							<Comment><![CDATA[ Cell empty ack]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyErrorAck_CNC45</Name>
+							<Comment><![CDATA[ Safety ack]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyMasterOn_Main</Name>
+							<Comment><![CDATA[ Master on]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bCellEmptyAck_Main</Name>
+							<Comment><![CDATA[ Cell empty ack]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
+							<Comment><![CDATA[ Safety ack]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -31361,38 +31382,38 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_7" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 7" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_8" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 8" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_ConveyorSystem.i_stSensorHub_9" VarB="Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 9" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS1" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS10" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS11" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS12" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS13" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS14" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS15" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS16" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS17" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS18" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS19" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS2" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS20" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS21" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS22" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS23" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS24" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS25" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS26" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS27" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS28" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS29" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS3" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS30" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS31" VarB="Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS32" VarB="Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS4" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS5" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS6" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS7" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS8" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS9" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS1" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS10" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS11" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS12" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS13" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS14" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS15" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS16" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS17" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS18" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS19" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS2" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS20" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS21" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS22" VarB="Module 11 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS23" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS24" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS25" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS26" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS27" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS28" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS29" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS3" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS30" VarB="Module 12 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS31" VarB="Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS32" VarB="Module 13 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS4" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS5" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS6" VarB="Module 9 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS7" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS8" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS9" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ10" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ11" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ12" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>

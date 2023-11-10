@@ -6,11 +6,7 @@
     <Node>
       <Title>Distance</Title>
       <Expanded>False</Expanded>
-<<<<<<< Updated upstream
       <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Distance.tcscopex</FileName>
-=======
-      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Distance.tcscopex</FileName>
->>>>>>> Stashed changes
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -104,11 +100,7 @@
     <Node>
       <Title>Relief_1</Title>
       <Expanded>False</Expanded>
-<<<<<<< Updated upstream
       <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Relief_1.svdx</FileName>
-=======
-      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Relief_1.svdx</FileName>
->>>>>>> Stashed changes
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -228,11 +220,7 @@
     <Node>
       <Title>Relief_2</Title>
       <Expanded>False</Expanded>
-<<<<<<< Updated upstream
       <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Relief_2.svdx</FileName>
-=======
-      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Relief_2.svdx</FileName>
->>>>>>> Stashed changes
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -352,11 +340,7 @@
     <Node>
       <Title>Scope Project1</Title>
       <Expanded>False</Expanded>
-<<<<<<< Updated upstream
       <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Scope Project1.tcscopex</FileName>
-=======
-      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Scope Project1.tcscopex</FileName>
->>>>>>> Stashed changes
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -476,11 +460,7 @@
     <Node>
       <Title>Test_1</Title>
       <Expanded>False</Expanded>
-<<<<<<< Updated upstream
       <FileName>D:\Source\2021_VM-KFI-1.1.1\Measurement Project1\Test_1.svdx</FileName>
-=======
-      <FileName>C:\Minden\GitHUB_Repos_Harman\2021_VM-KFI-1.1.1\Measurement Project1\Test_1.svdx</FileName>
->>>>>>> Stashed changes
       <Children>
         <Node>
           <Title>DataPool</Title>

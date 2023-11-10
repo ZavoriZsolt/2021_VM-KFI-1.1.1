@@ -337,16 +337,92 @@ fbZ21(
 	bErrorAck:= bAckP, 
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
+	bBeforeStopperSent:= fbS19.bPalletSent,
 	stTagData:= fbRFID_Readers[1].Ch2_TagData, 
 	fbLift:= ADR(fbZ1), 
 	fbLock:= ADR(fbZ7), 
 	fbStopper:= ADR(fbS1),
-	arrPaletteData:= ADR(arrPalette));]]></ST>
+	arrPaletteData:= ADR(arrPalette));
+
+fbLift_1B(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	bBeforeStopperSent:= fbS1.bPalletSent,
+	stTagData:= fbRFID_Readers[1].Ch1_TagData, 
+	fbLift:= ADR(fbZ2), 
+	fbLock:= ADR(fbZ8), 
+	fbStopper:= ADR(fbS2),
+	arrPaletteData:= ADR(arrPalette));
+(*
+fbLift_2A(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	bBeforeStopperSent:= fbS19.bPalletSent,
+	stTagData:= fbRFID_Readers[1].Ch2_TagData, 
+	fbLift:= ADR(fbZ1), 
+	fbLock:= ADR(fbZ7), 
+	fbStopper:= ADR(fbS1),
+	arrPaletteData:= ADR(arrPalette));
+
+fbLift_2B(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	bBeforeStopperSent:= fbS1.bPalletSent,
+	stTagData:= fbRFID_Readers[1].Ch1_TagData, 
+	fbLift:= ADR(fbZ2), 
+	fbLock:= ADR(fbZ8), 
+	fbStopper:= ADR(fbS2),
+	arrPaletteData:= ADR(arrPalette));
+
+fbLift_3A(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	bBeforeStopperSent:= fbS19.bPalletSent,
+	stTagData:= fbRFID_Readers[1].Ch2_TagData, 
+	fbLift:= ADR(fbZ1), 
+	fbLock:= ADR(fbZ7), 
+	fbStopper:= ADR(fbS1),
+	arrPaletteData:= ADR(arrPalette));
+
+fbLift_3B(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	bBeforeStopperSent:= fbS1.bPalletSent,
+	stTagData:= fbRFID_Readers[1].Ch1_TagData, 
+	fbLift:= ADR(fbZ2), 
+	fbLock:= ADR(fbZ8), 
+	fbStopper:= ADR(fbS2),
+	arrPaletteData:= ADR(arrPalette));
+*)]]></ST>
       </Implementation>
     </Action>
     <Action Name="Motors" Id="{b9d1ee0e-1d9c-4705-9d0c-08b115909584}">
       <Implementation>
-        <ST><![CDATA[fbConveyor_1(
+        <ST><![CDATA[IF NOT bManualMode THEN
+	fbConveyor_1.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_2.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_3.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_4.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_5.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_6.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_7.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_8.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_9.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_10.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_11.bConveyorOnL := i_bLO1_Main;
+END_IF
+
+fbConveyor_1(
 	sName:= 'Konveyor motor M1', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
@@ -559,49 +635,49 @@ fbConveyor_11(
     </Action>
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
       <Implementation>
-        <ST><![CDATA[fbS1(
-	bNextReady:= , 
-	bMotorRun:= fbConveyor_5.bMotorOn, 
-	bStationReady:= , 
-	bStationFinished:= , 
+        <ST><![CDATA[fbS1(			(*-----=== Stopper kiemelő 1A ===-----*)
+	bNextReady:= fbS2.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= fbLift_1A.nState = 10000 OR fbLift_1A.nState = 12000, 
+	bStationFinished:= fbLift_1A.nState = 14000 OR fbLift_1A.nState = 12000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_7.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS1);
 	
-fbS2(
-	bNextReady:= , 
-	bMotorRun:= , 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
+fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
+	bNextReady:= fbS17.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= fbLift_1B.nState = 10000 OR fbLift_1B.nState = 12000, 
+	bStationFinished:= fbLift_1B.nState = 14000 OR fbLift_1B.nState = 12000, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_6.Channel_6,
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
 	
-fbS3(
+fbS3(			(*-----=== Stopper kiemelő 2A ===-----*)
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);	
 	
-fbS4(
+fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
 	
-fbS5(
+fbS5(			(*-----=== Stopper kiemelő 3A ===-----*)
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS5);
 	
-fbS6(
+fbS6(			(*-----=== Stopper kiemelő 3B ===-----*)
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -609,7 +685,7 @@ fbS6(
 	
 fbS7(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -626,7 +702,7 @@ fbS7(
 	
 fbS9(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -634,7 +710,7 @@ fbS9(
 	
 fbS10(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -642,7 +718,7 @@ fbS10(
 	
 fbS11(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -650,7 +726,7 @@ fbS11(
 	
 fbS12(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -658,7 +734,7 @@ fbS12(
 	
 fbS13(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -666,7 +742,7 @@ fbS13(
 	
 fbS14(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -674,7 +750,7 @@ fbS14(
 	
 fbS15(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -682,39 +758,40 @@ fbS15(
 	
 fbS16(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS16);
 	
 fbS17(
-	bNextReady:= , 
-	bMotorRun:= fbConveyor_5.bMotorOn, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_6.Channel_6, 
+	bNextReady:= fbS3.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= NOT fbS17.i_bPalettSensor, 
+	bStationFinished:= TRUE, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_10.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
 	
 fbS18(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= ,
+	tToNextStopper:= T#8S, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS18);
 	
-fbS19(
-	bNextReady:= , 
-	bMotorRun:= , 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
+fbS19(			(*-----=== Stopper kiemelő 1A előtt ===-----*)
+	bNextReady:= fbS1.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= NOT fbS19.i_bPalettSensor, 
+	bStationFinished:= TRUE, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_1.Channel_2,
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS19);
 	
 fbS20(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -722,7 +799,7 @@ fbS20(
 	
 fbS21(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -730,7 +807,7 @@ fbS21(
 	
 fbS22(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -738,7 +815,7 @@ fbS22(
 	
 fbS23(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -746,7 +823,7 @@ fbS23(
 	
 fbS24(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -754,7 +831,7 @@ fbS24(
 	
 fbS25(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -762,7 +839,7 @@ fbS25(
 	
 fbS26(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -770,7 +847,7 @@ fbS26(
 	
 fbS27(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -787,7 +864,7 @@ fbS27(
 	
 fbS29(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -795,7 +872,7 @@ fbS29(
 	
 fbS30(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -803,7 +880,7 @@ fbS30(
 	
 fbS31(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
@@ -811,7 +888,7 @@ fbS31(
 	
 fbS32(
 	bNextReady:= , 
-	bMotorRun:= , 
+	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= , 
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
