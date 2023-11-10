@@ -51,8 +51,8 @@ fbZ3(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_10.Channel_1 AND i_stSensorHub_10.Channel_3, 
+	i_bWorkPos:= i_stSensorHub_10.Channel_2 AND i_stSensorHub_10.Channel_4, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -66,8 +66,8 @@ fbZ4(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_11.Channel_1 AND i_stSensorHub_11.Channel_3, 
+	i_bWorkPos:= i_stSensorHub_11.Channel_2 AND i_stSensorHub_11.Channel_4, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -81,8 +81,8 @@ fbZ5(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_14.Channel_1 AND i_stSensorHub_14.Channel_3, 
+	i_bWorkPos:= i_stSensorHub_14.Channel_2 AND i_stSensorHub_14.Channel_4, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -96,8 +96,8 @@ fbZ6(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_15.Channel_1 AND i_stSensorHub_15.Channel_3, 
+	i_bWorkPos:= i_stSensorHub_15.Channel_2 AND i_stSensorHub_15.Channel_4, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -141,8 +141,8 @@ fbZ9(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_10.Channel_5, 
+	i_bWorkPos:= i_stSensorHub_10.Channel_6, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -156,8 +156,8 @@ fbZ10(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_11.Channel_5, 
+	i_bWorkPos:= i_stSensorHub_11.Channel_6, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -171,8 +171,8 @@ fbZ11(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_14.Channel_5, 
+	i_bWorkPos:= i_stSensorHub_14.Channel_6, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -186,8 +186,8 @@ fbZ12(
 	nEHMode:= , 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= , 
-	i_bWorkPos:= , 
+	i_bBasePos:= i_stSensorHub_15.Channel_5, 
+	i_bWorkPos:= i_stSensorHub_15.Channel_6, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -355,17 +355,17 @@ fbLift_1B(
 	fbLock:= ADR(fbZ8), 
 	fbStopper:= ADR(fbS2),
 	arrPaletteData:= ADR(arrPalette));
-(*
+
 fbLift_2A(
 	bEnable:= i_bLO1_Main, 
 	bErrorAck:= bAckP, 
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
-	bBeforeStopperSent:= fbS19.bPalletSent,
-	stTagData:= fbRFID_Readers[1].Ch2_TagData, 
-	fbLift:= ADR(fbZ1), 
-	fbLock:= ADR(fbZ7), 
-	fbStopper:= ADR(fbS1),
+	bBeforeStopperSent:= fbS17.bPalletSent,
+	stTagData:= fbRFID_Readers[2].Ch1_TagData, 
+	fbLift:= ADR(fbZ3), 
+	fbLock:= ADR(fbZ9), 
+	fbStopper:= ADR(fbS3),
 	arrPaletteData:= ADR(arrPalette));
 
 fbLift_2B(
@@ -374,10 +374,10 @@ fbLift_2B(
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS1.bPalletSent,
-	stTagData:= fbRFID_Readers[1].Ch1_TagData, 
-	fbLift:= ADR(fbZ2), 
-	fbLock:= ADR(fbZ8), 
-	fbStopper:= ADR(fbS2),
+	stTagData:= fbRFID_Readers[2].Ch2_TagData, 
+	fbLift:= ADR(fbZ4), 
+	fbLock:= ADR(fbZ10), 
+	fbStopper:= ADR(fbS4),
 	arrPaletteData:= ADR(arrPalette));
 
 fbLift_3A(
@@ -386,10 +386,10 @@ fbLift_3A(
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS19.bPalletSent,
-	stTagData:= fbRFID_Readers[1].Ch2_TagData, 
-	fbLift:= ADR(fbZ1), 
-	fbLock:= ADR(fbZ7), 
-	fbStopper:= ADR(fbS1),
+	stTagData:= fbRFID_Readers[3].Ch1_TagData, 
+	fbLift:= ADR(fbZ5), 
+	fbLock:= ADR(fbZ11), 
+	fbStopper:= ADR(fbS5),
 	arrPaletteData:= ADR(arrPalette));
 
 fbLift_3B(
@@ -398,12 +398,11 @@ fbLift_3B(
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS1.bPalletSent,
-	stTagData:= fbRFID_Readers[1].Ch1_TagData, 
-	fbLift:= ADR(fbZ2), 
-	fbLock:= ADR(fbZ8), 
-	fbStopper:= ADR(fbS2),
-	arrPaletteData:= ADR(arrPalette));
-*)]]></ST>
+	stTagData:= fbRFID_Readers[3].Ch2_TagData, 
+	fbLift:= ADR(fbZ6), 
+	fbLock:= ADR(fbZ12), 
+	fbStopper:= ADR(fbS6),
+	arrPaletteData:= ADR(arrPalette));]]></ST>
       </Implementation>
     </Action>
     <Action Name="Motors" Id="{b9d1ee0e-1d9c-4705-9d0c-08b115909584}">
@@ -652,35 +651,35 @@ fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
 	
 fbS3(			(*-----=== Stopper kiemelő 2A ===-----*)
-	bNextReady:= , 
+	bNextReady:= fbS4.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	bStationReady:= fbLift_2A.nState = 10000 OR fbLift_2A.nState = 12000, 
+	bStationFinished:= fbLift_2A.nState = 14000 OR fbLift_2A.nState = 12000, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_10.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);	
 	
 fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
-	bNextReady:= , 
+	bNextReady:= fbS13.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	bStationReady:= fbLift_2B.nState = 10000 OR fbLift_2B.nState = 12000, 
+	bStationFinished:= fbLift_2B.nState = 14000 OR fbLift_2B.nState = 12000, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_11.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
 	
 fbS5(			(*-----=== Stopper kiemelő 3A ===-----*)
-	bNextReady:= , 
+	bNextReady:= fbS6.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	bStationReady:= fbLift_3A.nState = 10000 OR fbLift_3A.nState = 12000, 
+	bStationFinished:= fbLift_3A.nState = 14000 OR fbLift_3A.nState = 12000, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_14.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS5);
 	
 fbS6(			(*-----=== Stopper kiemelő 3B ===-----*)
-	bNextReady:= , 
+	bNextReady:= fbS10.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	bStationReady:= fbLift_3B.nState = 10000 OR fbLift_3B.nState = 12000, 
+	bStationFinished:= fbLift_3B.nState = 14000 OR fbLift_3B.nState = 12000, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_15.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS6);
 	
 fbS7(
@@ -711,7 +710,7 @@ fbS9(
 fbS10(
 	bNextReady:= , 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
+	bStationReady:= NOT fbS10.i_bPalettSensor,  
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS10);
@@ -719,7 +718,7 @@ fbS10(
 fbS11(
 	bNextReady:= , 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
+	bStationReady:= NOT fbS11.i_bPalettSensor,  
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS11);
@@ -733,11 +732,11 @@ fbS12(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS12);
 	
 fbS13(
-	bNextReady:= , 
+	bNextReady:= fbS5.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	bStationReady:= NOT fbS11.i_bPalettSensor, 
+	bStationFinished:= TRUE, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_8.Channel_4, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
 	
 fbS14(

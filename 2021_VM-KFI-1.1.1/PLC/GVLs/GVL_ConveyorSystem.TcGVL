@@ -19,7 +19,7 @@
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 7'}
 	i_stSensorHub_7 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 8'}
-	i_stSensorHub_8 AT %I* : ST_CPI_Module;				// S
+	i_stSensorHub_8 AT %I* : ST_CPI_Module;					// S323
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 9'}
 	i_stSensorHub_9 AT %I* : ST_CPI_Module;				// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 10'}
@@ -31,9 +31,9 @@
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 13'}
 	i_stSensorHub_13 AT %I* : ST_CPI_Module;			// S
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 14'}
-	i_stSensorHub_14 AT %I* : ST_CPI_Module;			// S
+	i_stSensorHub_14 AT %I* : ST_CPI_Module;				// S331
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 2 (CPI: 16 Byte I/0 Byte O)^Inputs^Input 15'}
-	i_stSensorHub_15 AT %I* : ST_CPI_Module;			// S
+	i_stSensorHub_15 AT %I* : ST_CPI_Module;				// S332
 	
 	{attribute 'TcLinkTo' := 'TIIB(74)^Module 3 (CPI: 4 Byte I/0 Byte O)^Inputs^Input 0'}
 	i_stSensorHub_16 AT %I* : ST_CPI_Module;			// S
