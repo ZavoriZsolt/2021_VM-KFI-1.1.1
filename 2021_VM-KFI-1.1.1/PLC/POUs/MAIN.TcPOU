@@ -4,6 +4,7 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	rtStep						:R_Trig;
+	
 	rtAck						:R_Trig;
 	i							:UDINT;
 	fbWakeUpTmr					:TON;	
@@ -18,6 +19,8 @@ VAR
 	afbAlarms					:ARRAY[1..nNbrOfAlarms] OF FB_TcAlarm;
 	fbSource					:FB_TcSourceInfo;
 
+	(*Vise station components*)
+	rtStepViseStation			:R_Trig;
 
 	(*ID200 Test*)
 	(*Function block*)
@@ -295,6 +298,14 @@ IF bStepMode AND bStepP OR NOT bStepMode THEN
 	bStepEnable := TRUE;
 ELSE
 	bStepEnable := FALSE;
+END_IF
+
+// Step mode for testing in Vise Station
+rtStepViseStation(CLK:= bStepHMIViseStation OR i_bMasterOn_CNC45 OR i_bMasterOn_Main, Q=> bStepPViseStation);
+IF bStepModeViseStation AND bStepPViseStation OR (NOT bStepModeViseStation) THEN
+	bStepEnableViseStation := TRUE;
+ELSE
+	bStepEnableViseStation := FALSE;
 END_IF
 ]]></ST>
       </Implementation>

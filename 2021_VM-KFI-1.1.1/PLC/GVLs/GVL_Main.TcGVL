@@ -40,6 +40,11 @@
 	aViseStatus						:ARRAY[1..14] OF ST_Vise_Status;
 	aViseOrder						:ARRAY[1..14] OF ST_Order;
 	
+	bStepModeViseStation						:BOOL;				(* Step mode *)
+	bStepPViseStation							:BOOL;				(* Step pulse *)
+	bStepHMIViseStation						:BOOL;				(* Step button HMI *)
+	bStepEnableViseStation						:BOOL;				(* Step enable *)
+	
 	{attribute 'TcLinkTo' := '		.q_bGreenColor	 := TIIB(85)^IO-Link Port1^Segment 1 -off/on/flash;	
 									.q_bYellowColor  := TIIB(85)^IO-Link Port1^Segment 2 -off/on/flash;
 									.q_bRedColor	 := TIIB(85)^IO-Link Port1^Segment 3 -off/on/flash;
