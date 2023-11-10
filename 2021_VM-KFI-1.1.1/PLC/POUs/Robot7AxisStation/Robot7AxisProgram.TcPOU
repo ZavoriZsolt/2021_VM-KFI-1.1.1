@@ -32,6 +32,7 @@ VAR (* Test variables *)
 	nPosX						: LREAL;
 	nPosY						: LREAL;
 	nWeight						: UINT;
+	nTorque						: REAL;
 	nErrorId					: UDINT;
 	ePath						: E_CNC_Robot_Path;
 END_VAR
@@ -127,6 +128,7 @@ CASE nState OF
 												stDutData_Cnc1.nPosX := nPosX;
 												stDutData_Cnc1.nPosY := nPosY;
 												stDutData_Cnc1.nWeight := nWeight;
+												stDutData_Cnc1.nTorque := nTorque;
 												stDutData_Cnc1.nDutId := 1;
 												nState := 20000;
 			E_CNC_Robot_Path.CNC1_to_Lift1A:
@@ -147,6 +149,7 @@ CASE nState OF
 												stDutData_Cnc1.nPosX := nPosX;
 												stDutData_Cnc1.nPosY := nPosY;
 												stDutData_Cnc1.nWeight := nWeight;
+												stDutData_Cnc1.nTorque := nTorque;
 												stDutData_Cnc1.nDutId := 1;
 												nState := 20000;
 
@@ -382,7 +385,7 @@ arRobotEvents[8] := TC_EVENTS.MyEvents.RobotBasePosErr;
 
 (*-----=== Gripper jelek kezelése ===-----*)
 fbGripperPos1(
-	nCalOffset:= 36, 
+	nCalOffset:= 31, 
 	nReqDistance:= nDimY, 
 	bPendantMode:= fbRobot.bPendantMode, 
 	bValid=> , 
@@ -390,7 +393,7 @@ fbGripperPos1(
 	bGripperInPos=> );
 
 fbGripperPos2(
-	nCalOffset:= 36.1, 
+	nCalOffset:= 31.1, 
 	nReqDistance:= nDimY, 
 	bPendantMode:= fbRobot.bPendantMode, 
 	bValid=> , 
