@@ -38,6 +38,7 @@ VAR	(*Vise Status handling*)
 	nUsedCNC					:	BYTE := 4;
 	bActualCNCThreadDone		:	BOOL;
 	bActualCNCThreadInBase		:	BOOL;
+	bActualCNCProgramNotRunning	:	BOOL;
 END_VAR
 VAR (* OPC_UA CNC4*)
 	stCNC4_Data					: 	POINTER TO OPC_CNC_Data_Collection;
@@ -49,6 +50,7 @@ VAR (* OPC_UA CNC4*)
 	bCNC4Finished				:	BOOL;
 	bCNC4HandshakeTimeout		:	BOOL;
 	tCNC4HandshakeTimer			:	TON;
+	tCNC4HandshakeTimer2		:	TON;
 	bCNCMidwareShutdownPossible	: 	BOOL;	//12500, 14000, cnc4 = 0 or cnc4 >= 50000
 	bShutdownIsProcessing		:	BOOL;
 	
@@ -82,11 +84,9 @@ IF tCNC4HeartBeatDelay.Q THEN
 	stCNC4_Data^.HeartBeat := 0;
 END_IF
 
-tCNC4HandshakeTimer(	IN :=	((stCNC4_Data^.HeartBeat = 0) OR
-						 		(stCNC4_Data^.HeartBeat = 99)),
+tCNC4HandshakeTimer(	IN := (stCNC4_Data^.HeartBeat = 0),
 						PT := T#3S,
-						Q=>bCNC4HandshakeTimeout);
-					
+						Q=> bCNC4HandshakeTimeout);
 					
 (* =================================== OPC_UA Automatic Shutdown handling =========================================== *)					
 bCNCMidwareShutdownPossible := 	nState <= 11000;
@@ -152,6 +152,7 @@ CASE nUsedCNC OF
 	4:
 		bActualCNCThreadDone := nStateCNC4 = 50000;
 		bActualCNCThreadInBase := nStateCNC4 = 0;
+		bActualCNCProgramNotRunning := bCNC4ProgramNotRunning;
 	5:
 		//Not yet available
 END_CASE
@@ -229,23 +230,22 @@ CASE nState OF
 	40:
 		nState := 100;
 		
-		
 	100:		(*-----=== CNC ellenőrzés ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ellenőrzése');
 		IF stCNC4_Data^.ServerState = 'Running' AND
 		   stCNC4_Data^.CurrentState_State = 'NCIsAvailable' THEN
 				IF stCNC4_Data^.CurentState_Program = 'Running' THEN
 					IF bStepEnableViseStation THEN
-						nState := 11500;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére.
+						nState := 11700;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére.
 					END_IF
 				ELSIF	stCNC4_Data^.CurentState_Program = 'Idle' OR stCNC4_Data^.CurentState_Program = 'NotSelected' OR stCNC4_Data^.CurentState_Program = 'Interrupted' THEN
 					IF stDutData_Cnc1.nDutId > 0 AND stDutData_Cnc1.bDone THEN 
 						IF bStepEnableViseStation THEN									// Késztermék a satuban
-							nState := 11600;
+							nState := 120;
 						END_IF
 					ELSE
 						IF bStepEnableViseStation THEN									// A satu üres
-							nState := nState + 20;
+							nState := 120;
 						END_IF
 					END_IF
 				END_IF
@@ -267,33 +267,6 @@ CASE nState OF
 			nState := 11000;
 		END_IF
 
-		
-		
-	(* Automatic mode - Base position *)
-	10000: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet');
-		IF fbRobot.RobotIn.Status.bGripperClose AND fbRobot.RobotIn.Status.bVisePresent THEN
-			;
-		END_IF 	
-	
-	(*Define data needed for a vise exchange*)	
-	10500:
-		
-		
-	(*
-		Berakás : 
-			Csak akkor vegyen ki statut a kezelőtől, ha 
-				A CNC státusza rendben van
-				A kívánt CNCben nincs termék
-				
-					Ha nincs lehetőség berakni statut a CNCbe, 10.000, --> Vélhetően kivétel vagy standby		
-					
-		Kivétel : 
-			Csak akkor vegyen ki satut a CNC-ből, ha
-				Ha CNC státusza rendben van 				
-				Ha van szabad satu foglalat 
-	*)
-		
 	(*Check for next possible process *)	
 	11000:
 	
@@ -302,22 +275,12 @@ CASE nState OF
 		
 		IF fbRobot.RobotIn.Status.bVisePresent THEN
 			nState  := 11500;
-		END_IF
-		
-		
-		IF stCNC4_Data^.ApproveShutdownRequest THEN
+		ELSIF stCNC4_Data^.ApproveShutdownRequest THEN
 			nState  := 11010;
-		END_IF
-
 		(*Check if there is a Ready to CNC Vise *)
-		FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO
-			IF aViseStatus[i].eState = E_Vise_State.ReadyToCnc THEN
-				nUsedViseIndex := i;
-				EXIT;
-			END_IF
-		END_FOR
-		
-		IF (nUsedViseIndex >= ViseProgram.nStartIndex) AND (nUsedViseIndex <= ViseProgram.nMaxIndex) THEN	//Vise index valid
+		ELSIF (CheckForViseStatus(E_Vise_State.ReadyToCnc) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <= ViseProgram.nMaxIndex) THEN
+			
+			nUsedViseIndex := CheckForViseStatus(E_Vise_State.ReadyToCnc);
 			
 			CASE nUsedCNC OF
 				4: nRackUsedForCNC4 := nUsedViseIndex;
@@ -325,7 +288,7 @@ CASE nState OF
 				ELSE ; (*Else is not relevant in this case, because of the pre-condition*)
 			END_CASE
 		
-			IF bCNC4ProgramNotRunning AND (bActualCNCThreadInBase) THEN
+			IF bActualCNCProgramNotRunning AND (bActualCNCThreadInBase) THEN
 				IF CheckAllViseInSafePos() THEN
 					IF (NOT fbRobot.bBusy) THEN
 						bRobotGoneTowait := FALSE;
@@ -333,18 +296,12 @@ CASE nState OF
 					END_IF
 				END_IF
 			END_IF
-		END_IF
 		
-		(*Check if there is a CncDone status vise*)
-		FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO
-			IF aViseStatus[i].eState = E_Vise_State.CncDone THEN
-				nUsedViseIndex := i;
-				EXIT;
-			END_IF
-		END_FOR
-		
-		IF (nUsedViseIndex >= ViseProgram.nStartIndex) AND (nUsedViseIndex <= ViseProgram.nMaxIndex) THEN	//Vise index valid
 			
+		ELSIF (CheckForViseStatus(E_Vise_State.CncDone) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.CncDone) <= ViseProgram.nMaxIndex) THEN
+			
+			nUsedViseIndex := CheckForViseStatus(E_Vise_State.CncDone);
+		
 			CASE nUsedCNC OF
 				4: nRackUsedForCNC4 := nUsedViseIndex;
 				5: nRackUsedForCNC5 := nUsedViseIndex;
@@ -359,11 +316,8 @@ CASE nState OF
 					END_IF
 				END_IF
 			END_IF
-		END_IF
-		
-		
 		//If none of the above ran, then send the robot to Wait pos (Prg2)
-		IF (NOT fbRobot.bBusy) THEN
+		ELSIF (NOT fbRobot.bBusy) AND (NOT bRobotGoneTowait) THEN
 			nState := 16000;
 		END_IF
 		
@@ -377,9 +331,31 @@ CASE nState OF
 	11500:
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot megfogóban satu van. Kezeletlen állapot egyelőre');	
 		
+	11700:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - CNC program befejezésre várakozás');	
+		
 		
 	(*Pick vise from requested rack, and place it into the requested CNC*)
 	12000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetfelvétel');
+		
+		fbRobot.eCommand := E_Robot_Command.Home;
+		
+		IF fbRobot.bBusy THEN
+			nState := 12005;
+		END_IF
+		
+	12005:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetre mozgásra vár');
+		
+		IF (NOT fbRobot.bBusy) THEN
+			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			IF bStepEnableViseStation THEN
+				nState := 12010;
+			END_IF
+		END_IF
+		
+	12010:
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kért satu henger munkahelyzetre');
 		
 		fbViseStation[nUsedViseIndex].Vise.bBasePosCmd := FALSE;
@@ -387,7 +363,7 @@ CASE nState OF
 		
 		IF fbViseStation[nUsedViseIndex].Vise.bWorkPosStab THEN
 			IF bStepEnableViseStation THEN
-				nState := nState + 20;
+				nState := nState + 10;
 			END_IF
 		END_IF
 		
@@ -595,7 +571,26 @@ CASE nState OF
 	
 	
 	(*Pick vise from requested CNC, and place it into the requested rack*)
-	14000:	
+	14000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetfelvétel');
+		
+		fbRobot.eCommand := E_Robot_Command.Home;
+		
+		IF fbRobot.bBusy THEN
+			nState := 14005;
+		END_IF
+		
+	14005:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot alaphelyzetre mozgásra vár');
+		
+		IF (NOT fbRobot.bBusy) THEN
+			fbRobot.eCommand := E_Robot_Command.NoCommand;
+			IF bStepEnableViseStation THEN
+				nState := 14010;
+			END_IF
+		END_IF
+		
+	14010:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - CNC ajtó nyitott állapot ellenőrzés , Satu fixer elenged');
 		
 		CASE nUsedCNC OF
@@ -1186,7 +1181,7 @@ END_VAR
         <ST><![CDATA[(*Check if all Vises ar in base position*)
 
 FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO
-	IF (NOT fbViseStation[nTestIndex].Vise.bBasePosStab) THEN
+	IF (NOT fbViseStation[i].Vise.bBasePosStab) THEN
 		CheckAllViseInSafePos := FALSE;
 		RETURN;
 	END_IF
@@ -1224,6 +1219,27 @@ CASE nActualCNC OF
 		//Not yet available
 END_CASE
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckForViseStatus" Id="{31452e63-93f6-4606-9dbb-d8bdccf66892}">
+      <Declaration><![CDATA[METHOD INTERNAL CheckForViseStatus : BYTE
+VAR_INPUT
+	i_stViseState		:	E_Vise_State;
+END_VAR
+VAR
+	i					:	BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO
+	IF aViseStatus[i].eState = i_stViseState THEN
+		CheckForViseStatus := i;
+		RETURN;
+	END_IF
+END_FOR
+CheckForViseStatus := 99;
+RETURN;]]></ST>
       </Implementation>
     </Method>
     <Action Name="CNC4Thread" Id="{52a289d7-6d43-443e-8c8e-7df069cd3e98}">

@@ -3,7 +3,7 @@
   <POU Name="ViseProgram" Id="{6d9b958e-c489-4500-98fd-04fa45676c6e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ViseProgram
 VAR CONSTANT
-	nStartIndex					:USINT := 1;
+	nStartIndex					:USINT := 2;
 	nMaxIndex					:USINT := 7;
 END_VAR
 VAR	(* Control *)
@@ -708,5 +708,21 @@ END_FOR
 fbRgbLights(arrColors:= arrColors);]]></ST>
       </Implementation>
     </Action>
+    <LineIds Name="ViseProgram">
+      <LineId Id="3" Count="348" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="ViseProgram.MySQL">
+      <LineId Id="2" Count="16" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ViseProgram.Pneu">
+      <LineId Id="2" Count="180" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ViseProgram.RGB">
+      <LineId Id="2" Count="104" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
