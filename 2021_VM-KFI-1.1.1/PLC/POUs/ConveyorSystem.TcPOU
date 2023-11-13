@@ -117,7 +117,7 @@ fbZ7(
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
 	q_bBasePos=> , 
-	q_bWorkPos=> GVL_ConveyorSystem.q_bZ7);
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ7_14);
 	
 fbZ8(
 	sName:= 'Paletta megfogó 1B', 
@@ -132,7 +132,7 @@ fbZ8(
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
 	q_bBasePos=> , 
-	q_bWorkPos=> GVL_ConveyorSystem.q_bZ8);
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ8_14);
 	
 fbZ9(
 	sName:= 'Paletta megfogó 2A', 
@@ -147,7 +147,7 @@ fbZ9(
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
 	q_bBasePos=> , 
-	q_bWorkPos=> GVL_ConveyorSystem.q_bZ9);
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ9_14);
 	
 fbZ10(
 	sName:= 'Paletta megfogó 2B', 
@@ -162,7 +162,7 @@ fbZ10(
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
 	q_bBasePos=> , 
-	q_bWorkPos=> GVL_ConveyorSystem.q_bZ10);
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ10_14);
 	
 fbZ11(
 	sName:= 'Paletta megfogó 3A', 
@@ -177,7 +177,7 @@ fbZ11(
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
 	q_bBasePos=>, 
-	q_bWorkPos=> GVL_ConveyorSystem.q_bZ11);
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ11_14);
 	
 fbZ12(
 	sName:= 'Paletta megfogó 3B', 
@@ -192,7 +192,7 @@ fbZ12(
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
 	q_bBasePos=> , 
-	q_bWorkPos=> GVL_ConveyorSystem.q_bZ12);
+	q_bWorkPos=> GVL_ConveyorSystem.q_bZ12_14);
 	
 fbZ13(
 	sName:= , 
