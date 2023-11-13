@@ -63,7 +63,7 @@ IF nState > 0 AND nState < 150000 THEN
 END_IF
 
 (*Maintance*)
-IF bManualMode THEN
+IF bManualModeVise THEN
 	nState := 150000;
 END_IF
 
@@ -105,7 +105,7 @@ CASE nState OF
 			fbViseStation[index].Vise.bBasePosCmd := FALSE;
 			fbViseStation[index].Vise.bWorkPosCmd := FALSE;
 		END_FOR
-		IF i_bLO1_CNC45 AND i_bLO2_CNC45 AND NOT bManualMode THEN
+		IF i_bLO1_CNC45 AND i_bLO2_CNC45 AND NOT bManualModeVise THEN
 			nState := nState + 20;
 		END_IF
 		
@@ -363,7 +363,7 @@ CASE nState OF
 	
 	150000: (* Maintenance *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
-		IF NOT bManualMode THEN
+		IF NOT bManualModeVise THEN
 			nState := 0;
 		END_IF
 		
@@ -418,8 +418,8 @@ fbUpdateVise(
 fbViseStation[1](
 	sName:= 'Vise 1', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[1].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 1-7', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu1BasePosErr, 
@@ -431,8 +431,8 @@ fbViseStation[1](
 fbViseStation[2](
 	sName:= 'Vise 2', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[2].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 1-7', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu2BasePosErr, 
@@ -444,8 +444,8 @@ fbViseStation[2](
 fbViseStation[3](
 	sName:= 'Vise 3', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[3].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 1-7', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu3BasePosErr, 
@@ -457,8 +457,8 @@ fbViseStation[3](
 fbViseStation[4](
 	sName:= 'Vise 4', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[4].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 1-7', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu4BasePosErr, 
@@ -470,8 +470,8 @@ fbViseStation[4](
 fbViseStation[5](
 	sName:= 'Vise 5', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[5].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 1-7', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu5BasePosErr, 
@@ -483,8 +483,8 @@ fbViseStation[5](
 fbViseStation[6](
 	sName:= 'Vise 6', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[6].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 1-7', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu6BasePosErr, 
@@ -496,8 +496,8 @@ fbViseStation[6](
 fbViseStation[7](
 	sName:= 'Vise 7', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[7].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 1-7', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu7BasePosErr, 
@@ -509,8 +509,8 @@ fbViseStation[7](
 fbViseStation[8](
 	sName:= 'Vise 8', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[8].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 8-14', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu8BasePosErr, 
@@ -522,8 +522,8 @@ fbViseStation[8](
 fbViseStation[9](
 	sName:= 'Vise 9', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[9].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 8-14', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu9BasePosErr, 
@@ -535,8 +535,8 @@ fbViseStation[9](
 fbViseStation[10](
 	sName:= 'Vise 10', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[10].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 8-14', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu10BasePosErr, 
@@ -548,8 +548,8 @@ fbViseStation[10](
 fbViseStation[11](
 	sName:= 'Vise 11', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[11].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 8-14', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu11BasePosErr, 
@@ -561,8 +561,8 @@ fbViseStation[11](
 fbViseStation[12](
 	sName:= 'Vise 12', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[12].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 8-14', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu12BasePosErr, 
@@ -574,8 +574,8 @@ fbViseStation[12](
 fbViseStation[13](
 	sName:= 'Vise 13', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[13].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 8-14', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu13BasePosErr, 
@@ -587,8 +587,8 @@ fbViseStation[13](
 fbViseStation[14](
 	sName:= 'Vise 14', 
 	bEn:= i_bLO1_CNC45 AND NOT (aViseStatus[14].eState = E_Vise_State.OutOfService), 
-	bEHA:= bGlobalEHA, 
-	bManualMode:= bManualMode, 
+	bEHA:= bGlobalEHAVise, 
+	bManualMode:= bManualModeVise, 
 	bAck:= bAckP, 
 	sSourceName:= 'Vise 8-14', 
 	stViseBasePosEvent:= TC_Events.MyEvents.Satu14BasePosErr, 

@@ -18,6 +18,10 @@
 
 	bFirstCycle						:BOOL := TRUE; 
 	wLifeSignal						:WORD;
+	bManualModeVise					:BOOL;				(* Manual mode *)
+	bManualModeRequestVise			:BOOL;
+	sModeVise						:STRING;			(* Actual mode *)
+	nModeVise						:BYTE;
 	bManualMode						:BOOL;				(* Manual mode *)
 	bManualModeRequest				:BOOL;
 	sMode							:STRING;			(* Actual mode *)
@@ -28,6 +32,7 @@
 	bStepEnable						:BOOL;				(* Step enable *)
 	bAckHMI							:BOOL;				(* Error acknowledge HMI *)
 	bAckP							:BOOL;				(* Acknowledge pulse *)
+	bGlobalEHAVise					:BOOL;				(* Error-handling active *)
 	bGlobalEHA						:BOOL;				(* Error-handling active *)
 	bGlobalError					:BOOL;				(* Global error bit *)
 	bDoorOpenReq					:BOOL;				(* Door open request *)

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Robot" Id="{7413f5a0-93df-4ba2-8cb2-1d1cd18c453c}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Robot
 VAR
@@ -65,7 +65,7 @@ ELSE
 END_IF
 
 (*Kézi üzem *************************************************)
-IF bManualMode and stRobot.nState < 150000 THEN
+IF bManualModeVise and stRobot.nState < 150000 THEN
 	stRobot.nState := 150000;
 END_IF
 
@@ -272,7 +272,7 @@ CASE stRobot.nState OF
 
 	(* Kézi üzem *********************************************************************)
 	150000:	stRobot.sState := CONCAT(UDINT_TO_STRING(stRobot.nState) ,' - Kézi üzem');
-			IF NOT bManualMode THEN
+			IF NOT bManualModeVise THEN
 				stRobot.nState := 0;
 			ELSIF	stProcessReq.bExecute AND NOT bRobotAlarm AND bRobotReady THEN							// Program végrehajtás
 						IF stProcessReq.nProgIdx > 0 THEN

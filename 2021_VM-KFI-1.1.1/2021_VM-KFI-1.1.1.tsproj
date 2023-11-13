@@ -3598,7 +3598,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{918653AB-F2F0-0D57-2BFB-6895C34F848F}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{9A1B9C13-6877-551D-63A0-A05ECB76E25A}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3655,7 +3655,7 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S334]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
@@ -3680,17 +3680,17 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_5</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S313]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_6</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S312]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_7</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S311]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
@@ -3700,7 +3700,7 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_9</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S351]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
@@ -3720,7 +3720,7 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_13</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S333]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
@@ -3735,22 +3735,22 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_16</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S342]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_17</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ S341]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_18</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ Not included]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_19</Name>
-							<Comment><![CDATA[ S]]></Comment>
+							<Comment><![CDATA[ Not included]]></Comment>
 							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
 						</Var>
 						<Var>
@@ -5231,6 +5231,7 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_14</Name>
+							<Comment><![CDATA[ Kiemelők ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -5278,27 +5279,52 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_ConveyorSystem.q_bZ7</Name>
+							<Name>GVL_ConveyorSystem.q_bZ7_14</Name>
+							<Comment><![CDATA[ Megfogók ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_ConveyorSystem.q_bZ8</Name>
+							<Name>GVL_ConveyorSystem.q_bZ7_12</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_ConveyorSystem.q_bZ9</Name>
+							<Name>GVL_ConveyorSystem.q_bZ8_14</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_ConveyorSystem.q_bZ10</Name>
+							<Name>GVL_ConveyorSystem.q_bZ8_12</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_ConveyorSystem.q_bZ11</Name>
+							<Name>GVL_ConveyorSystem.q_bZ9_14</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_ConveyorSystem.q_bZ12</Name>
+							<Name>GVL_ConveyorSystem.q_bZ9_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ10_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ10_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ11_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ11_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ12_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ12_12</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -31414,9 +31440,12 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS7" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS8" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bS9" VarB="Module 10 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ10" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ11" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ12" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ10_12" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ10_14" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ11_12" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ11_14" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ12_12" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ12_14" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ13_12" VarB="Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ13_14" VarB="Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ14_12" VarB="Module 7 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
@@ -31447,9 +31476,12 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ5_14" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ6_12" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 3" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ6_14" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 2" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ7" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ8" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ9" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ7_12" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 5" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ7_14" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 4" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ8_12" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 7" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ8_14" VarB="Module 5 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 6" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ9_12" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 1" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ConveyorSystem.q_bZ9_14" VarB="Module 6 (MPA1G VMPA1-FB-EMG-8 [8DO])^Outputs^Output 0" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Box 75 (BNI ECT-508-105-Z015)">
 				<Link VarA="PlcTask Inputs^GVL_IO.fbGripperPos1.arrRaw[0]" VarB="Module 1 (IOL_I_2byte)^TxPDO^input byte 0" AutoLink="true"/>

@@ -232,6 +232,9 @@
     <Compile Include="POUs\FBs\ID200\DUTs\RawToUlint.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\ID200\DUTs\ST_Active_RFIDs.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\ID200\DUTs\ST_Tag_Data.TcDUT">
       <SubType>Code</SubType>
     </Compile>

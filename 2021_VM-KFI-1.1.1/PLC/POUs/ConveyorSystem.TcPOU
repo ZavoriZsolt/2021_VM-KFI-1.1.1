@@ -3,14 +3,55 @@
   <POU Name="ConveyorSystem" Id="{f8767a66-2af5-4d3e-9e9a-eaea6bc70687}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ConveyorSystem
 VAR
+	(*ID_200*)
+	rtStartReaders	: R_TRIG;
+	bStartReaders	: BOOL;	
+	i				: INT := 1;
+	ch				: BYTE := 1;
+	j				: INT := 1;
+	k				: INT := 1;
+	FixCode			: ARRAY [0..4] OF BYTE;
+	TestData 		: ARRAY [0..7] OF BYTE;
+	(*Head Data*)
+
+	bTestQuit			: BOOL;
+	bTestERFC			: BOOL;
+	bTestERWS			: BOOL;
+	bTestCT				: BOOL;
+	bTestReset			: BOOL;
+	bTestChannel		: BYTE := 1;
 	
+	bTestSWFC			: BOOL;
+	bTestSWWS			: BOOL;
 END_VAR
-]]></Declaration>
+VAR CONSTANT
+	arrRFIDs			: ARRAY[1..17] OF ST_Active_RFIDs := [	(RFID := 1, CH := 2),
+																(RFID := 1, CH := 1),
+																(RFID := 2, CH := 1),
+																(RFID := 2, CH := 2),
+																(RFID := 3, CH := 1),
+																(RFID := 3, CH := 2),
+																(RFID := 4, CH := 1),
+																(RFID := 4, CH := 2),
+																(RFID := 5, CH := 2),
+																(RFID := 5, CH := 1),
+																(RFID := 6, CH := 1),
+																(RFID := 7, CH := 1),
+																(RFID := 9, CH := 2),
+																(RFID := 8, CH := 2),
+																(RFID := 8, CH := 1),
+																(RFID := 10, CH := 1),
+																(RFID := 9, CH := 1)];
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Cylinders();
 Stoppers();
 Motors();
-Lift();]]></ST>
+Lift();
+ID_200();
+ID_200_Test();
+
+]]></ST>
     </Implementation>
     <Action Name="Cylinders" Id="{9a689bda-b5d5-433f-b719-db3da72abe11}">
       <Implementation>
@@ -48,11 +89,11 @@ fbZ3(
 	sName:= 'Kiemelő 2A', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= i_stSensorHub_10.Channel_1 AND i_stSensorHub_10.Channel_3, 
-	i_bWorkPos:= i_stSensorHub_10.Channel_2 AND i_stSensorHub_10.Channel_4, 
+	i_bBasePos:= i_stSensorHub_10.Channel_2 AND i_stSensorHub_10.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_10.Channel_1 AND i_stSensorHub_10.Channel_3, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -63,11 +104,11 @@ fbZ4(
 	sName:= 'Kiemelő 2B', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= i_stSensorHub_11.Channel_1 AND i_stSensorHub_11.Channel_3, 
-	i_bWorkPos:= i_stSensorHub_11.Channel_2 AND i_stSensorHub_11.Channel_4, 
+	i_bBasePos:= i_stSensorHub_11.Channel_2 AND i_stSensorHub_11.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_11.Channel_1 AND i_stSensorHub_11.Channel_3, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
@@ -78,7 +119,7 @@ fbZ5(
 	sName:= 'Kiemelő 3A', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
 	i_bBasePos:= i_stSensorHub_14.Channel_1 AND i_stSensorHub_14.Channel_3, 
@@ -93,7 +134,7 @@ fbZ6(
 	sName:= 'Kiemelő 3B', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
 	i_bBasePos:= i_stSensorHub_15.Channel_1 AND i_stSensorHub_15.Channel_3, 
@@ -116,7 +157,7 @@ fbZ7(
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
-	q_bBasePos=> , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ7_12, 
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ7_14);
 	
 fbZ8(
@@ -131,67 +172,67 @@ fbZ8(
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
-	q_bBasePos=> , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ8_12, 
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ8_14);
 	
 fbZ9(
 	sName:= 'Paletta megfogó 2A', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= i_stSensorHub_10.Channel_5, 
-	i_bWorkPos:= i_stSensorHub_10.Channel_6, 
+	i_bBasePos:= i_stSensorHub_10.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_10.Channel_5, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
-	q_bBasePos=> , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ9_12, 
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ9_14);
 	
 fbZ10(
 	sName:= 'Paletta megfogó 2B', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= i_stSensorHub_11.Channel_5, 
-	i_bWorkPos:= i_stSensorHub_11.Channel_6, 
+	i_bBasePos:= i_stSensorHub_11.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_11.Channel_5, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
-	q_bBasePos=> , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ10_12, 
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ10_14);
 	
 fbZ11(
 	sName:= 'Paletta megfogó 3A', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= i_stSensorHub_14.Channel_5, 
-	i_bWorkPos:= i_stSensorHub_14.Channel_6, 
+	i_bBasePos:= i_stSensorHub_14.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_14.Channel_5, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
-	q_bBasePos=>, 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ11_12, 
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ11_14);
 	
 fbZ12(
 	sName:= 'Paletta megfogó 3B', 
 	bEn:= i_bLO1_Main, 
 	bEHA:= NOT bManualMode, 
-	nEHMode:= , 
+	nEHMode:= 2, 
 	bDisableManualCmd:= NOT bManualMode, 
 	bAck:= bAckP, 
-	i_bBasePos:= i_stSensorHub_15.Channel_5, 
-	i_bWorkPos:= i_stSensorHub_15.Channel_6, 
+	i_bBasePos:= i_stSensorHub_15.Channel_4, 
+	i_bWorkPos:= i_stSensorHub_15.Channel_5, 
 	sSourceName:= , 
 	stBasePosEvent:= , 
 	stWorkPosEvent:= , 
-	q_bBasePos=> , 
+	q_bBasePos=> GVL_ConveyorSystem.q_bZ12_12, 
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ12_14);
 	
 fbZ13(
@@ -330,6 +371,92 @@ fbZ21(
 	q_bWorkPos=> GVL_ConveyorSystem.q_bZ21_14);]]></ST>
       </Implementation>
     </Action>
+    <Action Name="ID_200" Id="{454861a7-6e0b-4444-864d-9594011e8d7c}">
+      <Implementation>
+        <ST><![CDATA[rtStartReaders(CLK:= NOT bManualModeVise OR i_bLO1_Main, Q=> );
+IF rtStartReaders.Q THEN
+	i := 1;
+	bStartReaders := TRUE;
+END_IF
+
+IF bStartReaders THEN
+	IF fbRFID_Readers[arrRFIDs[i].RFID].EncReadFixCode(arrRFIDs[i].CH) THEN
+		i := i + 1;
+	END_IF
+	IF i > 17 THEN
+		bStartReaders := FALSE;
+	END_IF
+END_IF
+
+FOR j:=1 TO 10 DO
+	fbRFID_Readers[j]();
+END_FOR]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ID_200_Test" Id="{61575ed7-376b-4435-8315-1a5ae0fed05f}">
+      <Implementation>
+        <ST><![CDATA[(*-----=== Test ===-----*)
+IF bTestReset THEN
+	IF fbRFID_Readers[k].Reset() THEN
+		bTestReset := FALSE;
+	END_IF
+END_IF
+
+IF bTestQuit THEN
+	IF fbRFID_Readers[k].Quit(bTestChannel) THEN
+		bTestQuit := FALSE;
+	END_IF
+END_IF
+
+IF bTestERWS THEN
+	IF fbRFID_Readers[k].EncReadWords(bTestChannel, 5, ) THEN
+		bTestERWS := FALSE;
+	END_IF
+END_IF
+
+IF bTestERFC THEN
+	IF fbRFID_Readers[k].EncReadFixCode(bTestChannel) THEN
+		bTestERFC := FALSE;
+	END_IF
+END_IF
+
+IF bTestCT THEN
+	IF fbRFID_Readers[k].ChangeTag(			Channel := bTestChannel,
+									CarrierType := E_CarrierType.MDT_28) THEN
+		bTestCT := FALSE;
+	END_IF
+END_IF
+
+//v1
+IF bTestSWFC THEN
+	IF fbRFID_Readers[k].SinWriteFixCode(	Channel := bTestChannel,
+													Data := FixCode) THEN
+		bTestSWFC := FALSE;
+	END_IF
+END_IF
+
+//v2
+//IF bTestSWFC THEN
+//	IF fbId200_1.SinWriteFixCode(	Channel := bTestChannel,
+//									Fixlen := uFixLength,
+//									CarrierType := E_CarrierType.MDT_28,
+//									Data := TestData,
+//									DataLength := 5) THEN
+//		bTestSWFC := FALSE;
+//	END_IF
+//END_IF
+
+IF bTestSWWS THEN
+	IF fbRFID_Readers[k].SinWriteWords(		Channel := bTestChannel,
+									1,
+									Data := TestData,
+									DataLength := 5) THEN
+		bTestSWWS := FALSE;
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Lift" Id="{22af94cf-26d8-4ff5-aa99-7395cb159dd0}">
       <Implementation>
         <ST><![CDATA[fbLift_1A(
@@ -373,7 +500,7 @@ fbLift_2B(
 	bErrorAck:= bAckP, 
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
-	bBeforeStopperSent:= fbS1.bPalletSent,
+	bBeforeStopperSent:= fbS3.bPalletSent,
 	stTagData:= fbRFID_Readers[2].Ch2_TagData, 
 	fbLift:= ADR(fbZ4), 
 	fbLock:= ADR(fbZ10), 
@@ -385,7 +512,7 @@ fbLift_3A(
 	bErrorAck:= bAckP, 
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
-	bBeforeStopperSent:= fbS19.bPalletSent,
+	bBeforeStopperSent:= fbS13.bPalletSent,
 	stTagData:= fbRFID_Readers[3].Ch1_TagData, 
 	fbLift:= ADR(fbZ5), 
 	fbLock:= ADR(fbZ11), 
@@ -397,7 +524,7 @@ fbLift_3B(
 	bErrorAck:= bAckP, 
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
-	bBeforeStopperSent:= fbS1.bPalletSent,
+	bBeforeStopperSent:= fbS5.bPalletSent,
 	stTagData:= fbRFID_Readers[3].Ch2_TagData, 
 	fbLift:= ADR(fbZ6), 
 	fbLock:= ADR(fbZ12), 
@@ -634,7 +761,18 @@ fbConveyor_11(
     </Action>
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
       <Implementation>
-        <ST><![CDATA[fbS1(			(*-----=== Stopper kiemelő 1A ===-----*)
+        <ST><![CDATA[fbS19(			(*-----=== Stopper kiemelő 1A előtt ===-----*)
+	bNextReady:= fbS1.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= NOT fbS19.i_bPalettSensor, 
+	bStationFinished:= TRUE, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_1.Channel_2,
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS19);
+
+(****************************************************************************************)
+(************************************** CNC1 ********************************************)
+(****************************************************************************************)	
+fbS1(			(*-----=== Stopper kiemelő 1A ===-----*)
 	bNextReady:= fbS2.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_1A.nState = 10000 OR fbLift_1A.nState = 12000, 
@@ -650,6 +788,26 @@ fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_6.Channel_6,
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
 	
+fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
+	bNextReady:= fbS3.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= NOT fbS17.i_bPalettSensor, 
+	bStationFinished:= TRUE, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_5.Channel_4, 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
+
+fbS20(			(*-----=== CNC1 Puffer küldés ===-----*)
+	bNextReady:= fbS1.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= fbZ18.bWorkPosStab, 
+	bStationFinished:=  fbZ18.bWorkPosStab, 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS20);
+
+
+(****************************************************************************************)
+(************************************** CNC2 ********************************************)
+(****************************************************************************************)	
 fbS3(			(*-----=== Stopper kiemelő 2A ===-----*)
 	bNextReady:= fbS4.bReady, 
 	bMotorRun:= i_bLO1_Main, 
@@ -665,7 +823,27 @@ fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
 	bStationFinished:= fbLift_2B.nState = 14000 OR fbLift_2B.nState = 12000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_11.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
-	
+
+fbS13(			(*-----=== CNC2 Puffer, Stopper kiemelő 2B után===-----*)
+	bNextReady:= fbS4.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= NOT fbS11.i_bPalettSensor, 
+	bStationFinished:= TRUE, 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_8.Channel_4, 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
+
+fbS16(			(*-----=== CNC2 Puffer küldés ===-----*)
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS16);
+
+
+(****************************************************************************************)
+(************************************** CNC3 ********************************************)
+(****************************************************************************************)		
 fbS5(			(*-----=== Stopper kiemelő 3A ===-----*)
 	bNextReady:= fbS6.bReady, 
 	bMotorRun:= i_bLO1_Main, 
@@ -681,7 +859,24 @@ fbS6(			(*-----=== Stopper kiemelő 3B ===-----*)
 	bStationFinished:= fbLift_3B.nState = 14000 OR fbLift_3B.nState = 12000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_15.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS6);
-	
+
+fbS14(
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS14);
+
+fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
+	bNextReady:= fbS5.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= NOT fbS11.i_bPalettSensor,  
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS11);
+
+
 fbS7(
 	bNextReady:= , 
 	bMotorRun:= i_bLO1_Main, 
@@ -715,13 +910,7 @@ fbS10(
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS10);
 	
-fbS11(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS11.i_bPalettSensor,  
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS11);
+
 	
 fbS12(
 	bNextReady:= , 
@@ -730,22 +919,7 @@ fbS12(
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS12);
-	
-fbS13(
-	bNextReady:= fbS5.bReady, 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS11.i_bPalettSensor, 
-	bStationFinished:= TRUE, 
-	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_8.Channel_4, 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
-	
-fbS14(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS14);
+
 	
 fbS15(
 	bNextReady:= , 
@@ -755,13 +929,7 @@ fbS15(
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS15);
 	
-fbS16(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS16);
+
 	
 fbS17(
 	bNextReady:= fbS3.bReady, 
@@ -779,23 +947,7 @@ fbS18(
 	bStationFinished:= , 
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS18);
-	
-fbS19(			(*-----=== Stopper kiemelő 1A előtt ===-----*)
-	bNextReady:= fbS1.bReady, 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS19.i_bPalettSensor, 
-	bStationFinished:= TRUE, 
-	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_1.Channel_2,
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS19);
-	
-fbS20(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS20);
-	
+		
 fbS21(
 	bNextReady:= , 
 	bMotorRun:= i_bLO1_Main, 

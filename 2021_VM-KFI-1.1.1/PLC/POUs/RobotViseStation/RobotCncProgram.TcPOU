@@ -115,7 +115,7 @@ IF nState > 0 AND nState < 150000 THEN
 END_IF
 
 (* =================================== Maintance =================================== *)
-IF bManualMode THEN
+IF bManualModeVise THEN
 	nState := 150000;
 	nStateCNC5 := 150000;
 END_IF
@@ -211,7 +211,7 @@ CASE nState OF
 		GVL_IO.q_bCNC4_Release_Vise := FALSE;
 		bRobotGoneTowait := FALSE;
 		
-		IF i_bLO1_CNC45 AND i_bLO2_CNC45 AND (NOT bManualMode) AND (NOT bError) THEN
+		IF i_bLO1_CNC45 AND i_bLO2_CNC45 AND (NOT bManualModeVise) AND (NOT bError) THEN
 			IF bStepEnableViseStation THEN
 				nState := nState + 20;
 			END_IF
@@ -660,7 +660,7 @@ CASE nState OF
 	
 	150000: (* Maintenance *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
-		IF NOT bManualMode THEN
+		IF NOT bManualModeVise THEN
 			nState := 0;
 		END_IF
 		
@@ -875,7 +875,7 @@ CASE nStateCNC5 OF
 		
 	150000: (* Maintenance *)
 		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Maintenance');
-		IF NOT bManualMode THEN
+		IF NOT bManualModeVise THEN
 			nStateCNC5 := 0;
 		END_IF
 		
