@@ -3,7 +3,7 @@
   <POU Name="ViseProgram" Id="{6d9b958e-c489-4500-98fd-04fa45676c6e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ViseProgram
 VAR CONSTANT
-	nStartIndex					:USINT := 2;
+	nStartIndex					:USINT := 1;
 	nMaxIndex					:USINT := 7;
 END_VAR
 VAR	(* Control *)
