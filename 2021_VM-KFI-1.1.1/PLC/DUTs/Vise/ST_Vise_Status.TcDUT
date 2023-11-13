@@ -5,6 +5,7 @@
 STRUCT
 	eState			:E_Vise_State;		//
 	eSocketState	:E_ViseSocketState;
+	nInCNC			:BYTE;
 	bPass			:BOOL;
 	bFail			:BOOL;
 	nViseIndex		:USINT; // 1-14
