@@ -40,6 +40,7 @@ VAR (* OPC_UA *)
 	tHeartBeatDelay				: TON;
 	bCNCHandshakeTimeout		:	BOOL;
 	tCNCHandshakeTimer			:	TON;
+	tCNCHandshakeTimer2			:	TON;
 	bCNCMidwareShutdownPossible	: 	BOOL;	//20, 40, 11400, 
 	bShutdownIsProcessing		:	BOOL;
 END_VAR
@@ -53,11 +54,13 @@ IF tHeartBeatDelay.Q THEN
 	stCNC_Data^.HeartBeat := 0;
 END_IF
 
-tCNCHandshakeTimer(	IN :=	((stCNC_Data^.HeartBeat = 0) OR
-						 		(stCNC_Data^.HeartBeat = 99)),
+tCNCHandshakeTimer(	IN :=	(stCNC_Data^.HeartBeat = 0),
 						PT := T#3S,
-						Q=>bCNCHandshakeTimeout);
-					
+						Q=>);
+tCNCHandshakeTimer2(	IN :=	(stCNC_Data^.HeartBeat = 99),
+						PT := T#3S,
+						Q=>);
+bCNCHandshakeTimeout := tCNCHandshakeTimer.Q OR tCNCHandshakeTimer2.Q;					
 					
 (* =================================== OPC_UA Automatic Shutdown handling =========================================== *)					
 bCNCMidwareShutdownPossible := 	nState <= 10000;

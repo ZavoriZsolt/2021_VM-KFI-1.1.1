@@ -63,3 +63,6 @@ VisualStudio.gitignore
 2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
 2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
 2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
+.vs/2021_VM-KFI-1.1.1/v15/.suo
+Measurement Project1/VSSettings/.vsm
+Measurement Project1/VSSettings/.vsm
