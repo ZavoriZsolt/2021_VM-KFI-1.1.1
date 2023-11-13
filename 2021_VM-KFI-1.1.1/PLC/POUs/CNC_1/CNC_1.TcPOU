@@ -53,8 +53,7 @@ IF tHeartBeatDelay.Q THEN
 	stCNC_Data^.HeartBeat := 0;
 END_IF
 
-tCNCHandshakeTimer(	IN :=	((stCNC_Data^.HeartBeat = 0) OR
-						 		(stCNC_Data^.HeartBeat = 99)),
+tCNCHandshakeTimer(		IN :=	(stCNC_Data^.HeartBeat = 0),
 						PT := T#3S,
 						Q=>bCNCHandshakeTimeout);
 					

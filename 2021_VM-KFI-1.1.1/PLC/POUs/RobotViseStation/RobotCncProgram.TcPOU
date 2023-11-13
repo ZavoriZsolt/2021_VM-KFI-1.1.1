@@ -35,35 +35,36 @@ END_VAR
 VAR	(*Vise Status handling*)
 	i							:	BYTE;
 	nUsedViseIndex				:	BYTE;
-	nUsedCNC					:	BYTE := 4;
+	nUsedCNC					:	BYTE := 5;
 	bActualCNCThreadDone		:	BOOL;
 	bActualCNCThreadInBase		:	BOOL;
 	bActualCNCProgramNotRunning	:	BOOL;
 END_VAR
 VAR (* OPC_UA CNC4*)
-	stCNC4_Data					: 	POINTER TO OPC_CNC_Data_Collection;
-	tCNC4HeartBeatDelay			: 	TON;
-	bCNC4ProgramNotRunning		:	BOOL;
-	bCNC4ProgramRunning			:	BOOL;
-	bCNC4ServerRunning			:	BOOL;
-	bCNC4SystemReady			:	BOOL;
-	bCNC4Finished				:	BOOL;
-	bCNC4HandshakeTimeout		:	BOOL;
-	tCNC4HandshakeTimer			:	TON;
-	tCNC4HandshakeTimer2		:	TON;
-	bCNCMidwareShutdownPossible	: 	BOOL;	//12500, 14000, cnc4 = 0 or cnc4 >= 50000
-	bShutdownIsProcessing		:	BOOL;
+	stCNC5_Data					: 	POINTER TO OPC_CNC_Data_Collection;
+	tCNC5HeartBeatDelay			: 	TON;
+	bCNC5ProgramNotRunning		:	BOOL;
+	bCNC5ProgramRunning			:	BOOL;
+	bCNC5ServerRunning			:	BOOL;
+	bCNC5SystemReady			:	BOOL;
+	bCNC5Finished				:	BOOL;
+	bCNC5HandshakeTimeout		:	BOOL;
+	tCNC5HandshakeTimer			:	TON;
+	bCNC5MidwareShutdownPossible	: 	BOOL;	//12500, 14000, cnc4 = 0 or cnc4 >= 50000
+	bCNC5ShutdownIsProcessing		:	BOOL;
 	
-	(*CNC 4 Thread State Machine process*)
-	nStateCNC4					:	UDINT;
-	nStatePreviousCNC4			:	UDINT;
-	sStateCNC4					:	STRING(500);
-	fbCycleTimeCNC4				:	TON;
-	nCycleTimeCNC4				:	REAL;
-	bErrorCNC4					:	BOOL;
-	bStepEnableCNC4				:	BOOL;
-	anLastStatesCNC4			:	ARRAY[0..100] OF UDINT;
-    iLastStatesCNC4				:	INT;
+	bOverrideCNC5ProgramUse		:	BOOL := TRUE;
+	
+	(*CNC 5 Thread State Machine process*)
+	nStateCNC5					:	UDINT;
+	nStatePreviousCNC5			:	UDINT;
+	sStateCNC5					:	STRING(500);
+	fbCycleTimeCNC5				:	TON;
+	nCycleTimeCNC5				:	REAL;
+	bErrorCNC5					:	BOOL;
+	bStepEnableCNC5				:	BOOL;
+	anLastStatesCNC5			:	ARRAY[0..100] OF UDINT;
+    iLastStatesCNC5				:	INT;
 	
 	//Vise / Term90 / TErm92 / 66.6, 66.7, 67.0 zár-nyit-lefúj
 END_VAR
@@ -73,39 +74,37 @@ VAR PERSISTENT
 	bRobotGoneTowait			:	BOOL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[MySQL();
-CNC4Thread();
-Robot();
+      <ST><![CDATA[
 
 (* =================================== OPC_UA Hearbeat handling =========================================== *)
-stCNC4_Data := ADR(OPC_UA_CNC2);
-tCNC4HeartBeatDelay(IN := stCNC4_Data^.HeartBeat = 99, PT := T#500MS, Q=>);
-IF tCNC4HeartBeatDelay.Q THEN
-	stCNC4_Data^.HeartBeat := 0;
+stCNC5_Data := ADR(OPC_UA_CNC2);
+tCNC5HeartBeatDelay(IN := stCNC5_Data^.HeartBeat = 99, PT := T#500MS, Q=>);
+IF tCNC5HeartBeatDelay.Q THEN
+	stCNC5_Data^.HeartBeat := 0;
 END_IF
 
-tCNC4HandshakeTimer(	IN := (stCNC4_Data^.HeartBeat = 0),
+tCNC5HandshakeTimer(	IN := (stCNC5_Data^.HeartBeat = 0),
 						PT := T#3S,
-						Q=> bCNC4HandshakeTimeout);
+						Q=> bCNC5HandshakeTimeout);
 					
 (* =================================== OPC_UA Automatic Shutdown handling =========================================== *)					
-bCNCMidwareShutdownPossible := 	nState <= 11000;
+bCNC5MidwareShutdownPossible := 	nState <= 11000;
 								
-IF bCNCMidwareShutdownPossible AND stCNC4_Data^.MidwareRequestedShutdown AND (NOT bCNC4HandshakeTimeout) THEN
-	stCNC4_Data^.ApproveShutdownRequest := TRUE;
+IF bCNC5MidwareShutdownPossible AND stCNC5_Data^.MidwareRequestedShutdown AND (NOT bCNC5HandshakeTimeout) THEN
+	stCNC5_Data^.ApproveShutdownRequest := TRUE;
 END_IF
 
-IF stCNC4_Data^.ApproveShutdownRequest THEN
-	IF bCNC4HandshakeTimeout THEN
-		bShutdownIsProcessing := TRUE;
+IF stCNC5_Data^.ApproveShutdownRequest THEN
+	IF bCNC5HandshakeTimeout THEN
+		bCNC5ShutdownIsProcessing := TRUE;
 	END_IF
 END_IF
 
-IF bShutdownIsProcessing THEN
-	stCNC4_Data^.ApproveShutdownRequest := FALSE;
-	stCNC4_Data^.MidwareRequestedShutdown := FALSE;
-	IF (NOT bCNC4HandshakeTimeout) THEN
-		bShutdownIsProcessing := FALSE;
+IF bCNC5ShutdownIsProcessing THEN
+	stCNC5_Data^.ApproveShutdownRequest := FALSE;
+	stCNC5_Data^.MidwareRequestedShutdown := FALSE;
+	IF (NOT bCNC5HandshakeTimeout) THEN
+		bCNC5ShutdownIsProcessing := FALSE;
 	END_IF
 END_IF
 					
@@ -118,14 +117,14 @@ END_IF
 (* =================================== Maintance =================================== *)
 IF bManualMode THEN
 	nState := 150000;
-	nStateCNC4 := 150000;
+	nStateCNC5 := 150000;
 END_IF
 
 
 (* =================================== Emergency =================================== *)
 IF NOT i_bLO1_CNC45 OR NOT i_bLO2_CNC45 THEN
 	nState := 0;
-	nStateCNC4 := 0;
+	nStateCNC5 := 0;
 END_IF
 
 (* =================================== Last states =================================== *)
@@ -140,31 +139,31 @@ IF(nState >= 1000) AND (nState < 150000) THEN
 END_IF	
 
 (* =================================== Check common CNC states ===================================*)
-bCNC4ProgramNotRunning := stCNC4_Data^.CurentState_Program = 'Idle' OR stCNC4_Data^.CurentState_Program = 'NotSelected' OR stCNC4_Data^.CurentState_Program = 'Interrupted';
-bCNC4ProgramRunning := stCNC4_Data^.CurentState_Program = 'Running';
-bCNC4ServerRunning := stCNC4_Data^.ServerState = 'Running';
-bCNC4SystemReady := stCNC4_Data^.ServerState = 'Running' AND stCNC4_Data^.CurrentState_State = 'NCIsAvailable';
-bCNC4Finished := stCNC4_Data^.CurentState_Program = 'Finished';
+bCNC5ProgramNotRunning := stCNC5_Data^.CurentState_Program = 'Idle' OR stCNC5_Data^.CurentState_Program = 'NotSelected' OR stCNC5_Data^.CurentState_Program = 'Interrupted';
+bCNC5ProgramRunning := stCNC5_Data^.CurentState_Program = 'Running';
+bCNC5ServerRunning := stCNC5_Data^.ServerState = 'Running';
+bCNC5SystemReady := stCNC5_Data^.ServerState = 'Running' AND stCNC5_Data^.CurrentState_State = 'NCIsAvailable';
+bCNC5Finished := stCNC5_Data^.CurentState_Program = 'Finished';
 
-bStepEnableCNC4 := bStepEnableViseStation;
+bStepEnableCNC5 := bStepEnableViseStation;
 
 CASE nUsedCNC OF
 	4:
-		bActualCNCThreadDone := nStateCNC4 = 50000;
-		bActualCNCThreadInBase := nStateCNC4 = 0;
-		bActualCNCProgramNotRunning := bCNC4ProgramNotRunning;
-	5:
 		//Not yet available
+	5:
+		bActualCNCThreadDone := nStateCNC5 = 50000;
+		bActualCNCThreadInBase := nStateCNC5 = 0;
+		bActualCNCProgramNotRunning := bCNC5ProgramNotRunning;
 END_CASE
 
 
 (* =================================== Error cases ===================================*)
 IF 	fbrobot.bError OR
-	stCNC4_Data^.ControlStatus_Error OR
-	(NOT bCNC4SystemReady) OR
-	(NOT bCNC4ServerRunning) OR 
-	(bCNC4HandshakeTimeout AND (NOT bShutdownIsProcessing)) OR
-	bErrorCNC4
+	stCNC5_Data^.ControlStatus_Error OR
+	(NOT bCNC5SystemReady) OR
+	(NOT bCNC5ServerRunning) OR 
+	(bCNC5HandshakeTimeout AND (NOT bCNC5ShutdownIsProcessing)) OR
+	bErrorCNC5
 THEN	
 	bError := TRUE;
 END_IF
@@ -178,8 +177,9 @@ IF nState > 10000 AND nState <= 95000 THEN
 END_IF
 
 
-
-
+MySQL();
+CNC5Thread();
+Robot();
 
 (*============================================================================================================================================*)
 CASE nState OF
@@ -191,21 +191,21 @@ CASE nState OF
 		fbRobot.nViseNumber := 0;
 		fbRobot.nCncNumber := 0;
 		
-		stCNC4_Data^.DoorControl_CloseDoor := FALSE;
-		stCNC4_Data^.DoorControl_OpenDoor := FALSE;
-		stCNC4_Data^.MagazineTable_Trigger := FALSE;
-		stCNC4_Data^.ToolTable_Trigger := FALSE;
-		stCNC4_Data^.M401_Acknowledge := FALSE;
-		stCNC4_Data^.M402_Acknowledge := FALSE;
-		stCNC4_Data^.M403_Acknowledge := FALSE;
-		stCNC4_Data^.StartCNCProgram := FALSE;
-		stCNC4_Data^.StopCNCProgram := FALSE;
-		stCNC4_Data^.CancelCNCProgram := FALSE;
-		stCNC4_Data^.SelectCNCProgramByNodeID := FALSE;
-		stCNC4_Data^.SelectCNCPrograBlockNumber := FALSE;
-		stCNC4_Data^.ToolTableLoadTrigger := FALSE;
-		stCNC4_Data^.MagazineTableLoadTrigger := FALSE;
-		stCNC4_Data^.ProgramLoadTrigger := FALSE;
+		stCNC5_Data^.DoorControl_CloseDoor := FALSE;
+		stCNC5_Data^.DoorControl_OpenDoor := FALSE;
+		stCNC5_Data^.MagazineTable_Trigger := FALSE;
+		stCNC5_Data^.ToolTable_Trigger := FALSE;
+		stCNC5_Data^.M401_Acknowledge := FALSE;
+		stCNC5_Data^.M402_Acknowledge := FALSE;
+		stCNC5_Data^.M403_Acknowledge := FALSE;
+		stCNC5_Data^.StartCNCProgram := FALSE;
+		stCNC5_Data^.StopCNCProgram := FALSE;
+		stCNC5_Data^.CancelCNCProgram := FALSE;
+		stCNC5_Data^.SelectCNCProgramByNodeID := FALSE;
+		stCNC5_Data^.SelectCNCPrograBlockNumber := FALSE;
+		stCNC5_Data^.ToolTableLoadTrigger := FALSE;
+		stCNC5_Data^.MagazineTableLoadTrigger := FALSE;
+		stCNC5_Data^.ProgramLoadTrigger := FALSE;
 		
 		GVL_IO.q_bCNC4_Fix_Vise := TRUE;
 		GVL_IO.q_bCNC4_Release_Vise := FALSE;
@@ -231,14 +231,14 @@ CASE nState OF
 		nState := 100;
 		
 	100:		(*-----=== CNC ellenőrzés ===-----*)
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ellenőrzése');
-		IF stCNC4_Data^.ServerState = 'Running' AND
-		   stCNC4_Data^.CurrentState_State = 'NCIsAvailable' THEN
-				IF stCNC4_Data^.CurentState_Program = 'Running' THEN
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC 5 ellenőrzése');
+		IF stCNC5_Data^.ServerState = 'Running' AND
+		   stCNC5_Data^.CurrentState_State = 'NCIsAvailable' THEN
+				IF stCNC5_Data^.CurentState_Program = 'Running' THEN
 					IF bStepEnableViseStation THEN
 						nState := 11700;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére.
 					END_IF
-				ELSIF	stCNC4_Data^.CurentState_Program = 'Idle' OR stCNC4_Data^.CurentState_Program = 'NotSelected' OR stCNC4_Data^.CurentState_Program = 'Interrupted' THEN
+				ELSIF	stCNC5_Data^.CurentState_Program = 'Idle' OR stCNC5_Data^.CurentState_Program = 'NotSelected' OR stCNC5_Data^.CurentState_Program = 'Interrupted' THEN
 					IF stDutData_Cnc1.nDutId > 0 AND stDutData_Cnc1.bDone THEN 
 						IF bStepEnableViseStation THEN									// Késztermék a satuban
 							nState := 120;
@@ -252,12 +252,12 @@ CASE nState OF
 		END_IF
 
 	120:		(*-----=== CNC ajtó nnyitása ===-----*)
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A 4.CNC ajtó nyitása');
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A 5.CNC ajtó nyitása');
 		
-		stCNC4_Data^.DoorControl_OpenDoor := TRUE;
-		IF stCNC4_Data^.DoorControl_DoorOpened THEN
+		stCNC5_Data^.DoorControl_OpenDoor := TRUE;
+		IF stCNC5_Data^.DoorControl_DoorOpened THEN
 			IF bStepEnableViseStation THEN	
-				stCNC4_Data^.DoorControl_OpenDoor := FALSE;
+				stCNC5_Data^.DoorControl_OpenDoor := FALSE;
 				nState := 500;
 			END_IF
 		END_IF
@@ -270,15 +270,15 @@ CASE nState OF
 	(*Check for next possible process *)	
 	11000:
 	
-		(*Currently (2023.11.09) Only CNC 4 is available. This way, CNC is constantly 4 yet*)
-		nUsedCNC := 4;
+		(*Currently (2023.11.09) Only CNC 5 is available. This way, CNC is constantly 5 yet*)
+		nUsedCNC := 5;
 		
 		IF fbRobot.RobotIn.Status.bVisePresent THEN
 			nState  := 11500;
-		ELSIF stCNC4_Data^.ApproveShutdownRequest THEN
+		ELSIF stCNC5_Data^.ApproveShutdownRequest THEN
 			nState  := 11010;
 		(*Check if there is a Ready to CNC Vise *)
-		ELSIF (CheckForViseStatus(E_Vise_State.ReadyToCnc) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <= ViseProgram.nMaxIndex) THEN
+		ELSIF (CheckForViseStatus(E_Vise_State.ReadyToCnc) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <= ViseProgram.nMaxIndex) AND (CheckForViseStatus(E_Vise_State.CncDone) = 99) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <> 99) THEN
 			
 			nUsedViseIndex := CheckForViseStatus(E_Vise_State.ReadyToCnc);
 			
@@ -289,16 +289,18 @@ CASE nState OF
 			END_CASE
 		
 			IF bActualCNCProgramNotRunning AND (bActualCNCThreadInBase) THEN
-				IF CheckAllViseInSafePos() THEN
-					IF (NOT fbRobot.bBusy) THEN
-						bRobotGoneTowait := FALSE;
-						nState := 12000;	//Pick vise from socket, put into CNC
+				IF (CheckForViseStatus(E_Vise_State.InCnc) = 99) AND (CheckForViseStatus(E_Vise_State.CncDone) = 99) AND (CheckForUsedCNCByVise(nUsedCNC) <> nUsedCNC) THEN	//No vise with CncDone and InCNC Status in the requested CNC
+					IF CheckAllViseInSafePos() THEN
+						IF (NOT fbRobot.bBusy) THEN
+							bRobotGoneTowait := FALSE;
+							nState := 12000;	//Pick vise from socket, put into CNC
+						END_IF
 					END_IF
 				END_IF
 			END_IF
 		
 			
-		ELSIF (CheckForViseStatus(E_Vise_State.CncDone) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.CncDone) <= ViseProgram.nMaxIndex) THEN
+		ELSIF (CheckForViseStatus(E_Vise_State.CncDone) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.CncDone) <= ViseProgram.nMaxIndex) AND (CheckForViseStatus(E_Vise_State.CncDone) <> 99) THEN
 			
 			nUsedViseIndex := CheckForViseStatus(E_Vise_State.CncDone);
 		
@@ -324,7 +326,7 @@ CASE nState OF
 	(*Wait for CNC to finish shutdown*)		
 	11010:
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Waiting for OPC midware to restart');
-	 	IF (NOT bCNC4HandshakeTimeout) AND (NOT bShutdownIsProcessing) THEN
+	 	IF (NOT bCNC5HandshakeTimeout) AND (NOT bCNC5ShutdownIsProcessing) THEN
 			nState := 11000;
 		END_IF
 	
@@ -375,40 +377,7 @@ CASE nState OF
 		fbRobot.eCommand := E_Robot_Command.Pick_Up_Vise;
 		
 		IF fbRobot.bBusy THEN
-			nState := nState + 20;
-		END_IF
-		
-	12040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre vár');
-		
-		IF bStepEnableViseStation THEN
-			IF fbRobot.bVise_1_7_Set THEN
-				fbRobot.bVise_1_7_Reset := TRUE;
-				nState := 12050;
-			ELSIF fbRobot.bVise_8_14_Set THEN
-				fbRobot.bVise_8_14_Reset := TRUE;
-				nState := 12060;
-			END_IF
-		END_IF
-		
-	12050:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár 1-7');
-		
-		IF (NOT fbRobot.bVise_1_7_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bVise_1_7_Reset := FALSE;
-				nState := 12080;
-			END_IF
-		END_IF
-	
-	12060:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár 8-14');
-		
-		IF (NOT fbRobot.bVise_8_14_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bVise_8_14_Reset := TRUE;
-				nState := 12080;
-			END_IF
+			nState := 12080;
 		END_IF
 		
 	12080:
@@ -429,6 +398,8 @@ CASE nState OF
 		
 		CASE nUsedCNC OF
 			4:
+				//Not yet available
+			5:
 				GVL_IO.q_bCNC4_Fix_Vise := FALSE;
 				GVL_IO.q_bCNC4_Release_Vise := TRUE;
 				IF CheckAndOpenCNCDoor(4) THEN
@@ -436,8 +407,6 @@ CASE nState OF
 						nState := nState + 20;
 					END_IF
 				END_IF
-			5:
-				//Not yet available
 		END_CASE
 		
 	12520:
@@ -448,40 +417,7 @@ CASE nState OF
 		fbRobot.eCommand := E_Robot_Command.Put_Down_Cnc;
 		
 		IF fbRobot.bBusy THEN
-			nState := nState + 20;
-		END_IF
-		
-	12540:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre vár');
-		
-		IF bStepEnableViseStation THEN
-			IF fbRobot.bCNC_4_Set THEN
-				fbRobot.bCNC_4_Reset := TRUE;
-				nState := 12550;
-			ELSIF fbRobot.bCNC_5_Set THEN
-				fbRobot.bCNC_5_Reset := TRUE;
-				nState := 12560;
-			END_IF
-		END_IF
-		
-	12550:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár 1-7');
-		
-		IF (NOT fbRobot.bCNC_4_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bCNC_4_Reset := FALSE;
-				nState := 12080;
-			END_IF
-		END_IF
-	
-	12560:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár 8-14');
-		
-		IF (NOT fbRobot.bCNC_5_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bCNC_5_Reset := TRUE;
-				nState := 12080;
-			END_IF
+			nState := 12580;
 		END_IF
 		
 	12580:
@@ -490,14 +426,15 @@ CASE nState OF
 		IF (NOT fbRobot.bBusy) THEN
 			
 			aViseStatus[nUsedViseIndex].eState := E_Vise_State.InCnc;
+			aViseStatus[nUsedViseIndex].nInCNC := nUsedCNC;
 			fbRobot.eCommand := E_Robot_Command.NoCommand;
 			
 			CASE nUsedCNC OF
 				4:
+					//Not yet available
+				5:
 					GVL_IO.q_bCNC4_Fix_Vise := TRUE;
 					GVL_IO.q_bCNC4_Release_Vise := FALSE;	
-				5:
-					//Not yet available
 			END_CASE
 			
 			IF bStepEnableViseStation THEN
@@ -524,7 +461,11 @@ CASE nState OF
 			fbRobot.eCommand := E_Robot_Command.NoCommand;
 			
 			IF bStepEnableViseStation THEN
-				nState := nState + 20;
+				IF (NOT bOverrideCNC5ProgramUse) THEN
+					nState := nState + 20;
+				ELSE
+					nState := 13000;
+				END_IF
 			END_IF
 		END_IF
 		
@@ -533,14 +474,14 @@ CASE nState OF
 		
 		CASE nUsedCNC OF
 			4:
-				IF (NOT bErrorCNC4) THEN
+				//Not yet available
+			5:
+				IF (NOT bErrorCNC5) THEN
 					IF bStepEnableViseStation THEN
-						nStateCNC4 := 1000;
+						nStateCNC5 := 1000;
 						nState := nState + 20;
 					END_IF
 				END_IF
-			5:
-				//Not yet available
 		END_CASE
 		
 		
@@ -549,8 +490,8 @@ CASE nState OF
 		
 		CASE nUsedCNC OF
 			4:
-				IF (NOT bErrorCNC4) THEN
-					IF nStateCNC4 > 1000 THEN
+				IF (NOT bErrorCNC5) THEN
+					IF nStateCNC5 > 1000 THEN
 						nState := 13000;
 					END_IF
 				END_IF
@@ -595,7 +536,9 @@ CASE nState OF
 		
 		CASE nUsedCNC OF
 			4:
-				nStateCNC4 := 0;
+				//Not yet available
+			5:
+				nStateCNC5 := 0;
 				GVL_IO.q_bCNC4_Fix_Vise := FALSE;
 				GVL_IO.q_bCNC4_Release_Vise := TRUE;
 				IF CheckAndOpenCNCDoor(4) THEN
@@ -603,8 +546,6 @@ CASE nState OF
 						nState := nState + 20;
 					END_IF
 				END_IF
-			5:
-				//Not yet available
 		END_CASE
 		
 	14020:
@@ -615,40 +556,7 @@ CASE nState OF
 		fbRobot.eCommand := E_Robot_Command.Pick_Up_Cnc;
 		
 		IF fbRobot.bBusy THEN
-			nState := nState + 20;
-		END_IF
-		
-	14040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre vár');
-		
-		IF bStepEnableViseStation THEN
-			IF fbRobot.bCNC_4_Set THEN
-				fbRobot.bCNC_4_Reset := TRUE;
-				nState := 14050;
-			ELSIF fbRobot.bCNC_5_Set THEN
-				fbRobot.bCNC_5_Reset := TRUE;
-				nState := 14060;
-			END_IF
-		END_IF
-		
-	14050:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár - CNC4');
-		
-		IF (NOT fbRobot.bCNC_4_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bCNC_4_Reset := FALSE;
-				nState := 14080;
-			END_IF
-		END_IF
-	
-	14060:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár - CNC5');
-		
-		IF (NOT fbRobot.bCNC_5_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bCNC_5_Reset := TRUE;
-				nState := 14080;
-			END_IF
+			nState := 14080;
 		END_IF
 		
 	14080:
@@ -657,17 +565,18 @@ CASE nState OF
 		IF (NOT fbRobot.bBusy) THEN
 			
 			aViseStatus[nUsedViseIndex].eState := E_Vise_State.InRobotArmAfterCnc;
+			aViseStatus[nUsedViseIndex].nInCNC := 0;
 			fbRobot.eCommand := E_Robot_Command.NoCommand;
 			
 			CASE nUsedCNC OF
 				4:
+					//Not yet available					
+				5:
 					GVL_IO.q_bCNC4_Fix_Vise := TRUE;
 					GVL_IO.q_bCNC4_Release_Vise := FALSE;
 					IF bStepEnableViseStation THEN
 						nState := 14500;
 					END_IF
-				5:
-					//Not yet available
 			END_CASE
 		END_IF
 		
@@ -691,40 +600,7 @@ CASE nState OF
 		fbRobot.eCommand := E_Robot_Command.Put_Down_Vise;
 		
 		IF fbRobot.bBusy THEN
-			nState := nState + 20;
-		END_IF
-		
-	14540:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre vár');
-		
-		IF bStepEnableViseStation THEN
-			IF fbRobot.bVise_1_7_Set THEN
-				fbRobot.bVise_1_7_Reset := TRUE;
-				nState := 14550;
-			ELSIF fbRobot.bVise_8_14_Set THEN
-				fbRobot.bVise_8_14_Reset := TRUE;
-				nState := 14560;
-			END_IF
-		END_IF
-		
-	14550:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár 1-7');
-		
-		IF (NOT fbRobot.bVise_1_7_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bVise_1_7_Reset := FALSE;
-				nState := 14580;
-			END_IF
-		END_IF
-	
-	14560:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot mozgásengedélyre Handshake-re vár 8-14');
-		
-		IF (NOT fbRobot.bVise_8_14_Set) THEN
-			IF bStepEnableViseStation THEN
-				fbRobot.bVise_8_14_Reset := TRUE;
-				nState := 14580;
-			END_IF
+			nState := 14580;
 		END_IF
 		
 	14580:
@@ -804,372 +680,7 @@ CASE nState OF
 		
 	ELSE //Not a real step, for test purposes
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
-END_CASE
-
-
-
-(*	
-	(*-----=== CNC 4 felvétel ===-----*)
-{region "CNC 4 felvétel"}
-	20000: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kivétel a négyes CNC-ből');
-		// valahonnét jön majd a satu szám !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		fbRobot.nViseNumber := nTestIndex;
-		fbRobot.nCncNumber := 4;
-		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Cnc;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
-		nState := nState + 20;
-		
-	20020: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC-hez mozog');
-		IF fbRobot.bRequestEnableToCnc_4 THEN
-			nState := nState + 20;
-		END_IF
-	
-	20040:	
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC engedélyező jelére vár');
-		// Ide majd CNC-től jövő jel hogy nyitva!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-		//fbRobot.bCnc_4_Enable := jel;
-		IF NOT fbRobot.bRequestEnableToCnc_4 THEN
-			fbRobot.bCnc_4_Enable := FALSE;
-			nState := nState + 20;
-		END_IF			
-	
-	20060: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.nViseNumber < 8 THEN
-			nState := 22000;
-		ELSIF fbRobot.nViseNumber > 7 THEN
-			nState := 23000;
-		END_IF
-		
-	22000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
-		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
-			nState := nState + 20;
-		END_IF
-	
-	22020: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.bRequestEnableToVise_1_7 THEN
-			nState := nState + 20;	
-		END_IF
-	
-	22040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
-		fbRobot.bVise_1_7_Enable := TRUE;
-		IF NOT fbRobot.bRequestEnableToVise_1_7 THEN
-			fbRobot.bVise_1_7_Enable := FALSE;
-			nState := nState + 20;	
-		END_IF
-		
-	22060:
-		nState := 25000;
-	
-	23000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
-		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
-			nState := nState + 20;
-		END_IF
-	
-	23020: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.bRequestEnableToVise_8_14 THEN
-			nState := nState + 20;	
-		END_IF
-	
-	23040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
-		fbRobot.bVise_8_14_Enable := TRUE;
-		IF NOT fbRobot.bRequestEnableToVise_8_14 THEN
-			fbRobot.bVise_8_14_Enable := FALSE;
-			nState := nState + 20;	
-		END_IF
-		
-	23060:
-		nState := 25000;	
-		
-	25000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot program befejezésére vár');
-		IF 	fbRobot.bDone THEN
-			fbRobot.eCommand := E_Robot_Command.NoCommand;
-			nState := 10000;
-		END_IF
-{endregion}
- 
-
-	(*-----=== CNC 5 felvétel ===-----*)
-{region "CNC 5 felvétel"}
-	30000: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kivétel a ötös CNC-ből');
-		// valahonnét jön majd a satu szám !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		fbRobot.nViseNumber := nTestIndex;
-		fbRobot.nCncNumber := 5;
-		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Cnc;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
-		nState := nState + 20;
-		
-	30020: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC-hez mozog');
-		IF fbRobot.bRequestEnableToCnc_5 THEN
-			nState := nState + 20;
-		END_IF
-	
-	30040:	
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC engedélyező jelére vár');
-		// Ide majd CNC-től jövő jel hogy nyitva!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-		//fbRobot.bCnc_4_Enable := jel;
-		IF NOT fbRobot.bRequestEnableToCnc_5 THEN
-			fbRobot.bCnc_5_Enable := FALSE;
-			nState := nState + 20;
-		END_IF			
-	
-	30060: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.nViseNumber < 8 THEN
-			nState := 32000;
-		ELSIF fbRobot.nViseNumber > 7 THEN
-			nState := 33000;
-		END_IF
-		
-	32000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
-		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
-			nState := nState + 20;
-		END_IF
-	
-	32020: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.bRequestEnableToVise_1_7 THEN
-			nState := nState + 20;	
-		END_IF
-	
-	32040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
-		fbRobot.bVise_1_7_Enable := TRUE;
-		IF NOT fbRobot.bRequestEnableToVise_1_7 THEN
-			fbRobot.bVise_1_7_Enable := FALSE;
-			nState := nState + 20;	
-		END_IF
-		
-	32060:
-		nState := 35000;
-	
-	33000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzetbe');
-		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
-			nState := nState + 20;
-		END_IF
-	
-	33020: 
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.bRequestEnableToVise_8_14 THEN
-			nState := nState + 20;	
-		END_IF
-	
-	33040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
-		fbRobot.bVise_8_14_Enable := TRUE;
-		IF NOT fbRobot.bRequestEnableToVise_8_14 THEN
-			fbRobot.bVise_8_14_Enable := FALSE;
-			nState := nState + 20;	
-		END_IF
-		
-	33060:
-		nState := 25000;	
-		
-	35000:
-		IF 	fbRobot.bDone THEN
-			fbRobot.eCommand := E_Robot_Command.NoCommand;
-			nState := 10000;
-		END_IF
-{endregion}
-
-	
-	(*-----=== Satu 1-7 felvétel ===-----*)
-{region "Satu 1-7 felvétel"}
-	40000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzet');
-		fbViseStation[nTestIndex].Vise.bBasePosCmd := FALSE;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
-		
-		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
-			nState := nState + 20;
-		END_IF
-		
-	40020:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		fbRobot.nViseNumber := nTestIndex;
-		fbRobot.nCncNumber := nTestCncIndex;
-		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Vise;
-		nState := nState + 20;
-	
-	40040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.bRequestEnableToVise_1_7 THEN
-			nState := nState + 20;
-		END_IF
-		
-	40060:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 1-7 engedélyező jelére vár');
-		fbRobot.bVise_1_7_Enable := TRUE;
-		IF NOT fbRobot.bRequestEnableToVise_1_7 THEN
-			fbRobot.bVise_1_7_Enable := FALSE;
-			nState := nState + 20;	
-		END_IF
-		
-	40080:
-		IF fbRobot.nCncNumber = 4 THEN
-			nState := 42000;
-		ELSIF fbRobot.nCncNumber = 5 THEN
-			nState := 43000;
-		END_IF
-		
-	42000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az négyes CNC-hez mozog');	
-		IF fbRobot.bRequestEnableToCnc_4 THEN
-			nState := nState + 20;
-		END_IF
-		
-	42020:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC engedélyező jelére vár');
-		fbRobot.bCnc_4_Enable := TRUE;
-		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
-			 
-		IF NOT fbRobot.bRequestEnableToCnc_4 THEN
-			fbRobot.bCnc_4_Enable := FALSE;
-			nState := nState + 20;
-		END_IF
-		
-	42040:
-		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
-			nState := 45000;	 
-		END_IF		
-	
-	43000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az ötös CNC-hez mozog');	
-		IF fbRobot.bRequestEnableToCnc_5 THEN
-			nState := nState + 20;
-		END_IF
-		
-	43020:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC engedélyező jelére vár');
-		fbRobot.bCnc_5_Enable := TRUE;
-		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
-			 
-		IF NOT fbRobot.bRequestEnableToCnc_5 THEN
-			fbRobot.bCnc_5_Enable := FALSE;
-			nState := nState + 20;
-		END_IF
-	
-	43040:
-		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
-			nState := 45000;	 
-		END_IF	
-		
-	45000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot program befejezésére vár');
-		IF fbRobot.bDone THEN
-			fbRobot.eCommand := E_Robot_Command.NoCommand;
-			nState := 10000;
-		END_IF
-{endregion}
-
-
-	(*-----=== Satu 8-14 felvétel ===-----*)
-{region "Satu 8-14 felvétel"}
-	50000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu munkahelyzet');
-		fbViseStation[nTestIndex].Vise.bBasePosCmd := FALSE;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := TRUE;
-		
-		IF fbViseStation[nTestIndex].Vise.bWorkPosStab THEN
-			nState := nState + 20;
-		END_IF
-		
-	50020:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		fbRobot.nViseNumber := nTestIndex;
-		fbRobot.nCncNumber := nTestCncIndex;
-		fbRobot.eCommand := E_Robot_Command.PickAndPlace_From_Vise;
-		nState := nState + 20;
-	
-	50040:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satukhoz mozog');
-		IF fbRobot.bRequestEnableToVise_8_14 THEN
-			nState := nState + 20;
-		END_IF
-		
-	50060:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a satuzó 8-14 engedélyező jelére vár');
-		fbRobot.bVise_8_14_Enable := TRUE;
-		IF NOT fbRobot.bRequestEnableToVise_8_14 THEN
-			fbRobot.bVise_8_14_Enable := FALSE;
-			nState := nState + 20;	
-		END_IF
-		
-	50080:
-		IF fbRobot.nCncNumber = 4 THEN
-			nState := 52000;
-		ELSIF fbRobot.nCncNumber = 5 THEN
-			nState := 53000;
-		END_IF
-		
-	52000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az négyes CNC-hez mozog');	
-		IF fbRobot.bRequestEnableToCnc_4 THEN
-			nState := nState + 20;
-		END_IF
-		
-	52020:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a négyes CNC engedélyező jelére vár');
-		fbRobot.bCnc_4_Enable := TRUE;
-		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
-			 
-		IF NOT fbRobot.bRequestEnableToCnc_4 THEN
-			fbRobot.bCnc_4_Enable := FALSE;
-			nState := nState + 20;
-		END_IF
-		
-	52040:
-		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
-			nState := 45000;	 
-		END_IF		
-	
-	53000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot az ötös CNC-hez mozog');	
-		IF fbRobot.bRequestEnableToCnc_5 THEN
-			nState := nState + 20;
-		END_IF
-		
-	53020:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot a ötös CNC engedélyező jelére vár');
-		fbRobot.bCnc_5_Enable := TRUE;
-		fbViseStation[nTestIndex].Vise.bBasePosCmd := TRUE;
-		fbViseStation[nTestIndex].Vise.bWorkPosCmd := FALSE;
-			 
-		IF NOT fbRobot.bRequestEnableToCnc_5 THEN
-			fbRobot.bCnc_5_Enable := FALSE;
-			nState := nState + 20;
-		END_IF
-	
-	53040:
-		IF fbViseStation[nTestIndex].Vise.bBasePosStab THEN
-			nState := 45000;	 
-		END_IF	
-		
-	55000:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot program befejezésére vár');
-		IF fbRobot.bDone THEN
-			fbRobot.eCommand := E_Robot_Command.NoCommand;
-			nState := 10000;
-		END_IF
-{endregion}
-
-*)]]></ST>
+END_CASE]]></ST>
     </Implementation>
     <Method Name="CheckAllViseInSafePos" Id="{28343d95-4132-48b2-90d9-64484e0fd07b}">
       <Declaration><![CDATA[METHOD INTERNAL CheckAllViseInSafePos : BOOL
@@ -1202,14 +713,14 @@ END_VAR
         <ST><![CDATA[
 CASE nActualCNC OF
 	4:
-		IF stCNC4_Data^.DoorControl_DoorOpened THEN
+		IF stCNC5_Data^.DoorControl_DoorOpened THEN
 			CheckAndOpenCNCDoor := TRUE;
 			RETURN;
 		ELSE
-			stCNC4_Data^.DoorControl_OpenDoor := TRUE;
-			IF stCNC4_Data^.DoorControl_DoorOpened THEN
+			stCNC5_Data^.DoorControl_OpenDoor := TRUE;
+			IF stCNC5_Data^.DoorControl_DoorOpened THEN
 				IF bStepEnable THEN	
-					stCNC4_Data^.DoorControl_OpenDoor := FALSE;
+					stCNC5_Data^.DoorControl_OpenDoor := FALSE;
 					CheckAndOpenCNCDoor := TRUE;
 					RETURN;
 				END_IF
@@ -1219,6 +730,26 @@ CASE nActualCNC OF
 		//Not yet available
 END_CASE
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckForUsedCNCByVise" Id="{2068fda5-f055-4319-aafb-8d4f8c07cd3c}">
+      <Declaration><![CDATA[METHOD INTERNAL CheckForUsedCNCByVise : BYTE
+VAR_INPUT
+	nCncUsed		:	BYTE;
+END_VAR
+VAR
+	i					:	BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO
+	IF aViseStatus[i].nInCNC = nCncUsed THEN
+		CheckForUsedCNCByVise := i;
+		RETURN;
+	END_IF
+END_FOR
+CheckForUsedCNCByVise := 99;
+RETURN;]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckForViseStatus" Id="{31452e63-93f6-4606-9dbb-d8bdccf66892}">
@@ -1242,127 +773,127 @@ CheckForViseStatus := 99;
 RETURN;]]></ST>
       </Implementation>
     </Method>
-    <Action Name="CNC4Thread" Id="{52a289d7-6d43-443e-8c8e-7df069cd3e98}">
+    <Action Name="CNC5Thread" Id="{52a289d7-6d43-443e-8c8e-7df069cd3e98}">
       <Implementation>
         <ST><![CDATA[	
 (* =================================== Error handling ===================================*)
-IF nStateCNC4 > 0 AND nStateCNC4 < 150000 THEN
-	nStatePreviousCNC4 := nStateCNC4;
+IF nStateCNC5 > 0 AND nStateCNC5 < 150000 THEN
+	nStatePreviousCNC5 := nStateCNC5;
 END_IF
 
 (* =================================== Last states =================================== *)
-IF(nStateCNC4 >= 1000) AND (nStateCNC4 < 150000) THEN
+IF(nStateCNC5 >= 1000) AND (nStateCNC5 < 150000) THEN
 (*Steps before any state*)
-	IF anLastStatesCNC4[0] <> nStateCNC4 THEN
-		FOR iLastStatesCNC4 := 100 TO 1 BY -1 DO
-			anLastStatesCNC4[iLastStatesCNC4]:= anLastStatesCNC4[iLastStatesCNC4-1];
+	IF anLastStatesCNC5[0] <> nStateCNC5 THEN
+		FOR iLastStatesCNC5 := 100 TO 1 BY -1 DO
+			anLastStatesCNC5[iLastStatesCNC5]:= anLastStatesCNC5[iLastStatesCNC5-1];
 		END_FOR
-		anLastStatesCNC4[0]:= nStateCNC4;
+		anLastStatesCNC5[0]:= nStateCNC5;
 	END_IF
 END_IF	
 
 	
-CASE nStateCNC4 OF
+CASE nStateCNC5 OF
 				(*-----=== Alaphelyzet, startra várakozás ===-----*)
 	0:
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - Idle');
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Idle');
 		
 	1000:
-		nStateCNC4 := 13000;
+		nStateCNC5 := 13000;
 	
 	13000:		(*-----=== CNC ajtó zárása ===-----*)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - A CNC ajtó zárása');
-		stCNC4_Data^.DoorControl_CloseDoor := TRUE;
-		IF stCNC4_Data^.DoorControl_DoorClosed THEN
-			IF bStepEnableCNC4 THEN	
-				stCNC4_Data^.DoorControl_CloseDoor := FALSE;
-				nStateCNC4 := nStateCNC4 + 20;
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - A CNC ajtó zárása');
+		stCNC5_Data^.DoorControl_CloseDoor := TRUE;
+		IF stCNC5_Data^.DoorControl_DoorClosed THEN
+			IF bStepEnableCNC5 THEN	
+				stCNC5_Data^.DoorControl_CloseDoor := FALSE;
+				nStateCNC5 := nStateCNC5 + 20;
 			END_IF
 		END_IF
 
 	13020:		(*-----=== CNC előkészítése ===-----*)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - A CNC előkészítése');
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - A CNC előkészítése');
 		IF TRUE THEN															// Külön FB-be rakni mert még képlékeny CAM file letöltése, ellenőrzése, felmásolása, betöltése, ........ 
-			IF bStepEnableCNC4 THEN	
-				nStateCNC4 := nStateCNC4 + 20;
+			IF bStepEnableCNC5 THEN	
+				nStateCNC5 := nStateCNC5 + 20;
 			END_IF
 		END_IF
 
 	13040:		(*-----=== CAM program indítása ===-----*)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - CAM program indítása');
-		stCNC4_Data^.StartCNCProgram := TRUE;
-		IF stCNC4_Data^.CurentState_Program = 'Running' THEN
-			IF bStepEnableCNC4 THEN	
-				stCNC4_Data^.StartCNCProgram := FALSE;
-				nStateCNC4 := 13100;
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - CAM program indítása');
+		stCNC5_Data^.StartCNCProgram := TRUE;
+		IF stCNC5_Data^.CurentState_Program = 'Running' THEN
+			IF bStepEnableCNC5 THEN	
+				stCNC5_Data^.StartCNCProgram := FALSE;
+				nStateCNC5 := 13100;
 			END_IF
 		END_IF
 		
 	13100:		(*-----=== Várakozás CAM program végére ===-----*)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - Várakozás CAM program végére');
-		IF stCNC4_Data^.CurentState_Program = 'Finished' THEN
-			IF bStepEnableCNC4 THEN	
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Várakozás CAM program végére');
+		IF stCNC5_Data^.CurentState_Program = 'Finished' THEN
+			IF bStepEnableCNC5 THEN	
 				aViseStatus[nRackUsedForCNC4].eState := E_Vise_State.CncDone;
-				stCNC4_Data^.DoorControl_CloseDoor := FALSE;
-				nStateCNC4 := nStateCNC4 + 20;
+				stCNC5_Data^.DoorControl_CloseDoor := FALSE;
+				nStateCNC5 := nStateCNC5 + 20;
 			END_IF
 		END_IF
 
 	13120:		(*-----=== CNC folyamat befejezése ===-----*)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - A CNC folyamat befejezése');
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - A CNC folyamat befejezése');
 		IF TRUE THEN															// Külön FB-be rakni mert még képlékeny: minőségellenőrzés, mérési adatok, .... 
-			IF bStepEnableCNC4 THEN	
-				nStateCNC4 := nStateCNC4 + 20;
+			IF bStepEnableCNC5 THEN	
+				nStateCNC5 := nStateCNC5 + 20;
 			END_IF
 		END_IF
 
 	13140:		(*-----=== CAM program leállítása ===-----*)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - CAM program leállítása');
-		stCNC4_Data^.CancelCNCProgram := TRUE;
-		IF stCNC4_Data^.CurentState_Program = 'Idle' THEN
-			IF bStepEnableCNC4 THEN	
-				stCNC4_Data^.CancelCNCProgram := FALSE;
-				nStateCNC4 := nStateCNC4 + 20;
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - CAM program leállítása');
+		stCNC5_Data^.CancelCNCProgram := TRUE;
+		IF stCNC5_Data^.CurentState_Program = 'Idle' THEN
+			IF bStepEnableCNC5 THEN	
+				stCNC5_Data^.CancelCNCProgram := FALSE;
+				nStateCNC5 := nStateCNC5 + 20;
 			END_IF
 		END_IF
 
 	13160:		(*-----=== CNC ajtó nnyitása ===-----*)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - A CNC ajtó nyitása');
-		stCNC4_Data^.DoorControl_OpenDoor := TRUE;
-		IF stCNC4_Data^.DoorControl_DoorOpened THEN
-			IF bStepEnableCNC4 THEN	
-				stCNC4_Data^.DoorControl_OpenDoor := FALSE;
-				nStateCNC4 := 50000;
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - A CNC ajtó nyitása');
+		stCNC5_Data^.DoorControl_OpenDoor := TRUE;
+		IF stCNC5_Data^.DoorControl_DoorOpened THEN
+			IF bStepEnableCNC5 THEN	
+				stCNC5_Data^.DoorControl_OpenDoor := FALSE;
+				nStateCNC5 := 50000;
 			END_IF
 		END_IF
 		
 		
 	50000:
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - Szülő program nyugtájára várakozás');
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Szülő program nyugtájára várakozás');
 		
 		
 		
 	150000: (* Maintenance *)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - Maintenance');
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Maintenance');
 		IF NOT bManualMode THEN
-			nStateCNC4 := 0;
+			nStateCNC5 := 0;
 		END_IF
 		
 		
 	200000:(* Error handling *)
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,CONCAT(' - Error, from this state: ' , sStateCNC4));
-		nStateCNC4 := 200020;
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,CONCAT(' - Error, from this state: ' , sStateCNC5));
+		nStateCNC5 := 200020;
 
 	200020:(* Error handling *)
 		IF bAckP THEN
-			CASE nStatePreviousCNC4 OF
-				0..149999: nStateCNC4 := 0;
-			ELSE nStateCNC4 := 0;
+			CASE nStatePreviousCNC5 OF
+				0..149999: nStateCNC5 := 0;
+			ELSE nStateCNC5 := 0;
 			END_CASE
 		END_IF	
 		
 	ELSE //Not a real step, for test purposes
-		sStateCNC4 := CONCAT(UDINT_TO_STRING(nStateCNC4) ,' - Not a real step, for test purposes');
+		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Not a real step, for test purposes');
 		
 		
 END_CASE]]></ST>
@@ -1407,14 +938,13 @@ fbRobot.bVise_1_7_Reset := 		fbRobot.bVise_1_7_Set;
 
 fbRobot.bVise_8_14_Reset := 	fbRobot.bVise_8_14_Set;
 
-fbRobot.bCNC_4_Reset := 		fbRobot.bCNC_4_Set AND
-								i_bCNC4_Door_Opened AND
-								i_bCNC4_Robot_Mode AND
-								i_bCNC4_Door_HW_opened;
+fbRobot.bCNC_4_Reset := 		fbRobot.bCNC_4_Set;
 
-fbRobot.bCNC_5_Reset := 		fbRobot.bCNC_5_Set;
-
-
+fbRobot.bCNC_5_Reset := 		fbRobot.bCNC_5_Set AND
+								stCNC5_Data^.DoorControl_DoorOpened AND
+								(NOT stCNC5_Data^.DoorControl_Error) AND 
+								stCNC5_Data^.ControlStatus_RobotModeActive
+;
 
 fbRobot(
 	sName:= 'Fanuc - Satuzó', 

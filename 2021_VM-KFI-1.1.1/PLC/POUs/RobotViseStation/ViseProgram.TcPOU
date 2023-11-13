@@ -174,10 +174,10 @@ CASE nState OF
 		
 	(* Automatic mode - Base position *)
 	10000:
-		IF eCommand = E_Vise_Command.Load THEN
-			nState := 20000;
-		ELSIF eCommand = E_Vise_Command.UnLoad THEN
+		IF eCommand = E_Vise_Command.UnLoad THEN
 			nState := 50000;
+		ELSIF eCommand = E_Vise_Command.Load THEN
+			nState := 20000;
 		ELSIF eCommand = E_Vise_Command.InProcess THEN
 			nState := 30000;
 		END_IF
@@ -708,21 +708,5 @@ END_FOR
 fbRgbLights(arrColors:= arrColors);]]></ST>
       </Implementation>
     </Action>
-    <LineIds Name="ViseProgram">
-      <LineId Id="3" Count="348" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ViseProgram.MySQL">
-      <LineId Id="2" Count="16" />
-      <LineId Id="1" Count="0" />
-    </LineIds>
-    <LineIds Name="ViseProgram.Pneu">
-      <LineId Id="2" Count="180" />
-      <LineId Id="1" Count="0" />
-    </LineIds>
-    <LineIds Name="ViseProgram.RGB">
-      <LineId Id="2" Count="104" />
-      <LineId Id="1" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
