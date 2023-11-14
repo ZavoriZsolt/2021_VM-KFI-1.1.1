@@ -761,7 +761,15 @@ fbConveyor_11(
     </Action>
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
       <Implementation>
-        <ST><![CDATA[fbS19(			(*-----=== Stopper kiemelő 1A előtt ===-----*)
+        <ST><![CDATA[fbS24(			(*-----=== Kardex alsó pozíció 2. utáni torlasztás ===-----*)
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
+	
+fbS19(			(*-----=== Stopper kiemelő 1A előtt leválogatás ===-----*)
 	bNextReady:= fbS1.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= NOT fbS19.i_bPalettSensor, 
@@ -881,6 +889,56 @@ fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_13.Channel_4, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS11);
 
+(****************************************************************************************)
+(*********************** Alsó konvejor visszahordás *************************************)
+(****************************************************************************************)
+fbS8(			(*-----=== alsó visszahordó 1. torlasztás ===-----*)
+	bNextReady:= , 
+	bMotorRun:= , 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS8);
+
+fbS27(			(*-----=== alsó visszahordó 2. torlasztás ===-----*)
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS27);
+
+fbS21(			(*-----=== alsó visszahordó 3. torlasztás ===-----*)
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS21);
+	
+fbS22(			(*-----=== Kardex alsó pozíció 1. ===-----*)
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS22);
+	
+fbS23(			(*-----=== Kardex alsó pozíció 2. ===-----*)
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS23);
+	
+
+
+
+
+
+
+
 
 fbS18(
 	bNextReady:= fbS15.bReady, 
@@ -924,14 +982,8 @@ fbS7(
 	i_bPalettSensor:= , 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS7);
 	
-// Elbaszta aki számozta és nincs 8 vagy vak vagyok
-//fbS8(
-//	bNextReady:= , 
-//	bMotorRun:= , 
-//	bStationReady:= , 
-//	bStationFinished:= , 
-//	i_bPalettSensor:= , 
-//	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);
+
+
 	
 fbS9(
 	bNextReady:= , 
@@ -973,38 +1025,8 @@ fbS17(
 	
 
 		
-fbS21(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS21);
-	
-fbS22(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS22);
-	
-fbS23(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS23);
-	
-fbS24(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
-	
+
+
 fbS25(
 	bNextReady:= , 
 	bMotorRun:= i_bLO1_Main, 
@@ -1015,13 +1037,7 @@ fbS25(
 	
 
 	
-fbS27(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS27);
+
 	
 // itt megint faszom sem tudja, vagy elbaszták a számozást vagy vak vagyok	
 //fbS28(

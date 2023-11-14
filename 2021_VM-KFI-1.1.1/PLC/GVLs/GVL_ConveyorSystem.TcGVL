@@ -223,7 +223,7 @@ VAR_GLOBAL (* Stoppers *)
 	fbS5 : FB_Stopper;
 	fbS6 : FB_Stopper;
 	fbS7 : FB_Stopper;
-//	fbS8 : FB_Stopper; // 8 hol van nem tudom
+	fbS8 : FB_Stopper;
 	fbS9 : FB_Stopper;
 	fbS10 : FB_Stopper;
 	fbS11 : FB_Stopper2;

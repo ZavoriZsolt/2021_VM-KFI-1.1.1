@@ -3598,7 +3598,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{354B22BD-62C2-D5B8-2E50-CCFF9E4189F4}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{39D0E278-8BC5-970A-EA54-B79C1C00FE00}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3610,6 +3610,11 @@ External Setpoint Generation:
 						<Var>
 							<Name>Robot7AxisProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS8.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
@@ -5219,6 +5224,10 @@ External Setpoint Generation:
 						<Var>
 							<Name>Robot7AxisProgram.fbRobot.RobotOut.aStdOut</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS8.q_bStopperDown</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_14</Name>
@@ -12090,116 +12099,116 @@ External Setpoint Generation:
 								</InitCmd>
 							</InitCmds>
 							<StatusBar>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>135</Index>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>390</Index>
 									<Width>85</Width>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>95</Index>
 									<Width>100</Width>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>32821</Index>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>32973</Index>
 									<SubItem>Bit0</SubItem>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>32973</Index>
 									<SubItem>Bit3</SubItem>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>384</Index>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>135</Index>
 									<SubItem>ActualOperationMode</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33080</Index>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>32865</Index>
 									<SubItem>MotorBrakeUnlocked</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>380</Index>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>381</Index>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>32831</Index>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33221</Index>
 									<SubItem>Active</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33221</Index>
 									<SubItem>ReadyToEnable</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33221</Index>
 									<SubItem>IGreaterThanInom</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33221</Index>
 									<SubItem>IPeakLimitReached</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33221</Index>
 									<SubItem>IreductionActive</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33221</Index>
 									<SubItem>UmaxReached</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33221</Index>
 									<SubItem>FieldWeakeningActive</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>Active</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>ReadyToEnable</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>PosDirectionEnabled</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>NegDirectionEnabled</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>AccDecLimitationActive</SubItem>
 								</Element>
-								<Element option="1" SortOder="0">
+								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>vLimitationActive</SubItem>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>vZeroReached</SubItem>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>CmdMovPositive</SubItem>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>33271</Index>
 									<SubItem>CmdMovNegative</SubItem>
 								</Element>
-								<Element option="0" SortOder="0">
+								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>32983</Index>
 								</Element>
 							</StatusBar>
