@@ -3,7 +3,7 @@
   <POU Name="FB_Bistabil" Id="{b135a1dc-ecdb-4a1f-a51f-db2d83392e97}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Bistabil
 VAR_INPUT
-	sName				:STRING(30);
+	sName				:STRING(50);
 	sBasePosSensor		:STRING(10);		(*Base position sensor*)
 	sWorkPosSensor		:STRING(10);		(*Work position sensor*)
 	bEn					:BOOL;				(*Enable signal*)
