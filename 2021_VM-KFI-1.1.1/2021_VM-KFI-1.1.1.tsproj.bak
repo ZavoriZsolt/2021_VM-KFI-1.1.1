@@ -1446,6 +1446,109 @@ External Setpoint Generation:
 				<LBound>0</LBound>
 				<Elements>4</Elements>
 			</ArrayInfo>
+<<<<<<< Updated upstream
+=======
+		</DataType>
+		<DataType>
+			<Name GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}" AutoDeleteType="true">ST_CPI_Module</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>Channel_0</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_5</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_6</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_7</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_8</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_9</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>9</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_10</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>10</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_11</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>11</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_12</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_13</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_14</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>14</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Channel_15</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>15</BitOffs>
+			</SubItem>
+>>>>>>> Stashed changes
 		</DataType>
 		<DataType>
 			<Name GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}" AutoDeleteType="true">ST_Vise_Sensors</Name>
@@ -1555,6 +1658,7 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
+<<<<<<< Updated upstream
 			<Name GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}" AutoDeleteType="true">ST_CPI_Module</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
@@ -1655,6 +1759,8 @@ External Setpoint Generation:
 			</SubItem>
 		</DataType>
 		<DataType>
+=======
+>>>>>>> Stashed changes
 			<Name GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}" AutoDeleteType="true">ST_RGB_Out</Name>
 			<BitSize>800</BitSize>
 			<SubItem>
@@ -3316,145 +3422,6 @@ External Setpoint Generation:
 						</Var>
 					</Vars>
 				</Axis>
-				<Axis Id="3" CreateSymbols="true" AxisType="1" GroupId="1">
-					<Name>Axis 3</Name>
-					<AxisPara>
-						<OtherSettings AllowMotionCmdToSlave="true"/>
-					</AxisPara>
-					<Encoder Name="Enc" EncType="8">
-						<EncPara MaxCount="#xffffffff"/>
-						<Vars VarGrpType="1">
-							<Name>Inputs</Name>
-							<Var>
-								<Name>In</Name>
-								<Type GUID="{901C2423-655B-45CE-B7E3-21F174F0F99F}" Namespace="MC">NCENCODERSTRUCT_IN2B</Type>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn1</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn2</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn3</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn4</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn5</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn6</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn7</Name>
-									<Comment><![CDATA[Drive Velocity Actual Value
-]]></Comment>
-								</SubVar>
-							</Var>
-						</Vars>
-						<Vars VarGrpType="2">
-							<Name>Outputs</Name>
-							<Var>
-								<Name>Out</Name>
-								<Type GUID="{9CC50AB2-5D79-4869-A3C2-1FA7761BAFEA}" Namespace="MC">NCENCODERSTRUCT_OUT2</Type>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut1</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut2</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut3</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut4</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut5</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut6</Name>
-								</SubVar>
-							</Var>
-						</Vars>
-					</Encoder>
-					<Drive Name="Drive" DrvType="9">
-						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
-							<TimeComp TaskDelayCycles="1"/>
-						</DrvPara>
-						<Vars VarGrpType="1">
-							<Name>Inputs</Name>
-							<Var>
-								<Name>In</Name>
-								<Type GUID="{F95C7C69-0C87-46C4-9559-1285CCA5B23A}" Namespace="MC">NCDRIVESTRUCT_IN2</Type>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn1</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn2</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn3</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn4</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn5</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataIn6</Name>
-								</SubVar>
-							</Var>
-						</Vars>
-						<Vars VarGrpType="2">
-							<Name>Outputs</Name>
-							<Var>
-								<Name>Out</Name>
-								<Type GUID="{644DC4BD-3D15-4DCB-94C7-24F3A5D579AA}" Namespace="MC">NCDRIVESTRUCT_OUT2</Type>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut1</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut2</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut3</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut4</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut5</Name>
-								</SubVar>
-								<SubVar TypeFormatIndex="2">
-									<Name>nDataOut6</Name>
-								</SubVar>
-							</Var>
-						</Vars>
-					</Drive>
-					<Controller Name="Ctrl" CtrType="1">
-						<CtrPara PriorControlFactor="1">
-							<Observer BandWidth="20"/>
-						</CtrPara>
-					</Controller>
-					<Vars VarGrpType="1" InsertType="1">
-						<Name>Inputs</Name>
-						<Var>
-							<Name>FromPlc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-					</Vars>
-					<Vars VarGrpType="2" InsertType="1">
-						<Name>Outputs</Name>
-						<Var>
-							<Name>ToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-					</Vars>
-				</Axis>
 				<Axis Id="2" CreateSymbols="true" AxisType="1" GroupId="3">
 					<Name>Axis 2</Name>
 					<AxisPara>
@@ -3594,11 +3561,158 @@ External Setpoint Generation:
 						</Var>
 					</Vars>
 				</Axis>
+				<Axis Id="3" CreateSymbols="true" AxisType="1" GroupId="1">
+					<Name>Axis 3</Name>
+					<AxisPara>
+						<Dynamic Acceleration="6.6163" Deceleration="6.6163" Jerk="19.8489"/>
+						<Velo RefSearch="0.044108688151042" RefSync="0.044108688151042" SlowManual="0.220543440755208" FastManual="4" Fast="4.41086881510417" Maximum="4.41087"/>
+						<OtherSettings AllowMotionCmdToSlave="true"/>
+					</AxisPara>
+					<Encoder Name="Enc" EncType="8">
+						<EncPara ScaleFactorNumerator="0.04" ScaleFactorDenominator="1048576" MaxCount="#xffffffff">
+							<TimeComp TimeCompMode="1"/>
+						</EncPara>
+						<Vars VarGrpType="1">
+							<Name>Inputs</Name>
+							<Var>
+								<Name>In</Name>
+								<Type GUID="{901C2423-655B-45CE-B7E3-21F174F0F99F}" Namespace="MC">NCENCODERSTRUCT_IN2B</Type>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn1</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn2</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn3</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn4</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn5</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn6</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn7</Name>
+									<Comment><![CDATA[Drive Velocity Actual Value
+]]></Comment>
+								</SubVar>
+							</Var>
+						</Vars>
+						<Vars VarGrpType="2">
+							<Name>Outputs</Name>
+							<Var>
+								<Name>Out</Name>
+								<Type GUID="{9CC50AB2-5D79-4869-A3C2-1FA7761BAFEA}" Namespace="MC">NCENCODERSTRUCT_OUT2</Type>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut1</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut2</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut3</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut4</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut5</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut6</Name>
+								</SubVar>
+							</Var>
+						</Vars>
+					</Encoder>
+					<Drive Name="Drive" DrvType="9">
+						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
+							<Analog VeloReferenz="4.85195569661458" VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<TimeComp TaskDelayCycles="1"/>
+						</DrvPara>
+						<Vars VarGrpType="1">
+							<Name>Inputs</Name>
+							<Var>
+								<Name>In</Name>
+								<Type GUID="{F95C7C69-0C87-46C4-9559-1285CCA5B23A}" Namespace="MC">NCDRIVESTRUCT_IN2</Type>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn1</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn2</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn3</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn4</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn5</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataIn6</Name>
+								</SubVar>
+							</Var>
+						</Vars>
+						<Vars VarGrpType="2">
+							<Name>Outputs</Name>
+							<Var>
+								<Name>Out</Name>
+								<Type GUID="{644DC4BD-3D15-4DCB-94C7-24F3A5D579AA}" Namespace="MC">NCDRIVESTRUCT_OUT2</Type>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut1</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut2</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut3</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut4</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut5</Name>
+								</SubVar>
+								<SubVar TypeFormatIndex="2">
+									<Name>nDataOut6</Name>
+								</SubVar>
+							</Var>
+						</Vars>
+					</Drive>
+					<Controller Name="Ctrl" CtrType="1">
+						<CtrPara PriorControlFactor="1">
+							<Observer BandWidth="20"/>
+						</CtrPara>
+					</Controller>
+					<Vars VarGrpType="1" InsertType="1">
+						<Name>Inputs</Name>
+						<Var>
+							<Name>FromPlc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" InsertType="1">
+						<Name>Outputs</Name>
+						<Var>
+							<Name>ToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+					</Vars>
+				</Axis>
 			</NC>
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+<<<<<<< Updated upstream
 				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{02960439-93C7-866B-D62A-3DAC1DE2AA51}">
+=======
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{5F1DEECA-8987-433D-4E94-A46DFAE413CD}">
+>>>>>>> Stashed changes
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3620,6 +3734,88 @@ External Setpoint Generation:
 							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
 							<Comment><![CDATA[Work position]]></Comment>
 							<Type>BOOL</Type>
+<<<<<<< Updated upstream
+=======
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.arrRaw</Name>
+							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbVisePos.arrRaw</Name>
+							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbVisePos.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
+							<Comment><![CDATA[ S334]]></Comment>
+							<Type GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}">ST_CPI_Module</Type>
+>>>>>>> Stashed changes
 						</Var>
 						<Var>
 							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
@@ -3684,6 +3880,459 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+<<<<<<< Updated upstream
+=======
+							<Name>GVL_ConveyorSystem.fbS1.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS2.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS3.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS4.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS5.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS6.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS7.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS8.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS9.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS10.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS12.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS13.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS14.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS17.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS19.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS21.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS22.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS23.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS25.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS27.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS29.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS30.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS31.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS32.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ1.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ1.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ2.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ2.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ3.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ3.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ4.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ4.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ5.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ5.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ6.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ6.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ7.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ7.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ8.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ8.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ9.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ9.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ10.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ10.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ11.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ11.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ12.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ12.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ13.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ13.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ14.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ14.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ15.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ15.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ16.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ16.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ17.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ17.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ18.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ18.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ19.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ19.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ20.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ20.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ21.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ21.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.i_bConveyorOK</Name>
+							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+>>>>>>> Stashed changes
 							<Name>GVL_IO.i_bVisePos2CleanBtn</Name>
 							<Comment><![CDATA[ Satu tisztítás 8-14]]></Comment>
 							<Type>BOOL</Type>
@@ -3749,6 +4398,11 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_IO.i_bCNC4_Door_Opened</Name>
+							<Comment><![CDATA[*************************************************CNC45 Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_IO.i_nBusState</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -3810,11 +4464,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_stViseStationSensors_14</Name>
 							<Type GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}">ST_Vise_Sensors</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bCNC4_Door_Opened</Name>
-							<Comment><![CDATA[*************************************************CNC45 Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_IO.i_bCNC4_Door_Closed</Name>
@@ -4664,6 +5313,7 @@ External Setpoint Generation:
 							<Name>GVL_Safety.i_bRobotDoorOpened_CNC3</Name>
 							<Type>BOOL</Type>
 						</Var>
+<<<<<<< Updated upstream
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
 							<Comment><![CDATA[ S334]]></Comment>
@@ -5229,6 +5879,8 @@ External Setpoint Generation:
 							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
+=======
+>>>>>>> Stashed changes
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
@@ -5243,6 +5895,8 @@ External Setpoint Generation:
 						<Var>
 							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
 							<Comment><![CDATA[Control to base position]]></Comment>
+<<<<<<< Updated upstream
+=======
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -5273,6 +5927,852 @@ External Setpoint Generation:
 						<Var>
 							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.q_bToolCheckBlower</Name>
+							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.q_bToolCheckBlower</Name>
+							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
+>>>>>>> Stashed changes
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+<<<<<<< Updated upstream
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+=======
+							<Name>GVL_ConveyorSystem.q_bZ3_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ4_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ4_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ5_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ5_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ6_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ6_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ7_14</Name>
+							<Comment><![CDATA[ Megfogók ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ7_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ8_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ8_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ9_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ9_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ10_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ10_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ11_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ11_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ12_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ12_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ13_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ13_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ14_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ14_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ15_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ15_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ16_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ16_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ17_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ17_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ18_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ18_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ19_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ19_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ20_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ20_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ21_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bZ21_12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS1</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS3</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS4</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS5</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS6</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS7</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS8</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS9</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS10</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS11</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS12</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS13</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS15</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS16</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS17</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS18</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS19</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS20</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS21</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS22</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS23</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS24</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS25</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS26</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS27</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS28</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS29</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS30</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS31</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.q_bS32</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS1.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS2.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS3.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS4.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS5.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS6.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS7.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS8.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS9.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS10.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS11.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS12.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS13.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS14.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS15.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS16.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS17.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS18.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS19.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS20.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS21.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS22.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS23.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS24.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS25.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS26.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS27.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS29.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS30.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS31.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS32.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ1.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ1.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ2.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ2.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ3.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ3.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ4.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ4.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ5.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ5.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ6.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ6.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ7.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ7.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ8.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ8.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ9.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ9.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ10.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ10.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ11.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ11.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ12.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ12.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ13.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ13.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ14.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ14.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ15.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ15.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ16.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ16.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ17.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ17.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ18.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ18.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ19.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ19.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ20.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ20.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ21.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbZ21.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_1.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_2.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_3.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_4.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_5.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_6.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_7.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_8.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_9.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_10.q_bConveyorRst</Name>
+							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.q_bConveyorOnL</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbConveyor_11.q_bConveyorOnR</Name>
+							<Comment><![CDATA[ Motor on signal - Motor vezérlés bekapcsolása]]></Comment>
+							<Type>BOOL</Type>
+>>>>>>> Stashed changes
 						</Var>
 						<Var>
 							<Name>CNC_1.fbCncServoVise.q_bToolCheckBlower</Name>
@@ -5457,6 +6957,21 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_Main.q_bViseOut_8_14</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc3</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyRun</Name>
+							<Comment><![CDATA[ Safety run]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -5940,6 +7455,7 @@ External Setpoint Generation:
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
 						<Var>
+<<<<<<< Updated upstream
 							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
 							<Comment><![CDATA[ Enable]]></Comment>
 							<Type>BOOL</Type>
@@ -5950,6 +7466,8 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+=======
+>>>>>>> Stashed changes
 							<Name>GVL_Safety.q_bBlink</Name>
 							<Type>BOOL</Type>
 						</Var>
@@ -5983,6 +7501,7 @@ External Setpoint Generation:
 							<Comment><![CDATA[ Safety ack]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
+<<<<<<< Updated upstream
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_14</Name>
 							<Comment><![CDATA[ Kiemelők ]]></Comment>
@@ -6780,6 +8299,8 @@ External Setpoint Generation:
 							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
+=======
+>>>>>>> Stashed changes
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-07-04T15:18:52">
 						<OwnerA Name="InputDst" Prefix="TIPC^PLC^PLC Instance" Type="1">
@@ -6961,6 +8482,21 @@ External Setpoint Generation:
 			<Project GUID="{58052EDE-6691-4C5D-8F2A-53F798D76D3B}" Name="Safety_CNC1" PrjFilePath="Safety_CNC1\Safety_CNC1.splcProj" TmcFilePath="Safety_CNC1\Safety_CNC1.tmc" GeneralArchiveSettings="#x000f" TargetArchiveSettings="#x0007" FileArchiveSettings="#x000e">
 				<Instance Id="#x01010030" KeepUnrestoredLinks="2">
 					<Name>Safety_CNC1 Instance</Name>
+					<TmcDesc GUID="{72A6D5B8-E98C-4604-8B90-09D1F8AB38A9}">
+						<Name>Safety</Name>
+						<InitSequence>PO</InitSequence>
+						<Contexts>
+							<Context>
+								<Id>1</Id>
+								<Name>Default</Name>
+							</Context>
+						</Contexts>
+					</TmcDesc>
+				</Instance>
+			</Project>
+			<Project GUID="{93A79B97-D3A4-4BD0-85EE-41A5C10EC4EE}" Name="Safety_CNC3" PrjFilePath="Safety_CNC3\Safety_CNC3.splcProj" TmcFilePath="Safety_CNC3\Safety_CNC3.tmc" GeneralArchiveSettings="#x000f" TargetArchiveSettings="#x0007" FileArchiveSettings="#x000e">
+				<Instance Id="#x01010040" KeepUnrestoredLinks="2">
+					<Name>Safety_CNC3 Instance</Name>
 					<TmcDesc GUID="{72A6D5B8-E98C-4604-8B90-09D1F8AB38A9}">
 						<Name>Safety</Name>
 						<InitSequence>PO</InitSequence>
@@ -12089,6 +13625,9 @@ External Setpoint Generation:
 				<Image Id="13" AddrType="9" ImageType="3">
 					<Name>Image</Name>
 				</Image>
+				<Image Id="21" AddrType="10" ImageType="3">
+					<Name>Image-2</Name>
+				</Image>
 				<Box Id="29" BoxType="9099">
 					<Name>Box 29 (CU2508)</Name>
 					<ImageId>1000</ImageId>
@@ -12232,8 +13771,8 @@ External Setpoint Generation:
 					<EtherCAT SlaveType="2" PdiType="#x0c08" MboxDataLinkLayer="true" StateMBoxPolling="true" CfgModeSafeOp="true" DownloadPdoCfg="true" CycleMBoxPollingTime="0" FoeType="1" SoeChannels="1" VendorId="#x00000002" ProductCode="#x13f26012" RevisionNo="#x00d60000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutStateChange2="15000" TimeoutStateChange3="10000" TimeoutStateChange4="500" AutoRestoreAfterWcOk="true" CheckRevisionNoType="4" PortPhys="12305" IdentificationAdo="308" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="AX5106-0000-0214 EtherCAT Drive (SoE, 1 Ch.)" Desc="AX5106-0000-0214" PortABoxInfo="#x0100001d">
 						<SyncMan>001880002600010001000000800080008000001826010000</SyncMan>
 						<SyncMan>001a80002200010002000000800080008000001a22010000</SyncMan>
-						<SyncMan>001006002400010003000000000000000000001024010000</SyncMan>
-						<SyncMan>00110a002200010004000000000000000000001122010000</SyncMan>
+						<SyncMan>001014002400010003000000000000000000001024010000</SyncMan>
+						<SyncMan>001110002200010004000000000000000000001122010000</SyncMan>
 						<SyncMan>002000002400010005000000000000000000002024010000</SyncMan>
 						<SyncMan>002400002000010006000000000000000000002420010000</SyncMan>
 						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
@@ -12252,12 +13791,23 @@ External Setpoint Generation:
 						<MBoxUserCmdData>020005000a0000000e000000000000000000000000000000000000000000000003402000000000000b004f7065726174696f6e206d6f646500</MBoxUserCmdData>
 						<MBoxUserCmdData>004005000a0000001e0000000000000000000000000000000000000000000000034030810000000001005265706f727420646961676e6f737469637320696e666f726d6174696f6e00</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001800000000000000000000000000000000000000000000000340d087000000000200436f6e6669677572656420736166657479206f7074696f6e00</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001a0000000000000000000000000000000000000000000000034021000000000001005365636f6e64617279206f7065726174696f6e206d6f6465203100</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001a0000000000000000000000000000000000000000000000034022000000000002005365636f6e64617279206f7065726174696f6e206d6f6465203200</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001f000000000000000000000000000000000000000000000003405c80000000000c170000436f6e66696775726564206368616e6e656c207065616b2063757272656e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a00000020000000000000000000000000000000000000000000000003406a0000000000a60243757272656e74206c6f6f702070726f706f7274696f6e616c206761696e203100</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000002b000000000000000000000000000000000000000000000003406b0000000000080043757272656e7420636f6e74726f6c206c6f6f7020696e74656772616c20616374696f6e2074696d65203100</MBoxUserCmdData>
 						<Pdo Name="AT" Index="#x0010" Flags="#x0001" SyncMan="3">
 							<Entry Name="Drive status word" BitLen="16" Index="#x0087" Flags="#x00000800">
 								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="Position feedback 1 value" BitLen="32" Index="#x0033">
+							<Entry Name="Position feedback 1 value (motor feedback)" BitLen="32" Index="#x0033">
 								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Velocity feedback 1 value" BitLen="32" Index="#x0028">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Torque/force feedback value" BitLen="16" Index="#x0054">
+								<Type>INT</Type>
 							</Entry>
 							<Entry Name="Following distance" BitLen="32" Index="#x00bd">
 								<Type>DINT</Type>
@@ -12267,7 +13817,19 @@ External Setpoint Generation:
 							<Entry Name="Master control word" BitLen="16" Index="#x0086" Flags="#x00000800">
 								<Type>UINT</Type>
 							</Entry>
+							<Entry Name="Low velocity limit value" BitLen="32" Index="#x81e4">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="High velocity limit value" BitLen="32" Index="#x81e5">
+								<Type>DINT</Type>
+							</Entry>
 							<Entry Name="Position command value" BitLen="32" Index="#x002f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Torque/force command value" BitLen="16" Index="#x0050">
+								<Type>INT</Type>
+							</Entry>
+							<Entry Name="Velocity command value" BitLen="32" Index="#x0024">
 								<Type>DINT</Type>
 							</Entry>
 						</Pdo>
@@ -12284,138 +13846,195 @@ External Setpoint Generation:
 							<Fmmu>0000000000000000001900010100000002000000000000000000000000000000</Fmmu>
 							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
 							<BootStrapData>0010f400f410f400</BootStrapData>
-							<MBoxUserCmdData>004003000c00000000000000030000001d00090300000000000000000000000020102f00040000001703010000</MBoxUserCmdData>
-							<Pdo Name="Inputs (Statusword)" Index="#x1a00" Flags="#x0081" SyncMan="3">
-								<Entry Name="FSOE__FSOE Command" Index="#xe600" Sub="#x01">
+							<MBoxUserCmdData>020003000a00000017000000000040000000000000000000000000000000000030002000020000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000300120002200000010000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000a00000017000000000040000000000000000000000000000000000030022000020000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c000000170000000000400000000000000000000000000000000000301020000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>0200030009000000170000000000400000000000000000000000000000000000301120000100000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c000000170000000000400000000000000000000000000000000000301220000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c000000170000000000400000000000000000000000000000000000301320000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c000000170000000000400000000000000000000000000000000000301420000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c0000001700000000004000000000000000000000000000000000003020200004000000b4000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c000000170000000000400000000000000000000000000000000000302120000400000014000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000900000017000000000040000000000000000000000000000000000030222000010000000a646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000a00000017000000000040000000000000000000000000000000000030302000020000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000a00000017000000000040000000000000000000000000000000000030402000020000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>0200030009000000170000000000400000000000000000000000000000000000304120000100000001646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>0200030009000000170000000000400000000000000000000000000000000000304320000100000064646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000900000017000000000040000000000000000000000000000000000030002f000100000001646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000900000017000000000040000000000000000000000000000000000030012f000100000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000900000017000000000040000000000000000000000000000000000030022f000100000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000900000017000000000040000000000000000000000000000000000030032f000100000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>0200030009000000170000000000400000000000000000000000000000000000304266000100000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003051660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000305366002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003054660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000306a66002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003071660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003072660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000b0000001700000000004000000000000000000000000000000000003076660003000000080000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000307966002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003081660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000308366002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000308566002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003086660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000308a66002200000008000100406601004066010040660100406601004066010040660100406601004066646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003091660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000309366002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a0000001700000000004000000000000000000000000000000000003094660012000000080000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a000000170000000000400000000000000000000000000000000000309866002200000008000100406601004066010040660100406601004066010040660100406601004066646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030a266002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030a466002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030a566002200000008000100406601004066010040660100406601004066010040660100406601004066646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c00000017000000000040000000000000000000000000000000000030aa66000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c00000017000000000040000000000000000000000000000000000030ac66000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c00000017000000000040000000000000000000000000000000000030ad66000400000001004066646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030ba66002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030bc66002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030bd66002200000008000100406601004066010040660100406601004066010040660100406601004066646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030c266002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030c466002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030c566002200000008000100406601004066010040660100406601004066010040660100406601004066646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c00000017000000000040000000000000000000000000000000000030ca66000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c00000017000000000040000000000000000000000000000000000030cc66000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c00000017000000000040000000000000000000000000000000000030cd66000400000001004066646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003000c00000017000000000040000000000000000000000000000000000030d366000400000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030e266002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030e466002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030ea66002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>020003002a00000017000000000040000000000000000000000000000000000030ec66002200000008000000000000000000000000000000000000000000000000000000000000000000646f776e6c6f6164205361666520506172616d6574657200</MBoxUserCmdData>
+							<MBoxUserCmdData>004003000c00000000000000000000001e00090300000000000000000000000020102f00040000001703010000</MBoxUserCmdData>
+							<Pdo Name="Inputs (Statusword)" Index="#x1a00" Flags="#x00c1" SyncMan="3">
+								<Entry Name="FSOE__FSOE Command" BitLen="8" Index="#xe600" Sub="#x01">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 STO" Index="#x6640">
+								<Entry Name="FSOE__Axis 1 STO" BitLen="1" Index="#x6640">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SSM(1)" Index="#x66e0" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SSM(1)" BitLen="1" Index="#x66e0" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SSM(2)" Index="#x66e0" Sub="#x02">
+								<Entry Name="FSOE__Axis 1 SSM(2)" BitLen="1" Index="#x66e0" Sub="#x02">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SOS(1)" Index="#x6668" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SOS(1)" BitLen="1" Index="#x6668" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SSR(1)" Index="#x6680" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SSR(1)" BitLen="1" Index="#x6680" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SDI_p" Index="#x66d0">
+								<Entry Name="FSOE__Axis 1 SDI_p" BitLen="1" Index="#x66d0">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SDI_n" Index="#x66d1">
+								<Entry Name="FSOE__Axis 1 SDI_n" BitLen="1" Index="#x66d1">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 Error" Index="#x6632">
+								<Entry Name="FSOE__Axis 1 Error" BitLen="1" Index="#x6632">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__FSOE Slave CRC_0" Index="#xe600" Sub="#x03">
+								<Entry Name="FSOE__FSOE Slave CRC_0" BitLen="16" Index="#xe600" Sub="#x03">
 									<Type>UINT</Type>
 								</Entry>
-								<Entry Name="FSOE__FSOE ConnID" Index="#xe600" Sub="#x02">
+								<Entry Name="FSOE__FSOE ConnID" BitLen="16" Index="#xe600" Sub="#x02">
 									<Type>UINT</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="Outputs (Controlword)" Index="#x1600" InOut="1" Flags="#x0081" SyncMan="2">
-								<Entry Name="FSOE__FSOE Command" Index="#xe700" Sub="#x01">
+							<Pdo Name="Outputs (Controlword)" Index="#x1600" InOut="1" Flags="#x00c1" SyncMan="2">
+								<Entry Name="FSOE__FSOE Command" BitLen="8" Index="#xe700" Sub="#x01">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 STO" Index="#x6640">
+								<Entry Name="FSOE__Axis 1 STO" BitLen="1" Index="#x6640">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SS1(1)" Index="#x6650" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SS1(1)" BitLen="1" Index="#x6650" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SS2(1)" Index="#x6670" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SS2(1)" BitLen="1" Index="#x6670" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SOS(1)" Index="#x6668" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SOS(1)" BitLen="1" Index="#x6668" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SSR(1)" Index="#x6680" Sub="#x01">
+								<Entry Name="FSOE__Axis 1 SSR(1)" BitLen="1" Index="#x6680" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SDI_p" Index="#x66d0">
+								<Entry Name="FSOE__Axis 1 SDI_p" BitLen="1" Index="#x66d0">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 SDI_n" Index="#x66d1">
+								<Entry Name="FSOE__Axis 1 SDI_n" BitLen="1" Index="#x66d1">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__Axis 1 Error_Ack" Index="#x6632">
+								<Entry Name="FSOE__Axis 1 Error_Ack" BitLen="1" Index="#x6632">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__">
+								<Entry BitLen="1">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
 								</Entry>
-								<Entry Name="FSOE__FSOE Master CRC_0" Index="#xe700" Sub="#x03">
+								<Entry Name="FSOE__FSOE Master CRC_0" BitLen="16" Index="#xe700" Sub="#x03">
 									<Type>UINT</Type>
 								</Entry>
-								<Entry Name="FSOE__FSOE ConnID" Index="#xe700" Sub="#x02">
+								<Entry Name="FSOE__FSOE ConnID" BitLen="16" Index="#xe700" Sub="#x02">
 									<Type>UINT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Standard Inputs Channel 1" Index="#x1a01" Flags="#x0091" SyncMan="3">
-								<Entry Name="Position Actual Value" Index="#x6611">
+								<Entry Name="Position Actual Value" BitLen="32" Index="#x6611">
 									<Type>DINT</Type>
 								</Entry>
-								<Entry Name="Velocity Actual Value" Index="#x6613">
+								<Entry Name="Velocity Actual Value" BitLen="32" Index="#x6613">
 									<Type>DINT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Standard Outputs Channel 1" Index="#x1601" InOut="1" Flags="#x0091" SyncMan="2">
-								<Entry Name="Position Actual Value" Index="#x2050">
+								<Entry Name="Position Actual Value" BitLen="32" Index="#x2050">
 									<Type>DINT</Type>
 								</Entry>
-								<Entry Name="Velocity Actual Value" Index="#x2051">
+								<Entry Name="Velocity Actual Value" BitLen="32" Index="#x2051">
 									<Type>DINT</Type>
 								</Entry>
 							</Pdo>
@@ -13193,8 +14812,8 @@ External Setpoint Generation:
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x1afe3052" RevisionNo="#x00150000" InfoDataAddr="true" RepeatSupport="true" TimeoutStateChange1="5000" TimeoutMailbox2="10000" TComSupport="true" PortPhys="51" DebugMemory="8" SafetyLogicSupported="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6910, TwinSAFE PLC" Desc="EL6910" PortABoxInfo="#x01000021">
 							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
-							<SyncMan>001202002400010003000000000000000200001224010000</SyncMan>
-							<SyncMan>001d02002000010004000000000000000200001d20010000</SyncMan>
+							<SyncMan>001217002400010003000000000000000200001224010000</SyncMan>
+							<SyncMan>001d17002000010004000000000000000200001d20010000</SyncMan>
 							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
 							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
 							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
@@ -13204,6 +14823,53 @@ External Setpoint Generation:
 							<Fmmu>0000000000000000000000010000000002000000060000000500010000000000</Fmmu>
 							<BootStrapData>0010f400f410f400</BootStrapData>
 							<MBoxUserCmdData>004003000a0000001f000000030010000000000000000000000000000000000020f31005020000000100456e61626c6520446961674d65737361676520617320656d657267656e637900</MBoxUserCmdData>
+							<Pdo Name="ConnectionInputs" Index="#x1a00" Flags="#x2011" SyncMan="3">
+								<Entry Name="Message_8 TxPDO" Index="#x7000" Sub="#x01">
+									<Type GUID="{B05FDAB7-3241-ACD3-D16C-0FDAF8825BC9}">FSOE_7</Type>
+								</Entry>
+								<Entry Name="Message_9 TxPDO" Index="#x7000" Sub="#x02">
+									<Type GUID="{B05FDAB7-3241-ACD3-D16C-0FDAF8825BC9}">FSOE_7</Type>
+								</Entry>
+								<Entry Name="Message_10 TxPDO" Index="#x7000" Sub="#x03">
+									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="ConnectionOutputs" Index="#x1600" InOut="1" Flags="#x2011" SyncMan="2">
+								<Entry Name="Message_8 RxPDO" Index="#x6000" Sub="#x01">
+									<Type GUID="{B05FDAB7-3241-ACD3-D16C-0FDAF8825BC9}">FSOE_7</Type>
+								</Entry>
+								<Entry Name="Message_9 RxPDO" Index="#x6000" Sub="#x02">
+									<Type GUID="{B05FDAB7-3241-ACD3-D16C-0FDAF8825BC9}">FSOE_7</Type>
+								</Entry>
+								<Entry Name="Message_10 RxPDO" Index="#x6000" Sub="#x03">
+									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="StandardInputs" Index="#x1bf0" Flags="#x2011" SyncMan="3">
+								<Entry Name="Standard Out Var 6" Index="#x7000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Standard Out Var 7" Index="#x7000" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000006}">ARRAY [0..5] OF BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="StandardOutputs" Index="#x17f0" InOut="1" Flags="#x2011" SyncMan="2">
+								<Entry Name="Standard In Var 2" Index="#x6000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Standard In Var 3" Index="#x6000" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Standard In Var 4" Index="#x6000" Sub="#x03">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000005}">ARRAY [0..4] OF BIT</Type>
+								</Entry>
+							</Pdo>
 							<Pdo Name="FSLOGIC Inputs" Index="#x1bff" Flags="#x0011" SyncMan="3">
 								<Entry Name="Safe Logic State" Index="#xf100" Sub="#x01">
 									<Type>USINT</Type>
@@ -13662,8 +15328,8 @@ External Setpoint Generation:
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x1afe3052" RevisionNo="#x00150000" InfoDataAddr="true" RepeatSupport="true" TimeoutStateChange1="5000" TimeoutMailbox2="10000" TComSupport="true" PortPhys="51" DebugMemory="8" SafetyLogicSupported="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6910, TwinSAFE PLC" Desc="EL6910" PortABoxInfo="#x01000029">
 							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
-							<SyncMan>001228002400010003000000000000000200001224010000</SyncMan>
-							<SyncMan>001d2d002000010004000000000000000200001d20010000</SyncMan>
+							<SyncMan>00122e002400010003000000000000000200001224010000</SyncMan>
+							<SyncMan>001d33002000010004000000000000000200001d20010000</SyncMan>
 							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
 							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
 							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
@@ -13693,6 +15359,9 @@ External Setpoint Generation:
 								<Entry Name="Message_26 TxPDO" Index="#x7000" Sub="#x06">
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
+								<Entry Name="Message_27 TxPDO" Index="#x7000" Sub="#x07">
+									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
+								</Entry>
 							</Pdo>
 							<Pdo Name="ConnectionOutputs" Index="#x1600" InOut="1" Flags="#x2011" SyncMan="2">
 								<Entry Name="Message_3 RxPDO" Index="#x6000" Sub="#x01">
@@ -13711,6 +15380,9 @@ External Setpoint Generation:
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
 								<Entry Name="Message_26 RxPDO" Index="#x6000" Sub="#x06">
+									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
+								</Entry>
+								<Entry Name="Message_27 RxPDO" Index="#x6000" Sub="#x07">
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
 							</Pdo>
@@ -24845,7 +26517,10 @@ External Setpoint Generation:
 				</Image>
 				<Box Id="96" BoxType="9121">
 					<Name>rfm1</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25354,7 +27029,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="97" BoxType="9121">
 					<Name>rfm2</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25865,7 +27543,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="98" BoxType="9121">
 					<Name>rfm3</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26376,7 +28057,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="99" BoxType="9121">
 					<Name>rfm4</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26887,7 +28571,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="100" BoxType="9121">
 					<Name>rfm5</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27398,7 +29085,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="101" BoxType="9121">
 					<Name>rfm6</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27909,7 +29599,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="102" BoxType="9121">
 					<Name>rfm7</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28420,7 +30113,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="103" BoxType="9121">
 					<Name>rfm8</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28931,7 +30627,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="104" BoxType="9121">
 					<Name>rfm9</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29442,7 +31141,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="105" BoxType="9121">
 					<Name>rfm10</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29961,12 +31663,13 @@ Submodule Info: In / Out Daten
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-0100-0304-1000-040301010403}" Id="#x02030100"/>
+		<MappingInfo Identifier="{00000000-0100-0304-1000-040302010403}" Id="#x02030130"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810010403}" Id="#x02030090"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500820000403}" Id="#x020300e0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500822010403}" Id="#x020300d0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x020300c0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500850000403}" Id="#x02030120"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500851010403}" Id="#x02030100"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-5008C1000403}" Id="#x02030080"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-5008F0000403}" Id="#x020300b0"/>
 		<MappingInfo Identifier="{00000000-0090-0304-1000-040390000403}" Id="#x02030010"/>
@@ -29977,8 +31680,10 @@ Submodule Info: In / Out Daten
 		<MappingInfo Identifier="{00000000-00F0-0304-F000-040331010403}" Id="#x02030070"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030110" Watchdog="14000000040000000400000004000000"/>
 		<MappingInfo Identifier="{03040110-0110-0304-1001-040310010403}" Id="#x020300a0" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{03040150-0150-0304-5001-040350010403}" Id="#x02030150" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{030400C0-00C0-0304-C000-0403C0000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{030400C0-00F0-0304-C000-0403F0000403}" Id="#x02030040" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{030400F0-0150-0304-F000-040350010403}" Id="#x02030140" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CNC_1">
 			<OwnerB Name="TIID^CNC_1^Drive 9 (AX5106-0000-0214)^Term 16 (AX5805)">
 				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionOutputs^Message_3 RxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE"/>
@@ -29992,9 +31697,27 @@ Submodule Info: In / Out Daten
 				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionInputs^Message_18 TxPDO" VarB="ConnectionOutputs^Message_26 RxPDO"/>
 			</OwnerB>
 		</OwnerA>
+		<OwnerA Name="TIID^CNC_3">
+			<OwnerB Name="TIID^CNC_3^Box 37 (EP1957-0022)">
+				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionInputs^Message_9 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Drive 30 (AX5106-0000-0214)^Term 31 (AX5805)">
+				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionInputs^Message_8 TxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Outputs (Controlword)^FSOE"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 34 (EL6910)">
+				<Link VarA="Box 37 (EP1957-0022)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^Message_9 RxPDO"/>
+				<Link VarA="Drive 30 (AX5106-0000-0214)^Term 31 (AX5805)^Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE" VarB="ConnectionOutputs^Message_8 RxPDO"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
+				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionOutputs^Message_10 RxPDO" VarB="ConnectionInputs^Message_27 TxPDO"/>
+			</OwnerB>
+		</OwnerA>
 		<OwnerA Name="TIID^Main">
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_26 TxPDO" VarB="ConnectionOutputs^Message_18 RxPDO"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 34 (EL6910)">
+				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_27 RxPDO" VarB="ConnectionInputs^Message_10 TxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^Message_17 RxPDO"/>
@@ -30070,6 +31793,7 @@ Submodule Info: In / Out Daten
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 3">
 			<OwnerB Name="TIID^CNC_3^Drive 30 (AX5106-0000-0214)">
 				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="AT^Following distance"/>
+				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="AT^Torque/force feedback value"/>
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
 				<Link VarA="Drive^Inputs^In^nState2" VarB="AT^Drive status word"/>
@@ -30077,7 +31801,12 @@ Submodule Info: In / Out Daten
 				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
 				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
 				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="MDT^Position command value"/>
-				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="AT^Position feedback 1 value"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut2" VarB="MDT^Velocity command value"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut4[0]" VarB="MDT^Torque/force command value"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut5" VarB="MDT^High velocity limit value"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut6" VarB="MDT^Low velocity limit value"/>
+				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="AT^Position feedback 1 value (motor feedback)"/>
+				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="AT^Velocity feedback 1 value"/>
 				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
@@ -30113,6 +31842,36 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos" VarB="Channel 2^Output" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos" VarB="Channel 1^Output" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.q_bToolCheckBlower" VarB="Channel 6^Output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Box 32 (BNI ECT-508-105-Z015)">
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[1]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[2]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[3]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 34 (EL6910)">
+				<Link VarA="PlcTask Inputs^GVL_Safety.i_bLO1_CNC3" VarB="StandardInputs^Standard Out Var 6"/>
+				<Link VarA="PlcTask Inputs^GVL_Safety.i_bRobotDoorOpened_CNC3" VarB="StandardInputs^Standard Out Var 7"/>
+				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyErrorAck_Main" VarB="StandardOutputs^Standard In Var 2"/>
+				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyOverrideCnc3" VarB="StandardOutputs^Standard In Var 4"/>
+				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyRun" VarB="StandardOutputs^Standard In Var 3"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 35 (EL1809)">
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbLock.i_bBasePos" VarB="Channel 5^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbLock.i_bWorkPos" VarB="Channel 6^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveLower.i_bBasePos" VarB="Channel 4^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveLower.i_bWorkPos" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveUpper.i_bBasePos" VarB="Channel 2^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveUpper.i_bWorkPos" VarB="Channel 1^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 36 (EL2809)">
+				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbLock.q_bWorkPos" VarB="Channel 5^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveLower.q_bBasePos" VarB="Channel 4^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveLower.q_bWorkPos" VarB="Channel 3^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveUpper.q_bBasePos" VarB="Channel 2^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveUpper.q_bWorkPos" VarB="Channel 1^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.q_bToolCheckBlower" VarB="Channel 6^Output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EL6631)^rfm1">
 				<Link VarA="PlcTask Inputs^GVL_RFID.fbRFID_Readers[1].PnIoBoxState" VarB="Inputs^PnIoBoxState" AutoLink="true"/>
@@ -31831,6 +33590,10 @@ Submodule Info: In / Out Daten
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
 				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 3">
+				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbServoVise.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbServoVise.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

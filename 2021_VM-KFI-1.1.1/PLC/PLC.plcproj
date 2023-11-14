@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
@@ -66,6 +67,10 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_CNC3.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_Constant.TcGVL">
       <SubType>Code</SubType>
     </Compile>
@@ -107,6 +112,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\CNC_1\CNC_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\CNC_3\CNC_3.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\ConveyorSystem.TcPOU">
@@ -422,6 +430,7 @@
     <Folder Include="DUTs\RGB" />
     <Folder Include="DUTs\Vise" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\CNC_3" />
     <Folder Include="POUs\FBs" />
     <Folder Include="POUs\FBs\AWEA\DUTs" />
     <Folder Include="POUs\FBs\BTL\DUTs" />
