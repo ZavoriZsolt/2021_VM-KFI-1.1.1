@@ -388,6 +388,18 @@ CASE nState OF
 				fbViseStation[nUsedViseIndex].Vise.bWorkPosCmd := FALSE;
 				aViseStatus[nUsedViseIndex].eState := E_Vise_State.InRobotArmBeforeCnc;
 				fbRobot.eCommand := E_Robot_Command.NoCommand;
+				nState := 12100;
+			END_IF
+		END_IF
+		
+	12100:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kért satu henger alaphelyzetre');
+		
+		fbViseStation[nUsedViseIndex].Vise.bBasePosCmd := TRUE;
+		fbViseStation[nUsedViseIndex].Vise.bWorkPosCmd := FALSE;
+		
+		IF fbViseStation[nUsedViseIndex].Vise.bBasePosStab THEN
+			IF bStepEnableViseStation THEN
 				nState := 12500;
 			END_IF
 		END_IF
@@ -490,13 +502,13 @@ CASE nState OF
 		
 		CASE nUsedCNC OF
 			4:
+				//Not yet available				
+			5:
 				IF (NOT bErrorCNC5) THEN
 					IF nStateCNC5 > 1000 THEN
 						nState := 13000;
 					END_IF
 				END_IF
-			5:
-				//Not yet available
 		END_CASE
 		
 		
@@ -543,7 +555,7 @@ CASE nState OF
 				GVL_IO.q_bCNC4_Release_Vise := TRUE;
 				IF CheckAndOpenCNCDoor(4) THEN
 					IF bStepEnableViseStation THEN
-						nState := nState + 20;
+						nState := nState + 10;
 					END_IF
 				END_IF
 		END_CASE
@@ -612,6 +624,18 @@ CASE nState OF
 			aViseStatus[nUsedViseIndex].eState := E_Vise_State.OutForUnload;
 			fbRobot.eCommand := E_Robot_Command.NoCommand;
 			
+			IF bStepEnableViseStation THEN
+				nState := 14600;
+			END_IF
+		END_IF
+		
+	14600:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Kért satu henger alaphelyzetre');
+		
+		fbViseStation[nUsedViseIndex].Vise.bBasePosCmd := TRUE;
+		fbViseStation[nUsedViseIndex].Vise.bWorkPosCmd := FALSE;
+		
+		IF fbViseStation[nUsedViseIndex].Vise.bBasePosStab THEN
 			IF bStepEnableViseStation THEN
 				nState := 15000;
 			END_IF
@@ -833,7 +857,7 @@ CASE nStateCNC5 OF
 		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Várakozás CAM program végére');
 		IF stCNC5_Data^.CurentState_Program = 'Finished' THEN
 			IF bStepEnableCNC5 THEN	
-				aViseStatus[nRackUsedForCNC4].eState := E_Vise_State.CncDone;
+				aViseStatus[nRackUsedForCNC5].eState := E_Vise_State.CncDone;
 				stCNC5_Data^.DoorControl_CloseDoor := FALSE;
 				nStateCNC5 := nStateCNC5 + 20;
 			END_IF
