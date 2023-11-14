@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SafetyDeviceDesc Crc="2714050882" FileFormatVersion="1.8">
+<SafetyDeviceDesc Crc="58453218" FileFormatVersion="1.8">
   <AliasDeviceType>
     <Type>16</Type>
     <SubType>0</SubType>
@@ -10,7 +10,7 @@
     <ObjectId>0</ObjectId>
     <LinkingMode>Manual</LinkingMode>
     <ConnectionId>10</ConnectionId>
-    <ConnectionMode>master</ConnectionMode>
+    <ConnectionMode>slave</ConnectionMode>
     <ConnectionType>FSoE</ConnectionType>
     <MapDiag>false</MapDiag>
     <MapInputs>false</MapInputs>
@@ -18,9 +18,10 @@
     <MapState>false</MapState>
     <ModuleFaultIsComErr>false</ModuleFaultIsComErr>
     <SafeAddress>1031</SafeAddress>
+    <DynPortSafeAddress Type="Unset" />
     <Watchdog>100</Watchdog>
     <ComErrAck Type="Unset" />
-    <Messages InputMessageSize="6" OutputMessageSize="6" Tc2ConnectionType="0" CustomFSoEConnectionId="f048d3e6-01f1-46ba-ac48-8eddbb2c916b">
+    <Messages InputMessageSize="6" OutputMessageSize="6" Tc2ConnectionType="452853760" CustomFSoEConnectionId="f048d3e6-01f1-46ba-ac48-8eddbb2c916b">
       <IO>
         <Name>FSoE Cmd</Name>
         <DataType>USINT</DataType>

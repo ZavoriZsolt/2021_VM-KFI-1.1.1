@@ -15,16 +15,16 @@ VAR (* LastStates *)
     iLastStates					: INT;
 END_VAR
 VAR (* Var IO *)
-	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(35)^Channel 2^Input;
-									.fbMoveUpper.i_bWorkPos	:= TIIB(35)^Channel 1^Input;
+	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(35)^Channel 1^Input;
+									.fbMoveUpper.i_bWorkPos	:= TIIB(35)^Channel 2^Input;
 									.fbMoveUpper.q_bBasePos	:= TIIB(36)^Channel 2^Output;
 									.fbMoveUpper.q_bWorkPos	:= TIIB(36)^Channel 1^Output;
-									.fbMoveLower.i_bBasePos	:= TIIB(35)^Channel 4^Input;
-									.fbMoveLower.i_bWorkPos	:= TIIB(35)^Channel 3^Input;
+									.fbMoveLower.i_bBasePos	:= TIIB(35)^Channel 3^Input;
+									.fbMoveLower.i_bWorkPos	:= TIIB(35)^Channel 4^Input;
 									.fbMoveLower.q_bBasePos	:= TIIB(36)^Channel 4^Output;
 									.fbMoveLower.q_bWorkPos	:= TIIB(36)^Channel 3^Output;
-									.fbLock.i_bBasePos	:= TIIB(35)^Channel 5^Input;
-									.fbLock.i_bWorkPos	:= TIIB(35)^Channel 6^Input;
+									.fbLock.i_bBasePos	:= TIIB(35)^Channel 6^Input;
+									.fbLock.i_bWorkPos	:= TIIB(35)^Channel 5^Input;
 									.fbLock.q_bWorkPos	:= TIIB(36)^Channel 5^Output;
 									.q_bToolCheckBlower := TIIB(36)^Channel 6^Output;
 									.fbVisePos.arrRaw[0]	:= TIIB(32)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
@@ -36,12 +36,15 @@ VAR (* Var IO *)
 
 END_VAR
 VAR (* OPC_UA *)
-	stCNC_Data					: POINTER TO OPC_CNC_Data_Collection;
-	tHeartBeatDelay				: TON;
+	stCNC_Data					: 	POINTER TO OPC_CNC_Data_Collection;
+	tHeartBeatDelay				: 	TON;
 	bCNCHandshakeTimeout		:	BOOL;
 	tCNCHandshakeTimer			:	TON;
 	bCNCMidwareShutdownPossible	: 	BOOL;	//20, 40, 11400, 
 	bShutdownIsProcessing		:	BOOL;
+END_VAR
+VAR (*Test components*)
+	bEnableStart				:	BOOL := FALSE;
 END_VAR
 
 ]]></Declaration>
@@ -118,7 +121,7 @@ CASE nState OF
 	(****************************************************************************************)	
 	0:		(*-----=== Kimenetek törlése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
-		IF i_bLO1_Main AND NOT bManualMode THEN		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!
+		IF i_bLO1_Main AND (NOT bManualMode) AND bEnableStart THEN		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!
 			stCNC_Data^.DoorControl_CloseDoor := FALSE;
 			stCNC_Data^.DoorControl_OpenDoor := FALSE;
 			stCNC_Data^.MagazineTable_Trigger := FALSE;
