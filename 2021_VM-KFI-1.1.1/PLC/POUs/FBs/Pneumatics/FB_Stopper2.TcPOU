@@ -54,7 +54,7 @@ END_VAR
 						bStationFinished:= nState = 95020 //ebben a státuszban az állomás végzett, paletta elengedésre vár);
 *)
 
-fbToNextStopper(IN:= bMotorRun AND NOT q_bStopperDown, PT:= tToNextStopper, Q=> bPalletSent);
+fbToNextStopper(IN:= bMotorRun AND NOT q_bStopperDown, PT:= tToNextStopper, Q=>);
 fbPalettOut(IN:= q_bStopperDown AND NOT i_bPalettSensor AND bMotorRun, PT:= tPalettOut);
 fbEmpty(IN:= NOT i_bPalettSensor2 AND NOT q_bStopperDown AND bMotorRun AND bStationReady, PT:= T#10MS, Q=> bReady);
 
@@ -66,7 +66,7 @@ END_IF
 IF fbPalettOut.Q THEN 
 	q_bStopperDown := FALSE;
 END_IF
-]]></ST>
+bPalletSent := NOT fbToNextStopper.Q;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -226,22 +226,22 @@ VAR_GLOBAL (* Stoppers *)
 //	fbS8 : FB_Stopper; // 8 hol van nem tudom
 	fbS9 : FB_Stopper;
 	fbS10 : FB_Stopper;
-	fbS11 : FB_Stopper;
+	fbS11 : FB_Stopper2;
 	fbS12 : FB_Stopper;
 	fbS13 : FB_Stopper;
 	fbS14 : FB_Stopper;
-	fbS15 : FB_Stopper;
-	fbS16 : FB_Stopper;
+	fbS15 : FB_Stopper2;
+	fbS16 : FB_Stopper2;
 	fbS17 : FB_Stopper;
-	fbS18 : FB_Stopper;
+	fbS18 : FB_Stopper2;
 	fbS19 : FB_Stopper;
-	fbS20 : FB_Stopper;
+	fbS20 : FB_Stopper2;
 	fbS21 : FB_Stopper;
 	fbS22 : FB_Stopper;
 	fbS23 : FB_Stopper;
 	fbS24 : FB_Stopper;
 	fbS25 : FB_Stopper;
-	fbS26 : FB_Stopper;
+	fbS26 : FB_Stopper2;
 	fbS27 : FB_Stopper;
 //	fbS28 : FB_Stopper; // 28 hol faszom sem tudja
 	fbS29 : FB_Stopper;
