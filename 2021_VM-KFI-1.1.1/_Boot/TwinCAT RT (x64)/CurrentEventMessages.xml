@@ -23583,6 +23583,202 @@ multiturnlength = "signal periods per rotation" * "length per signal period" mus
 		</Event>
 	</Source>
 	<Source>
+		<GUID>{28111931-00E8-0100-8A50-000001000000}</GUID>
+		<Name LcId="1033">BNI ECT-508-105-Z015 (BNI0077)</Name>
+		<Event>
+			<Id>1</Id>
+			<Message LcId="1031">Incoming diagnosis: Sensor power supply overload port {0}  eventcode {1}  qualifier:{2} </Message>
+			<Message LcId="1033">Eingehende Diagnose: Überlast der Sensorspannungsversorgung Port {0}   Eventcode {1}  Qualifier:{2} </Message>
+		</Event>
+		<Event>
+			<Id>2</Id>
+			<Message LcId="1031">Incoming diagnosis: Supply over voltage port {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Überlast der Spannungsversorgung Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>3</Id>
+			<Message LcId="1031">Incoming diagnosis: Supply low voltage port {0}  eventcode {1}  qualifier {2} </Message>
+			<Message LcId="1033">Eingehende Diagnose: Unterspannungsversorgung Port {0}  Eventcode {1}  Qualifier {2} </Message>
+		</Event>
+		<Event>
+			<Id>4</Id>
+			<Message LcId="1031">Incoming diagnosis: Actuator over voltage</Message>
+			<Message LcId="1033">Eingehende Diagnose: Aktor Überspannung</Message>
+		</Event>
+		<Event>
+			<Id>5</Id>
+			<Message LcId="1031">Incoming diagnosis: Actuator under voltage</Message>
+			<Message LcId="1033">Eingehende Diagnose: Aktor Unterspannung</Message>
+		</Event>
+		<Event>
+			<Id>6</Id>
+			<Message LcId="1031">Incoming diagnosis: Over temperature port {0}  eventcode {1}  qualifier {2} </Message>
+			<Message LcId="1033">Eingehende Diagnose: Temperaturüberschreitung Port {0}  Eventcode {1}  Qualifier {2} </Message>
+		</Event>
+		<Event>
+			<Id>7</Id>
+			<Message LcId="1031">Incoming diagnosis: Short circuit on pin 4 port {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Kurzschluss an Pin 4 Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>8</Id>
+			<Message LcId="1031">Incoming diagnosis: Line break port {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Linienunterbrechung Port {0}  Eventcode {1}  Qualifier {2}</Message>
+			<Detail>
+				<Name LcId="1033">Description</Name>
+				<Text LcId="1033">Auf Kabelbruch prüfen</Text>
+			</Detail>
+			<Detail>
+				<Name LcId="1033">Info</Name>
+				<Text LcId="1033">Info: KabelBruch</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>9</Id>
+			<Message LcId="1031">Incoming diagnosis: General error port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Allgemeiner Fehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>10</Id>
+			<Message LcId="1031">Incoming diagnosis: Parameter missing port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Fehlender Parameter Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>11</Id>
+			<Message LcId="1031">Incoming diagnosis: Parameterization fault port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Parametrierungsfehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>12</Id>
+			<Message LcId="1031">Incoming diagnosis: Power supply fault port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Spannungsversorgungsfehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>13</Id>
+			<Message LcId="1031">Incoming diagnosis: Actuator short circuit</Message>
+			<Message LcId="1033">Eingehende Diagnose: Kurzschluss der Aktorspannungsversorgung</Message>
+		</Event>
+		<Event>
+			<Id>14</Id>
+			<Message LcId="1031">Incoming diagnosis: Upper limit exceeded port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Oberer Grenzwert überschritten Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>15</Id>
+			<Message LcId="1031">Incoming diagnosis: Lower limit underrun port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Unterer Grenzwert unterschritten Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>16</Id>
+			<Message LcId="1031">Incoming diagnosis: Fuse blown/open port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Sicherung ausgelöst/offen Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>17</Id>
+			<Message LcId="1031">Incoming diagnosis: Simulation active port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Simulation ist aktiv Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>18</Id>
+			<Message LcId="1031">Incoming diagnosis: Ground fault port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Eingehende Diagnose: Erdungsfehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32769</Id>
+			<Message LcId="1031">Outgoing diagnosis: Sensor power supply overload port {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Überlast der Sensorspannungsversorgung Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32770</Id>
+			<Message LcId="1031">Outgoing diagnosis: Supply over voltage port {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Überlast der Spannungsversorgung Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32771</Id>
+			<Message LcId="1031">Outgoing diagnosis: Supply low voltage port {0}  eventcode {1}  qualifier {2} </Message>
+			<Message LcId="1033">Abgehende Diagnose: Unterspannungsversorgung Port {0}  Eventcode {1}  Qualifier {2} </Message>
+		</Event>
+		<Event>
+			<Id>32772</Id>
+			<Message LcId="1031">Outgoing diagnosis: Actuator over voltage</Message>
+			<Message LcId="1033">Abgehende Diagnose: Aktor Überspannung</Message>
+		</Event>
+		<Event>
+			<Id>32773</Id>
+			<Message LcId="1031">Outgoing diagnosis: Actuator under voltage</Message>
+			<Message LcId="1033">Abgehende Diagnose: Aktor Unterspannung</Message>
+		</Event>
+		<Event>
+			<Id>32774</Id>
+			<Message LcId="1031">Outgoing diagnosis: Over temperature port {0}  eventcode {1}  qualifier {2} </Message>
+			<Message LcId="1033">Abgehende Diagnose: Temperaturüberschreitung Port {0}  Eventcode {1}  Qualifier {2} </Message>
+		</Event>
+		<Event>
+			<Id>32775</Id>
+			<Message LcId="1031">Outgoing diagnosis: Short circuit on pin 4 port {0}  eventcode {1} qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Kurzschluss an Pin 4 Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32776</Id>
+			<Message LcId="1031">Outgoing diagnosis: Line break port {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Linienunterbrechung Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32777</Id>
+			<Message LcId="1031">Outgoing diagnosis: General error port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Allgemeiner Fehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32778</Id>
+			<Message LcId="1031">Outgoing diagnosis: Parameter missing port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Fehlender Parameter Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32779</Id>
+			<Message LcId="1031">Outgoing diagnosis: Parameterization fault port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Parametrierungsfehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32780</Id>
+			<Message LcId="1031">Outgoing diagnosis: Power supply fault port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Spannungsversorgungsfehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32781</Id>
+			<Message LcId="1031">Outgoing diagnosis: Actuator short circuit</Message>
+			<Message LcId="1033">Abgehende Diagnose: Kurzschluss der Aktorspannungsversorgung</Message>
+		</Event>
+		<Event>
+			<Id>32782</Id>
+			<Message LcId="1031">Outgoing diagnosis: Upper limit exceeded port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Oberer Grenzwert überschritten Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32783</Id>
+			<Message LcId="1031">Outgoing diagnosis: Lower limit underrun port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Unterer Grenzwert unterschritten Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32784</Id>
+			<Message LcId="1031">Outgoing diagnosis: Fuse blown/open port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Sicherung ausgelöst/offen Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32785</Id>
+			<Message LcId="1031">Outgoing diagnosis: Simulation active port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Simulation ist aktiv Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Event>
+			<Id>32786</Id>
+			<Message LcId="1031">Outgoing diagnosis: Ground fault port: {0}  eventcode {1}  qualifier {2}</Message>
+			<Message LcId="1033">Abgehende Diagnose: Erdungsfehler Port {0}  Eventcode {1}  Qualifier {2}</Message>
+		</Event>
+		<Property>
+			<Name>DisplayTxtId</Name>
+			<Value>true</Value>
+		</Property>
+	</Source>
+	<Source>
 		<GUID>{28111931-0002-0000-5230-FE1A00001500}</GUID>
 		<Name LcId="1031">EL6910, TwinSAFE PLC</Name>
 		<Name LcId="1033">EL6910, TwinSAFE PLC</Name>
@@ -31713,6 +31909,755 @@ multiturnlength = "signal periods per rotation" * "length per signal period" mus
 			<Id>1</Id>
 			<Message LcId="1031">IO-Link Master Port {0}:  Eventqualifier = 0x{1,X} {2}</Message>
 			<Message LcId="1033">IO-Link Master Port {0}:  Eventqualifier = 0x{1,X} {2}</Message>
+		</Event>
+		<Property>
+			<Name>DisplayTxtId</Name>
+			<Value>true</Value>
+		</Property>
+	</Source>
+	<Source>
+		<GUID>{28111931-001D-0000-58BF-290007000000}</GUID>
+		<Name LcId="1031">CPX-FB37 Feldbusmodul</Name>
+		<Name LcId="1033">CPX-FB37 Fieldbus module</Name>
+		<Event>
+			<Id>1</Id>
+			<Message LcId="1031">State change Request From: {0} To:{1}</Message>
+			<Message LcId="1033">State change Request From: {0} To:{1}</Message>
+		</Event>
+		<Event>
+			<Id>2</Id>
+			<Message LcId="1031">{0}</Message>
+			<Message LcId="1033">{0}</Message>
+		</Event>
+		<Event>
+			<Id>15</Id>
+			<Message LcId="1031">Berechnung Buszykluszeit fehlgeschlafen (lokaler Timer zu langsam)</Message>
+			<Message LcId="1033">Calculate bus cycle time failed (Local timer too slow)</Message>
+		</Event>
+		<Event>
+			<Id>17</Id>
+			<Message LcId="1031">Sync Manager {0} Ungültige Adresse ({1})</Message>
+			<Message LcId="1033">Sync Manager {0} invalid address ({1})</Message>
+		</Event>
+		<Event>
+			<Id>18</Id>
+			<Message LcId="1031">Sync Manager {0} Ungültige E/A Größe ({1})</Message>
+			<Message LcId="1033">Sync Manager {0} invalid size ({1})</Message>
+		</Event>
+		<Event>
+			<Id>19</Id>
+			<Message LcId="1031">Sync Manager {0} Ungültige Konfiguration ({1})</Message>
+			<Message LcId="1033">Sync Manager {0} invalid settings ({1})</Message>
+		</Event>
+		<Event>
+			<Id>32</Id>
+			<Message LcId="1031">DC activation register is invalid</Message>
+			<Message LcId="1033">DC activation register is invalid</Message>
+		</Event>
+		<Event>
+			<Id>33</Id>
+			<Message LcId="1031">Configured SyncType (0x1C32.1 or 0x1C33.1) not supported. Check DC registers and supported SyncTypes (0x1C32.4 and 0x1C33.4)</Message>
+			<Message LcId="1033">Configured SyncType (0x1C32.1 or 0x1C33.1) not supported. Check DC registers and supported SyncTypes (0x1C32.4 and 0x1C33.4)</Message>
+		</Event>
+		<Event>
+			<Id>14080</Id>
+			<Message LcId="1031">Kein Fehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">No error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14081</Id>
+			<Message LcId="1031">Allgemeine Diagnose (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">General diagnosis (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14082</Id>
+			<Message LcId="1031">Kurzschluss (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Short circuit (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14083</Id>
+			<Message LcId="1031">Drahtbruch (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Wire fracture/idling current I/O (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14084</Id>
+			<Message LcId="1031">Kurzschluss Aktuatorversorgung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Short circuit in actuator supply (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14085</Id>
+			<Message LcId="1031">Unterspannung der Versorgungsspannung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Undervoltage in power supply (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14089</Id>
+			<Message LcId="1031">Unterer Grenzwert unterschritten (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Lower limit exceeded (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14090</Id>
+			<Message LcId="1031">Oberer Grenzwert überschritten (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Upper limit exceeded (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14091</Id>
+			<Message LcId="1031">Kurzschluss Ventil (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Short circuit valve (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14092</Id>
+			<Message LcId="1031">Vorsteuerventil Funktionswarnung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Pilot valve function warning (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14093</Id>
+			<Message LcId="1031">Drahtbruch Ventil (open load) (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Wire fracture (open load) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14094</Id>
+			<Message LcId="1031">Condition Counter überschritten (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Condition counter exceeded (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14095</Id>
+			<Message LcId="1031">Modul/Kanal ausgefallen (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Module/channel failure (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14096</Id>
+			<Message LcId="1031">Falscher Modulcode (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Module code incorrect (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14097</Id>
+			<Message LcId="1031">Falsche E/A Länge (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">I/O length incorrect (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14098</Id>
+			<Message LcId="1031">Adressbereich überschritten (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Address range exceeded (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14099</Id>
+			<Message LcId="1031">Lebenszyklus erreicht (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Life cycle exceeded (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14100</Id>
+			<Message LcId="1031">Parametrierfehler: Signalbereich (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in parametrizing signal range (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14101</Id>
+			<Message LcId="1031">Parametrierfehler: Datenformat (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in parametrizing data format (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14102</Id>
+			<Message LcId="1031">Parametrierfehler: Lineare Skalierung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in parametrizing linear scaling (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14103</Id>
+			<Message LcId="1031">Parametrierfehler: Messwertglättung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in filter meas.value (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14104</Id>
+			<Message LcId="1031">Parametrierfehler: unterer Grenzwert (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in parametrizing lower limit (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14105</Id>
+			<Message LcId="1031">Parametrierfehler: oberer Grenzwert (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in parametrizing upper limit (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14106</Id>
+			<Message LcId="1031">Fehler Aktorversorgung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in actuator supply (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14107</Id>
+			<Message LcId="1031">Falscher Gerätetyp montiert (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Wrong device type mounted (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14108</Id>
+			<Message LcId="1031">Alarmwert erreicht (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Alarm value reached (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14109</Id>
+			<Message LcId="1031">Parametrierfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in parametrizing (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14110</Id>
+			<Message LcId="1031">Slave hat keine neuen Ausgangsdaten (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">No new output data (slave) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14111</Id>
+			<Message LcId="1031">Slave hat keine Busverbindung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">No bus connection (slave) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14112</Id>
+			<Message LcId="1031">Kein STI Lesezugriff (Slave) (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">No STI read access (slave) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14113</Id>
+			<Message LcId="1031">Kein Parameterzugriff (Slave) (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">No parameter access (slave) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14114</Id>
+			<Message LcId="1031">CP Modul fehlt/ausgefallen (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CP module lost / fault (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14115</Id>
+			<Message LcId="1031">CP Konfigurationsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CP configuration failure (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14116</Id>
+			<Message LcId="1031">Kurzschluss im CP-Strang (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Short circuit CP-line (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14117</Id>
+			<Message LcId="1031">Reglerfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in controlling (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14118</Id>
+			<Message LcId="1031">Ventil fehlt (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Missing valve (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14119</Id>
+			<Message LcId="1031">Wartung notwendig (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Maintenance required (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14120</Id>
+			<Message LcId="1031">Life Guard (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Life Guard (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14121</Id>
+			<Message LcId="1031">Heart Beat (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Heart Beat (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14122</Id>
+			<Message LcId="1031">Com Cycle Period (Sync) (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Com Cycle Period (Sync) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14123</Id>
+			<Message LcId="1031">CAN Overrun (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CAN Overrun (Objects lost) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14124</Id>
+			<Message LcId="1031">Ungültige PDO empfangen (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Invalid PDO received (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14125</Id>
+			<Message LcId="1031">CAN Warnlimit erreicht (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CAN WarnLimit reached (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14126</Id>
+			<Message LcId="1031">CAN Wiederherstellung nach Busoff (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CAN recovered from Bus Off (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14127</Id>
+			<Message LcId="1031">Busspannung ausgefallen (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Bus Power lost (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14128</Id>
+			<Message LcId="1031">Kalibrierfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in Calibration (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14129</Id>
+			<Message LcId="1031">Unterer Dropout-Bereich (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Lower drop out signal (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14130</Id>
+			<Message LcId="1031">Oberer Dropout-Bereich (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Upper drop out signal (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14131</Id>
+			<Message LcId="1031">Sensorlimit erreicht (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Sensor limit exceeded (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14132</Id>
+			<Message LcId="1031">Kurzschluss Kaltstellenkompensation (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Short circuit cold junction comp. (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14133</Id>
+			<Message LcId="1031">Drahtbruch Kaltstellenkompensation (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Open load cold junction comp. (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14134</Id>
+			<Message LcId="1031">Kalibrierdaten fehlerhaft (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Calibration data incorrect (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14135</Id>
+			<Message LcId="1031">Ungültiger Prozesswert (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Invalid process value (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14136</Id>
+			<Message LcId="1031">Kurzschluss I-Port (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Short circuit I-Port (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14137</Id>
+			<Message LcId="1031">I-Port Device fehlt / ausgefallen (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Device missing / failure (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14138</Id>
+			<Message LcId="1031">I-Port Konfigurationsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">I-Port configuration error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14139</Id>
+			<Message LcId="1031">Überlast Eingang (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Input overload (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14140</Id>
+			<Message LcId="1031">Signalüberlauf/-unterlauf (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Signal underflow/overflow (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14141</Id>
+			<Message LcId="1031">Überspannung der Versorgungsspannung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Overvoltage in power supply (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14142</Id>
+			<Message LcId="1031">Überlauf bei Zeitmessung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Overflow in time measurement (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14143</Id>
+			<Message LcId="1031">Objektfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Object failure (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14144</Id>
+			<Message LcId="1031">Falsche Modulanzahl (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Number of Modules incorrect (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14145</Id>
+			<Message LcId="1031">F_Dest_Add unterschiedlich (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">F_Dest_Add mismatch (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14146</Id>
+			<Message LcId="1031">Fehler in sicherer Kommunikation (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">F-Communication fault (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14147</Id>
+			<Message LcId="1031">Timeout in sicherer Kommunikation (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">F-Communication timeout (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14148</Id>
+			<Message LcId="1031">Nebenschlussfehler am Ausgang (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Leakage current (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14149</Id>
+			<Message LcId="1031">Fehler in sicherer Parametrierung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">F-Parameter fault (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14150</Id>
+			<Message LcId="1031">Eingestellte Anzahl Stationen zu klein (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Station equip.status incorrect (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14151</Id>
+			<Message LcId="1031">Busverbindung verloren (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Bus connection lost (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14152</Id>
+			<Message LcId="1031">SSI-Paritätsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">SSI-parity error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14153</Id>
+			<Message LcId="1031">Grenzwertüberwachung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">limit monitoring (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14154</Id>
+			<Message LcId="1031">Überschreitung in Periodendauermessung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">limit exceeded in measure duty cycle (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14158</Id>
+			<Message LcId="1031">Nennbereichsüberschreitung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Value out of range (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14160</Id>
+			<Message LcId="1031">Funktionsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Function failure (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14165</Id>
+			<Message LcId="1031">Fehler in Vorsteuerdruckversorgung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Error in pilot pressure supply (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14167</Id>
+			<Message LcId="1031">Systemleckage (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">System Leakage (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14168</Id>
+			<Message LcId="1031">Kurzschluss Port (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Short circuit port (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14169</Id>
+			<Message LcId="1031">Port Konfigurationsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Port configuration error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14180</Id>
+			<Message LcId="1031">Konfigurationsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Configuration error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14181</Id>
+			<Message LcId="1031">Ausführungsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Execution error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14182</Id>
+			<Message LcId="1031">Fahrsatzfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Record error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14183</Id>
+			<Message LcId="1031">Reglerfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Control error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14184</Id>
+			<Message LcId="1031">Systemfehler A (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">System error A (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14185</Id>
+			<Message LcId="1031">Systemfehler B (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">System error B (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14186</Id>
+			<Message LcId="1031">Fehler am Ventil (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Error in valve (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14187</Id>
+			<Message LcId="1031">Fehler am Controller (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Controller error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14188</Id>
+			<Message LcId="1031">Fehler am Messsystem (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Encoder error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14189</Id>
+			<Message LcId="1031">Fehler am Motor oder Leistungsteil (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Error motor or power stage (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14190</Id>
+			<Message LcId="1031">Interne Kommunikationsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Internal communication error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14191</Id>
+			<Message LcId="1031">Prozessgüte unter Grenzwert (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Limit exceeded in monitoring process (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14195</Id>
+			<Message LcId="1031">Modul/Kanal im Subsystem ausgefallen (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Subsystem module/channel failure (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14208</Id>
+			<Message LcId="1031">Schaltereinheit defekt (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Switch unit defective (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14209</Id>
+			<Message LcId="1031">CBUS-ASIC nicht bereit (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CBUS asic not ready (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14210</Id>
+			<Message LcId="1031">CPU Hardware Trap (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CPU Hardware Trap (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14211</Id>
+			<Message LcId="1031">CBUS C-Manager nicht bereit (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CBUS C-manager not ready (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14212</Id>
+			<Message LcId="1031">Watchdog fehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Watchdog overflow (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14213</Id>
+			<Message LcId="1031">Remanenter Speicher defekt (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Remanent memory defective (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14214</Id>
+			<Message LcId="1031">Flash Speicher defekt (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Flash system memory defective (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14215</Id>
+			<Message LcId="1031">Mehr als 64Byte Parameter (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Number of mod.params.more than 64 (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14216</Id>
+			<Message LcId="1031">Slave ist nicht bereit (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Slave not ready (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14217</Id>
+			<Message LcId="1031">CBUS Diagnosetelegrammfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CBUS diagnostic telegram (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14218</Id>
+			<Message LcId="1031">CBUS Initialisierungsfehler (Modullücke) (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CBUS init fault (module gap) (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14219</Id>
+			<Message LcId="1031">Auftragsqueue Voll (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Order queue full (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14220</Id>
+			<Message LcId="1031">CBUS EEPROM defekt (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CBUS-EEPROM error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14221</Id>
+			<Message LcId="1031">CBUS C-Time-Out (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CBUS C-timeout error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14222</Id>
+			<Message LcId="1031">CBUS Telegrammfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">CBUS telegram fault (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14223</Id>
+			<Message LcId="1031">BIU Zugriffsfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">BIU access error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14224</Id>
+			<Message LcId="1031">Lizenzfehler (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Licence error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14225</Id>
+			<Message LcId="1031">Fehler bei Selbsttest (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Built-in self test failed (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14230</Id>
+			<Message LcId="1031">NETOS Error (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">NETOS fatal error (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14280</Id>
+			<Message LcId="1031">Fehler bei Parameterübergabe an Modul (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault param.transfer module n (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14281</Id>
+			<Message LcId="1031">Ungültige Stationsnummer (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Invalid field bus address (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14282</Id>
+			<Message LcId="1031">Busprotokoll-Chip nicht bereit (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Protokoll Asic not ready (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14283</Id>
+			<Message LcId="1031">MMI bedient die CPX-Module (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">MMI serves CPX module (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14284</Id>
+			<Message LcId="1031">Ungültige Schaltereinstellung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Invalid setting switch unit (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14285</Id>
+			<Message LcId="1031">Modul auf Defaultwerte zurückgesetzt (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Module set to default values (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14286</Id>
+			<Message LcId="1031">Parametrierf. Betriebsart (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. operating mode (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14287</Id>
+			<Message LcId="1031">Parametrierf. max pos Dauerausgangsstrom (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. max pos cont.outputcurr. (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14288</Id>
+			<Message LcId="1031">Parametrierf. max neg Dauerausgangsstrom (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. max neg cont.outputcurr. (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14289</Id>
+			<Message LcId="1031">Parametrierf. CNT-Funktion Eingang DI (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. CNT-function input DI (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14290</Id>
+			<Message LcId="1031">Parametrierf. POS-Funktion Eingang DI (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. POS-function input DI (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14291</Id>
+			<Message LcId="1031">Parametrierf. Gebertyp (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. encoder type (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14292</Id>
+			<Message LcId="1031">Parametrierf. Referenzmodus (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. reference mode (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14293</Id>
+			<Message LcId="1031">Parametrierf. SSI-Parität (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. SSI-parity (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14294</Id>
+			<Message LcId="1031">Parametrierf. SSI-Telegrammzyklus (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. SSI-telegram cycle (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14295</Id>
+			<Message LcId="1031">Parametrierf. Zeitbasis Pulsausgabe (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in param. time base pulse output (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14296</Id>
+			<Message LcId="1031">Objektfehler Grenzwert (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in object limit (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14297</Id>
+			<Message LcId="1031">Objektfehler Zählgrenze (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in object count limit (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14298</Id>
+			<Message LcId="1031">Objektfehler Vergleichswert (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in object comp value (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14299</Id>
+			<Message LcId="1031">Fehler bei Referenzmodus (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in reference mode (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14300</Id>
+			<Message LcId="1031">Ungültige Objektadresse (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Invalid object address (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14301</Id>
+			<Message LcId="1031">Fehler bei Pulsausgabe-Einstellungen (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in pulse output settings (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14302</Id>
+			<Message LcId="1031">Pulsausgabe-Einschaltverz. ausser Ber. (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Pulse output debounce time out of range (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14303</Id>
+			<Message LcId="1031">Fehler bei Geschwindigkeitsfaktor (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in speed factor (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14304</Id>
+			<Message LcId="1031">Fehler bei Phys. Eigenschaft Eingang (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in phys. characteristic input (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14305</Id>
+			<Message LcId="1031">Fehler bei Funktion DIR (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in function DIR (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14306</Id>
+			<Message LcId="1031">Fehler bei Puls pro Umdrehung (Modul: {0} - Kanal: {1})</Message>
+			<Message LcId="1033">Fault in pulse per rotation (Module: {0} - Channel: {1})</Message>
+		</Event>
+		<Event>
+			<Id>14307</Id>
+			<Message LcId="1031"><![CDATA[Fehler bei Puls pro Umdrehung AB&0 (Modul: {0} - Kanal: {1})]]></Message>
+			<Message LcId="1033"><![CDATA[Fault in pulse per rotation between AB&0 (Module: {0} - Channel: {1})]]></Message>
+		</Event>
+		<Event>
+			<Id>14336</Id>
+			<Message LcId="1031">Modulidentifikation fehlgeschlagen für Slot {0} (Detected {1} - Configured {2})</Message>
+			<Message LcId="1033">Ident check failed for configured module at slot {0} (Detected {1} - Configured {2})</Message>
+		</Event>
+		<Event>
+			<Id>14337</Id>
+			<Message LcId="1031">Modulidentifikation-Überprüfung nicht durchgeführt - Steuerung hat Objekt 0xF030 nicht geschrieben</Message>
+			<Message LcId="1033">Ident check skiped - PLC has not written to Object 0xF030</Message>
 		</Event>
 		<Property>
 			<Name>DisplayTxtId</Name>

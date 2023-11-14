@@ -37,7 +37,6 @@ ViseProgram();
 RobotCncProgram();
 Robot7AxisProgram();
 CNC_1();
-CNC_3();
 ConveyorSystem();
 Mapping();
 
