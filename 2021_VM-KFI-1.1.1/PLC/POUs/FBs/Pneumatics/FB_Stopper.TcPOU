@@ -60,7 +60,7 @@ END_VAR
 
 fbToNextStopper(IN:= bMotorRun AND NOT q_bStopperDown, PT:= tToNextStopper, Q=> );
 fbPalettOut(IN:= q_bStopperDown AND NOT i_bPalettSensor AND bMotorRun, PT:= tPalettOut);
-fbEmpty(IN:= NOT i_bPalettSensor AND NOT q_bStopperDown AND bMotorRun AND bStationReady, PT:= T#10MS, Q=> bReady);			// PT:= T#3S eredetileg
+fbEmpty(IN:= NOT i_bPalettSensor AND NOT q_bStopperDown AND bMotorRun AND bStationReady, PT:= T#1S, Q=> bReady);			// PT:= T#3S eredetileg
 
 fbPalletInStab(IN:= i_bPalettSensor AND bMotorRun, PT:= tPalletInStab);
 fbPalletOutStab(IN:= NOT i_bPalettSensor AND NOT q_bStopperDown AND bMotorRun, PT:= tPalletOutStab);
