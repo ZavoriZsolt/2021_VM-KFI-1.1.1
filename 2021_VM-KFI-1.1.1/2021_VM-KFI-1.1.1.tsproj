@@ -3598,7 +3598,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{9A1B9C13-6877-551D-63A0-A05ECB76E25A}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{7AC15A5D-9D73-F17E-0255-5EF985E699F5}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -24788,7 +24788,10 @@ External Setpoint Generation:
 				</Image>
 				<Box Id="96" BoxType="9121">
 					<Name>rfm1</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25297,7 +25300,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="97" BoxType="9121">
 					<Name>rfm2</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25808,7 +25814,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="98" BoxType="9121">
 					<Name>rfm3</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26319,7 +26328,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="99" BoxType="9121">
 					<Name>rfm4</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26830,7 +26842,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="100" BoxType="9121">
 					<Name>rfm5</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27341,7 +27356,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="101" BoxType="9121">
 					<Name>rfm6</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27852,7 +27870,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="102" BoxType="9121">
 					<Name>rfm7</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28363,7 +28384,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="103" BoxType="9121">
 					<Name>rfm8</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28874,7 +28898,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="104" BoxType="9121">
 					<Name>rfm9</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29385,7 +29412,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="105" BoxType="9121">
 					<Name>rfm10</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060

@@ -213,14 +213,14 @@ IF bManualModeRequestVise THEN
 	THEN
 		nModeVise := 2;
 		bManualModeVise := TRUE;
-		bGlobalEHAVise := FALSE;
+		//bGlobalEHAVise := FALSE;
 	ELSE
 		nModeVise := 1;
 	END_IF
 ELSE
 	nModeVise := 0;
 	bManualModeVise := FALSE;
-	bGlobalEHAVise := TRUE;
+	//bGlobalEHAVise := TRUE;
 END_IF
 
 
