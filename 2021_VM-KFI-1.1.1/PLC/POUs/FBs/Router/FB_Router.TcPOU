@@ -120,7 +120,7 @@ CASE nState OF
 	(****************************************************************************************)
 	(*********************************** Alaphelyzet ****************************************)
 	(****************************************************************************************)	
-	10000:		(*-----=== Várakozás berakásra ===-----*)
+	10000:		(*-----=== Várakozás palettára ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás palettára');
 		IF bPaletteStopperIn THEN											// Paletta a stopperen
 			IF bStepEnable THEN	
@@ -142,7 +142,9 @@ CASE nState OF
 				END_IF
 			END_IF
 		ELSIF tRFID_Timeout.Q THEN
-			nState := 14000;										// -> RFID hiba -> tovább küldés
+			nState := 13000;										// -> RFID hiba -> tovább küldés
+		ELSIF NOT bPaletteStopperIn THEN
+			nState := 10000;										// -> Hibás Trigger -> alaphelyzet
 		END_IF
 
 	11020:		(*-----=== Paletta adat ellenőrzése ===-----*)
@@ -154,7 +156,7 @@ CASE nState OF
 			END_IF
 		ELSE
 			IF bStepEnable THEN	
-				nState := 14000;								// Vagy nincs darab vagy kész -> mehet tovább
+				nState := 13000;								// Vagy nincs darab vagy kész -> mehet tovább
 			END_IF
 		END_IF
 
@@ -171,7 +173,6 @@ CASE nState OF
 		fbRouter^.bWorkPosCmd := TRUE;
 		IF fbRouter^.bWorkPosStab THEN
 			IF bStepEnable THEN
-				arrPaletteData^[nTagID].nState.1 := TRUE;;
 				nState := 12000;
 			END_IF
 		END_IF

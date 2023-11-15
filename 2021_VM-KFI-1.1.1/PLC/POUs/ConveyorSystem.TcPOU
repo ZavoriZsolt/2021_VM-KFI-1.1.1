@@ -50,7 +50,7 @@ Motors();
 Lift();
 ID_200();
 ID_200_Test();
-
+Routers();
 ]]></ST>
     </Implementation>
     <Action Name="Cylinders" Id="{9a689bda-b5d5-433f-b719-db3da72abe11}">
@@ -791,7 +791,7 @@ fbConveyor_11(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
 	
 fbS19(			(*-----=== Stopper kiemelő 1A előtt leválogatás ===-----*)
-	bNextReady:= fbS1.bReady AND NOT fbS20.bPalletSent, 
+	bNextReady:= fbS1.bReady AND NOT fbS20.bPalletSent AND NOT((fbLift_1A.nState = 10000 OR fbLift_1B.nState = 10000)AND fbS20.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= TRUE, 
@@ -822,8 +822,8 @@ fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
 	bNextReady:= fbS3.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= TRUE, 
-	bStationFinished:= TRUE, 
+	bStationReady:= fbRouter_CNC1_puffer.nState = 10000, 
+	bStationFinished:= fbRouter_CNC1_puffer.nState = 12000 OR fbRouter_CNC1_puffer.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_5.Channel_4, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
 
@@ -831,8 +831,8 @@ fbS20(			(*-----=== CNC1 Puffer küldés ===-----*)
 	bNextReady:= fbS1.bReady AND NOT fbS19.bPalletSent, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= fbZ18.bWorkPosStab, 
-	bStationFinished:=  fbZ18.bWorkPosStab, 
+	bStationReady:= TRUE, 
+	bStationFinished:=  TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_5.Channel_6, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_4.Channel_3,  
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS20);
