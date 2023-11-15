@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_Palette" Id="{c71107be-0c8b-4ca9-99f8-358fcf99acf0}">
     <Declaration><![CDATA[VAR_GLOBAL PERSISTENT
-	arrPalette					: ARRAY [1..100] OF ST_Dut_Data;
+	arrPalette					: ARRAY [1..200] OF ST_Dut_Data;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

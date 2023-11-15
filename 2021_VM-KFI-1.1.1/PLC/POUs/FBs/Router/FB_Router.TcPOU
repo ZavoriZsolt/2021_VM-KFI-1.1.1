@@ -239,10 +239,10 @@ CASE nState OF
 END_CASE
 
 (*Timers***************************************************)
-fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
-IF nState > 10000 AND nState <= 95000 THEN
-	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
-END_IF
+//fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+//IF nState > 10000 AND nState <= 95000 THEN
+//	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+//END_IF
 
 tRFID_Timeout(IN:= bPaletteStopperIn AND stTagData.Status = E_TagStatus.NotPresent, PT:= T#2s, Q=> , ET=> );
 tPalette(IN:= nState = 13000, PT:= T#2S, Q=> , ET=> );

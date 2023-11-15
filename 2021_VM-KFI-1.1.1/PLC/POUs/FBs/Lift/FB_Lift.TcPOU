@@ -9,12 +9,13 @@ VAR_INPUT
 	bStepEnable				: BOOL;
 	bBeforeStopperSent		: BOOL;
 	stTagData				: ST_Tag_Data;
+	nReqTarget				: UINT;
 END_VAR
 VAR_INPUT
 	fbLift					: POINTER TO FB_Bistabil;
 	fbLock					: POINTER TO FB_Bistabil;
 	fbStopper				: POINTER TO FB_Stopper;
-	arrPaletteData			: POINTER TO ARRAY [1..100] OF ST_Dut_Data;
+	arrPaletteData			: POINTER TO ARRAY [1..200] OF ST_Dut_Data;
 END_VAR
 VAR_OUTPUT
 	nTagID					: ULINT;
@@ -152,7 +153,7 @@ CASE nState OF
 
 	11020:		(*-----=== Paletta adat ellenőrzése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adat ellenőrzés');
-		IF arrPaletteData^[stTagData.Code].nState.0 AND NOT arrPaletteData^[stTagData.Code].nState.3 THEN	
+		IF arrPaletteData^[stTagData.Code].nTarget = nReqTarget AND NOT arrPaletteData^[stTagData.Code].nState.3 THEN	
 			IF bStepEnable THEN
 				nTagID := stTagData.Code;						// Van darab a palettán és még nincs kész -> Kiemelés 
 				nState := nState + 20;
@@ -192,7 +193,8 @@ CASE nState OF
 	12000:		(*-----=== Várakozás megmunkálásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás megmunkálásra');
 		IF arrPaletteData^[nTagID].nState.3 THEN
-			IF bStepEnable THEN	
+			IF bStepEnable THEN
+				arrPaletteData^[nTagID].nTarget := 0;		// Cél átírása -> Kardex
 				nState := 13000;							// -> Kész a megmunkáls mehet lefelé
 			END_IF
 		END_IF
@@ -281,10 +283,10 @@ CASE nState OF
 END_CASE
 
 (*Timers***************************************************)
-fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
-IF nState > 10000 AND nState <= 95000 THEN
-	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
-END_IF
+//fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+//IF nState > 10000 AND nState <= 95000 THEN
+//	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+//END_IF
 
 tRFID_Timeout(IN:= fbStopper^.bPalletAtStopper AND stTagData.Status = E_TagStatus.NotPresent, PT:= T#2s, Q=> , ET=> );
 

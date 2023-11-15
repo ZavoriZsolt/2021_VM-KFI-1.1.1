@@ -465,7 +465,8 @@ END_IF
 	bManualMode:= bManualMode,
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS19.bPalletSent,
-	stTagData:= fbRFID_Readers[1].Ch2_TagData, 
+	stTagData:= fbRFID_Readers[1].Ch2_TagData,
+	nReqTarget:= 2, 							// CNC1-re váró palettákat fogad
 	fbLift:= ADR(fbZ1), 
 	fbLock:= ADR(fbZ7), 
 	fbStopper:= ADR(fbS1),
@@ -478,6 +479,7 @@ fbLift_1B(
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS1.bPalletSent,
 	stTagData:= fbRFID_Readers[1].Ch1_TagData, 
+	nReqTarget:= 2,  							// CNC1-re váró palettákat fogad
 	fbLift:= ADR(fbZ2), 
 	fbLock:= ADR(fbZ8), 
 	fbStopper:= ADR(fbS2),
@@ -490,6 +492,7 @@ fbLift_2A(
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS17.bPalletSent,
 	stTagData:= fbRFID_Readers[2].Ch1_TagData, 
+	nReqTarget:= 4,  							// CNC2-re váró palettákat fogad
 	fbLift:= ADR(fbZ3), 
 	fbLock:= ADR(fbZ9), 
 	fbStopper:= ADR(fbS3),
@@ -502,6 +505,7 @@ fbLift_2B(
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS3.bPalletSent,
 	stTagData:= fbRFID_Readers[2].Ch2_TagData, 
+	nReqTarget:= 4,  							// CNC2-re váró palettákat fogad
 	fbLift:= ADR(fbZ4), 
 	fbLock:= ADR(fbZ10), 
 	fbStopper:= ADR(fbS4),
@@ -514,6 +518,7 @@ fbLift_3A(
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS13.bPalletSent,
 	stTagData:= fbRFID_Readers[3].Ch1_TagData, 
+	nReqTarget:= 6,  							// CNC3-ra váró palettákat fogad
 	fbLift:= ADR(fbZ5), 
 	fbLock:= ADR(fbZ11), 
 	fbStopper:= ADR(fbS5),
@@ -526,6 +531,7 @@ fbLift_3B(
 	bStepEnable:= bStepEnable, 
 	bBeforeStopperSent:= fbS5.bPalletSent,
 	stTagData:= fbRFID_Readers[3].Ch2_TagData, 
+	nReqTarget:= 6,  							// CNC3-ra váró palettákat fogad
 	fbLift:= ADR(fbZ6), 
 	fbLock:= ADR(fbZ12), 
 	fbStopper:= ADR(fbS6),
@@ -774,8 +780,35 @@ fbConveyor_11(
 	nNextTarget:= 2,					// CNC1  		-> ST_Dut_Data
 	fbRouter:= ADR(fbZ18), 
 	arrPaletteData:= ADR(arrPalette));
+(*
+fbRouter_CNC2_puffer(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	stTagData:= fbRFID_Readers[6].Ch1_TagData, 
+	bPaletteStopperIn:= fbS13.bPalletAtStopper, 
+	bStopperReadyBase:= fbS5.bReady, 
+	bStopperReadyWork:= fbS29.bReady, 
+	nReqTarget:= 3, 					// CNC2 Puffer 	-> ST_Dut_Data
+	nNextTarget:= 4,					// CNC2  		-> ST_Dut_Data
+	fbRouter:= ADR(fbZ16), 
+	arrPaletteData:= ADR(arrPalette));
 
-]]></ST>
+fbRouter_CNC3_puffer(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	stTagData:= fbRFID_Readers[5].Ch1_TagData, 
+	bPaletteStopperIn:= fbS14.bPalletAtStopper, 
+	bStopperReadyBase:= fbS8.bReady, 
+	bStopperReadyWork:= fbS11.bReady, 
+	nReqTarget:= 5, 					// CNC3 Puffer 	-> ST_Dut_Data
+	nNextTarget:= 6,					// CNC3  		-> ST_Dut_Data
+	fbRouter:= ADR(fbZ14), 
+	arrPaletteData:= ADR(arrPalette));
+*)]]></ST>
       </Implementation>
     </Action>
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
@@ -819,7 +852,7 @@ fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
 	
 fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
-	bNextReady:= fbS3.bReady, 
+	bNextReady:= fbS3.bReady AND NOT fbS16.bPalletSent AND NOT((fbLift_2A.nState = 10000 OR fbLift_2B.nState = 10000)AND fbS16.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= fbRouter_CNC1_puffer.nState = 10000, 
@@ -857,11 +890,11 @@ fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
 
 fbS13(			(*-----=== CNC2 Puffer, Stopper kiemelő 2B után===-----*)
-	bNextReady:= fbS5.bReady, 
+	bNextReady:= fbS5.bReady AND NOT fbS11.bPalletSent AND NOT((fbLift_3A.nState = 10000 OR fbLift_3B.nState = 10000)AND fbS11.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= TRUE, 
-	bStationFinished:= TRUE, 
+	bStationReady:= fbRouter_CNC2_puffer.nState = 10000, 
+	bStationFinished:= fbRouter_CNC2_puffer.nState = 12000 OR fbRouter_CNC2_puffer.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_8.Channel_4, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
 
@@ -900,8 +933,8 @@ fbS14(
 	bNextReady:= fbS8.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= TRUE, 
-	bStationFinished:= TRUE, 
+	bStationReady:= fbRouter_CNC3_puffer.nState = 10000, 
+	bStationFinished:= fbRouter_CNC3_puffer.nState = 12000 OR fbRouter_CNC3_puffer.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_13.Channel_5, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS14);
 
