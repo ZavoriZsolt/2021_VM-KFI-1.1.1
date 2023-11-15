@@ -292,12 +292,6 @@ VAR_GLOBAL
 	fbLift_2B			: FB_Lift;
 	fbLift_3A			: FB_Lift;
 	fbLift_3B			: FB_Lift;
-END_VAR
-VAR_GLOBAL
-	fbRouter_CNC1_puffer	: FB_Router;
-	fbRouter_CNC2_puffer	: FB_Router;
-	fbRouter_CNC3_puffer	: FB_Router;
-
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
