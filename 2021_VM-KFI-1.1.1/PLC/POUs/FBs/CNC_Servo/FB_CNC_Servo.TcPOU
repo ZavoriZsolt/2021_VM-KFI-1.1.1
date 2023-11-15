@@ -10,6 +10,8 @@ VAR_INPUT
 	bErrorAck					: BOOL;
 	bEnable						: BOOL;
 	bManualMode					: BOOL;
+	nCalOffset_1				: LREAL := 22.32;
+	nCalOffset_2				: LREAL := 99.01;
 END_VAR
 VAR	(* Control *)
 	nState						:UDINT;
@@ -44,6 +46,10 @@ END_VAR
       <ST><![CDATA[(* Timers *)
 tAttach(IN:= fbMoveLower.bWorkPosCmd AND fbMoveUpper.bWorkPosCmd AND NOT bRotate, PT:= T#5000MS, Q=> , ET=> );
 tFillUp(IN:= fbMoveLower.bWorkPosCmd AND fbMoveLower.bBasePosCmd, PT:= T#800MS, Q=> , ET=> );
+
+(*CNC Servo Offset Adjustment*)
+fbServoVise.nCalOffset_1 := nCalOffset_1;
+fbServoVise.nCalOffset_2 := nCalOffset_2;
 
 (*Error handling*)
 IF nState > 0 AND nState < 150000 THEN

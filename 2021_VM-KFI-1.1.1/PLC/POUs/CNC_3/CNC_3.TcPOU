@@ -114,6 +114,10 @@ THEN
 END_IF
 
 
+(*   Vise Position Adjustment   *)
+fbCncServoVise.nCalOffset_1 := 31.32;	//Originally 22.32
+fbCncServoVise.nCalOffset_2 := 108.01;	//Originally 99.01
+
 CASE nState OF
 {region "Alaphelyzet felvétel"}
 	(****************************************************************************************)

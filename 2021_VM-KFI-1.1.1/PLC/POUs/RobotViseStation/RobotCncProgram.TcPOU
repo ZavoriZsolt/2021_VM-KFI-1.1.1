@@ -9,6 +9,7 @@ VAR	(* Control *)
 	fbCycleTime					:TON;
 	nCycleTime					:REAL;
 	bError						:	BOOL;
+	bInit						:	BOOL := TRUE;
 END_VAR
 VAR //LastStates
 	anLastStates				:ARRAY[0..500] OF UDINT;
@@ -39,6 +40,8 @@ VAR	(*Vise Status handling*)
 	bActualCNCThreadDone		:	BOOL;
 	bActualCNCThreadInBase		:	BOOL;
 	bActualCNCProgramNotRunning	:	BOOL;
+	nNumberOfEmptyViseSockets	:	BYTE;
+	nIndexOfTheEmptySocket		:	BYTE;
 END_VAR
 VAR (* OPC_UA CNC4*)
 	stCNC5_Data					: 	POINTER TO OPC_CNC_Data_Collection;
@@ -74,7 +77,13 @@ VAR PERSISTENT
 	bRobotGoneTowait			:	BOOL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
+      <ST><![CDATA[IF bInit THEN
+	FOR i := 1 TO 14 BY 1 DO
+		aViseStatus[i].eSocketState := E_ViseSocketState.ViseInSocket;
+	END_FOR
+	bInit := FALSE;
+END_IF
+
 
 (* =================================== OPC_UA Hearbeat handling =========================================== *)
 stCNC5_Data := ADR(OPC_UA_CNC2);
@@ -269,6 +278,7 @@ CASE nState OF
 
 	(*Check for next possible process *)	
 	11000:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Következő folyamatra várakozás');
 	
 		(*Currently (2023.11.09) Only CNC 5 is available. This way, CNC is constantly 5 yet*)
 		nUsedCNC := 5;
@@ -331,7 +341,56 @@ CASE nState OF
 		END_IF
 	
 	11500:
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot megfogóban satu van. Kezeletlen állapot egyelőre');	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot megfogóban satu van. Üres satu foglalatok ellenőrzése');	
+		
+		FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO 
+			IF aViseStatus[i].eSocketState = E_ViseSocketState.SocketEmpty THEN
+				nNumberOfEmptyViseSockets := nNumberOfEmptyViseSockets + 1;
+			END_IF
+		END_FOR
+		nState  := nState + 20;
+		
+	11520:
+		IF nNumberOfEmptyViseSockets = 1 THEN
+			FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO 
+				IF aViseStatus[i].eSocketState = E_ViseSocketState.SocketEmpty THEN
+					sState := CONCAT(UDINT_TO_STRING(nState) , CONCAT(' - Üres satu foglalat található a ' , CONCAT( BYTE_TO_STRING(i),' indexű helyen')));	
+					nIndexOfTheEmptySocket := i;
+					EXIT;
+				END_IF
+			END_FOR
+		ELSIF nNumberOfEmptyViseSockets = 0 THEN
+			sState := CONCAT(UDINT_TO_STRING(nState) ,' - Nem található üres satu foglalat. Rakassa le a robottal a satut.');
+			nState := 11521;	
+		ELSE
+			sState := CONCAT(UDINT_TO_STRING(nState) ,' - Több üres foglalat található. Rakassa le a robottal a satut.');
+		END_IF 
+		
+		nState := nState + 20;
+		
+	11540:
+		//Innen egyelőre kézzel lép tovább
+		
+	11560:
+		sState := CONCAT(UDINT_TO_STRING(nState) , CONCAT(' - Robot satu visszarakás erre a satu foglalatra ', BYTE_TO_STRING(nIndexOfTheEmptySocket)));
+		
+		fbRobot.nViseNumber := nUsedViseIndex;
+		fbRobot.nCncNumber := nUsedCNC;
+		fbRobot.eCommand := E_Robot_Command.Put_Down_Vise;
+		
+		IF fbRobot.bBusy THEN
+			nState := 11580;
+		END_IF
+		
+	11580:
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás robot satu visszarakásra');
+		
+		IF (NOT fbRobot.bBusy) THEN
+			nState := 11600;
+		END_IF
+		
+	11600:
+		nState := 11000;
 		
 	11700:
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - CNC program befejezésre várakozás');	
@@ -387,6 +446,7 @@ CASE nState OF
 			IF bStepEnableViseStation THEN
 				fbViseStation[nUsedViseIndex].Vise.bWorkPosCmd := FALSE;
 				aViseStatus[nUsedViseIndex].eState := E_Vise_State.InRobotArmBeforeCnc;
+				aViseStatus[nUsedViseIndex].eSocketState := E_ViseSocketState.SocketEmpty;
 				fbRobot.eCommand := E_Robot_Command.NoCommand;
 				nState := 12100;
 			END_IF
@@ -414,7 +474,7 @@ CASE nState OF
 			5:
 				GVL_IO.q_bCNC4_Fix_Vise := FALSE;
 				GVL_IO.q_bCNC4_Release_Vise := TRUE;
-				IF CheckAndOpenCNCDoor(4) THEN
+				IF CheckAndOpenCNCDoor(5) THEN
 					IF bStepEnableViseStation THEN
 						nState := nState + 20;
 					END_IF
@@ -553,7 +613,7 @@ CASE nState OF
 				nStateCNC5 := 0;
 				GVL_IO.q_bCNC4_Fix_Vise := FALSE;
 				GVL_IO.q_bCNC4_Release_Vise := TRUE;
-				IF CheckAndOpenCNCDoor(4) THEN
+				IF CheckAndOpenCNCDoor(5) THEN
 					IF bStepEnableViseStation THEN
 						nState := nState + 10;
 					END_IF
@@ -622,6 +682,7 @@ CASE nState OF
 			
 			fbViseStation[nUsedViseIndex].Vise.bWorkPosCmd := FALSE;
 			aViseStatus[nUsedViseIndex].eState := E_Vise_State.OutForUnload;
+			aViseStatus[nUsedViseIndex].eSocketState := E_ViseSocketState.ViseInSocket;
 			fbRobot.eCommand := E_Robot_Command.NoCommand;
 			
 			IF bStepEnableViseStation THEN
@@ -737,6 +798,8 @@ END_VAR
         <ST><![CDATA[
 CASE nActualCNC OF
 	4:
+		//Not yet available
+	5:
 		IF stCNC5_Data^.DoorControl_DoorOpened THEN
 			CheckAndOpenCNCDoor := TRUE;
 			RETURN;
@@ -750,8 +813,7 @@ CASE nActualCNC OF
 				END_IF
 			END_IF
 		END_IF
-	5:
-		//Not yet available
+		
 END_CASE
 ]]></ST>
       </Implementation>
@@ -958,9 +1020,9 @@ arRobotEvents[7] := TC_EVENTS.MyEvents.RobotNotReadyErr;
 arRobotEvents[8] := TC_EVENTS.MyEvents.RobotBasePosErr;
 
 (*-----=== Hand shake jelek kezelése ===-----*)
-fbRobot.bVise_1_7_Reset := 		fbRobot.bVise_1_7_Set;
+fbRobot.bVise_1_7_Reset := 		fbRobot.bVise_1_7_Set AND_THEN CheckAllViseInSafePos();
 
-fbRobot.bVise_8_14_Reset := 	fbRobot.bVise_8_14_Set;
+fbRobot.bVise_8_14_Reset := 	fbRobot.bVise_8_14_Set AND_THEN CheckAllViseInSafePos();
 
 fbRobot.bCNC_4_Reset := 		fbRobot.bCNC_4_Set;
 

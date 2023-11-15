@@ -1439,15 +1439,6 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
-			<BitSize>32</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>4</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
 			<Name GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}" AutoDeleteType="true">ST_Vise_Sensors</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
@@ -1653,6 +1644,15 @@ External Setpoint Generation:
 				<BitSize>1</BitSize>
 				<BitOffs>15</BitOffs>
 			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..3] OF BITARR8</Name>
+			<BitSize>32</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000032}">BITARR8</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>4</Elements>
+			</ArrayInfo>
 		</DataType>
 		<DataType>
 			<Name GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}" AutoDeleteType="true">ST_RGB_Out</Name>
@@ -3602,7 +3602,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{9C2463CB-6E30-C5B7-3B34-0CD9B1720EEC}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{DEE8111A-42CF-1B5C-4963-B5EA82924B2F}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3614,90 +3614,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>Robot7AxisProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbVisePos.arrRaw</Name>
-							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbVisePos.nState</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbVisePos.arrRaw</Name>
-							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbVisePos.nState</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
 							<Name>GVL_IO.i_bVisePos1InBtn</Name>
@@ -4977,7 +4893,12 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -5310,6 +5231,90 @@ External Setpoint Generation:
 							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.arrRaw</Name>
+							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbVisePos.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.i_bBasePos</Name>
+							<Comment><![CDATA[Base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.i_bWorkPos</Name>
+							<Comment><![CDATA[Work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbVisePos.arrRaw</Name>
+							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbVisePos.nState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
@@ -5320,84 +5325,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>Robot7AxisProgram.fbRobot.RobotOut.aStdOut</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbLock.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>CNC_1.fbCncServoVise.q_bToolCheckBlower</Name>
-							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.q_bToolCheckBlower</Name>
-							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_IO.q_bMasterOnLED</Name>
@@ -6907,6 +6834,84 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_ConveyorSystem.fbConveyor_11.q_bConveyorRst</Name>
 							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbLock.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>CNC_1.fbCncServoVise.q_bToolCheckBlower</Name>
+							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.q_bBasePos</Name>
+							<Comment><![CDATA[Control to base position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbLock.q_bWorkPos</Name>
+							<Comment><![CDATA[Control to work position]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>CNC_3.fbCncServoVise.q_bToolCheckBlower</Name>
+							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -25123,7 +25128,10 @@ External Setpoint Generation:
 				</Image>
 				<Box Id="96" BoxType="9121">
 					<Name>rfm1</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25632,7 +25640,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="97" BoxType="9121">
 					<Name>rfm2</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26143,7 +26154,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="98" BoxType="9121">
 					<Name>rfm3</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26654,7 +26668,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="99" BoxType="9121">
 					<Name>rfm4</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27165,7 +27182,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="100" BoxType="9121">
 					<Name>rfm5</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27676,7 +27696,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="101" BoxType="9121">
 					<Name>rfm6</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28187,7 +28210,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="102" BoxType="9121">
 					<Name>rfm7</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28698,7 +28724,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="103" BoxType="9121">
 					<Name>rfm8</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29209,7 +29238,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="104" BoxType="9121">
 					<Name>rfm9</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29720,7 +29752,10 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="105" BoxType="9121">
 					<Name>rfm10</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
