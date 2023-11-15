@@ -1,0 +1,10 @@
+15. 11. 2023 10:05:58 Hadzsime: replace in file UserControls\ViseStation.usercontrol "PLC1.E_Vise_State" -> "<???>", Pos.(63, 58).
+15. 11. 2023 10:05:58 Hadzsime: replace in file UserControls\ViseStation.usercontrol "PLC1.E_Vise_State" -> "<???>", Pos.(48, 58).
+15. 11. 2023 10:05:59 Hadzsime: replace in file UserControls\ViseStation.usercontrol.json "PLC1.ST_Vise_Status" -> "<???>", Pos.(39, 41).
+15. 11. 2023 10:05:59 Hadzsime: remove definitions
+-----------------------------------------------------------
+PLC1.ARRAY_1..14_OF-ST_Vise_Status,
+PLC1.E_ViseSocketState,
+PLC1.E_Vise_State,
+PLC1.ST_Vise_Status
+-----------------------------------------------------------

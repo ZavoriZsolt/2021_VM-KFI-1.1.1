@@ -133,6 +133,24 @@
         "type": "tchmi:framework#/definitions/Color",
         "persist": false,
         "readonly": false
+      },
+      "ViseStateEnum": {
+        "value": [
+          "Empty",
+          "OutForLoad",
+          "ReadyToCnc",
+          "InRobotArmBeforeCnc",
+          "InCnc",
+          "CncDone",
+          "InRobotArmAfterCnc",
+          "WaitingForUnLoad",
+          "OutForUnload",
+          "RequestCleaning",
+          "OutOfService"
+        ],
+        "type": "tchmi:general#/definitions/Array",
+        "persist": false,
+        "readonly": false
       }
     },
     "themedResources": {}
