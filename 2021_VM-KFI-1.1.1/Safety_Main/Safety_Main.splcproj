@@ -27,7 +27,6 @@
   <ItemGroup>
     <None Include="TwinSafeGroup1\Alias Devices\Blinksds.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\CellEmptyAck.sds" />
-    <None Include="TwinSafeGroup1\Alias Devices\Custom FSoE_CNC2.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\Custom FSoE_CNC3.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\Custom FSoE_Main.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\MasterOn.sds" />
