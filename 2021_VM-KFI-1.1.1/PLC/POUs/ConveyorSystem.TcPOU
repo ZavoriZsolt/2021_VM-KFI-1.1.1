@@ -25,23 +25,23 @@ VAR
 	bTestSWWS			: BOOL;
 END_VAR
 VAR CONSTANT
-	arrRFIDs			: ARRAY[1..17] OF ST_Active_RFIDs := [	(RFID := 1, CH := 2),
-																(RFID := 1, CH := 1),
-																(RFID := 2, CH := 1),
-																(RFID := 2, CH := 2),
-																(RFID := 3, CH := 1),
-																(RFID := 3, CH := 2),
-																(RFID := 4, CH := 1),
-																(RFID := 4, CH := 2),
-																(RFID := 5, CH := 2),
-																(RFID := 5, CH := 1),
-																(RFID := 6, CH := 1),
-																(RFID := 7, CH := 1),
-																(RFID := 9, CH := 2),
-																(RFID := 8, CH := 2),
-																(RFID := 8, CH := 1),
-																(RFID := 10, CH := 1),
-																(RFID := 9, CH := 1)];
+	arrRFIDs			: ARRAY[1..17] OF ST_Active_RFIDs := [	(RFID := 1, CH := 2),	//RF 1
+																(RFID := 1, CH := 1),	//RF 2
+																(RFID := 2, CH := 1),	//RF 3
+																(RFID := 2, CH := 2),	//RF 4
+																(RFID := 3, CH := 1),	//RF 5
+																(RFID := 3, CH := 2),	//RF 6
+																(RFID := 4, CH := 1),	//RF 7
+																(RFID := 4, CH := 2),	//RF 8
+																(RFID := 5, CH := 2),	//RF 9
+																(RFID := 5, CH := 1),	//RF 10
+																(RFID := 6, CH := 1),	//RF 11
+																(RFID := 7, CH := 1),	//RF 13
+																(RFID := 9, CH := 2),	//RF 15
+																(RFID := 8, CH := 2),	//RF 16
+																(RFID := 8, CH := 1),	//RF 17
+																(RFID := 10, CH := 1),	//RF 18
+																(RFID := 9, CH := 1)];	//RF 19
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Cylinders();
@@ -759,6 +759,25 @@ fbConveyor_11(
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="Routers" Id="{1abe32cd-f34f-40c6-8cb7-dd73fceeee42}">
+      <Implementation>
+        <ST><![CDATA[fbRouter_CNC1_puffer(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	stTagData:= fbRFID_Readers[7].Ch1_TagData, 
+	bPaletteStopperIn:= fbS17.bPalletAtStopper, 
+	bStopperReadyBase:= fbS3.bReady, 
+	bStopperReadyWork:= fbS20.bReady, 
+	nReqTarget:= 1, 					// CNC1 Puffer 	-> ST_Dut_Data
+	nNextTarget:= 2,					// CNC1  		-> ST_Dut_Data
+	fbRouter:= ADR(fbZ18), 
+	arrPaletteData:= ADR(arrPalette));
+
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
       <Implementation>
         <ST><![CDATA[fbS24(			(*-----=== Kardex alsó pozíció 2. utáni torlasztás ===-----*)
@@ -772,7 +791,7 @@ fbConveyor_11(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
 	
 fbS19(			(*-----=== Stopper kiemelő 1A előtt leválogatás ===-----*)
-	bNextReady:= fbS1.bReady, 
+	bNextReady:= fbS1.bReady AND NOT fbS20.bPalletSent, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= TRUE, 
@@ -809,7 +828,7 @@ fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
 
 fbS20(			(*-----=== CNC1 Puffer küldés ===-----*)
-	bNextReady:= fbS1.bReady, 
+	bNextReady:= fbS1.bReady AND NOT fbS19.bPalletSent, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= fbZ18.bWorkPosStab, 
