@@ -67,6 +67,10 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_CNC2.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_CNC3.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -112,6 +116,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\CNC_1\CNC_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\CNC_2\CNC_2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\CNC_3\CNC_3.TcPOU">
@@ -433,6 +440,7 @@
     <Folder Include="DUTs\RGB" />
     <Folder Include="DUTs\Vise" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\CNC_2" />
     <Folder Include="POUs\CNC_3" />
     <Folder Include="POUs\FBs" />
     <Folder Include="POUs\FBs\AWEA\DUTs" />
