@@ -50,6 +50,7 @@ Motors();
 Lift();
 ID_200();
 ID_200_Test();
+Routers();
 
 ]]></ST>
     </Implementation>
@@ -759,6 +760,25 @@ fbConveyor_11(
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="Routers" Id="{1abe32cd-f34f-40c6-8cb7-dd73fceeee42}">
+      <Implementation>
+        <ST><![CDATA[fbRouter_CNC1_puffer(
+	bEnable:= i_bLO1_Main, 
+	bErrorAck:= bAckP, 
+	bManualMode:= bManualMode,
+	bStepEnable:= bStepEnable, 
+	stTagData:= fbRFID_Readers[13], 
+	bPaletteStopperIn:= fbS17.bPalletAtStopper, 
+	bStopperReadyBase:= fbS3.bReady, 
+	bStopperReadyWork:= fbS20.bReady, 
+	nReqTarget:= 1, 					// CNC1 Puffer 	-> ST_Dut_Data
+	nNextTarget:= 2,					// CNC1  		-> ST_Dut_Data
+	fbRouter:= ADR(fbZ18), 
+	arrPaletteData:= ADR(arrPalette));
+
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
       <Implementation>
         <ST><![CDATA[fbS24(			(*-----=== Kardex alsó pozíció 2. utáni torlasztás ===-----*)
@@ -772,7 +792,7 @@ fbConveyor_11(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
 	
 fbS19(			(*-----=== Stopper kiemelő 1A előtt leválogatás ===-----*)
-	bNextReady:= fbS1.bReady, 
+	bNextReady:= fbS1.bReady AND NOT fbS20.bPalletSent, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= TRUE, 
@@ -809,7 +829,7 @@ fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
 
 fbS20(			(*-----=== CNC1 Puffer küldés ===-----*)
-	bNextReady:= fbS1.bReady, 
+	bNextReady:= fbS1.bReady AND NOT fbS19.bPalletSent, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= fbZ18.bWorkPosStab, 

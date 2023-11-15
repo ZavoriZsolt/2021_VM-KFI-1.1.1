@@ -288,6 +288,9 @@
     <Compile Include="POUs\FBs\Pneumatics\FB_Stopper2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FBs\Router\FB_Router.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBs\ServoVise\DUTs\E_ServoVise_Command.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
@@ -459,6 +462,8 @@
     <Folder Include="POUs\FBs\CNC_Servo" />
     <Folder Include="POUs\FBs\Camera" />
     <Folder Include="POUs\FBs\Lift" />
+    <Folder Include="POUs\FBs\Router" />
+    <Folder Include="POUs\FBs\Router\DUTs" />
     <Folder Include="POUs\FBs\Utilities" />
     <Folder Include="POUs\FBs\Pneumatics" />
     <Folder Include="POUs\FBs\ServoVise" />
