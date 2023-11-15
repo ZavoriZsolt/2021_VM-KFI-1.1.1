@@ -764,7 +764,7 @@ fbConveyor_11(
         <ST><![CDATA[fbS24(			(*-----=== Kardex alsó pozíció 2. utáni torlasztás ===-----*)
 	bNextReady:= fbS19.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS24.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_2.Channel_5, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
@@ -772,7 +772,7 @@ fbConveyor_11(
 fbS19(			(*-----=== Stopper kiemelő 1A előtt leválogatás ===-----*)
 	bNextReady:= fbS1.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS19.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_1.Channel_2,
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS19);
@@ -800,7 +800,7 @@ fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
 	bNextReady:= fbS3.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS17.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_5.Channel_4, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
@@ -838,7 +838,7 @@ fbS13(			(*-----=== CNC2 Puffer, Stopper kiemelő 2B után===-----*)
 	bNextReady:= fbS5.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS13.i_bPalettSensor, 
+	bStationReady:= , 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_8.Channel_4, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
@@ -878,7 +878,7 @@ fbS14(
 	bNextReady:= fbS8.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS14.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_13.Channel_5, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS14);
@@ -887,7 +887,7 @@ fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
 	bNextReady:= fbS5.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS11.i_bPalettSensor,  
+	bStationReady:= TRUE,  
 	bStationFinished:= , 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_13.Channel_2, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_13.Channel_4, 
@@ -899,7 +899,7 @@ fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
 fbS8(			(*-----=== alsó visszahordó 1. torlasztás ===-----*)
 	bNextReady:= fbS27.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS8.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_9.Channel_6, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_9.Channel_3, 
@@ -908,16 +908,24 @@ fbS8(			(*-----=== alsó visszahordó 1. torlasztás ===-----*)
 fbS27(			(*-----=== alsó visszahordó 2. torlasztás ===-----*)
 	bNextReady:= fbS21.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS27.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_3.Channel_6, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_4.Channel_0, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS27);
 
+fbS29(			(*-----=== alsó visszahordó S19 után 2nd felfogás ===-----*)
+	bNextReady:= , 
+	bMotorRun:= i_bLO1_Main, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= , 
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS29);
+
 fbS21(			(*-----=== alsó visszahordó 3. torlasztás ===-----*)
 	bNextReady:= fbS22.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS21.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_1.Channel_6, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_2.Channel_0, 
@@ -926,7 +934,7 @@ fbS21(			(*-----=== alsó visszahordó 3. torlasztás ===-----*)
 fbS22(			(*-----=== Kardex alsó pozíció 1. ===-----*)
 	bNextReady:= fbS23.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS22.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_2.Channel_1, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS22);
@@ -934,19 +942,19 @@ fbS22(			(*-----=== Kardex alsó pozíció 1. ===-----*)
 fbS23(			(*-----=== Kardex alsó pozíció 2. ===-----*)
 	bNextReady:= fbS19.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS23.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_2.Channel_3, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS23);
 	
 (****************************************************************************************)
-(*********************** Felső konvejor behordás *************************************)
+(************************** Felső konvejor behordás *************************************)
 (****************************************************************************************)
 fbS7(			(*-----=== Operátori pozíció ===-----*)
 	bNextReady:= fbS10.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:=NOT fbS7.i_bPalettSensor , 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_17.Channel_0, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS7);
@@ -955,7 +963,7 @@ fbS10(
 	bNextReady:= fbS9.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS10.i_bPalettSensor,  
+	bStationReady:= TRUE,  
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_17.Channel_5, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS10);
@@ -964,7 +972,7 @@ fbS9(
 	bNextReady:= fbS18.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS9.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_16.Channel_0, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS9);
@@ -973,7 +981,7 @@ fbS18(
 	bNextReady:= fbS15.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS18.i_bPalettSensor,  
+	bStationReady:= TRUE,  
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_12.Channel_5, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_12.Channel_7, 
@@ -983,7 +991,7 @@ fbS15(
 	bNextReady:= fbS26.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS15.i_bPalettSensor,  
+	bStationReady:= TRUE,  
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_12.Channel_3, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_9.Channel_4, 
@@ -993,7 +1001,7 @@ fbS26(
 	bNextReady:= fbS25.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS26.i_bPalettSensor,  
+	bStationReady:= TRUE,  
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_0.Channel_3, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_4.Channel_4,  
@@ -1003,7 +1011,7 @@ fbS25(
 	bNextReady:= fbS32.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= NOT fbS25.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_3.Channel_2, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_0.Channel_0,  
@@ -1013,68 +1021,56 @@ fbS32(
 	bNextReady:= FALSE, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#1s, 
-	bStationReady:= NOT fbS32.i_bPalettSensor, 
+	bStationReady:= TRUE, 
 	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_3.Channel_0, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS32);
 
-
-
-	
-
-	
-
-	
-
-	
-fbS12(
-	bNextReady:= , 
+(****************************************************************************************)
+(************************** Felső konvejor kihordás *************************************)
+(****************************************************************************************)
+fbS30(
+	bNextReady:= fbS31.bReady, 
 	bMotorRun:= i_bLO1_Main, 
+	tToNextStopper:= T#1s, 
 	bStationReady:= , 
 	bStationFinished:= , 
-	i_bPalettSensor:= , 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_4.Channel_1, 
+	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_4.Channel_5,  
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS30);	
+
+fbS31(
+	bNextReady:= fbS12.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	tToNextStopper:= T#1s, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_9.Channel_2, 
+	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_9.Channel_5,  
+	q_bStopperDown=> GVL_ConveyorSystem.q_bS31);	
+
+fbS12(
+	bNextReady:= fbS28.bReady, 
+	bMotorRun:= i_bLO1_Main, 
+	tToNextStopper:= T#1s, 
+	bStationReady:= , 
+	bStationFinished:= , 
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_16.Channel_5, 
+	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_9.Channel_0,  
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS12);
 
-fbS17(
-	bNextReady:= fbS3.bReady, 
+fbS28(			(*-----=== Operátori pozíció Fix nincs vezérelve ===-----*)
+	bNextReady:= FALSE, 
 	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= NOT fbS17.i_bPalettSensor, 
+	bStationReady:= TRUE,			// Satuzó állomás paletta kérése 
 	bStationFinished:= TRUE, 
-	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_10.Channel_6, 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
+	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_17.Channel_2, 
+	q_bStopperDown=> );	
+
 	
-// itt megint faszom sem tudja, vagy elbaszták a számozást vagy vak vagyok	
-//fbS28(
-//	bNextReady:= , 
-//	bMotorRun:= , 
-//	bStationReady:= , 
-//	bStationFinished:= , 
-//	i_bPalettSensor:= , 
-//	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);
+
 	
-fbS29(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS29);
-	
-fbS30(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS30);
-	
-fbS31(
-	bNextReady:= , 
-	bMotorRun:= i_bLO1_Main, 
-	bStationReady:= , 
-	bStationFinished:= , 
-	i_bPalettSensor:= , 
-	q_bStopperDown=> GVL_ConveyorSystem.q_bS31);
+
 	
 ]]></ST>
       </Implementation>

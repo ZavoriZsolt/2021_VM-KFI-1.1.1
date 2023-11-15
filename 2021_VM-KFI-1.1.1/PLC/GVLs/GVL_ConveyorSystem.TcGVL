@@ -227,7 +227,7 @@ VAR_GLOBAL (* Stoppers *)
 	fbS9 : FB_Stopper2;
 	fbS10 : FB_Stopper2;
 	fbS11 : FB_Stopper2;
-	fbS12 : FB_Stopper;
+	fbS12 : FB_Stopper2;
 	fbS13 : FB_Stopper;
 	fbS14 : FB_Stopper;
 	fbS15 : FB_Stopper2;
@@ -243,10 +243,10 @@ VAR_GLOBAL (* Stoppers *)
 	fbS25 : FB_Stopper2;
 	fbS26 : FB_Stopper2;
 	fbS27 : FB_Stopper2;
-//	fbS28 : FB_Stopper; // 28 hol faszom sem tudja
+	fbS28 : FB_Stopper; // 28 hol faszom sem tudja
 	fbS29 : FB_Stopper;
-	fbS30 : FB_Stopper;
-	fbS31 : FB_Stopper;
+	fbS30 : FB_Stopper2;
+	fbS31 : FB_Stopper2;
 	fbS32 : FB_Stopper;
 END_VAR
 VAR_GLOBAL (* Cylinders *)
