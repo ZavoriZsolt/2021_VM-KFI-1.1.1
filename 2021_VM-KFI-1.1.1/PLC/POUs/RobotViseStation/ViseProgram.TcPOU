@@ -3,8 +3,8 @@
   <POU Name="ViseProgram" Id="{6d9b958e-c489-4500-98fd-04fa45676c6e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ViseProgram
 VAR CONSTANT
-	nStartIndex					:USINT := 2;
-	nMaxIndex					:USINT := 7;
+	nStartIndex					:USINT := 1;
+	nMaxIndex					:USINT := 14;
 END_VAR
 VAR	(* Control *)
 	nState						:UDINT;
@@ -186,7 +186,7 @@ CASE nState OF
 {region "Feltöltés"}
 	20000: (*Load*)
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad THEN
+			IF (aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad) AND (aViseStatus[index].eState <> E_Vise_State.OutForLoad) THEN
 				nState := nState + 20;
 				EXIT;
 			END_IF
@@ -265,7 +265,7 @@ CASE nState OF
 {region "Gyártás"}
 	30000: (*In process*)
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad THEN
+			IF (aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad) AND (aViseStatus[index].eState <> E_Vise_State.OutForLoad) THEN
 				nState := nState + 20;
 				EXIT;
 			END_IF
@@ -283,7 +283,7 @@ CASE nState OF
 {region "Kiürítés"}		
 	50000: (*Unload*)
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF aViseStatus[index].eState = E_Vise_State.WaitingForUnLoad OR aViseStatus[index].eState = E_Vise_State.OutForUnload THEN
+			IF (aViseStatus[index].eState = E_Vise_State.WaitingForUnLoad OR aViseStatus[index].eState = E_Vise_State.OutForUnload) AND (aViseStatus[index].eState <> E_Vise_State.OutForLoad) THEN
 				nState := nState + 20;
 				EXIT;
 			END_IF

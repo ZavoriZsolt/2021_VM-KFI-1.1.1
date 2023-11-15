@@ -1,0 +1,39 @@
+﻿{
+  "parameters": [
+    {
+      "name": "data-tchmi-henger",
+      "displayName": "Henger",
+      "visible": true,
+      "type": "tchmi:server#/definitions/PLC1.FB_Bistabil",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Henger",
+      "propertySetterName": "setHenger",
+      "propertyGetterName": "getHenger",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-name",
+      "displayName": "Name",
+      "visible": true,
+      "type": "tchmi:general#/definitions/String",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Name",
+      "propertySetterName": "setName",
+      "propertyGetterName": "getName",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.742.0/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

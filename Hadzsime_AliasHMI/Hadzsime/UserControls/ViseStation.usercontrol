@@ -1,0 +1,11 @@
+﻿<div id="ViseStation" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="842" data-tchmi-height="135" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+<div id="FB_Bistabil_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="110" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/FB_Bistabil.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="235" data-tchmi-width-unit="px" data-tchmi-name="Satu" data-tchmi-henger="%pp%ViseStation::fbVise%/pp%">
+</div>
+<div id="FB_Bistabil_2" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="110" data-tchmi-height-unit="px" data-tchmi-left="271" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/FB_Bistabil.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="230" data-tchmi-width-unit="px" data-tchmi-name="Robot felől stopper" data-tchmi-henger="%pp%ViseStation::fbStopper_Out%/pp%">
+</div>
+<div id="FB_Bistabil_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="110" data-tchmi-height-unit="px" data-tchmi-left="525" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/FB_Bistabil.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="235" data-tchmi-width-unit="px" data-tchmi-name="Betöltő állomás felől stopper" data-tchmi-henger="%pp%ViseStation::fbStopper_In%/pp%">
+</div>
+<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="770" data-tchmi-left-unit="px" data-tchmi-text="%pp%StationName%/pp%" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="62" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+</div>
