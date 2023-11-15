@@ -82,3 +82,13 @@ VisualStudio.gitignore
 2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.ocm
 2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
 2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
+2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
+*.crc
+*.occ
+*.tizip
+*.cid
+*.occ
+*.crc
+*.crc
+*.occ
+*.tizip

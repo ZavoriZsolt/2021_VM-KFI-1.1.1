@@ -239,7 +239,7 @@ VAR_GLOBAL (* Stoppers *)
 	fbS21 : FB_Stopper2;
 	fbS22 : FB_Stopper;
 	fbS23 : FB_Stopper;
-	fbS24 : FB_Stopper;
+	fbS24 : FB_Stopper2;
 	fbS25 : FB_Stopper2;
 	fbS26 : FB_Stopper2;
 	fbS27 : FB_Stopper2;

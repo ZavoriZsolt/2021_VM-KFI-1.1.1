@@ -61,6 +61,15 @@
             "startOffset": 1,
             "type": "array"
         },
+        "PLC1.ARRAY_1..14_OF-ST_Vise_Status": {
+            "items": {
+                "$ref": "#/definitions/PLC1.ST_Vise_Status"
+            },
+            "maxItems": 14,
+            "minItems": 14,
+            "startOffset": 1,
+            "type": "array"
+        },
         "PLC1.E_TagStatus": {
             "allOf": [
                 {
@@ -92,6 +101,107 @@
                 },
                 {
                     "$ref": "tchmi:general#/definitions/UINT8"
+                }
+            ]
+        },
+        "PLC1.E_ViseSocketState": {
+            "allOf": [
+                {
+                    "attributes": {
+                        "generate_implicit_init_function": "",
+                        "qualified_only": "",
+                        "strict": ""
+                    },
+                    "enum": [
+                        0,
+                        1
+                    ],
+                    "options": [
+                        {
+                            "label": "ViseInSocket",
+                            "value": 0
+                        },
+                        {
+                            "label": "SocketEmpty",
+                            "value": 1
+                        }
+                    ]
+                },
+                {
+                    "$ref": "tchmi:general#/definitions/INT16"
+                }
+            ]
+        },
+        "PLC1.E_Vise_State": {
+            "allOf": [
+                {
+                    "attributes": {
+                        "generate_implicit_init_function": "",
+                        "qualified_only": "",
+                        "strict": ""
+                    },
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10
+                    ],
+                    "options": [
+                        {
+                            "label": "Empty",
+                            "value": 0
+                        },
+                        {
+                            "label": "OutForLoad",
+                            "value": 1
+                        },
+                        {
+                            "label": "ReadyToCnc",
+                            "value": 2
+                        },
+                        {
+                            "label": "InRobotArmBeforeCnc",
+                            "value": 3
+                        },
+                        {
+                            "label": "InCnc",
+                            "value": 4
+                        },
+                        {
+                            "label": "CncDone",
+                            "value": 5
+                        },
+                        {
+                            "label": "InRobotArmAfterCnc",
+                            "value": 6
+                        },
+                        {
+                            "label": "WaitingForUnLoad",
+                            "value": 7
+                        },
+                        {
+                            "label": "OutForUnload",
+                            "value": 8
+                        },
+                        {
+                            "label": "RequestCleaning",
+                            "value": 9
+                        },
+                        {
+                            "label": "OutOfService",
+                            "value": 10
+                        }
+                    ]
+                },
+                {
+                    "$ref": "tchmi:general#/definitions/INT16"
                 }
             ]
         },
@@ -803,6 +913,36 @@
                 },
                 "bViseOut": {
                     "$ref": "tchmi:general#/definitions/BIT"
+                }
+            },
+            "type": "object"
+        },
+        "PLC1.ST_Vise_Status": {
+            "properties": {
+                "bFail": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bPass": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "eSocketState": {
+                    "$ref": "#/definitions/PLC1.E_ViseSocketState"
+                },
+                "eState": {
+                    "$ref": "#/definitions/PLC1.E_Vise_State"
+                },
+                "nInCNC": {
+                    "$ref": "tchmi:general#/definitions/BYTE"
+                },
+                "nViseIndex": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/USINT"
+                        },
+                        {
+                            "comment": "1-14"
+                        }
+                    ]
                 }
             },
             "type": "object"
@@ -3696,6 +3836,16 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.GVL_Main.aViseStatus": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_Main::aViseStatus",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.ARRAY_1..14_OF-ST_Vise_Status"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.GVL_Main.bAckHMI": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -4834,6 +4984,7 @@
                 "PLC1.GVL_ConveyorSystem.fbZ7": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ8": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ9": 3,
+                "PLC1.GVL_Main.aViseStatus": 3,
                 "PLC1.GVL_Main.bAckHMI": 3,
                 "PLC1.GVL_Main.bManualModeRequest": 3,
                 "PLC1.GVL_Main.bManualModeRequestVise": 3,
