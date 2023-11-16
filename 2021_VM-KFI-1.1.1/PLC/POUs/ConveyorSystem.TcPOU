@@ -859,7 +859,7 @@ fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
 	
 fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
-	bNextReady:= fbS3.bReady AND NOT fbS16.bPalletSent AND NOT((fbLift_2A.nState = 10000 OR fbLift_2B.nState = 10000)AND fbS16.i_bPalettSensor), 
+	bNextReady:= fbRouter_CNC1_puffer.bReady AND NOT fbS16.bPalletSent AND NOT((fbLift_2A.nState = 10000 OR fbLift_2B.nState = 10000)AND fbS16.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= fbRouter_CNC1_puffer.nState = 10000, 
@@ -897,7 +897,7 @@ fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
 
 fbS13(			(*-----=== CNC2 Puffer, Stopper kiemelő 2B után===-----*)
-	bNextReady:= fbS5.bReady AND NOT fbS11.bPalletSent AND NOT((fbLift_3A.nState = 10000 OR fbLift_3B.nState = 10000)AND fbS11.i_bPalettSensor), 
+	bNextReady:= fbRouter_CNC2_puffer.bReady AND NOT fbS11.bPalletSent AND NOT((fbLift_3A.nState = 10000 OR fbLift_3B.nState = 10000)AND fbS11.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= fbRouter_CNC2_puffer.nState = 10000, 
@@ -937,7 +937,7 @@ fbS6(			(*-----=== Stopper kiemelő 3B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS6);
 
 fbS14(
-	bNextReady:= fbS8.bReady, 
+	bNextReady:= fbRouter_CNC1_puffer.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= fbRouter_CNC3_puffer.nState = 10000, 

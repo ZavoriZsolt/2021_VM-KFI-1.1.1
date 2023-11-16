@@ -20,6 +20,7 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	nTagID					: ULINT;
+	bReady					: BOOL;
 END_VAR
 VAR	(* Control *)
 	nState						: UDINT;
@@ -70,6 +71,14 @@ THEN
 	bError  :=  TRUE;
 END_IF
 
+(* Set ready state *)
+IF fbRouter^.bBasePosStab THEN
+	bReady := bStopperReadyBase;
+ELSIF fbRouter^.bWorkPosStab THEN
+	bReady := bStopperReadyWork;
+ELSE
+	bReady := FALSE;
+END_IF
 
 CASE nState OF
 {region "Alaphelyzet felvétel"}
