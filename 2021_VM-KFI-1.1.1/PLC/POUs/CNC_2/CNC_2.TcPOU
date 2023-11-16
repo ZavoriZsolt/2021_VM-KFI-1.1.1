@@ -161,7 +161,7 @@ CASE nState OF
 				ELSIF	stCNC_Data^.CurentState_Program = 'Idle' OR stCNC_Data^.CurentState_Program = 'NotSelected' OR stCNC_Data^.CurentState_Program = 'Interrupted' THEN
 					IF stDutData_Cnc2.nDutId > 0 AND stDutData_Cnc2.bDone THEN
 						IF bStepEnable THEN									// Késztermék a satuban
-							nState := 11600;
+							nState := 11560;
 						END_IF
 					ELSE
 						IF bStepEnable THEN									// A satu üres

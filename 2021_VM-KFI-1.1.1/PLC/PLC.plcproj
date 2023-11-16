@@ -346,6 +346,9 @@
     <Compile Include="POUs\Robot7AxisStation\Robot7AxisProgram.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\RobotKardexStation\RobotKardexProgram.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\RobotViseStation\RobotCncProgram.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -449,6 +452,7 @@
     <Folder Include="POUs\FBs\BTL\DUTs" />
     <Folder Include="POUs\FBs\CNC_Servo\DUTs" />
     <Folder Include="POUs\FBs\FanucCNC\DUTs" />
+    <Folder Include="POUs\FBs\FanucKardex" />
     <Folder Include="POUs\FBs\FanucKardex\DUTs" />
     <Folder Include="POUs\FBs\Fanuc\DUTs" />
     <Folder Include="POUs\FBs\ID200" />
@@ -466,7 +470,6 @@
     <Folder Include="POUs\FBs\MySQL\NextVise\DUTs" />
     <Folder Include="POUs\FBs\MySQL\UpdateVise\DUTs" />
     <Folder Include="POUs\CNC_1" />
-    <Folder Include="POUs\FBs\FanucKardex" />
     <Folder Include="POUs\FBs\FanucCNC" />
     <Folder Include="POUs\FBs\MPS" />
     <Folder Include="POUs\FBs\CNC_Servo" />
@@ -480,6 +483,8 @@
     <Folder Include="POUs\FBs\ServoVise\DUTs" />
     <Folder Include="POUs\Robot7AxisStation" />
     <Folder Include="POUs\Robot7AxisStation\DUTs" />
+    <Folder Include="POUs\RobotKardexStation" />
+    <Folder Include="POUs\RobotKardexStation\DUTs" />
     <Folder Include="POUs\Temp" />
     <Folder Include="POUs\RobotViseStation" />
     <Folder Include="POUs\Temp\Fanuc" />

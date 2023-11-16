@@ -3135,18 +3135,18 @@ External Setpoint Generation:
 		<System>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="01194492">
-					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
-					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
 					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
+					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
+					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 					<ManualSelect>{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</ManualSelect>
-					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
-					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
-					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
 					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
+					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
+					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
+					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
 					<TargetSelect TargetId="2">{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</TargetSelect>
-					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
 					<TargetSelect TargetId="2">{520DE751-9DB6-47CB-8240-BD5C466E7E64}</TargetSelect>
+					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302004e" DongleLevel="70" DongleSystemId="{BE4209AF-5A1D-9803-878A-435C4A2270DC}" DongleSerialNumber="000bph10"/>
 				</Target>
 			</Licenses>
@@ -3613,7 +3613,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{F074EE45-DDBD-91DA-3902-ED3F0F12A10D}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{C75B00B3-D61E-D238-DD2F-8E02C84FFCC5}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -5285,6 +5285,10 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>RobotKardexProgram.fbRobot.RobotIn.aStdIn</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
+						<Var>
 							<Name>CNC_2.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
 							<Comment><![CDATA[Base position]]></Comment>
 							<Type>BOOL</Type>
@@ -6932,6 +6936,10 @@ External Setpoint Generation:
 							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
 							<Comment><![CDATA[ Safety ack]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>RobotKardexProgram.fbRobot.RobotOut.aStdOut</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 						<Var>
 							<Name>CNC_2.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
@@ -26121,10 +26129,7 @@ External Setpoint Generation:
 				</Image>
 				<Box Id="96" BoxType="9121">
 					<Name>rfm1</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26633,10 +26638,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="97" BoxType="9121">
 					<Name>rfm2</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27147,10 +27149,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="98" BoxType="9121">
 					<Name>rfm3</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27661,10 +27660,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="99" BoxType="9121">
 					<Name>rfm4</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28175,10 +28171,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="100" BoxType="9121">
 					<Name>rfm5</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28689,10 +28682,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="101" BoxType="9121">
 					<Name>rfm6</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29203,10 +29193,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="102" BoxType="9121">
 					<Name>rfm7</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29717,10 +29704,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="103" BoxType="9121">
 					<Name>rfm8</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -30231,10 +30215,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="104" BoxType="9121">
 					<Name>rfm9</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -30745,10 +30726,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="105" BoxType="9121">
 					<Name>rfm10</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -31302,16 +31280,19 @@ Submodule Info: In / Out Daten
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionInputs^Message_18 TxPDO" VarB="ConnectionOutputs^Message_26 RxPDO"/>
+				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionOutputs^Message_18 RxPDO" VarB="ConnectionInputs^Message_26 TxPDO"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^CNC_2">
 			<OwnerB Name="TIID^CNC_2^Box 26 (EP1957-0022)">
-				<Link VarA="Term 22 (EK1100)^Term 23 (EL6910)^ConnectionInputs^Message_8 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
 				<Link VarA="Term 22 (EK1100)^Term 23 (EL6910)^ConnectionOutputs^Message_8 RxPDO" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_2^Drive 19 (AX5106-0000-0214)^Term 20 (AX5805)">
 				<Link VarA="Term 22 (EK1100)^Term 23 (EL6910)^ConnectionInputs^Message_7 TxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Outputs (Controlword)^FSOE"/>
 				<Link VarA="Term 22 (EK1100)^Term 23 (EL6910)^ConnectionOutputs^Message_7 RxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CNC_2^Term 22 (EK1100)^Term 23 (EL6910)">
+				<Link VarA="Box 26 (EP1957-0022)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_8 TxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 22 (EK1100)^Term 23 (EL6910)^ConnectionOutputs^Message_9 RxPDO" VarB="ConnectionInputs^Message_28 TxPDO"/>
@@ -31319,21 +31300,20 @@ Submodule Info: In / Out Daten
 		</OwnerA>
 		<OwnerA Name="TIID^CNC_3">
 			<OwnerB Name="TIID^CNC_3^Box 37 (EP1957-0022)">
-				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionInputs^Message_9 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
 				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionOutputs^Message_9 RxPDO" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CNC_3^Drive 30 (AX5106-0000-0214)^Term 31 (AX5805)">
 				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionInputs^Message_8 TxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Outputs (Controlword)^FSOE"/>
 				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionOutputs^Message_8 RxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE"/>
 			</OwnerB>
+			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 34 (EL6910)">
+				<Link VarA="Box 37 (EP1957-0022)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_9 TxPDO"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionOutputs^Message_10 RxPDO" VarB="ConnectionInputs^Message_29 TxPDO"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^Main">
-			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_26 TxPDO" VarB="ConnectionOutputs^Message_18 RxPDO"/>
-			</OwnerB>
 			<OwnerB Name="TIID^CNC_2^Term 22 (EK1100)^Term 23 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_28 RxPDO" VarB="ConnectionInputs^Message_9 TxPDO"/>
 			</OwnerB>
@@ -31342,31 +31322,33 @@ Submodule Info: In / Out Daten
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_17 TxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 44 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_3 TxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 44 (EL1904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_3 RxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 45 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_18 TxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 45 (EL1904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_18 RxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 46 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_5 TxPDO"/>
-				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_22 TxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_22 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 43 (EL1918)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_17 RxPDO" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 44 (EL1904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_3 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 46 (EL2904)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_5 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 47 (EL2904)">
+				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_22 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^Vise">
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 79 (EL1918)">
-				<Link VarA="Term 77 (EK1100)^Term 81 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_29 TxPDO"/>
+				<Link VarA="Term 77 (EK1100)^Term 80 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_24 TxPDO"/>
 				<Link VarA="Term 77 (EK1100)^Term 81 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_29 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 80 (EL2904)">
-				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionInputs^Message_24 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionOutputs^Message_24 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 81 (EL2904)">
+				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionInputs^Message_29 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
@@ -32845,6 +32827,16 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI01" Size="128" OffsA="128"/>
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI02" Size="128" OffsA="256"/>
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI03" Size="128" OffsA="384"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Fanuc_Kardex^Box 6 (FANUC R-30iB V8.20)">
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO00"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO01" Size="128" OffsA="128"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO02" Size="128" OffsA="256"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO03" Size="128" OffsA="384"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI00"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI01" Size="128" OffsA="128"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI02" Size="128" OffsA="256"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI03" Size="128" OffsA="384"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Fanuc_Vise^Box 2 (FANUC R-30iB V8.20)">
 				<Link VarA="PlcTask Inputs^RobotCncProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO00"/>

@@ -44,8 +44,8 @@ STRUCT
 
 (*-----=== Byte 05 ===-----*)
 	bKardex_Reset			:BIT;				// 05.1	Robot kardex-be mehet RESET
-	bMir_1_Reset			:BIT;				// 05.2	Robot Mir-1-be mehet RESET
-	bMir_2_Reset			:BIT;				// 05.3	Robot Mir-2-be mehet RESET
+	bHolder_Reset			:BIT;				// 05.2	Robot Mir-1-be mehet RESET
+	bMir_Reset				:BIT;				// 05.3	Robot Mir-2-be mehet RESET
 	bPuffer_Reset			:BIT;				// 05.4	Robot pufferbe mehet RESET
 	bStrip_1_Reset			:BIT;				// 05.5	Robot szalag-1-be mehet RESET
 	bStrip_2_Reset			:BIT;				// 05.6	Robot szalag-2-be mehet RESET
