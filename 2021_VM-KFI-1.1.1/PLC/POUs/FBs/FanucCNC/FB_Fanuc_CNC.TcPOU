@@ -62,6 +62,13 @@ VAR_OUTPUT
 	bZoneLift3				:BOOL;				(* Robot bent a területen Zone 6*)
 	bZoneGudel				:BOOL;				(* Robot bent a területen Zone 7*)
 	bZoneMaster				:BOOL;				(* Robot bent a területen Zone 8*)
+	nOffset_ID_Echo			:UINT;				(* Offszet érték *)
+	nOffset_X_Echo			:REAL;				(* X tengelyű offszet érték *)
+	nOffset_Y_Echo			:REAL;				(* Y tengelyű offszet érték *)
+	nOffset_Z_Echo			:REAL;				(* Z tengelyű offszet érték *)
+	nOffset_W_Echo			:REAL;				(* W tengelyű offszet érték *)
+	nOffset_P_Echo			:REAL;				(* P tengelyű offszet érték *)
+	nOffset_R_Echo			:REAL;				(* R tengelyű offszet érték *)
 END_VAR
 VAR CONSTANT
 	nMaxAlarmNr			:INT := 15;
@@ -121,6 +128,14 @@ IF bTestConvert THEN
 									nFraction => RobotOut.Control.nOffset_R_Fractional);
 		bTestConvert := FALSE;
 END_IF
+(*Offset Echo************************************************)
+nOffset_ID_Echo := RobotIn.Status.nOffset_ID;
+WHOLE_AND_FRACTION_TO_REAL(nWhole:= RobotIn.Status.nOffset_X_Whole, nFraction:=RobotIn.Status.nOffset_X_Fractional, nReal=> nOffset_X_Echo);
+WHOLE_AND_FRACTION_TO_REAL(nWhole:= RobotIn.Status.nOffset_Y_Whole, nFraction:=RobotIn.Status.nOffset_Y_Fractional, nReal=> nOffset_Y_Echo);
+WHOLE_AND_FRACTION_TO_REAL(nWhole:= RobotIn.Status.nOffset_Z_Whole, nFraction:=RobotIn.Status.nOffset_Z_Fractional, nReal=> nOffset_Z_Echo);
+WHOLE_AND_FRACTION_TO_REAL(nWhole:= RobotIn.Status.nOffset_W_Whole, nFraction:=RobotIn.Status.nOffset_W_Fractional, nReal=> nOffset_W_Echo);
+WHOLE_AND_FRACTION_TO_REAL(nWhole:= RobotIn.Status.nOffset_P_Whole, nFraction:=RobotIn.Status.nOffset_P_Fractional, nReal=> nOffset_P_Echo);
+WHOLE_AND_FRACTION_TO_REAL(nWhole:= RobotIn.Status.nOffset_R_Whole, nFraction:=RobotIn.Status.nOffset_R_Fractional, nReal=> nOffset_R_Echo);
 
 (*Handshake**************************************************)
 bCNC_1_Set := RobotIn.Status.bCNC_1_Set;

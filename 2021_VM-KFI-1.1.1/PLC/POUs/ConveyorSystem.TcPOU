@@ -54,7 +54,11 @@ Lift();
 ID_200();
 ID_200_Test();
 Routers();
-]]></ST>
+
+IF NOT bManualMode THEN
+	fbZ21.bBasePosCmd := FALSE;
+	fbZ21.bWorkPosCmd := TRUE;
+END_IF]]></ST>
     </Implementation>
     <Action Name="Cylinders" Id="{9a689bda-b5d5-433f-b719-db3da72abe11}">
       <Implementation>
@@ -906,8 +910,8 @@ fbS16(			(*-----=== CNC2 Puffer küldés ===-----*)
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	tToNextStopper:= T#5s, 
-	bStationReady:= fbZ17.bWorkPosStab, 
-	bStationFinished:= fbZ17.bWorkPosStab, 
+	bStationReady:= TRUE, 
+	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_8.Channel_6, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_12.Channel_2, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS16);
@@ -946,7 +950,7 @@ fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= TRUE,  
-	bStationFinished:= , 
+	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_13.Channel_2, 
 	i_bPalettSensor2:= GVL_ConveyorSystem.i_stSensorHub_13.Channel_4, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS11);
