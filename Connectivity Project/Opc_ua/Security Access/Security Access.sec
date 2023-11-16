@@ -15,9 +15,7 @@
 	UA_ATTRWRITABLE     = 0x0200,       // write non value attributes dependent on write mask
 	UA_PERMISSION_ALL   = 0x03FF
 }-->
-  <Users>
-    <User Name="Anonymous" Auth="None" IsRoot="true" />
-  </Users>
+  <Users />
   <Groups />
   <AccessInfos />
 </TcUaSecurityConfig>

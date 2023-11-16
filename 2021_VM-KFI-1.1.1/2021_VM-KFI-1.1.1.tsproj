@@ -3135,18 +3135,18 @@ External Setpoint Generation:
 		<System>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="01194492">
-					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
-					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
 					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
+					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
+					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 					<ManualSelect>{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</ManualSelect>
-					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
-					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
-					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
 					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
+					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
+					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
+					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
 					<TargetSelect TargetId="2">{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</TargetSelect>
-					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
 					<TargetSelect TargetId="2">{520DE751-9DB6-47CB-8240-BD5C466E7E64}</TargetSelect>
+					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302004e" DongleLevel="70" DongleSystemId="{BE4209AF-5A1D-9803-878A-435C4A2270DC}" DongleSerialNumber="000bph10"/>
 				</Target>
 			</Licenses>
@@ -3640,7 +3640,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{CD5B46F0-3884-6615-1BAC-C44F375C0D67}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{5CEC73F8-212A-1F06-0A05-B951B6E60C8F}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3803,6 +3803,21 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_bVisePos1RequestBtn</Name>
 							<Comment><![CDATA[ Satu kérés 1-7]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bVisePos1CleanBtn</Name>
+							<Comment><![CDATA[ Satu tisztítás 1-7]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bVisePos1ErrorAckBtn</Name>
+							<Comment><![CDATA[ Satu hibanyugta 1-7]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bVisePos2InBtn</Name>
+							<Comment><![CDATA[ Satu be 8-14]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -4311,21 +4326,6 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bVisePos1CleanBtn</Name>
-							<Comment><![CDATA[ Satu tisztítás 1-7]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bVisePos1ErrorAckBtn</Name>
-							<Comment><![CDATA[ Satu hibanyugta 1-7]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bVisePos2InBtn</Name>
-							<Comment><![CDATA[ Satu be 8-14]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_IO.i_bVisePos2RequestBtn</Name>
 							<Comment><![CDATA[ Satu kérés 8-14]]></Comment>
 							<Type>BOOL</Type>
@@ -4396,11 +4396,6 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.i_bCNC4_Door_Opened</Name>
-							<Comment><![CDATA[*************************************************CNC45 Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_IO.i_nBusState</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -4462,6 +4457,11 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_stViseStationSensors_14</Name>
 							<Type GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}">ST_Vise_Sensors</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bCNC4_Door_Opened</Name>
+							<Comment><![CDATA[*************************************************CNC45 Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_IO.i_bCNC4_Door_Closed</Name>
@@ -5134,20 +5134,6 @@ External Setpoint Generation:
 							<Type GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}">ST_RGB_In</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC45</Name>
-							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO2_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[1].arrDataIn</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
@@ -5226,6 +5212,20 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[10].PnIoBoxState</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC45</Name>
+							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.i_bLO2EDMErr_CNC45</Name>
@@ -6348,6 +6348,11 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc3</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_Main.fbNotSmartLight.q_bGreenColor</Name>
 							<Type>BIT</Type>
 						</Var>
@@ -6788,20 +6793,6 @@ External Setpoint Generation:
 							<Type GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}">ST_RGB_Out</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.q_bSafetyOverrideCnc3</Name>
-							<Comment><![CDATA[ Enable]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyRun</Name>
-							<Comment><![CDATA[ Safety run]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bBlink</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[1].arrDataOut</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
@@ -6840,6 +6831,15 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[10].arrDataOut</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyRun</Name>
+							<Comment><![CDATA[ Safety run]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bBlink</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.q_bSafetyMasterOn_CNC45</Name>
@@ -30274,9 +30274,6 @@ Submodule Info: In / Out Daten
 				<Link VarA="Box 15 (EP1957-0022)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_4 TxPDO"/>
 				<Link VarA="Drive 9 (AX5106-0000-0214)^Term 16 (AX5805)^Module 1 (Safety Process Data, 1 axis)^Outputs (Controlword)^FSOE" VarB="ConnectionInputs^Message_3 TxPDO"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
-				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionInputs^Message_18 TxPDO" VarB="ConnectionOutputs^Message_26 RxPDO"/>
-			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^CNC_3">
 			<OwnerB Name="TIID^CNC_3^Box 37 (EP1957-0022)">
@@ -30293,40 +30290,37 @@ Submodule Info: In / Out Daten
 		<OwnerA Name="TIID^Main">
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_26 TxPDO" VarB="ConnectionOutputs^Message_18 RxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_26 RxPDO" VarB="ConnectionInputs^Message_18 TxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^Message_17 RxPDO"/>
-				<Link VarA="Term 41 (EK1100)^Term 45 (EL1904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_18 RxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_17 TxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 44 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_3 TxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 45 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_18 TxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 46 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_5 RxPDO"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 43 (EL1918)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_17 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
+				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_22 TxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_22 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 44 (EL1904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_3 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_3 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 45 (EL1904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_18 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
+				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_18 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 46 (EL2904)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_5 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 47 (EL2904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_22 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_22 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^Vise">
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 79 (EL1918)">
 				<Link VarA="Term 77 (EK1100)^Term 80 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_24 TxPDO"/>
+				<Link VarA="Term 77 (EK1100)^Term 81 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_29 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 80 (EL2904)">
 				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionOutputs^Message_24 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 81 (EL2904)">
 				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionInputs^Message_29 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionOutputs^Message_29 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 1">

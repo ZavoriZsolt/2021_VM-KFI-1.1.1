@@ -36,6 +36,7 @@ Mode();
 ViseProgram();
 RobotCncProgram();
 Robot7AxisProgram();
+RobotKardexProgram();
 CNC_1();
 
 ConveyorSystem();

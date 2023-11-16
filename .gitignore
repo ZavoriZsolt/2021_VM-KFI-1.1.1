@@ -52,37 +52,6 @@ VisualStudio.gitignore
 
 
 # End of https://www.toptal.com/developers/gitignore/api/twincat3
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.crc
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.crc
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.oce
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
-2021_VM-KFI-1.1.1/2021_VM-KFI-1.1.1.tsproj.bak
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.crc
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.occ
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851_boot.tizip
-2021_VM-KFI-1.1.1/2021_VM-KFI-1.1.1.tsproj.bak
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.crc
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.occ
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.ocm
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851_boot.tizip
-2021_VM-KFI-1.1.1/PLC/PLC.tmc
-2021_VM-KFI-1.1.1/PLC/LineIDs.dbg
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851_boot.tizip
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.ocm
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.app
-2021_VM-KFI-1.1.1/_Boot/TwinCAT RT (x64)/Plc/Port_851.cid
 *.crc
 *.occ
 *.tizip

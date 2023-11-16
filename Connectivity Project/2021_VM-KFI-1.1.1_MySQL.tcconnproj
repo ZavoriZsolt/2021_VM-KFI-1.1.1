@@ -7,9 +7,6 @@
     <RootNamespace>Connectivity Project</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Opc_ua.tcopcuasrv">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="TcDatabaseServer1.tcdbsrv">
       <SubType>Content</SubType>
     </Content>
@@ -18,31 +15,6 @@
     <tcdbsrvdbCompile Include="TcDatabaseServer1\DB1\DB1.tcdbsrvdb">
       <DependentUpon>TcDatabaseServer1.tcdbsrv</DependentUpon>
     </tcdbsrvdbCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <tcopcuasrvdaCompile Include="Opc_ua\Data Access\Data Access.opcuada">
-      <DependentUpon>Opc_ua.tcopcuasrv</DependentUpon>
-    </tcopcuasrvdaCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <tcopcuasrvalarmcCompile Include="Opc_ua\Alarms and Conditions\Alarms and Conditions.ac">
-      <DependentUpon>Opc_ua.tcopcuasrv</DependentUpon>
-    </tcopcuasrvalarmcCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <tcopcuasrvresCompile Include="Opc_ua\Resources\Resources.res">
-      <DependentUpon>Opc_ua.tcopcuasrv</DependentUpon>
-    </tcopcuasrvresCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <tcopcuasrvhaCompile Include="Opc_ua\Historical Access\Historical Access.opcuaha">
-      <DependentUpon>Opc_ua.tcopcuasrv</DependentUpon>
-    </tcopcuasrvhaCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <tcopcuasrvsecCompile Include="Opc_ua\Security Access\Security Access.sec">
-      <DependentUpon>Opc_ua.tcopcuasrv</DependentUpon>
-    </tcopcuasrvsecCompile>
   </ItemGroup>
   <!-- This next bit is required unless the macro used to Import your targets is defined in an MSBuild toolset. -->
   <ProjectExtensions>
