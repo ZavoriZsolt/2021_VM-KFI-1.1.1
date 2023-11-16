@@ -11,12 +11,12 @@ VAR_INPUT
 	bPaletteStopperIn		: BOOL;
 	bStopperReadyBase		: BOOL;
 	bStopperReadyWork		: BOOL;
-END_VAR
-VAR_INPUT
 	nReqTarget				: UINT;
 	nNextTarget				: UINT;
+END_VAR
+VAR_INPUT
 	fbRouter				: POINTER TO FB_Bistabil;
-	//arrPaletteData			: POINTER TO ARRAY [1..200] OF ST_Dut_Data;
+	arrPaletteData			: POINTER TO ARRAY [1..200] OF ST_Dut_Data;
 END_VAR
 VAR_OUTPUT
 	nTagID					: ULINT;
@@ -31,11 +31,13 @@ VAR	(* Control *)
 	tRFID_Timeout				: TON;
 	tPalette					: TON;
 END_VAR
-VAR (* LastStates *)
-	anLastStates				: ARRAY[0..50] OF UDINT;
-    iLastStates					: INT;
+VAR CONSTANT
+	iLastStatesMax				: INT := 500;
 END_VAR
-]]></Declaration>
+VAR (* LastStates *)
+	anLastStates				: ARRAY[0..iLastStatesMax] OF UDINT;
+    iLastStates					: INT;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Error handling*)
 IF nState > 0 AND nState < 150000 THEN
@@ -56,7 +58,7 @@ END_IF
 IF(nState >= 1000) AND (nState < 150000) THEN
 (*Steps before any state*)
 	IF anLastStates[0] <> nState THEN
-		FOR iLastStates:=500 TO 1 BY -1 DO
+		FOR iLastStates:=iLastStatesMax TO 1 BY -1 DO
 			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
 		END_FOR
 		anLastStates[0]:= nState;
@@ -78,9 +80,10 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
 		bError := FALSE;
 		IF bEnable THEN
-			IF bStepEnable THEN
-				nState := nState + 20;
-			END_IF
+//			IF bStepEnable THEN
+//				nState := nState + 20;
+//			END_IF
+			;
 		END_IF
 
 	20:		(*-----=== Állapotok ellenőrzése ===-----*)
@@ -122,7 +125,7 @@ CASE nState OF
 	(****************************************************************************************)	
 	10000:		(*-----=== Várakozás palettára ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás palettára');
-		IF bPaletteStopperIn THEN											// Paletta a stopperen
+		IF bPaletteStopperIn AND stTagData.Code > 0 THEN					// Paletta a stopperen
 			IF bStepEnable THEN	
 				nState := 11000;											// -> Alapanyag fogadása
 			END_IF
@@ -137,8 +140,9 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - RFID ellenőrzés');
 		IF stTagData.Status <> E_TagStatus.NotPresent THEN
 			IF stTagData.Code > 0 AND stTagData.Code <= 100 THEN
-				IF bStepEnable THEN	
-					nState := nState + 20;							// -> Valid RFID adat
+				IF bStepEnable THEN
+					nTagID := stTagData.Code;						// -> Valid RFID adat	
+					nState := nState + 20;	
 				END_IF
 			END_IF
 		ELSIF tRFID_Timeout.Q THEN
@@ -149,7 +153,7 @@ CASE nState OF
 
 	11020:		(*-----=== Paletta adat ellenőrzése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adat ellenőrzés');
-		IF GVL_Palette.arrPalette[stTagData.Code].nTarget =  nReqTarget THEN	
+		IF arrPaletteData^[nTagID].nTarget =  nReqTarget THEN	
 			IF bStepEnable THEN
 				nTagID := stTagData.Code;						// Target eggyezik -> leválogatás 
 				nState := nState + 20;	
@@ -162,7 +166,7 @@ CASE nState OF
 
 	11040:		(*-----=== Paletta adatok frissítése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adatok frissítése');
-		GVL_Palette.arrPalette[stTagData.Code].nTarget := nNextTarget;
+		arrPaletteData^[nTagID].nTarget := nNextTarget;
 		IF bStepEnable THEN
 			nState := nState + 20;
 		END_IF

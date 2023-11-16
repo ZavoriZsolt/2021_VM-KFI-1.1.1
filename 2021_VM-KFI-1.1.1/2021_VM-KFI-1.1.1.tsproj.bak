@@ -3134,10 +3134,20 @@ External Setpoint Generation:
 	<Project ProjectGUID="{B321C656-60EE-46E6-9E04-8F7427AA88F4}" TargetNetId="192.168.81.10.1.1" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
 			<Licenses>
-				<Target>
-					<ManualSelect>{648F394E-7DD1-499C-8112-7C38E161A94C}</ManualSelect>
+				<Target BkhfOrder="01194492">
 					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
+					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
+					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
+					<ManualSelect>{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</ManualSelect>
+					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
+					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
+					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
+					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
+					<TargetSelect TargetId="2">{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</TargetSelect>
+					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
+					<TargetSelect TargetId="2">{520DE751-9DB6-47CB-8240-BD5C466E7E64}</TargetSelect>
+					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302004e" DongleLevel="70" DongleSystemId="{BE4209AF-5A1D-9803-878A-435C4A2270DC}" DongleSerialNumber="000bph10"/>
 				</Target>
 			</Licenses>
 			<Tasks>
@@ -3318,8 +3328,7 @@ External Setpoint Generation:
 					<AxisPara>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
-					<Encoder Name="Enc" EncType="8">
-						<EncPara MaxCount="#xffffffff"/>
+					<Encoder Name="Enc" EncType="1">
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -3376,9 +3385,9 @@ External Setpoint Generation:
 							</Var>
 						</Vars>
 					</Encoder>
-					<Drive Name="Drive" DrvType="9">
-						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+					<Drive Name="Drive" DrvType="5">
+						<DrvPara>
+							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -3416,6 +3425,22 @@ External Setpoint Generation:
 								</SubVar>
 								<SubVar TypeFormatIndex="2">
 									<Name>nDataOut2</Name>
+								</SubVar>
+								<SubVar>
+									<Name>nCtrl2</Name>
+									<Comment><![CDATA[Digital Outputs Setpoint Generator:
+0x41 (0100 0001) = Minus (0x42 for inverse motor polarity)
+0x42 (0100 0010) = Plus (0x41 for inverse motor polarity)
+0x80 (1000 0000) = Stop
+]]></Comment>
+								</SubVar>
+								<SubVar>
+									<Name>nCtrl3</Name>
+									<Comment><![CDATA[Digital Outputs (Setpoint Generator + Position Controller):
+0x41 (0100 0001) = Minus (0x42 for inverse motor polarity)
+0x42 (0100 0010) = Plus (0x41 for inverse motor polarity)
+0x80 (1000 0000) = Stop
+]]></Comment>
 								</SubVar>
 								<SubVar TypeFormatIndex="2">
 									<Name>nDataOut3</Name>
@@ -3459,8 +3484,8 @@ External Setpoint Generation:
 						<Velo RefSearch="0.044108688151042" RefSync="0.044108688151042" SlowManual="0.220543440755208" FastManual="4" Fast="4.41086881510417" Maximum="4.41087"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
-					<Encoder Name="Enc" EncType="8">
-						<EncPara ScaleFactorNumerator="0.04" ScaleFactorDenominator="1048576" MaxCount="#xffffffff">
+					<Encoder Name="Enc" EncType="1">
+						<EncPara ScaleFactorNumerator="0.04" ScaleFactorDenominator="1048576">
 							<TimeComp TimeCompMode="1"/>
 						</EncPara>
 						<Vars VarGrpType="1">
@@ -3519,9 +3544,9 @@ External Setpoint Generation:
 							</Var>
 						</Vars>
 					</Encoder>
-					<Drive Name="Drive" DrvType="9">
-						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloReferenz="4.85195569661458" VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+					<Drive Name="Drive" DrvType="5">
+						<DrvPara>
+							<Analog VeloReferenz="4.85195569661458" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -3559,6 +3584,22 @@ External Setpoint Generation:
 								</SubVar>
 								<SubVar TypeFormatIndex="2">
 									<Name>nDataOut2</Name>
+								</SubVar>
+								<SubVar>
+									<Name>nCtrl2</Name>
+									<Comment><![CDATA[Digital Outputs Setpoint Generator:
+0x41 (0100 0001) = Minus (0x42 for inverse motor polarity)
+0x42 (0100 0010) = Plus (0x41 for inverse motor polarity)
+0x80 (1000 0000) = Stop
+]]></Comment>
+								</SubVar>
+								<SubVar>
+									<Name>nCtrl3</Name>
+									<Comment><![CDATA[Digital Outputs (Setpoint Generator + Position Controller):
+0x41 (0100 0001) = Minus (0x42 for inverse motor polarity)
+0x42 (0100 0010) = Plus (0x41 for inverse motor polarity)
+0x80 (1000 0000) = Stop
+]]></Comment>
 								</SubVar>
 								<SubVar TypeFormatIndex="2">
 									<Name>nDataOut3</Name>
@@ -3599,7 +3640,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{D3292D48-F24D-43A3-52A2-27BD1CA74238}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{CD5B46F0-3884-6615-1BAC-C44F375C0D67}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3652,48 +3693,6 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.i_bBasePos</Name>
-							<Comment><![CDATA[Base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.i_bWorkPos</Name>
-							<Comment><![CDATA[Work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbVisePos.arrRaw</Name>
-							<Type GUID="{4551DB7A-0440-8A55-C8B1-C50F6229CA20}">ARRAY [0..3] OF BITARR8</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbVisePos.nState</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
@@ -5363,45 +5362,6 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveUpper.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbMoveLower.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.q_bBasePos</Name>
-							<Comment><![CDATA[Control to base position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbLock.q_bWorkPos</Name>
-							<Comment><![CDATA[Control to work position]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.fbServoVise.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>CNC_3.fbCncServoVise.q_bToolCheckBlower</Name>
-							<Comment><![CDATA[ Szerszám ellenőrző tisztítás]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_14</Name>
 							<Comment><![CDATA[ Kiemelők ]]></Comment>
 							<Type>BOOL</Type>
@@ -7038,6 +6998,38 @@ External Setpoint Generation:
 						<OwnerA Name="OutputSrc" Prefix="TIPC^PLC^PLC Instance" Type="2">
 							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
 								<Link VarA="Servo.fbServoVise.Axis.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2023-11-16T10:44:45">
+						<OwnerA Name="InputDst" Prefix="TIPC^PLC^PLC Instance" Type="1">
+							<OwnerB Name="TIID^CNC_3^Box 32 (BNI ECT-508-105-Z015)">
+								<Link VarA="CNC_3.fbCncServoVise.fbVisePos.arrRaw[1]" TypeA="BITARR8" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000032}" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1" IdB="-351" AutoLink="true" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbVisePos.arrRaw[2]" TypeA="BITARR8" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000032}" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2" IdB="-352" AutoLink="true" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbVisePos.arrRaw[3]" TypeA="BITARR8" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000032}" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3" IdB="-353" AutoLink="true" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbVisePos.nState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" IdB="-342" AutoLink="true" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 35 (EL1809)">
+								<Link VarA="CNC_3.fbCncServoVise.fbLock.i_bWorkPos" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 5^Input" IdB="-382" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveLower.i_bBasePos" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 3^Input" IdB="-380" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveLower.i_bWorkPos" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 4^Input" IdB="-381" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveUpper.i_bBasePos" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 1^Input" IdB="-378" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveUpper.i_bWorkPos" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 2^Input" IdB="-379" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 3">
+								<Link VarA="CNC_3.fbCncServoVise.fbServoVise.Axis.NcToPlc" TypeA="MC.NCTOPLC_AXIS_REF" InOutA="0" GuidA="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" VarB="Outputs^ToPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="OutputSrc" Prefix="TIPC^PLC^PLC Instance" Type="2">
+							<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 36 (EL2809)">
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveLower.q_bBasePos" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 4^Output" IdB="-398" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveLower.q_bWorkPos" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 3^Output" IdB="-397" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveUpper.q_bBasePos" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 2^Output" IdB="-396" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.fbMoveUpper.q_bWorkPos" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 1^Output" IdB="-395" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="CNC_3.fbCncServoVise.q_bToolCheckBlower" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 6^Output" IdB="-400" AutoLink="true" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 3">
+								<Link VarA="CNC_3.fbCncServoVise.fbServoVise.Axis.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -10847,8 +10839,8 @@ External Setpoint Generation:
 						<DcMode>446353796e633132350000000000000053796e63206379636c652074696d653a20313235c2b57300000000000000000048e801000000000000000000ffff30070000000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>446353796e6336322e3500000000000053796e63206379636c652074696d653a2036322e35c2b573000000000000000024f400000000000000000000ffff30070000000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>00400500100000000d000000000000000000000000000000000000000000000003400a8000000000fe7ff903000000004665617475726520666c61677300</MBoxUserCmdData>
-						<MBoxUserCmdData>020005000a0000001500000000000000000000000000000000000000000000000340010000000000d007546e637963202d204e43206379636c652074696d6500</MBoxUserCmdData>
-						<MBoxUserCmdData>020005000a0000001700000000000000000000000000000000000000000000000340020000000000d0075473637963202d20436f6d6d206379636c652074696d6500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001500000000000000000000000000000000000000000000000340010000000000a00f546e637963202d204e43206379636c652074696d6500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001700000000000000000000000000000000000000000000000340020000000000a00f5473637963202d20436f6d6d206379636c652074696d6500</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000000e000000000000000000000000000000000000000000000003402000000000000b004f7065726174696f6e206d6f646500</MBoxUserCmdData>
 						<MBoxUserCmdData>004005000a0000001e0000000000000000000000000000000000000000000000034030810000000001005265706f727420646961676e6f737469637320696e666f726d6174696f6e00</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001800000000000000000000000000000000000000000000000340d087000000000200436f6e6669677572656420736166657479206f7074696f6e00</MBoxUserCmdData>
@@ -12251,9 +12243,6 @@ External Setpoint Generation:
 				<Image Id="13" AddrType="9" ImageType="3">
 					<Name>Image</Name>
 				</Image>
-				<Image Id="21" AddrType="10" ImageType="3">
-					<Name>Image-2</Name>
-				</Image>
 				<Box Id="29" BoxType="9099">
 					<Name>Box 29 (CU2508)</Name>
 					<ImageId>1000</ImageId>
@@ -12413,8 +12402,8 @@ External Setpoint Generation:
 						<DcMode>446353796e633132350000000000000053796e63206379636c652074696d653a20313235c2b57300000000000000000048e801000000000000000000ffff30070000000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>446353796e6336322e3500000000000053796e63206379636c652074696d653a2036322e35c2b573000000000000000024f400000000000000000000ffff30070000000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>00400500100000000d000000000000000000000000000000000000000000000003400a8000000000fe7ff900000000004665617475726520666c61677300</MBoxUserCmdData>
-						<MBoxUserCmdData>020005000a0000001500000000000000000000000000000000000000000000000340010000000000d007546e637963202d204e43206379636c652074696d6500</MBoxUserCmdData>
-						<MBoxUserCmdData>020005000a0000001700000000000000000000000000000000000000000000000340020000000000d0075473637963202d20436f6d6d206379636c652074696d6500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a00000015000000000000000000000000000000000000000000000003400100000000001027546e637963202d204e43206379636c652074696d6500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a000000170000000000000000000000000000000000000000000000034002000000000010275473637963202d20436f6d6d206379636c652074696d6500</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000000e000000000000000000000000000000000000000000000003402000000000000b004f7065726174696f6e206d6f646500</MBoxUserCmdData>
 						<MBoxUserCmdData>004005000a0000001e0000000000000000000000000000000000000000000000034030810000000001005265706f727420646961676e6f737469637320696e666f726d6174696f6e00</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001800000000000000000000000000000000000000000000000340d087000000000200436f6e6669677572656420736166657479206f7074696f6e00</MBoxUserCmdData>
@@ -13960,8 +13949,8 @@ External Setpoint Generation:
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x1afe3052" RevisionNo="#x00150000" InfoDataAddr="true" RepeatSupport="true" TimeoutStateChange1="5000" TimeoutMailbox2="10000" TComSupport="true" PortPhys="51" DebugMemory="8" SafetyLogicSupported="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6910, TwinSAFE PLC" Desc="EL6910" PortABoxInfo="#x01000029">
 							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
-							<SyncMan>00122e002400010003000000000000000200001224010000</SyncMan>
-							<SyncMan>001d33002000010004000000000000000200001d20010000</SyncMan>
+							<SyncMan>001228002400010003000000000000000200001224010000</SyncMan>
+							<SyncMan>001d2d002000010004000000000000000200001d20010000</SyncMan>
 							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
 							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
 							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
@@ -13991,9 +13980,6 @@ External Setpoint Generation:
 								<Entry Name="Message_26 TxPDO" Index="#x7000" Sub="#x06">
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
-								<Entry Name="Message_27 TxPDO" Index="#x7000" Sub="#x07">
-									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
-								</Entry>
 							</Pdo>
 							<Pdo Name="ConnectionOutputs" Index="#x1600" InOut="1" Flags="#x2011" SyncMan="2">
 								<Entry Name="Message_3 RxPDO" Index="#x6000" Sub="#x01">
@@ -14012,9 +13998,6 @@ External Setpoint Generation:
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
 								<Entry Name="Message_26 RxPDO" Index="#x6000" Sub="#x06">
-									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
-								</Entry>
-								<Entry Name="Message_27 RxPDO" Index="#x6000" Sub="#x07">
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
 							</Pdo>
@@ -25144,16 +25127,13 @@ External Setpoint Generation:
 			</Device>
 			<Device Id="2" DevType="119" AmsPort="28674" AmsNetId="192.168.81.10.3.1" RemoteName="Device 2 (EL6631)">
 				<Name>Device 2 (EL6631)</Name>
-				<DevData>000000003900000000000000a08601005465726d2031382028454c363633312900000000000000000000000000000000000000000000000000000000000000000000000000000a000164a8c000ffffff0001054433cf040000000000000000000000000000000000000000000000000000000000000000000000000000000000</DevData>
+				<DevData>000000003900000000000000409c00005465726d2031382028454c363633312900000000000000000000000000000000000000000000000000000000000000000000000000000a00ebaafea90000ffff000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000</DevData>
 				<Image Id="2" AddrType="4" ImageType="3" SizeIn="664" SizeOut="688">
 					<Name>Image</Name>
 				</Image>
 				<Box Id="96" BoxType="9121">
 					<Name>rfm1</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25211,7 +25191,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86465" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="1" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="157" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" FamDescription="ID 200/C-ETH, for PROFINET IO" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86465" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="1" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="157" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" FamDescription="ID 200/C-ETH, for PROFINET IO" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -25662,10 +25642,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="97" BoxType="9121">
 					<Name>rfm2</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -25725,7 +25702,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>528</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86466" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="2" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="239" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86466" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="2" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="239" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -26176,10 +26153,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="98" BoxType="9121">
 					<Name>rfm3</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26239,7 +26213,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>1056</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86467" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="3" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="248" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86467" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="3" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="248" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -26690,10 +26664,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="99" BoxType="9121">
 					<Name>rfm4</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26753,7 +26724,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>1584</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86468" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="4" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="215" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86468" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="4" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="215" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -27204,10 +27175,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="100" BoxType="9121">
 					<Name>rfm5</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27267,7 +27235,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>2112</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86469" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="5" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="203" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a86469" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="1" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="203" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -27718,10 +27686,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="101" BoxType="9121">
 					<Name>rfm6</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27781,7 +27746,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>2640</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646a" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="6" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="115" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646a" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="2" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="115" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -28232,10 +28197,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="102" BoxType="9121">
 					<Name>rfm7</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28295,7 +28257,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>3168</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646b" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="7" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="202" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646b" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="3" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="202" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -28746,10 +28708,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="103" BoxType="9121">
 					<Name>rfm8</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28809,7 +28768,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>3696</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646c" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="8" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="251" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646c" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="4" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="251" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -29260,10 +29219,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="104" BoxType="9121">
 					<Name>rfm9</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29323,7 +29279,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>4224</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646d" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="9" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="103" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646d" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="1" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="103" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -29774,10 +29730,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="105" BoxType="9121">
 					<Name>rfm10</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29837,7 +29790,7 @@ SW Release Version: V2.1.0]]></Comment>
 							<BitOffs>4752</BitOffs>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646e" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="10" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="190" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
+					<Profinet DeviceId="38401" VendorId="287" FrameOffset="49152" IPAdd="c0a8646e" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="1" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="128" NrOfGsdmlDap="1" SavePnIoBoxValues="0100" Phase="2" WatchdogFaktor="3" ReductionRatio="4" SendClockFaktor="32" MaxInputLen="1472" MaxOutputLen="1472" MaxSupportedRecordSize="4096" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="DAP1,ID 200/C-ETH, no PDEV" MacAdd5="190" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\.bmp" MainFamily="Ident Systems" ProductFamily="Bosch Rexroth ID200/C-ETH" OrderNr="3842410060" DefaultDNSName="ID200-C-ETH" VendorName="Bosch Rexroth" GraphicFile="GSDML-011F-9601-BRL" SWVersion="V2.1.0" HWVersion="0" AltLanguage="7">
 						<GsdmlValue Id="DataHoldTime"/>
 						<GsdmlChannelDiag TypeInfo="Parameter assignment error" ErrorType="16"/>
 						<UsedGsdmlModule ModuleIdentNumber="-2147483648" ModuleName="DAP Module" InfoText="DAP1,ID 200/C-ETH, no PDEV" OrderNumber="3842410060">
@@ -30296,27 +30249,22 @@ Submodule Info: In / Out Daten
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-0100-0304-1000-040302010403}" Id="#x02030150"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810010403}" Id="#x02030090"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500820000403}" Id="#x020300e0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500822010403}" Id="#x020300d0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x020300c0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500850000403}" Id="#x02030120"/>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500851010403}" Id="#x02030140"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-5008C1000403}" Id="#x02030080"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-5008D0000403}" Id="#x02030050"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-5008F0000403}" Id="#x020300b0"/>
 		<MappingInfo Identifier="{00000000-0090-0304-1000-040390000403}" Id="#x02030010"/>
 		<MappingInfo Identifier="{00000000-00A0-0304-1000-0403A2000403}" Id="#x020300f0"/>
-		<MappingInfo Identifier="{00000000-00B0-0304-1000-0403B0000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{00000000-00D0-0304-1000-0403D0000403}" Id="#x02030050"/>
-		<MappingInfo Identifier="{00000000-00E0-0304-1000-0403E1000403}" Id="#x02030060"/>
 		<MappingInfo Identifier="{00000000-00F0-0304-F000-040331010403}" Id="#x02030070"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030110" Watchdog="14000000040000000400000004000000"/>
 		<MappingInfo Identifier="{03040110-0110-0304-1001-040310010403}" Id="#x020300a0" Watchdog="04000000040000000400000004000000"/>
-		<MappingInfo Identifier="{03040150-0150-0304-5001-040350010403}" Id="#x02030130" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{030400C0-00C0-0304-C000-0403C0000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{030400C0-00F0-0304-C000-0403F0000403}" Id="#x02030040" Watchdog="04000000040000000400000004000000"/>
-		<MappingInfo Identifier="{030400F0-0150-0304-F000-040350010403}" Id="#x02030100" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{030400D0-00D0-0304-D000-0403D0000403}" Id="#x02030030" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CNC_1">
 			<OwnerB Name="TIID^CNC_1^Drive 9 (AX5106-0000-0214)^Term 16 (AX5805)">
 				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionOutputs^Message_3 RxPDO" VarB="Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE"/>
@@ -30341,16 +30289,10 @@ Submodule Info: In / Out Daten
 			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 34 (EL6910)">
 				<Link VarA="Drive 30 (AX5106-0000-0214)^Term 31 (AX5805)^Module 1 (Safety Process Data, 1 axis)^Inputs (Statusword)^FSOE" VarB="ConnectionOutputs^Message_8 RxPDO"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
-				<Link VarA="Term 33 (EK1100)^Term 34 (EL6910)^ConnectionInputs^Message_10 TxPDO" VarB="ConnectionOutputs^Message_27 RxPDO"/>
-			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^Main">
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_26 TxPDO" VarB="ConnectionOutputs^Message_18 RxPDO"/>
-			</OwnerB>
-			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 34 (EL6910)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_27 TxPDO" VarB="ConnectionOutputs^Message_10 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^Message_17 RxPDO"/>
@@ -30409,44 +30351,6 @@ Submodule Info: In / Out Daten
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
 			</OwnerB>
 		</OwnerA>
-		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 2">
-			<OwnerB Name="TIID^CNC_2^Drive 19 (AX5106-0000-0214)">
-				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="AT^Following distance"/>
-				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
-				<Link VarA="Drive^Inputs^In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
-				<Link VarA="Drive^Inputs^In^nState2" VarB="AT^Drive status word"/>
-				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
-				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="MDT^Position command value"/>
-				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="AT^Position feedback 1 value"/>
-				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
-			</OwnerB>
-		</OwnerA>
-		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 3">
-			<OwnerB Name="TIID^CNC_3^Drive 30 (AX5106-0000-0214)">
-				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="AT^Following distance"/>
-				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="AT^Torque/force feedback value"/>
-				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
-				<Link VarA="Drive^Inputs^In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
-				<Link VarA="Drive^Inputs^In^nState2" VarB="AT^Drive status word"/>
-				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
-				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="MDT^Position command value"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut2" VarB="MDT^Velocity command value"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut4[0]" VarB="MDT^Torque/force command value"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut5" VarB="MDT^High velocity limit value"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut6" VarB="MDT^Low velocity limit value"/>
-				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="AT^Position feedback 1 value (motor feedback)"/>
-				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="AT^Velocity feedback 1 value"/>
-				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
-			</OwnerB>
-		</OwnerA>
 		<OwnerA Name="TIPC^PLC^PLC Instance">
 			<OwnerB Name="TIID^CNC_1^Box 10 (BNI ECT-508-105-Z015)">
 				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0" AutoLink="true"/>
@@ -30478,35 +30382,12 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbMoveUpper.q_bWorkPos" VarB="Channel 1^Output" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.q_bToolCheckBlower" VarB="Channel 6^Output" AutoLink="true"/>
 			</OwnerB>
-			<OwnerB Name="TIID^CNC_3^Box 32 (BNI ECT-508-105-Z015)">
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[0]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 0" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[1]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[2]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 2" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.arrRaw[3]" VarB="Module 1 (IOL_I_4byte)^TxPDO^input byte 3" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbVisePos.nState" VarB="IO-Link DeviceState Inputs^Status of IO-Link Port 1" AutoLink="true"/>
-			</OwnerB>
 			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 34 (EL6910)">
 				<Link VarA="PlcTask Inputs^GVL_Safety.i_bLO1_CNC3" VarB="StandardInputs^Standard Out Var 6"/>
 				<Link VarA="PlcTask Inputs^GVL_Safety.i_bRobotDoorOpened_CNC3" VarB="StandardInputs^Standard Out Var 7"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyErrorAck_Main" VarB="StandardOutputs^Standard In Var 2"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyOverrideCnc3" VarB="StandardOutputs^Standard In Var 4"/>
 				<Link VarA="PlcTask Outputs^GVL_Safety.q_bSafetyRun" VarB="StandardOutputs^Standard In Var 3"/>
-			</OwnerB>
-			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 35 (EL1809)">
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbLock.i_bBasePos" VarB="Channel 6^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbLock.i_bWorkPos" VarB="Channel 5^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveLower.i_bBasePos" VarB="Channel 3^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveLower.i_bWorkPos" VarB="Channel 4^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveUpper.i_bBasePos" VarB="Channel 1^Input" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbMoveUpper.i_bWorkPos" VarB="Channel 2^Input" AutoLink="true"/>
-			</OwnerB>
-			<OwnerB Name="TIID^CNC_3^Term 33 (EK1100)^Term 36 (EL2809)">
-				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbLock.q_bWorkPos" VarB="Channel 5^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveLower.q_bBasePos" VarB="Channel 4^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveLower.q_bWorkPos" VarB="Channel 3^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveUpper.q_bBasePos" VarB="Channel 2^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbMoveUpper.q_bWorkPos" VarB="Channel 1^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.q_bToolCheckBlower" VarB="Channel 6^Output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EL6631)^rfm1">
 				<Link VarA="PlcTask Inputs^GVL_RFID.fbRFID_Readers[1].PnIoBoxState" VarB="Inputs^PnIoBoxState" AutoLink="true"/>
@@ -32225,10 +32106,6 @@ Submodule Info: In / Out Daten
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
 				<Link VarA="PlcTask Inputs^CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^CNC_1.fbCncServoVise.fbServoVise.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
-			</OwnerB>
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 3">
-				<Link VarA="PlcTask Inputs^CNC_3.fbCncServoVise.fbServoVise.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^CNC_3.fbCncServoVise.fbServoVise.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

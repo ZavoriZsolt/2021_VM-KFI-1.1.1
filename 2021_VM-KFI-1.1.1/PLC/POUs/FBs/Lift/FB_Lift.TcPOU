@@ -29,8 +29,11 @@ VAR	(* Control *)
 	bError						: BOOL;
 	tRFID_Timeout				: TON;
 END_VAR
+VAR CONSTANT
+	iLastStatesMax				: INT := 500;
+END_VAR
 VAR (* LastStates *)
-	anLastStates				: ARRAY[0..500] OF UDINT;
+	anLastStates				: ARRAY[0..iLastStatesMax] OF UDINT;
     iLastStates					: INT;
 END_VAR
 ]]></Declaration>
@@ -54,7 +57,7 @@ END_IF
 IF(nState >= 1000) AND (nState < 150000) THEN
 (*Steps before any state*)
 	IF anLastStates[0] <> nState THEN
-		FOR iLastStates:=500 TO 1 BY -1 DO
+		FOR iLastStates:=iLastStatesMax TO 1 BY -1 DO
 			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
 		END_FOR
 		anLastStates[0]:= nState;

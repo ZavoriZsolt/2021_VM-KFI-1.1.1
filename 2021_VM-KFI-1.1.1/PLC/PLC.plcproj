@@ -433,7 +433,9 @@
     <Folder Include="DUTs\RGB" />
     <Folder Include="DUTs\Vise" />
     <Folder Include="GVLs" />
-    <Folder Include="POUs\CNC_3" />
+    <Folder Include="POUs\CNC_3">
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Folder>
     <Folder Include="POUs\FBs" />
     <Folder Include="POUs\FBs\AWEA\DUTs" />
     <Folder Include="POUs\FBs\BTL\DUTs" />
