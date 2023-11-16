@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CNC_2" Id="{b2ba6a71-d0e7-43a0-aefe-6c9053d2372c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM CNC_2
+VAR	(* Control *)
+	nState						: UDINT;
+	nStatePrevious				: UDINT;
+	sState						: STRING(500);
+	fbCycleTime					: TON;
+	nCycleTime					: REAL;
+	bError						: BOOL;
+END_VAR
+VAR (* LastStates *)
+	anLastStates				: ARRAY[0..500] OF UDINT;
+    iLastStates					: INT;
+END_VAR
+VAR (* Var IO *)
+	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(24)^Channel 1^Input;
+									.fbMoveUpper.i_bWorkPos	:= TIIB(24)^Channel 2^Input;
+									.fbMoveUpper.q_bBasePos	:= TIIB(25)^Channel 2^Output;
+									.fbMoveUpper.q_bWorkPos	:= TIIB(25)^Channel 1^Output;
+									.fbMoveLower.i_bBasePos	:= TIIB(24)^Channel 3^Input;
+									.fbMoveLower.i_bWorkPos	:= TIIB(24)^Channel 4^Input;
+									.fbMoveLower.q_bBasePos	:= TIIB(25)^Channel 4^Output;
+									.fbMoveLower.q_bWorkPos	:= TIIB(25)^Channel 3^Output;
+									.fbLock.i_bBasePos	:= TIIB(24)^Channel 6^Input;
+									.fbLock.i_bWorkPos	:= TIIB(24)^Channel 5^Input;
+									.fbLock.q_bWorkPos	:= TIIB(25)^Channel 5^Output;
+									.q_bToolCheckBlower := TIIB(25)^Channel 6^Output;
+									.fbVisePos.arrRaw[0]	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
+									.fbVisePos.arrRaw[1] 	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 1;
+									.fbVisePos.arrRaw[2]	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 2;
+									.fbVisePos.arrRaw[3]	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 3;
+									.fbVisePos.nState		:= TIIB(21)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
+	fbCncServoVise				: FB_CNC_Servo;	
+
+END_VAR
+VAR (* OPC_UA *)
+	stCNC_Data					: 	POINTER TO OPC_CNC_Data_Collection;
+	tHeartBeatDelay				: 	TON;
+	bCNCHandshakeTimeout		:	BOOL;
+	tCNCHandshakeTimer			:	TON;
+	bCNCMidwareShutdownPossible	: 	BOOL;	//20, 40, 11400, 
+	bShutdownIsProcessing		:	BOOL;
+END_VAR
+VAR (*Test components*)
+	bEnableStart				:	BOOL := FALSE;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* OPC_UA *)
+stCNC_Data := ADR(OPC_UA_CNC2);
+tHeartBeatDelay(IN := stCNC_Data^.HeartBeat = 99, PT := T#500MS, Q=>);
+IF tHeartBeatDelay.Q THEN
+	stCNC_Data^.HeartBeat := 0;
+END_IF
+
+tCNCHandshakeTimer(		IN :=	(stCNC_Data^.HeartBeat = 0),
+						PT := T#3S,
+						Q=>bCNCHandshakeTimeout);
+					
+					
+(* =================================== OPC_UA Automatic Shutdown handling =========================================== *)					
+bCNCMidwareShutdownPossible := 	nState <= 10000;
+								
+IF bCNCMidwareShutdownPossible AND stCNC_Data^.MidwareRequestedShutdown AND (NOT bCNCHandshakeTimeout) THEN
+	stCNC_Data^.ApproveShutdownRequest := TRUE;
+END_IF
+
+IF stCNC_Data^.ApproveShutdownRequest THEN
+	IF bCNCHandshakeTimeout THEN
+		bShutdownIsProcessing := TRUE;
+	END_IF
+END_IF
+
+IF bShutdownIsProcessing THEN
+	stCNC_Data^.ApproveShutdownRequest := FALSE;
+	stCNC_Data^.MidwareRequestedShutdown := FALSE;
+	IF (NOT bCNCHandshakeTimeout) THEN
+		bShutdownIsProcessing := FALSE;
+	END_IF
+END_IF
+
+(*Error handling*)
+IF nState > 0 AND nState < 150000 THEN
+	nStatePrevious := nState;
+END_IF
+
+(*Maintance*)
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*Emergency*)
+IF NOT i_bLO1_Main THEN
+	nState := 0;
+END_IF
+
+(*Last states*)
+IF(nState >= 1000) AND (nState < 150000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=500 TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+IF fbCncServoVise.bError OR stCNC_Data^.ControlStatus_Error
+THEN
+	bError  :=  TRUE;
+END_IF
+
+
+(*   Vise Position Adjustment   *)
+fbCncServoVise.nCalOffset_1 := 31.32;	//Originally 22.32
+fbCncServoVise.nCalOffset_2 := 108.01;	//Originally 99.01
+
+CASE nState OF
+{region "Alaphelyzet felvétel"}
+	(****************************************************************************************)
+	(******************************* Alaphelyzetfelvétel ************************************)
+	(****************************************************************************************)	
+	0:		(*-----=== Kimenetek törlése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
+		IF i_bLO1_Main AND (NOT bManualMode) AND bEnableStart THEN		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!
+			stCNC_Data^.DoorControl_CloseDoor := FALSE;
+			stCNC_Data^.DoorControl_OpenDoor := FALSE;
+			stCNC_Data^.MagazineTable_Trigger := FALSE;
+			stCNC_Data^.ToolTable_Trigger := FALSE;
+			stCNC_Data^.M401_Acknowledge := FALSE;
+			stCNC_Data^.M402_Acknowledge := FALSE;
+			stCNC_Data^.M403_Acknowledge := FALSE;
+			stCNC_Data^.StartCNCProgram := FALSE;
+			stCNC_Data^.StopCNCProgram := FALSE;
+			stCNC_Data^.CancelCNCProgram := FALSE;
+			stCNC_Data^.SelectCNCProgramByNodeID := FALSE;
+			stCNC_Data^.SelectCNCPrograBlockNumber := FALSE;
+//			stCNC_Data^.ToolTablePath := '';
+			stCNC_Data^.ToolTableLoadTrigger := FALSE;
+			stCNC_Data^.MagazineTableLoadTrigger := FALSE;
+			stCNC_Data^.ProgramLoadTrigger := FALSE;
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	20:		(*-----=== CNC ellenőrzés ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ellenőrzése');
+		IF stCNC_Data^.ServerState = 'Running' AND
+		   stCNC_Data^.CurrentState_State = 'NCIsAvailable' THEN
+				IF		stCNC_Data^.CurentState_Program = 'Running' THEN
+					nState := 11500;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére.
+				ELSIF	stCNC_Data^.CurentState_Program = 'Idle' OR stCNC_Data^.CurentState_Program = 'NotSelected' OR stCNC_Data^.CurentState_Program = 'Interrupted' THEN
+					IF stDutData_Cnc2.nDutId > 0 AND stDutData_Cnc2.bDone THEN
+						IF bStepEnable THEN									// Késztermék a satuban
+							nState := 11600;
+						END_IF
+					ELSE
+						IF bStepEnable THEN									// A satu üres
+							nState := nState + 20;
+						END_IF
+					END_IF
+				END_IF
+		END_IF
+
+	40:		(*-----=== CNC ajtó nnyitása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ajtó nyitása');
+		stCNC_Data^.DoorControl_OpenDoor := TRUE;
+		IF stCNC_Data^.DoorControl_DoorOpened THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_OpenDoor := FALSE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	60:
+		nState := 10000;
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Alaphelyzet ****************************************)
+	(****************************************************************************************)	
+	10000:		(*-----=== Várakozás berakásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás alapanyagra');
+		IF ((NOT bShutdownIsProcessing) AND (NOT stCNC_Data^.ApproveShutdownRequest)) THEN
+			IF stDutData_Cnc2.nDutId > 0 THEN											// Alapanyag a robotnál
+				IF bStepEnable THEN	
+					nState := 11000;			// -> Alapanyag fogadása
+				END_IF
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alapanyag fogadása"}
+	(****************************************************************************************)
+	(******************************** Alapanyag fogadása ************************************)
+	(****************************************************************************************)	
+	11000:		(*-----=== Satu pozícionálása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
+		fbCncServoVise.nPosition := stDutData_Cnc2.nDimX;
+		fbCncServoVise.eCommand := E_CncServoCommand.MovePos;
+		IF fbCncServoVise.bDone THEN
+			IF bStepEnable THEN
+				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
+				nState := 11100;
+			END_IF
+		END_IF
+
+	11100:		(*-----=== Várakozás alapanyag berakásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alapanyag berakás');
+		IF Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+			IF bStepEnable THEN
+				stDutData_Cnc2.bDutInVise := TRUE;
+				nState := 11200;
+			END_IF
+		END_IF
+
+	11200:		(*-----=== Várakozás robot távozásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás robot távozásra');
+		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+			IF bStepEnable THEN
+				nState := 11300;
+			END_IF
+		END_IF
+	
+	11300:		(*-----=== Satu rögzítése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
+		fbCncServoVise.nTorque := stDutData_Cnc2.nTorque;
+		fbCncServoVise.eCommand := E_CncServoCommand.Fixed;
+		IF fbCncServoVise.bDone THEN
+			IF bStepEnable THEN
+				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
+				nState := 11400;
+			END_IF
+		END_IF
+
+	11400:		(*-----=== CNC ajtó zárása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ajtó zárása');
+		stCNC_Data^.DoorControl_CloseDoor := TRUE;
+		IF stCNC_Data^.DoorControl_DoorClosed THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_CloseDoor := FALSE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11420:		(*-----=== CNC előkészítése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC előkészítése');
+		IF TRUE THEN															// Külön FB-be rakni mert még képlékeny CAM file letöltése, ellenőrzése, felmásolása, betöltése, ........ 
+			IF bStepEnable THEN	
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11440:		(*-----=== CAM program indítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - CAM program indítása');
+		stCNC_Data^.StartCNCProgram := TRUE;
+		IF stCNC_Data^.CurentState_Program = 'Running' THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.StartCNCProgram := FALSE;
+				nState := 11500;
+			END_IF
+		END_IF
+	
+	11500:		(*-----=== Várakozás CAM program végére ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás CAM program végére');
+		IF stCNC_Data^.CurentState_Program = 'Finished' THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_CloseDoor := FALSE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11520:		(*-----=== CNC folyamat befejezése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC folyamat befejezése');
+		IF TRUE THEN															// Külön FB-be rakni mert még képlékeny: minőségellenőrzés, mérési adatok, .... 
+			IF bStepEnable THEN	
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11540:		(*-----=== CAM program leállítása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - CAM program leállítása');
+		stCNC_Data^.CancelCNCProgram := TRUE;
+		IF stCNC_Data^.CurentState_Program = 'Idle' THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.CancelCNCProgram := FALSE;
+				nState := nState + 20;
+			END_IF
+		END_IF
+
+	11560:		(*-----=== CNC ajtó nnyitása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A CNC ajtó nyitása');
+		stCNC_Data^.DoorControl_OpenDoor := TRUE;
+		IF stCNC_Data^.DoorControl_DoorOpened THEN
+			IF bStepEnable THEN	
+				stCNC_Data^.DoorControl_OpenDoor := FALSE;
+				nState := 11600;
+			END_IF
+		END_IF
+	
+	11600:		(*-----=== Satu pozícionálása ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
+		fbCncServoVise.nPosition := stDutData_Cnc2.nDimX;
+		fbCncServoVise.eCommand := E_CncServoCommand.MovePos;
+		IF fbCncServoVise.bDone THEN
+			IF bStepEnable THEN
+				stDutData_Cnc2.bDone := TRUE;
+				stDutData_Cnc2.bPass := TRUE;
+				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
+				nState := 12000;
+			END_IF
+		END_IF
+{endregion}
+
+{region "Alapanyag küldése"}
+	(****************************************************************************************)
+	(******************************** Alapanyag küldése ************************************)
+	(****************************************************************************************)	
+	12000:		(*-----=== Várakozás alapanyag kivételre ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alapanyag kivétel');
+		IF Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+			IF bStepEnable THEN
+				nState := 12100;
+			END_IF
+		END_IF
+	
+	12100:		(*-----=== Várakozás robot távozásra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
+		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+			IF bStepEnable THEN
+				stDutData_Cnc2.bDutInVise := FALSE;
+				stDutData_Cnc2.nDutId := 0;
+				nState := 10000;
+			END_IF
+		END_IF
+{endregion}
+
+	150000: (* Maintenance *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
+		IF NOT bManualMode THEN
+			nState := 0;
+		END_IF
+		
+	200000:(* Error handling *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
+		nState := 200020;
+
+	200020:(* Error handling *)
+		IF bAckP THEN
+			CASE nStatePrevious OF
+				0..9999: nState := 0;
+//				10000..25000: nState := 10000;
+//				30000..31000: nState := 30000;
+			ELSE nState := 0;
+			END_CASE
+		END_IF	
+		
+	ELSE //Not a real step, for test purposes
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
+END_CASE
+
+(*Timers***************************************************)
+fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+IF nState > 10000 AND nState <= 95000 THEN
+	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+END_IF
+
+ServoVise();
+//fbCncServoVise.bTestUp := i_bTest_Up;
+//fbCncServoVise.bTestDown := i_bTest_Down;
+//fbCncServoVise.bTestStop := i_bTest_Stop;
+]]></ST>
+    </Implementation>
+    <Action Name="ServoVise" Id="{06dac574-a1fc-4549-9e52-0cde7c50d998}">
+      <Implementation>
+        <ST><![CDATA[fbCncServoVise(
+	sName:= 'AWEA_2', 
+	bErrorAck:= bAckP, 
+	bEnable:= i_bLO1_Main,		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!, 
+	bManualMode:= bManualMode, 
+	bReady=> , 
+	bBusy=> , 
+	bDone=> , 
+	bError=> );]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

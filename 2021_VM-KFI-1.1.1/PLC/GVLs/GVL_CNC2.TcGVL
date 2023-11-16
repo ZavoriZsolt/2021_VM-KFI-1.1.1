@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_CNC2" Id="{f8563509-2806-4ec9-81ec-c6d3f09f0cb0}">
+    <Declaration><![CDATA[VAR_GLOBAL
+		stDutData_Cnc2					: ST_Dut_Data;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
