@@ -144,9 +144,7 @@ CASE nState OF
 	30000:		(*-----=== Várakozás lerakási engedélyre ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
 		IF NOT fbS23.i_bPalettSensor AND NOT fbs22.bPalletSent THEN
-			IF fbRobot.bBusy THEN
-				nState := nState + 20;
-			END_IF
+			nState := nState + 20;
 		END_IF
 	
 	30020:
@@ -165,27 +163,13 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
 		IF NOT fbRobot.bBusy THEN
 			fbRobot.eCommand := E_Kardex_Robot_Command.NoCommand;
-			nState := nState + 20;
-		END_IF
-
-	40040:		(*-----=== Home ===-----*)
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot pozícióba küldése');
-		fbRobot.eCommand := E_Kardex_Robot_Command.Home;
-		IF fbRobot.bBusy THEN
-			nState := nState + 20;
-		END_IF
-		
-	40060:		(*-----=== Várakozás Robotmozgásra ===-----*)
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
-		IF NOT fbRobot.bBusy THEN
-			fbRobot.eCommand := E_Kardex_Robot_Command.NoCommand;
 			bInterlock_Strip3 := FALSE;
 			nState := 50000;
 		END_IF
-
+	
 	50000:
 		nState := 10000;
-
+	
 	150000: (* Maintenance *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
 		IF NOT bManualMode THEN
@@ -195,7 +179,7 @@ CASE nState OF
 	200000:(* Error handling *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
 		nState := 200020;
-
+	
 	200020:(* Error handling *)
 		IF bAckP THEN
 			CASE nStatePrevious OF
