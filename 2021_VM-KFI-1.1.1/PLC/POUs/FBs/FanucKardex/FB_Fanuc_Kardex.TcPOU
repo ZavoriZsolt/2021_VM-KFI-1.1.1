@@ -198,8 +198,8 @@ CASE nState OF
 		RobotOut.Control.nProgramNumber := 0;
 		RobotOut.Control.bProdStart := FALSE;
 		RobotOut.Control.bKardex_Reset := FALSE;
-		RobotOut.Control.bMir_1_Reset := FALSE;
-		RobotOut.Control.bMir_2_Reset := FALSE;
+		RobotOut.Control.bHold := FALSE;
+		RobotOut.Control.bMir_Reset := FALSE;
 		RobotOut.Control.bPuffer_Reset := FALSE;
 		RobotOut.Control.bStrip_1_Reset := FALSE;
 		RobotOut.Control.bStrip_2_Reset := FALSE;

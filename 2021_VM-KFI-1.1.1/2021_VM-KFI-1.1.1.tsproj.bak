@@ -3640,7 +3640,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{CD5B46F0-3884-6615-1BAC-C44F375C0D67}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{B407A636-444F-00F9-335B-F0F70697E077}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -5311,6 +5311,10 @@ External Setpoint Generation:
 							<Name>GVL_Safety.i_bRobotDoorOpened_CNC3</Name>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>RobotKardexProgram.fbRobot.RobotIn.aStdIn</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
@@ -6870,6 +6874,10 @@ External Setpoint Generation:
 							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
 							<Comment><![CDATA[ Safety ack]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>RobotKardexProgram.fbRobot.RobotOut.aStdOut</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-07-04T15:18:52">
@@ -30274,9 +30282,6 @@ Submodule Info: In / Out Daten
 				<Link VarA="Box 15 (EP1957-0022)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_4 TxPDO"/>
 				<Link VarA="Drive 9 (AX5106-0000-0214)^Term 16 (AX5805)^Module 1 (Safety Process Data, 1 axis)^Outputs (Controlword)^FSOE" VarB="ConnectionInputs^Message_3 TxPDO"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
-				<Link VarA="Term 11 (EK1100)^Term 12 (EL6910)^ConnectionInputs^Message_18 TxPDO" VarB="ConnectionOutputs^Message_26 RxPDO"/>
-			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^CNC_3">
 			<OwnerB Name="TIID^CNC_3^Box 37 (EP1957-0022)">
@@ -30293,40 +30298,37 @@ Submodule Info: In / Out Daten
 		<OwnerA Name="TIID^Main">
 			<OwnerB Name="TIID^CNC_1^Term 11 (EK1100)^Term 12 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_26 TxPDO" VarB="ConnectionOutputs^Message_18 RxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_26 RxPDO" VarB="ConnectionInputs^Message_18 TxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 42 (EL6910)">
 				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^Message_17 RxPDO"/>
-				<Link VarA="Term 41 (EK1100)^Term 45 (EL1904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_18 RxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 43 (EL1918)^Module 1 (FSOE)^FSoE Outputs^FSOE" VarB="ConnectionInputs^Message_17 TxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 44 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_3 TxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 45 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_18 TxPDO"/>
 				<Link VarA="Term 41 (EK1100)^Term 46 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_5 RxPDO"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 43 (EL1918)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_17 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
+				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_22 TxPDO"/>
+				<Link VarA="Term 41 (EK1100)^Term 47 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_22 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 44 (EL1904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_3 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_3 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 45 (EL1904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_18 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
+				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_18 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 46 (EL2904)">
 				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_5 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Main^Term 41 (EK1100)^Term 47 (EL2904)">
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionInputs^Message_22 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-				<Link VarA="Term 41 (EK1100)^Term 42 (EL6910)^ConnectionOutputs^Message_22 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIID^Vise">
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 79 (EL1918)">
 				<Link VarA="Term 77 (EK1100)^Term 80 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_24 TxPDO"/>
+				<Link VarA="Term 77 (EK1100)^Term 81 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_29 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 80 (EL2904)">
 				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionOutputs^Message_24 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Vise^Term 77 (EK1100)^Term 81 (EL2904)">
 				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionInputs^Message_29 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-				<Link VarA="Term 77 (EK1100)^Term 79 (EL1918)^ConnectionOutputs^Message_29 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
@@ -31708,6 +31710,16 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI01" Size="128" OffsA="128"/>
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI02" Size="128" OffsA="256"/>
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI03" Size="128" OffsA="384"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Fanuc_Kardex^Box 6 (FANUC R-30iB V8.20)">
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO00"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO01" Size="128" OffsA="128"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO02" Size="128" OffsA="256"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO03" Size="128" OffsA="384"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI00"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI01" Size="128" OffsA="128"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI02" Size="128" OffsA="256"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI03" Size="128" OffsA="384"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Fanuc_Vise^Box 2 (FANUC R-30iB V8.20)">
 				<Link VarA="PlcTask Inputs^RobotCncProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO00"/>

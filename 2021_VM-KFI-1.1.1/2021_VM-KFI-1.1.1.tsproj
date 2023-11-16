@@ -3135,18 +3135,18 @@ External Setpoint Generation:
 		<System>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="01194492">
-					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
-					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
 					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
+					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
+					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 					<ManualSelect>{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</ManualSelect>
-					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
-					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
-					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
 					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
+					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
+					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
+					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
 					<TargetSelect TargetId="2">{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</TargetSelect>
-					<TargetSelect TargetId="2">{520DE751-9DB6-47CB-8240-BD5C466E7E64}</TargetSelect>
 					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
+					<TargetSelect TargetId="2">{520DE751-9DB6-47CB-8240-BD5C466E7E64}</TargetSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302004e" DongleLevel="70" DongleSystemId="{BE4209AF-5A1D-9803-878A-435C4A2270DC}" DongleSerialNumber="000bph10"/>
 				</Target>
 			</Licenses>
@@ -3640,7 +3640,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{5CEC73F8-212A-1F06-0A05-B951B6E60C8F}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{B407A636-444F-00F9-335B-F0F70697E077}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3803,21 +3803,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_bVisePos1RequestBtn</Name>
 							<Comment><![CDATA[ Satu kérés 1-7]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bVisePos1CleanBtn</Name>
-							<Comment><![CDATA[ Satu tisztítás 1-7]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bVisePos1ErrorAckBtn</Name>
-							<Comment><![CDATA[ Satu hibanyugta 1-7]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bVisePos2InBtn</Name>
-							<Comment><![CDATA[ Satu be 8-14]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -4326,6 +4311,21 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_IO.i_bVisePos1CleanBtn</Name>
+							<Comment><![CDATA[ Satu tisztítás 1-7]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bVisePos1ErrorAckBtn</Name>
+							<Comment><![CDATA[ Satu hibanyugta 1-7]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.i_bVisePos2InBtn</Name>
+							<Comment><![CDATA[ Satu be 8-14]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_IO.i_bVisePos2RequestBtn</Name>
 							<Comment><![CDATA[ Satu kérés 8-14]]></Comment>
 							<Type>BOOL</Type>
@@ -4396,6 +4396,11 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_IO.i_bCNC4_Door_Opened</Name>
+							<Comment><![CDATA[*************************************************CNC45 Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_IO.i_nBusState</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -4457,11 +4462,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_stViseStationSensors_14</Name>
 							<Type GUID="{5C07ED8D-375F-D652-AFB1-D6B26F02EBE0}">ST_Vise_Sensors</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.i_bCNC4_Door_Opened</Name>
-							<Comment><![CDATA[*************************************************CNC45 Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_IO.i_bCNC4_Door_Closed</Name>
@@ -5134,6 +5134,20 @@ External Setpoint Generation:
 							<Type GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}">ST_RGB_In</Type>
 						</Var>
 						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC45</Name>
+							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[1].arrDataIn</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
@@ -5212,20 +5226,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[10].PnIoBoxState</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC45</Name>
-							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO2_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_Safety.i_bLO2EDMErr_CNC45</Name>
@@ -5310,6 +5310,10 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_Safety.i_bRobotDoorOpened_CNC3</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>RobotKardexProgram.fbRobot.RobotIn.aStdIn</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -6348,11 +6352,6 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.q_bSafetyOverrideCnc3</Name>
-							<Comment><![CDATA[ Enable]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_Main.fbNotSmartLight.q_bGreenColor</Name>
 							<Type>BIT</Type>
 						</Var>
@@ -6793,6 +6792,20 @@ External Setpoint Generation:
 							<Type GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}">ST_RGB_Out</Type>
 						</Var>
 						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc3</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyRun</Name>
+							<Comment><![CDATA[ Safety run]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bBlink</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_RFID.fbRFID_Readers[1].arrDataOut</Name>
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
@@ -6833,15 +6846,6 @@ External Setpoint Generation:
 							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.q_bSafetyRun</Name>
-							<Comment><![CDATA[ Safety run]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bBlink</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_Safety.q_bSafetyMasterOn_CNC45</Name>
 							<Comment><![CDATA[ Master on]]></Comment>
 							<Type>BOOL</Type>
@@ -6870,6 +6874,10 @@ External Setpoint Generation:
 							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
 							<Comment><![CDATA[ Safety ack]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>RobotKardexProgram.fbRobot.RobotOut.aStdOut</Name>
+							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-07-04T15:18:52">
@@ -30254,6 +30262,7 @@ Submodule Info: In / Out Daten
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500822010403}" Id="#x020300d0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x020300c0"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500850000403}" Id="#x02030120"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500870000403}" Id="#x02030060"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-5008C1000403}" Id="#x02030080"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-5008D0000403}" Id="#x02030050"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-5008F0000403}" Id="#x020300b0"/>
@@ -31702,6 +31711,16 @@ Submodule Info: In / Out Daten
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI01" Size="128" OffsA="128"/>
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI02" Size="128" OffsA="256"/>
 				<Link VarA="PlcTask Outputs^Robot7AxisProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI03" Size="128" OffsA="384"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Fanuc_Kardex^Box 6 (FANUC R-30iB V8.20)">
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO00"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO01" Size="128" OffsA="128"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO02" Size="128" OffsA="256"/>
+				<Link VarA="PlcTask Inputs^RobotKardexProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO03" Size="128" OffsA="384"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI00"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI01" Size="128" OffsA="128"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI02" Size="128" OffsA="256"/>
+				<Link VarA="PlcTask Outputs^RobotKardexProgram.fbRobot.RobotOut.aStdOut" VarB="OUT512^DI03" Size="128" OffsA="384"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Fanuc_Vise^Box 2 (FANUC R-30iB V8.20)">
 				<Link VarA="PlcTask Inputs^RobotCncProgram.fbRobot.RobotIn.aStdIn" VarB="IN512^DO00"/>
