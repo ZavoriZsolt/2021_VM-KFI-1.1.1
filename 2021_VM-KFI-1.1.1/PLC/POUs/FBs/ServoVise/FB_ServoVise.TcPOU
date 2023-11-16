@@ -279,7 +279,7 @@ CASE nState OF
 		END_IF
 	
 	20180:		(*-----=== Szervo Mozgatás PtP ===-----*)
-		fbMoveRelative.Distance := nTorqueRelief;
+		fbMoveRelative.Distance := 0.055;(*nTorqueRelief*) //New clutch based on appx. 10 degree, counted with 2mm slope of shaft
 		fbMoveRelative.Velocity := nTargetVelocity;
 		fbMoveRelative.Execute := TRUE;
 		IF fbMoveRelative.Done THEN
