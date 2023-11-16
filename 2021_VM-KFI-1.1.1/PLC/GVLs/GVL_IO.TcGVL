@@ -28,6 +28,8 @@
 	i_bAirPressureOk			AT %I*	:BOOL;		// Levegő nyomás OK
 	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 10^Input'}
 	i_bCellAck					AT %I*	:BOOL;		// Satuzó ajtó zárás nyugtázás - kék gomb
+	{attribute 'TcLinkTo' := 'TIIB(82)^Channel 11^Input'}
+	i_bCaptron					AT %I*	:BOOL;		// Operator Captron
 	
 	// 2.x
 	{attribute 'TcLinkTo' := 'TIIB(83)^Channel 1^Input'}
@@ -80,6 +82,8 @@
 	q_bDoorLock					AT %Q*	:BOOL;		// Ajtó zárás
 	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 12^Output'}
 	q_bCellAckLED				AT %Q*	:BOOL;		// Satuzó ajtó zárás nyugtázás - kék gomb LED
+	{attribute 'TcLinkTo' := 'TIIB(84)^Channel 13^Output'}
+	q_bCaptronLED				AT %Q*	:BOOL;		// Operator Captron LED
 	{attribute 'TcLinkTo' := 'TIIB(60)^InfoData^State'}
 	i_nBusState					AT %I*	:uint;
 	

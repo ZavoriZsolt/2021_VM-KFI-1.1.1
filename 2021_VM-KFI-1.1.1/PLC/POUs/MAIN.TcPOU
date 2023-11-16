@@ -41,6 +41,7 @@ CNC_1();
 CNC_2();
 CNC_3();
 ConveyorSystem();
+UploadingProgram();
 Mapping();
 
 Test();
@@ -49,9 +50,7 @@ SQL_Test();
 
 fbTime(bEnable := TRUE, dwCycle := 1);
 dtSystemTime := SYSTEMTIME_TO_DT(TIMESTR:= fbTime.systemTime);
-sTime := MID((SYSTEMTIME_TO_STRING(fbTime.systemTime)),8,12);
-
-]]></ST>
+sTime := MID((SYSTEMTIME_TO_STRING(fbTime.systemTime)),8,12);]]></ST>
     </Implementation>
     <Action Name="Alarm" Id="{74b54fed-c5dc-49fb-9aa9-6cad65b323d1}">
       <Implementation>

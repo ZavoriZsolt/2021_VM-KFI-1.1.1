@@ -433,6 +433,9 @@
     <Compile Include="POUs\Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\UploadingStation\UploadingProgram.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -481,6 +484,7 @@
     <Folder Include="POUs\FBs\Utilities" />
     <Folder Include="POUs\FBs\ServoVise" />
     <Folder Include="POUs\FBs\ServoVise\DUTs" />
+    <Folder Include="POUs\UploadingStation" />
     <Folder Include="POUs\Robot7AxisStation" />
     <Folder Include="POUs\Robot7AxisStation\DUTs" />
     <Folder Include="POUs\RobotKardexStation" />

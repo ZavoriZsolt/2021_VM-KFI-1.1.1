@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="UploadingProgram" Id="{feddf8b3-3ea0-4820-9460-178b2c31a9f2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM UploadingProgram
+VAR	(* Control *)
+	nState						: UDINT;
+	nStatePrevious				: UDINT;
+	sState						: STRING(500);
+	bError						: BOOL;
+	fbCycleTime					: TON;
+	nCycleTime					: REAL;
+END_VAR
+
+VAR CONSTANT
+	iLastStatesMax				: INT := 500;
+END_VAR
+VAR //LastStates
+	anLastStates				:ARRAY[0..iLastStatesMax] OF UDINT;
+    iLastStates					:INT;
+END_VAR
+VAR (* Operator *)
+	arRobotEvents				: ARRAY [0..15] OF TcEventEntry;
+END_VAR
+VAR (* Test variables *)
+	stTagData					: ST_Tag_Data;
+	PaletteId					: INT;
+	tRFID_Timeout				: TON;
+	nLastTarget					: UINT := 5;
+END_VAR
+VAR // MySQL
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[MySQL();
+stTagData := GVL_RFID.fbRFID_Readers[4].Ch1_TagData;
+
+(*Error handling*)
+IF nState > 0 AND nState < 150000 THEN
+	nStatePrevious := nState;
+END_IF
+
+(*Maintance*)
+IF bManualMode THEN
+	nState := 150000;
+END_IF
+
+(*Emergency*)
+IF NOT i_bLO1_Main THEN
+	nState := 0;
+END_IF
+
+(*Last states*)
+IF(nState >= 1000) AND (nState < 150000) THEN
+(*Steps before any state*)
+	IF anLastStates[0] <> nState THEN
+		FOR iLastStates:=iLastStatesMax TO 1 BY -1 DO
+			anLastStates[iLastStates]:= anLastStates[iLastStates-1];
+		END_FOR
+		anLastStates[0]:= nState;
+	END_IF
+END_IF	
+
+IF FALSE
+THEN
+	bError  :=  TRUE;
+END_IF
+
+
+
+CASE nState OF
+{region "Alaphelyzet felvétel"}
+	(****************************************************************************************)
+	(******************************* Alaphelyzetfelvétel ************************************)
+	(****************************************************************************************)	
+	0:		(*-----=== Kimenetek törlése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
+		
+		IF i_bLO1_Main AND NOT bManualMode THEN
+			nState := nState + 20;
+		END_IF
+	20:
+		nState := 10000;
+{endregion}
+		
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Alaphelyzet ****************************************)
+	(****************************************************************************************)	
+	10000:		(* -----=== Várakozás parancsra ===----- *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet');
+		IF fbS7.bPalletAtStopper THEN
+			nState := 11000;
+		END_IF
+{endregion}
+
+{region "Alaphelyzet"}
+	(****************************************************************************************)
+	(*********************************** Paletta fogadása ***********************************)
+	(****************************************************************************************)	
+	11000:		(*-----=== RFID ellenőrzése ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - RFID ellenőrzés');
+		IF stTagData.Status <> E_TagStatus.NotPresent THEN
+			IF stTagData.Code > 0 AND stTagData.Code <= 100 THEN
+				IF bStepEnable THEN
+					PaletteId := ULINT_TO_INT(stTagData.Code);
+					nState := nState + 20;							// -> Valid RFID adat
+				END_IF
+			END_IF
+		ELSIF tRFID_Timeout.Q THEN
+			nState := 14000;										// -> RFID hiba -> tovább küldés
+		END_IF
+
+	11020:		(*-----=== Paletta adat feltöltés ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adat feltöltés');
+		nLastTarget := nLastTarget + 2;
+		IF nLastTarget > 5 THEN
+			nLastTarget := 1;
+		END_IF
+		GVL_Palette.arrPalette[PaletteId].nDutId := 1;
+		GVL_Palette.arrPalette[PaletteId].sSerNr := 'VM001234';
+		GVL_Palette.arrPalette[PaletteId].nPaletteId := PaletteId;
+		GVL_Palette.arrPalette[PaletteId].nCamFileId := 0;
+		GVL_Palette.arrPalette[PaletteId].nDimX := 40;
+		GVL_Palette.arrPalette[PaletteId].nDimY := 45;
+		GVL_Palette.arrPalette[PaletteId].nDimZ := 30;
+		GVL_Palette.arrPalette[PaletteId].nPosX := 0;
+		GVL_Palette.arrPalette[PaletteId].nPosX := 0;
+		GVL_Palette.arrPalette[PaletteId].nTorque := 35;
+		GVL_Palette.arrPalette[PaletteId].nWeight := 200;
+		GVL_Palette.arrPalette[PaletteId].bPass := TRUE;
+		GVL_Palette.arrPalette[PaletteId].bDutInVise := FALSE;
+		GVL_Palette.arrPalette[PaletteId].bDone := FALSE;
+		GVL_Palette.arrPalette[PaletteId].nState := 1;
+		GVL_Palette.arrPalette[PaletteId].nTarget := nLastTarget;
+		nState := nState + 20;
+
+	11040:		(*-----=== Várakozás paletta indításra ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás paletta indításra');
+		IF i_bCaptron THEN
+			IF bStepEnable THEN
+				nState := 12000;
+			END_IF
+		END_IF
+
+	12000:		(*-----=== Várakozás paletta elengedésre ===-----*)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás paletta indításra');
+		IF NOT fbS7.bPalletAtStopper THEN
+			IF bStepEnable THEN
+				nState := nState + 20;
+			END_IF
+		END_IF
+	
+	12020:
+		nState := 10000;
+{endregion}
+	
+	150000: (* Maintenance *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Maintenance');
+		IF NOT bManualMode THEN
+			nState := 0;
+		END_IF
+		
+	200000:(* Error handling *)
+		sState := CONCAT(UDINT_TO_STRING(nState) ,CONCAT(' - Error, from this state: ' , sState));
+		nState := 200020;
+	
+	200020:(* Error handling *)
+		IF bAckP THEN
+			CASE nStatePrevious OF
+				0..9999: nState := 0;
+//				10000..25000: nState := 10000;
+//				30000..31000: nState := 30000;
+			ELSE nState := 0;
+			END_CASE
+		END_IF	
+		
+	ELSE //Not a real step, for test purposes
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Not a real step, for test purposes');
+END_CASE
+
+(*Timers***************************************************)
+fbCycleTime(IN:= nState > 10000 AND nState <= 95000, PT:= T#1D, Q=> , ET=> );
+IF nState > 10000 AND nState <= 95000 THEN
+	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
+END_IF
+
+tRFID_Timeout(IN:= fbS7.bPalletAtStopper AND stTagData.Status = E_TagStatus.NotPresent, PT:= T#2s, Q=> , ET=> );
+
+(*Captron***************************************************)
+IF nState = 11040 THEN
+	q_bCaptronLED := bBL500p500;
+ELSE
+	q_bCaptronLED := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <Action Name="MySQL" Id="{c114a9c9-210e-487b-b2d7-f5395e53a597}">
+      <Implementation>
+        <ST><![CDATA[;]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

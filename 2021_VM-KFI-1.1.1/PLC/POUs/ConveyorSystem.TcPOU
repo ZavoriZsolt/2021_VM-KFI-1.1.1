@@ -543,20 +543,19 @@ fbLift_3B(
     </Action>
     <Action Name="Motors" Id="{b9d1ee0e-1d9c-4705-9d0c-08b115909584}">
       <Implementation>
-        <ST><![CDATA[// Ideiglenesen kivéve amíg Gabi bácsi szerel !!!!!!!!!
-//IF NOT bManualMode THEN
-//	fbConveyor_1.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_2.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_3.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_4.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_5.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_6.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_7.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_8.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_9.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_10.bConveyorOnL := i_bLO1_Main;
-//	fbConveyor_11.bConveyorOnL := i_bLO1_Main;
-//END_IF
+        <ST><![CDATA[IF NOT bManualMode THEN
+	fbConveyor_1.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_2.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_3.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_4.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_5.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_6.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_7.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_8.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_9.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_10.bConveyorOnL := i_bLO1_Main;
+	fbConveyor_11.bConveyorOnL := i_bLO1_Main;
+END_IF
 
 fbConveyor_1(
 	sName:= 'Konveyor motor M1', 
@@ -1018,9 +1017,9 @@ fbS23(			(*-----=== Kardex alsó pozíció 2. ===-----*)
 fbS7(			(*-----=== Operátori pozíció ===-----*)
 	bNextReady:= fbS10.bReady, 
 	bMotorRun:= i_bLO1_Main, 
-	tToNextStopper:= T#2s, 
-	bStationReady:= TRUE, 
-	bStationFinished:= TRUE, 
+	tToNextStopper:= T#1s, 
+	bStationReady:= UploadingProgram.nState = 10000, 
+	bStationFinished:= UploadingProgram.nState = 12000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_17.Channel_0, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS7);
 	
