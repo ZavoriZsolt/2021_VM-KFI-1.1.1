@@ -1087,8 +1087,8 @@ fbS32(
 	bNextReady:= FALSE, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#1s, 
-	bStationReady:= NOT RobotKardexProgram.fbRobot.RobotIn.Status.bRobotInStrip_1 AND NOT RobotKardexProgram.bInterlock_Strip1, 
-	bStationFinished:= NOT RobotKardexProgram.fbRobot.RobotIn.Status.bRobotInStrip_1 AND NOT RobotKardexProgram.bInterlock_Strip1, 
+	bStationReady:= TRUE, 
+	bStationFinished:= TRUE, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_3.Channel_0, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS32);
 

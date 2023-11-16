@@ -13,8 +13,8 @@ VAR_INPUT
 	nPufferNumber		:BYTE;				(* Puffer tároló paletta szám (1-15) *)
 	nStripNumber		:BYTE;				(* Szalag száma (1-3) *)
 	bKardex_Reset		:BOOL;				(* Handshake *)
-	bHolder_Reset		:BOOL;				(* Handshake *)
-	bMir_Reset			:BOOL;				(* Handshake *)
+	bMir_1_Reset		:BOOL;				(* Handshake *)
+	bMir_2_Reset		:BOOL;				(* Handshake *)
 	bPuffer_Reset		:BOOL;				(* Handshake *)
 	bStrip_1_Reset		:BOOL;				(* Handshake *)
 	bStrip_2_Reset		:BOOL;				(* Handshake *)
@@ -30,13 +30,12 @@ VAR_OUTPUT
 	bDone				:BOOL;				(* Folyamat kész *)
 	bPendantMode		:BOOL;				(* Teach pendant mód aktív *)
 	bKardex_Set			:BIT;				(* Handshake *)
-	bHolder_Set			:BIT;				(* Handshake *)
-	bMir_Set			:BIT;				(* Handshake *)
+	bMir_1_Set			:BIT;				(* Handshake *)
+	bMir_2_Set			:BIT;				(* Handshake *)
 	bPuffer_Set			:BIT;				(* Handshake *)
 	bStrip_1_Set		:BIT;				(* Handshake *)
 	bStrip_2_Set		:BIT;				(* Handshake *)
 	bStrip_3_Set		:BIT;				(* Handshake *)
-	bPartPresent		:BOOL;				(* Robot IO *)
 	bError				:BOOL;				(* Hiba bit*)
 	sError				:STRING(255);		(* Hiba string*)
 END_VAR
@@ -71,20 +70,17 @@ VAR (* Error handling*)
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*Robot IO***************************************************)
-bPartPresent := RobotIn.Status.bPartPresent;
-
-(*Handshake**************************************************)
+      <ST><![CDATA[(*Handshake**************************************************)
 bKardex_Set := RobotIn.Status.bKardex_Set;
-bHolder_Set := RobotIn.Status.bHolder_Set;
-bMir_Set := RobotIn.Status.bMir_Set;
+bMir_1_Set := RobotIn.Status.bMir_1_Set;
+bMir_2_Set := RobotIn.Status.bMir_2_Set;
 bPuffer_Set := RobotIn.Status.bPuffer_Set;
 bStrip_1_Set := RobotIn.Status.bStrip_1_Set;
 bStrip_2_Set := RobotIn.Status.bStrip_2_Set;
 bStrip_3_Set := RobotIn.Status.bStrip_3_Set;
 RobotOut.Control.bKardex_Reset := bKardex_Reset;
-RobotOut.Control.bHolder_Reset := bHolder_Reset;
-RobotOut.Control.bMir_Reset := bMir_Reset;
+RobotOut.Control.bMir_1_Reset := bMir_1_Reset;
+RobotOut.Control.bMir_2_Reset := bMir_2_Reset;
 RobotOut.Control.bPuffer_Reset := bPuffer_Reset;
 RobotOut.Control.bStrip_1_Reset := bStrip_1_Reset;
 RobotOut.Control.bStrip_2_Reset := bStrip_2_Reset;
