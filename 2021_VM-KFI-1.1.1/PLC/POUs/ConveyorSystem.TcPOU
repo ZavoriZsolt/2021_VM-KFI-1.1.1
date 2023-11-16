@@ -23,6 +23,8 @@ VAR
 	
 	bTestSWFC			: BOOL;
 	bTestSWWS			: BOOL;
+	
+	pvPaletteData		: PVOID;
 END_VAR
 VAR CONSTANT
 	arrRFIDs			: ARRAY[1..17] OF ST_Active_RFIDs := [	(RFID := 1, CH := 2),	//RF 1
@@ -767,7 +769,10 @@ fbConveyor_11(
     </Action>
     <Action Name="Routers" Id="{1abe32cd-f34f-40c6-8cb7-dd73fceeee42}">
       <Implementation>
-        <ST><![CDATA[fbRouter_CNC1_puffer(
+        <ST><![CDATA[//pvPaletteData := ADR(arrPalette);
+
+
+fbRouter_CNC1_puffer(
 	bEnable:= i_bLO1_Main, 
 	bErrorAck:= bAckP, 
 	bManualMode:= bManualMode,
@@ -778,9 +783,8 @@ fbConveyor_11(
 	bStopperReadyWork:= fbS20.bReady, 
 	nReqTarget:= 1, 					// CNC1 Puffer 	-> ST_Dut_Data
 	nNextTarget:= 2,					// CNC1  		-> ST_Dut_Data
-	fbRouter:= ADR(fbZ18), 
-	arrPaletteData:= ADR(arrPalette));
-(*
+	fbRouter:= ADR(fbZ18));
+
 fbRouter_CNC2_puffer(
 	bEnable:= i_bLO1_Main, 
 	bErrorAck:= bAckP, 
@@ -792,9 +796,8 @@ fbRouter_CNC2_puffer(
 	bStopperReadyWork:= fbS29.bReady, 
 	nReqTarget:= 3, 					// CNC2 Puffer 	-> ST_Dut_Data
 	nNextTarget:= 4,					// CNC2  		-> ST_Dut_Data
-	fbRouter:= ADR(fbZ16), 
-	arrPaletteData:= ADR(arrPalette));
-
+	fbRouter:= ADR(fbZ16));
+(*
 fbRouter_CNC3_puffer(
 	bEnable:= i_bLO1_Main, 
 	bErrorAck:= bAckP, 

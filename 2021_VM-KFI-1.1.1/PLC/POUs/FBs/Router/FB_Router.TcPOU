@@ -16,7 +16,7 @@ VAR_INPUT
 	nReqTarget				: UINT;
 	nNextTarget				: UINT;
 	fbRouter				: POINTER TO FB_Bistabil;
-	arrPaletteData			: POINTER TO ARRAY [1..200] OF ST_Dut_Data;
+	//arrPaletteData			: POINTER TO ARRAY [1..200] OF ST_Dut_Data;
 END_VAR
 VAR_OUTPUT
 	nTagID					: ULINT;
@@ -149,7 +149,7 @@ CASE nState OF
 
 	11020:		(*-----=== Paletta adat ellenőrzése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adat ellenőrzés');
-		IF arrPaletteData^[stTagData.Code].nTarget =  nReqTarget THEN	
+		IF GVL_Palette.arrPalette[stTagData.Code].nTarget =  nReqTarget THEN	
 			IF bStepEnable THEN
 				nTagID := stTagData.Code;						// Target eggyezik -> leválogatás 
 				nState := nState + 20;	
@@ -162,7 +162,7 @@ CASE nState OF
 
 	11040:		(*-----=== Paletta adatok frissítése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adatok frissítése');
-		arrPaletteData^[stTagData.Code].nTarget := nNextTarget;
+		GVL_Palette.arrPalette[stTagData.Code].nTarget := nNextTarget;
 		IF bStepEnable THEN
 			nState := nState + 20;
 		END_IF
@@ -244,7 +244,7 @@ END_CASE
 //	nCycleTime := TIME_TO_REAL(fbCycleTime.ET)/1000;
 //END_IF
 
-tRFID_Timeout(IN:= bPaletteStopperIn AND stTagData.Status = E_TagStatus.NotPresent, PT:= T#2s, Q=> , ET=> );
+tRFID_Timeout(IN:= bPaletteStopperIn AND (stTagData.Status = E_TagStatus.NotPresent), PT:= T#2s, Q=> , ET=> );
 tPalette(IN:= nState = 13000, PT:= T#2S, Q=> , ET=> );
 ]]></ST>
     </Implementation>
