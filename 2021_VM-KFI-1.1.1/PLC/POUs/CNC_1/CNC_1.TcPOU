@@ -43,6 +43,9 @@ VAR (* OPC_UA *)
 	bCNCMidwareShutdownPossible	: 	BOOL;	//20, 40, 11400, 
 	bShutdownIsProcessing		:	BOOL;
 END_VAR
+VAR	(*7 Axis Robot Communication*)
+	bCNCRunning					:	BOOL;
+END_VAR
 
 ]]></Declaration>
     <Implementation>
@@ -110,6 +113,7 @@ THEN
 	bError  :=  TRUE;
 END_IF
 
+bCNCRunning := ((nState > 10000) AND (nState <= 30000));
 
 CASE nState OF
 {region "Alaphelyzet felvétel"}
@@ -180,9 +184,11 @@ CASE nState OF
 	10000:		(*-----=== Várakozás berakásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás alapanyagra');
 		IF ((NOT bShutdownIsProcessing) AND (NOT stCNC_Data^.ApproveShutdownRequest)) THEN
-			IF stDutData_Cnc1.nDutId > 0 THEN											// Alapanyag a robotnál
-				IF bStepEnable THEN	
-					nState := 11000;			// -> Alapanyag fogadása
+			IF Robot7AxisProgram.bStartCNC1 THEN
+				IF stDutData_Cnc1.nDutId > 0 THEN											// Alapanyag a robotnál
+					IF bStepEnable THEN	
+						nState := 11000;			// -> Alapanyag fogadása
+					END_IF
 				END_IF
 			END_IF
 		END_IF
@@ -328,6 +334,7 @@ CASE nState OF
 			IF bStepEnable THEN
 				stDutData_Cnc1.bDutInVise := FALSE;
 				stDutData_Cnc1.nDutId := 0;
+				stDutData_Cnc1.bDone := FALSE;
 				nState := 10000;
 			END_IF
 		END_IF
