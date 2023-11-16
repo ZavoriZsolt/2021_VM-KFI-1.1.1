@@ -27,6 +27,14 @@
     "DEFAULTTIMEZONE": "client",
     "DEFAULTUSERGROUP": "__SystemUsers",
     "DEFINITIONS": {
+        "PLC1.ARRAY_0..1_OF-STRING-80": {
+            "items": {
+                "$ref": "tchmi:general#/definitions/STRING%2880%29"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+        },
         "PLC1.ARRAY_0..63_OF-BYTE": {
             "items": {
                 "$ref": "tchmi:general#/definitions/BYTE"
@@ -547,6 +555,220 @@
                         },
                         {
                             "comment": "Time to set work position"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "PLC1.FB_Conveyor": {
+            "properties": {
+                "aErrorDesc": {
+                    "$ref": "#/definitions/PLC1.ARRAY_0..1_OF-STRING-80"
+                },
+                "bAck": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Acknowledge - Hibanyugta"
+                        }
+                    ]
+                },
+                "bConveyorOnL": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Control to Motor on - vezérlés parancs motor indításhoz"
+                        }
+                    ]
+                },
+                "bConveyorOnR": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Control to Motor on - vezérlés parancs motor indításhoz"
+                        }
+                    ]
+                },
+                "bDisableManualCmd": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Manual control disable"
+                        }
+                    ]
+                },
+                "bEHA": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Error-handling active - Hibafigyelés aktív"
+                        }
+                    ]
+                },
+                "bEn": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Enable - Engedély jel"
+                        }
+                    ]
+                },
+                "bErrOn": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bErrRun": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bError": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Error bit - Hiba van"
+                        }
+                    ]
+                },
+                "bIsInitalized": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bMotorOn": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Motor on - Motor bekapcsolva"
+                        }
+                    ]
+                },
+                "fbRunAlarm": {
+                    "$ref": "#/definitions/PLC1.Tc3_EventLogger.FB_TcAlarm"
+                },
+                "fbStartAlarm": {
+                    "$ref": "#/definitions/PLC1.Tc3_EventLogger.FB_TcAlarm"
+                },
+                "i_bConveyorOK": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Input"
+                            },
+                            "comment": "Conveyor drive OK - motorindító üzemkész"
+                        }
+                    ]
+                },
+                "q_bConveyorOnL": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Output"
+                            },
+                            "comment": "Motor on signal - Motor vezérlés bekapcsolása"
+                        }
+                    ]
+                },
+                "q_bConveyorOnR": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Output"
+                            },
+                            "comment": "Motor on signal - Motor vezérlés bekapcsolása"
+                        }
+                    ]
+                },
+                "q_bConveyorRst": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Output"
+                            },
+                            "comment": "Motor reset signal - Motor hibatörlés"
+                        }
+                    ]
+                },
+                "sEmpty": {
+                    "$ref": "tchmi:general#/definitions/STRING%2880%29"
+                },
+                "sError": {
+                    "allOf": [
+                        {
+                            "comment": "Error string - Hiba string",
+                            "maxLength": 255
+                        },
+                        {
+                            "$ref": "tchmi:general#/definitions/String"
+                        }
+                    ]
+                },
+                "sName": {
+                    "$ref": "tchmi:general#/definitions/STRING%2880%29"
+                },
+                "stRunEvent": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/PLC1.TcEventEntry"
+                        },
+                        {
+                            "comment": "Event definition"
+                        }
+                    ]
+                },
+                "stStartEvent": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/PLC1.TcEventEntry"
+                        },
+                        {
+                            "comment": "Event definition"
+                        }
+                    ]
+                },
+                "tError": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "tFault": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "tMotorOn": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "tReset": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "timReset": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/TIME"
+                        },
+                        {
+                            "comment": "Resettime - Hibatörlési idõ"
                         }
                     ]
                 }
@@ -3689,6 +3911,123 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_1": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_1",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "comment": "Conveyors"
+                    },
+                    {
+                        "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_10": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_10",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_11": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_11",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_2": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_2",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_3": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_3",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_4": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_4",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_5": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_5",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_6": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_6",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_7": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_7",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_8": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_8",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbConveyor_9": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbConveyor_9",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Conveyor"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.GVL_ConveyorSystem.fbZ1": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -4970,6 +5309,17 @@
                 "LocalizeText": 3,
                 "Login": 3,
                 "Logout": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_1": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_10": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_11": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_2": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_3": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_4": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_5": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_6": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_7": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_8": 3,
+                "PLC1.GVL_ConveyorSystem.fbConveyor_9": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ1": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ10": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ11": 3,

@@ -1,7 +1,7 @@
-﻿<div id="Desktop" data-tchmi-type="TcHmi.Controls.System.TcHmiView" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width-mode="Value" data-tchmi-min-width="100" data-tchmi-min-width-unit="%" data-tchmi-height-mode="Value" data-tchmi-min-height="100" data-tchmi-min-height-unit="%" data-tchmi-width="1955" data-tchmi-height="1444">
-<div id="TcHmiRegion" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="1189" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="128" data-tchmi-top-unit="px" data-tchmi-width="1923" data-tchmi-width-unit="px" data-tchmi-target-content="Pages/ViseStationCont.content" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center">
+﻿<div id="Desktop" data-tchmi-type="TcHmi.Controls.System.TcHmiView" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width-mode="Value" data-tchmi-min-width="100" data-tchmi-min-width-unit="%" data-tchmi-height-mode="Value" data-tchmi-min-height="100" data-tchmi-min-height-unit="%" data-tchmi-width="2288" data-tchmi-height="1819">
+<div id="TcHmiRegion" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="1778" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="17" data-tchmi-top-unit="px" data-tchmi-width="1923" data-tchmi-width-unit="px" data-tchmi-target-content="Pages/ViseStationCont.content" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center">
 </div>
-<div id="TcHmiButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="72" data-tchmi-height-unit="px" data-tchmi-left="1131" data-tchmi-left-unit="px" data-tchmi-text="Vise Station" data-tchmi-top="25" data-tchmi-top-unit="px" data-tchmi-width="253" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+<div id="TcHmiButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="72" data-tchmi-height-unit="px" data-tchmi-left="1973" data-tchmi-left-unit="px" data-tchmi-text="Vise Station" data-tchmi-top="106" data-tchmi-top-unit="px" data-tchmi-width="253" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
@@ -24,7 +24,7 @@
 ]
 </script>
 </div>
-<div id="TcHmiButton_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="72" data-tchmi-height-unit="px" data-tchmi-left="1396" data-tchmi-left-unit="px" data-tchmi-text="Conveyor Station" data-tchmi-top="26" data-tchmi-top-unit="px" data-tchmi-width="253" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-icon-horizontal-alignment="Center" data-tchmi-icon-vertical-alignment="Center">
+<div id="TcHmiButton_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="72" data-tchmi-height-unit="px" data-tchmi-left="1973" data-tchmi-left-unit="px" data-tchmi-text="Conveyor Station" data-tchmi-top="17" data-tchmi-top-unit="px" data-tchmi-width="253" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-icon-horizontal-alignment="Center" data-tchmi-icon-vertical-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
   {
@@ -46,6 +46,8 @@
 ]
 </script>
 </div>
-<div id="TcHmiButton_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="72" data-tchmi-height-unit="px" data-tchmi-left="583" data-tchmi-left-unit="px" data-tchmi-text="Error Acknowledge" data-tchmi-top="25" data-tchmi-top-unit="px" data-tchmi-width="324" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-icon-horizontal-alignment="Center" data-tchmi-icon-vertical-alignment="Center" data-tchmi-state-symbol="%s%PLC1.GVL_Main.bAckHMI%/s%">
+<div id="TcHmiButton_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="1973" data-tchmi-left-unit="px" data-tchmi-text="Error Acknowledge" data-tchmi-top="526" data-tchmi-top-unit="px" data-tchmi-width="254" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-icon-horizontal-alignment="Center" data-tchmi-icon-vertical-alignment="Center" data-tchmi-state-symbol="%s%PLC1.GVL_Main.bAckHMI%/s%">
+</div>
+<div id="TcHmiToggleButton_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiToggleButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="1973" data-tchmi-left-unit="px" data-tchmi-text="Global Manual mode request" data-tchmi-top="598" data-tchmi-top-unit="px" data-tchmi-width="253" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-state-symbol="%s%PLC1.GVL_Main.bManualModeRequest%/s%" data-tchmi-icon-horizontal-alignment="Center" data-tchmi-icon-vertical-alignment="Center">
 </div>
 </div>

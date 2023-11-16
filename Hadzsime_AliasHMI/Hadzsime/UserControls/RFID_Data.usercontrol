@@ -1,0 +1,91 @@
+﻿<div id="RFID_Data" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="335" data-tchmi-height="235" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+<div id="TcHmiTextblock_18" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="%pp%ReaderName%/pp%" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="314" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiContainer_2" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="80" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="46" data-tchmi-top-unit="px" data-tchmi-width="314" data-tchmi-width-unit="px" data-tchmi-background-color="%f%ColorSelect((%pp%Fb_ID200::_ch1_tag_data::RawData[0]%/pp% > 0), %i%ColorTransparent%/i%, %i%ColorYellow%/i%)%/f%">
+<div id="TcHmiTextblock_21" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%f%TcHmi.Functions.Beckhoff.EnumToString(%pp%Fb_ID200::_ch1_tag_data::Status%/pp%,%i%E_TagStatus%/i%)%/f%" data-tchmi-top="46" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_19" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="Channel 1" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_20" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="167" data-tchmi-left-unit="px" data-tchmi-text="%pp%Channel1Name%/pp%" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_22" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="167" data-tchmi-left-unit="px" data-tchmi-text="%pp%Fb_ID200::_ch1_tag_data::RawData[0]%/pp%" data-tchmi-top="46" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 1,
+  "right": 1,
+  "top": 1,
+  "bottom": 1,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 1,
+  "right": 1,
+  "top": 1,
+  "bottom": 1,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+<div id="TcHmiContainer_3" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="90" data-tchmi-height-unit="px" data-tchmi-left="9" data-tchmi-left-unit="px" data-tchmi-top="136" data-tchmi-top-unit="px" data-tchmi-width="314" data-tchmi-width-unit="px" data-tchmi-background-color="%f%ColorSelect((%pp%Fb_ID200::_ch2_tag_data::RawData[0]%/pp%>0), %i%ColorTransparent%/i%, %i%ColorYellow%/i%)%/f%">
+<div id="TcHmiTextblock_23" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%f%TcHmi.Functions.Beckhoff.EnumToString(%pp%Fb_ID200::_ch2_tag_data::Status%/pp%,%i%E_TagStatus%/i%)%/f%" data-tchmi-top="56" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_24" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="Channel 2" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_25" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="167" data-tchmi-left-unit="px" data-tchmi-text="%pp%Channel2Name%/pp%" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_26" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="167" data-tchmi-left-unit="px" data-tchmi-text="%pp%Fb_ID200::_ch2_tag_data::RawData[0]%/pp%" data-tchmi-top="56" data-tchmi-top-unit="px" data-tchmi-width="140" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 1,
+  "right": 1,
+  "top": 1,
+  "bottom": 1,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+</div>
+</div>

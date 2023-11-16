@@ -1,0 +1,23 @@
+﻿{
+  "parameters": [
+    {
+      "name": "data-tchmi-conveyor",
+      "displayName": "Conveyor",
+      "visible": true,
+      "type": "tchmi:server#/definitions/PLC1.FB_Conveyor",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Conveyor",
+      "propertySetterName": "setConveyor",
+      "propertyGetterName": "getConveyor",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.758.8/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}
