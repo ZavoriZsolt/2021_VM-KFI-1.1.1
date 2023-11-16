@@ -1448,15 +1448,6 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..63] OF BYTE</Name>
-			<BitSize>512</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>64</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
 			<Name GUID="{6FF17D27-228F-D024-48C1-C92BA30CB8D4}" AutoDeleteType="true">ST_CPI_Module</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
@@ -1653,6 +1644,15 @@ External Setpoint Generation:
 					</Property>
 				</Properties>
 			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..63] OF BYTE</Name>
+			<BitSize>512</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>64</Elements>
+			</ArrayInfo>
 		</DataType>
 		<DataType>
 			<Name GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}" AutoDeleteType="true">ST_RGB_Out</Name>
@@ -3613,7 +3613,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{E511ED8F-4EEE-9146-69CF-6CC6F15B627C}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{515B6AEB-660F-8E2B-01B0-CAE227DF7057}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3667,184 +3667,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>CNC_1.fbCncServoVise.fbServoVise.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC45</Name>
-							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO2_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO2EDMErr_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupComErr_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupFBErr_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupOtherErr_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bWaitClose_CNC45</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1_Main</Name>
-							<Comment><![CDATA[-----=== Main ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO2_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1EDMErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO2EDMErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupComErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupFBErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bSafetyGroupOtherErr_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bWaitClose_Main</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC1</Name>
-							<Comment><![CDATA[-----=== CNC1 ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bRobotDoorOpened_CNC1</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC2</Name>
-							<Comment><![CDATA[-----=== CNC2 ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bRobotDoorOpened_CNC2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bLO1_CNC3</Name>
-							<Comment><![CDATA[-----=== CNC2 ===-----
-*************************************************Inputs********************************************************]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.i_bRobotDoorOpened_CNC3</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[1].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[1].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[2].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[2].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[3].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[3].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[4].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[4].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[5].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[5].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[6].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[6].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[7].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[7].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[8].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[8].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[9].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[9].PnIoBoxState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[10].arrDataIn</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[10].PnIoBoxState</Name>
-							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.i_stSensorHub_0</Name>
@@ -5285,6 +5107,184 @@ External Setpoint Generation:
 							<Type GUID="{AA306408-DFB9-33F3-3BF3-0CDF0B4BF9B1}">ST_RGB_In</Type>
 						</Var>
 						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC45</Name>
+							<Comment><![CDATA[-----=== CNC4 - CNC5 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1EDMErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[1].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[1].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[2].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[2].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[3].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[3].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[4].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[4].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[5].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[5].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[6].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[6].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[7].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[7].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[8].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[8].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[9].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[9].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[10].arrDataIn</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[10].PnIoBoxState</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2EDMErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupComErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupFBErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupOtherErr_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bWaitClose_CNC45</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_Main</Name>
+							<Comment><![CDATA[-----=== Main ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1EDMErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO2EDMErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupComErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupFBErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bSafetyGroupOtherErr_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bWaitClose_Main</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC1</Name>
+							<Comment><![CDATA[-----=== CNC1 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bRobotDoorOpened_CNC1</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC2</Name>
+							<Comment><![CDATA[-----=== CNC2 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bRobotDoorOpened_CNC2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bLO1_CNC3</Name>
+							<Comment><![CDATA[-----=== CNC2 ===-----
+*************************************************Inputs********************************************************]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.i_bRobotDoorOpened_CNC3</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>CNC_2.fbCncServoVise.fbMoveUpper.i_bBasePos</Name>
 							<Comment><![CDATA[Base position]]></Comment>
 							<Type>BOOL</Type>
@@ -5419,103 +5419,14 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
-							<Comment><![CDATA[ Enable]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_Safety.q_bSafetyOverrideCnc2</Name>
 							<Comment><![CDATA[ Enable]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyOverrideCnc3</Name>
-							<Comment><![CDATA[ Enable]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyRun</Name>
-							<Comment><![CDATA[ Safety run]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bBlink</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyMasterOn_CNC45</Name>
-							<Comment><![CDATA[ Master on]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bCellEmptyAck_CNC45</Name>
-							<Comment><![CDATA[ Cell empty ack]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyErrorAck_CNC45</Name>
-							<Comment><![CDATA[ Safety ack]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyMasterOn_Main</Name>
-							<Comment><![CDATA[ Master on]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bCellEmptyAck_Main</Name>
-							<Comment><![CDATA[ Cell empty ack]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
-							<Comment><![CDATA[ Safety ack]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_14</Name>
 							<Comment><![CDATA[ Kiemelők ]]></Comment>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[1].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[2].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[3].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[4].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[5].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[6].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[7].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[8].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[9].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
-						</Var>
-						<Var>
-							<Name>GVL_RFID.fbRFID_Readers[10].arrDataOut</Name>
-							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bZ1_12</Name>
@@ -6494,6 +6405,11 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc1</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_Main.fbNotSmartLight.q_bGreenColor</Name>
 							<Type>BIT</Type>
 						</Var>
@@ -6932,6 +6848,90 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_Main.fbRgbLights.q_stRGB_Out</Name>
 							<Type GUID="{B1DD142B-07B6-B914-21D7-8B7C9E1F4104}">ST_RGB_Out</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyOverrideCnc3</Name>
+							<Comment><![CDATA[ Enable]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyRun</Name>
+							<Comment><![CDATA[ Safety run]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bBlink</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[1].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[2].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[3].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[4].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[5].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[6].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[7].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[8].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[9].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_RFID.fbRFID_Readers[10].arrDataOut</Name>
+							<Type GUID="{41ED9519-F005-F75E-C949-7BAD9F19538C}">ARRAY [0..63] OF BYTE</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyMasterOn_CNC45</Name>
+							<Comment><![CDATA[ Master on]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bCellEmptyAck_CNC45</Name>
+							<Comment><![CDATA[ Cell empty ack]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyErrorAck_CNC45</Name>
+							<Comment><![CDATA[ Safety ack]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyMasterOn_Main</Name>
+							<Comment><![CDATA[ Master on]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bCellEmptyAck_Main</Name>
+							<Comment><![CDATA[ Cell empty ack]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
+							<Comment><![CDATA[ Safety ack]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>CNC_2.fbCncServoVise.fbMoveUpper.q_bBasePos</Name>
