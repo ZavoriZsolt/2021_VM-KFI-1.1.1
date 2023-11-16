@@ -167,14 +167,14 @@ CASE nState OF
 			END_IF	
 			
 		
-		ELSIF fbLift_1A.bPalletAtStopper AND (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
+		ELSIF  (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 			IF GVL_Palette.arrPalette[fbLift_1A.nTagID].nState.1 THEN	//Lifted, wait for CNC
 		 		stDutData_Cnc1 := GVL_Palette.arrPalette[fbLift_1A.nTagID];
 				ePath := E_CNC_Robot_Path.Lift1A_to_CNC1;
 				bStartCNC1 := TRUE;
 				nState := 11000;
 			END_IF
-		ELSIF fbLift_1B.bPalletAtStopper AND (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
+		ELSIF  (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 			IF GVL_Palette.arrPalette[fbLift_1B.nTagID].nState.1 THEN	
 		 		stDutData_Cnc1 := GVL_Palette.arrPalette[fbLift_1B.nTagID];
 				ePath := E_CNC_Robot_Path.Lift1B_to_CNC1;
@@ -183,14 +183,14 @@ CASE nState OF
 			END_IF
 			
 			
-		ELSIF fbLift_2A.bPalletAtStopper AND (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
+		ELSIF  (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 			IF GVL_Palette.arrPalette[fbLift_2A.nTagID].nState.1 THEN
 		 		stDutData_Cnc2 := GVL_Palette.arrPalette[fbLift_2A.nTagID];
 				ePath := E_CNC_Robot_Path.Lift2A_to_CNC2;
 				bStartCNC2 := TRUE;
 				nState := 11000;
 			END_IF
-		ELSIF fbLift_2B.bPalletAtStopper AND (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
+		ELSIF  (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 			IF GVL_Palette.arrPalette[fbLift_2B.nTagID].nState.1 THEN
 		 		stDutData_Cnc2 := GVL_Palette.arrPalette[fbLift_2B.nTagID];
 				ePath := E_CNC_Robot_Path.Lift2B_to_CNC2;
@@ -199,14 +199,14 @@ CASE nState OF
 			END_IF
 			
 			
-		ELSIF fbLift_3A.bPalletAtStopper AND (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
+		ELSIF  (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 			IF GVL_Palette.arrPalette[fbLift_3A.nTagID].nState.1 THEN
 		 		stDutData_Cnc3 := GVL_Palette.arrPalette[fbLift_3A.nTagID];
 				ePath := E_CNC_Robot_Path.Lift3A_to_CNC3;
 				bStartCNC3 := TRUE;
 				nState := 11000;
 			END_IF
-		ELSIF fbLift_3B.bPalletAtStopper AND (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
+		ELSIF  (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 			IF GVL_Palette.arrPalette[fbLift_3B.nTagID].nState.1 THEN
 		 		stDutData_Cnc3 := GVL_Palette.arrPalette[fbLift_3B.nTagID];
 				ePath := E_CNC_Robot_Path.Lift3B_to_CNC3;
