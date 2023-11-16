@@ -93,7 +93,7 @@ END_IF
 tVisePushTime(IN:= nState = 20060, PT:= T#400MS, Q=> , ET=> );
 
 (*Fill up time*) 
-tFillUpTime(IN:= nState = 80, PT:= T#2S, Q=> , ET=> );
+tFillUpTime(IN:= (nState = 80) OR (nState = 140), PT:= T#2S, Q=> , ET=> );
 
 CASE nState OF
 	(* Emergency circuit broken - Base state *)
@@ -135,10 +135,12 @@ CASE nState OF
 		END_IF
 		
 	60:	
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengereinek feltöltése');
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengereinek feltöltése (7 és 8 kivételével) ');
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			fbViseStation[index].Vise.bWorkPosCmd := TRUE;
-			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			IF (index <> 7) AND (index <> 8) THEN 
+				fbViseStation[index].Vise.bWorkPosCmd := TRUE;
+				fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			END_IF
 		END_FOR
 		IF index = (nMaxIndex + 1) THEN
 			nState := nState + 20;
@@ -150,16 +152,43 @@ CASE nState OF
 		END_IF
 	
 	100:	
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengerek alaphelyzetbe');
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengerek alaphelyzetbe (7 és 8 kivételével)');
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			fbViseStation[index].Vise.bWorkPosCmd := FALSE;
-			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			IF (index <> 7) AND (index <> 8) THEN 
+				fbViseStation[index].Vise.bWorkPosCmd := FALSE;
+				fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			END_IF
 		END_FOR
 		IF index = (nMaxIndex + 1) THEN
 			nState := nState + 20;
 		END_IF
 		
 	120:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengereinek feltöltése (csak 7 és 8) ');
+
+		fbViseStation[7].Vise.bWorkPosCmd := TRUE;
+		fbViseStation[7].Vise.bBasePosCmd := FALSE;
+		fbViseStation[8].Vise.bWorkPosCmd := TRUE;
+		fbViseStation[8].Vise.bBasePosCmd := FALSE;
+
+		nState := nState + 20;
+		
+	140:
+		IF tFillUpTime.Q THEN
+			nState := nState + 20;
+		END_IF
+	
+	160:	
+		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengerek alaphelyzetbe (csak 7 és 8) ');
+
+		fbViseStation[7].Vise.bWorkPosCmd := FALSE;
+		fbViseStation[7].Vise.bBasePosCmd := TRUE;
+		fbViseStation[8].Vise.bWorkPosCmd := FALSE;
+		fbViseStation[8].Vise.bBasePosCmd := TRUE;
+
+		nState := nState + 20;
+		
+	180:	
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
 			IF NOT fbViseStation[index].fbVise.bBasePosStab THEN
 				EXIT;
@@ -169,7 +198,7 @@ CASE nState OF
 			nState := nState + 20;
 		END_IF
 		
-	140:
+	200:
 		nState := 10000;
 		
 	(* Automatic mode - Base position *)

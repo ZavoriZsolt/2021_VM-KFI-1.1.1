@@ -63,7 +63,7 @@ VAR CONSTANT									//																			%     Tmax    i   Theta
 	nTScale					: LREAL := 2.3923;	// nTorque[Nm] / nTScale[Nm/%] = Required_torque_value[%]		{nTScale = 0.01 * 5.09 * 50 * 0.94}
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(* Timers **************************************)
+      <ST><![CDATA[ (* Timers **************************************)
 
 (* Enable **************************************)
 IF NOT bEnable THEN
