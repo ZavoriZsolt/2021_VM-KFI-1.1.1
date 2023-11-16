@@ -57,16 +57,10 @@
   ],
   "userControls": [
     {
-      "url": "UserControls/ConveyorControl.usercontrol"
-    },
-    {
       "url": "UserControls/FB_Bistabil.usercontrol"
     },
     {
       "url": "UserControls/ViseStation.usercontrol"
-    },
-    {
-      "url": "UserControls/RFID_Data.usercontrol"
     }
   ],
   "content": [
@@ -134,7 +128,7 @@
       },
       "ColorYellow": {
         "value": {
-          "color": "rgba(236, 236, 61, 0.7843137)"
+          "color": "rgba(236, 236, 61, 1)"
         },
         "type": "tchmi:framework#/definitions/Color",
         "persist": false,
@@ -155,21 +149,6 @@
           "OutOfService"
         ],
         "type": "tchmi:general#/definitions/Array",
-        "persist": false,
-        "readonly": false
-      },
-      "E_TagStatus": {
-        "value": [
-          "NotPresent",
-          "FixCode",
-          "UserCod"
-        ],
-        "type": "tchmi:general#/definitions/Array",
-        "persist": false,
-        "readonly": false
-      },
-      "ColorTheme": {
-        "type": "tchmi:framework#/definitions/Color",
         "persist": false,
         "readonly": false
       }

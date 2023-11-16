@@ -122,26 +122,12 @@
     <Content Include="Pages\ViseStationCont.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UserControls\ConveyorControl.usercontrol">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UserControls\ConveyorControl.usercontrol.json">
-      <SubType>Content</SubType>
-      <DependentUpon>UserControls\ConveyorControl.usercontrol</DependentUpon>
-    </Content>
     <Content Include="UserControls\FB_Bistabil.usercontrol">
       <SubType>Content</SubType>
     </Content>
     <Content Include="UserControls\FB_Bistabil.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>UserControls\FB_Bistabil.usercontrol</DependentUpon>
-    </Content>
-    <Content Include="UserControls\RFID_Data.usercontrol">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UserControls\RFID_Data.usercontrol.json">
-      <SubType>Content</SubType>
-      <DependentUpon>UserControls\RFID_Data.usercontrol</DependentUpon>
     </Content>
     <Content Include="UserControls\ViseStation.usercontrol">
       <SubType>Content</SubType>

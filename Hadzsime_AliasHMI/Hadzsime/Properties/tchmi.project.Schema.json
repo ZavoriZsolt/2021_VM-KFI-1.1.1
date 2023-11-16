@@ -16,22 +16,6 @@
       "frameworkUserControlConfig": "UserControls\\FB_Bistabil.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/FB_Bistabil"
-    },
-    "ConveyorControl": {
-      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
-      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
-      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
-      "frameworkUserControlConfig": "UserControls\\ConveyorControl.usercontrol.json",
-      "id": "tchmi:project#/definitions/ConveyorControl",
-      "type": "object"
-    },
-    "RFID_Data": {
-      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
-      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
-      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
-      "frameworkUserControlConfig": "UserControls\\RFID_Data.usercontrol.json",
-      "id": "tchmi:project#/definitions/RFID_Data",
-      "type": "object"
     }
   }
 }
