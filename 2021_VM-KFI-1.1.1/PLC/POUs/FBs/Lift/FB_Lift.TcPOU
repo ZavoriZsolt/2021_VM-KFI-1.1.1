@@ -19,7 +19,6 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	nTagID					: ULINT;
-	bPalletAtStopper		: BOOL;
 END_VAR
 VAR	(* Control *)
 	nState						: UDINT;
@@ -70,8 +69,6 @@ THEN
 	bError  :=  TRUE;
 END_IF
 
-
-bPalletAtStopper := fbStopper^.bPalletAtStopper;
 
 CASE nState OF
 {region "Alaphelyzet felvétel"}

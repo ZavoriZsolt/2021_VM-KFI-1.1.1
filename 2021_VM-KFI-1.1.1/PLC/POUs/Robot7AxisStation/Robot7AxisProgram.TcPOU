@@ -36,11 +36,6 @@ VAR (* Test variables *)
 	nErrorId					: UDINT;
 	ePath						: E_CNC_Robot_Path;
 END_VAR
-VAR	(*Communication with CNC-s*)
-	bStartCNC1					:	BOOL;
-	bStartCNC2					:	BOOL;
-	bStartCNC3					:	BOOL;
-END_VAR
 VAR // MySQL
 	
 END_VAR]]></Declaration>
@@ -98,12 +93,8 @@ CASE nState OF
 	(****************************************************************************************)	
 	0:		(*-----=== Kimenetek törlése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
-			 
 		fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
-		bStartCNC1 := FALSE;
-		bStartCNC2 := FALSE;
-		bStartCNC3 := FALSE;	
-			 
+		
 		IF i_bLO1_Main AND NOT bManualMode AND NOT fbRobot.bPendantMode THEN
 			nState := nState + 20;
 		END_IF
@@ -119,123 +110,26 @@ CASE nState OF
 	40:
 		nState := 10000;
 {endregion}
-	 
-
-	10000:
-		//nState := 10500;
-		nState := 10501;
-	
-	10500:	
-		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta kivétel-beküldés ellenőrzés');
-		
-		//Mi van ha megszakad a folyamat valami maitt?  Akkor is jó ha itt kezd? 
-		
-		IF stDutData_Cnc1.bDone AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN	//CNC Done, and CNC Door Opened
-			
-			IF fbLift_1A.nTagID = stDutData_Cnc1.nPaletteId THEN	//Decide that what lift should be used
-				ePath := E_CNC_Robot_Path.CNC1_to_Lift1A;
-				nState := 11000;
-			ELSIF fbLift_1B.nTagID = stDutData_Cnc1.nPaletteId THEN
-				ePath := E_CNC_Robot_Path.CNC1_to_Lift1B;
-				nState := 11000;
-			ELSE
-				sState := CONCAT(UDINT_TO_STRING(nState) ,' - Ismeretlen cél lift paletta lerakáskor CNC 1 - Paletta Lift 1 A-B között');
-			END_IF
-			
-		ELSIF stDutData_Cnc2.bDone AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //CNC Done, and CNC Door Opened
-			
-			IF fbLift_2A.nTagID = stDutData_Cnc2.nPaletteId THEN	//Decide that what lift should be used
-				ePath := E_CNC_Robot_Path.CNC2_to_Lift2A;
-				nState := 11000;
-			ELSIF fbLift_2B.nTagID = stDutData_Cnc2.nPaletteId THEN
-				ePath := E_CNC_Robot_Path.CNC2_to_Lift2B;
-				nState := 11000;
-			ELSE
-				sState := CONCAT(UDINT_TO_STRING(nState) ,' - Ismeretlen cél lift paletta lerakáskor CNC 2 - Paletta Lift 2 A-B között');
-			END_IF
-		
-		ELSIF stDutData_Cnc3.bDone AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout))THEN //CNC Done, and CNC Door Opened
-				
-			IF fbLift_3A.nTagID = stDutData_Cnc3.nPaletteId THEN	//Decide that what lift should be used
-				ePath := E_CNC_Robot_Path.CNC3_to_Lift3A;
-				nState := 11000;
-			ELSIF fbLift_3B.nTagID = stDutData_Cnc3.nPaletteId THEN
-				ePath := E_CNC_Robot_Path.CNC3_to_Lift3B;
-				nState := 11000;
-			ELSE
-				sState := CONCAT(UDINT_TO_STRING(nState) ,' - Ismeretlen cél lift paletta lerakáskor CNC 3 - Paletta Lift 3 A-B között');
-			END_IF	
-			
-		
-		ELSIF fbLift_1A.bPalletAtStopper AND (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_1A.nTagID].nState.1 THEN	//Lifted, wait for CNC
-		 		stDutData_Cnc1 := GVL_Palette.arrPalette[fbLift_1A.nTagID];
-				ePath := E_CNC_Robot_Path.Lift1A_to_CNC1;
-				bStartCNC1 := TRUE;
-				nState := 11000;
-			END_IF
-		ELSIF fbLift_1B.bPalletAtStopper AND (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_1B.nTagID].nState.1 THEN	
-		 		stDutData_Cnc1 := GVL_Palette.arrPalette[fbLift_1B.nTagID];
-				ePath := E_CNC_Robot_Path.Lift1B_to_CNC1;
-				bStartCNC1 := TRUE;
-				nState := 11000;
-			END_IF
-			
-			
-		ELSIF fbLift_2A.bPalletAtStopper AND (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_2A.nTagID].nState.1 THEN
-		 		stDutData_Cnc2 := GVL_Palette.arrPalette[fbLift_2A.nTagID];
-				ePath := E_CNC_Robot_Path.Lift2A_to_CNC2;
-				bStartCNC2 := TRUE;
-				nState := 11000;
-			END_IF
-		ELSIF fbLift_2B.bPalletAtStopper AND (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_2B.nTagID].nState.1 THEN
-		 		stDutData_Cnc2 := GVL_Palette.arrPalette[fbLift_2B.nTagID];
-				ePath := E_CNC_Robot_Path.Lift2B_to_CNC2;
-				bStartCNC2 := TRUE;
-				nState := 11000;
-			END_IF
-			
-			
-		ELSIF fbLift_3A.bPalletAtStopper AND (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_3A.nTagID].nState.1 THEN
-		 		stDutData_Cnc3 := GVL_Palette.arrPalette[fbLift_3A.nTagID];
-				ePath := E_CNC_Robot_Path.Lift3A_to_CNC3;
-				bStartCNC3 := TRUE;
-				nState := 11000;
-			END_IF
-		ELSIF fbLift_3B.bPalletAtStopper AND (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_3B.nTagID].nState.1 THEN
-		 		stDutData_Cnc3 := GVL_Palette.arrPalette[fbLift_3B.nTagID];
-				ePath := E_CNC_Robot_Path.Lift3B_to_CNC3;
-				bStartCNC3 := TRUE;
-				nState := 11000;
-			END_IF
-		END_IF
-		
-
 		
 {region "Alaphelyzet"}
 	(****************************************************************************************)
 	(*********************************** Alaphelyzet ****************************************)
 	(****************************************************************************************)	
-	11000:		(* -----=== Várakozás parancsra ===----- *)
+	10000:		(* -----=== Várakozás parancsra ===----- *)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet');
 		CASE ePath OF
 			E_CNC_Robot_Path.Lift1A_to_CNC1:
 												nProgNr := 1;
 												fbRobot.nCncNumber := 1;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_1A;
-//												stDutData_Cnc1.nDimX := nDimX;
-//												stDutData_Cnc1.nDimY := nDimY;
-//												stDutData_Cnc1.nDimZ := nDimZ;
-//												stDutData_Cnc1.nPosX := nPosX;
-//												stDutData_Cnc1.nPosY := nPosY;
-//												stDutData_Cnc1.nWeight := nWeight;
-//												stDutData_Cnc1.nTorque := nTorque;
-//												stDutData_Cnc1.nDutId := 1;
+												stDutData_Cnc1.nDimX := nDimX;
+												stDutData_Cnc1.nDimY := nDimY;
+												stDutData_Cnc1.nDimZ := nDimZ;
+												stDutData_Cnc1.nPosX := nPosX;
+												stDutData_Cnc1.nPosY := nPosY;
+												stDutData_Cnc1.nWeight := nWeight;
+												stDutData_Cnc1.nTorque := nTorque;
+												stDutData_Cnc1.nDutId := 1;
 												nState := 20000;
 			E_CNC_Robot_Path.CNC1_to_Lift1A:
 												fbRobot.nCncNumber := 1;
@@ -249,14 +143,14 @@ CASE nState OF
 												nProgNr := 2;
 												fbRobot.nCncNumber := 1;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_1B;
-//												stDutData_Cnc1.nDimX := nDimX;
-//												stDutData_Cnc1.nDimY := nDimY;
-//												stDutData_Cnc1.nDimZ := nDimZ;
-//												stDutData_Cnc1.nPosX := nPosX;
-//												stDutData_Cnc1.nPosY := nPosY;
-//												stDutData_Cnc1.nWeight := nWeight;
-//												stDutData_Cnc1.nTorque := nTorque;
-//												stDutData_Cnc1.nDutId := 1;
+												stDutData_Cnc1.nDimX := nDimX;
+												stDutData_Cnc1.nDimY := nDimY;
+												stDutData_Cnc1.nDimZ := nDimZ;
+												stDutData_Cnc1.nPosX := nPosX;
+												stDutData_Cnc1.nPosY := nPosY;
+												stDutData_Cnc1.nWeight := nWeight;
+												stDutData_Cnc1.nTorque := nTorque;
+												stDutData_Cnc1.nDutId := 1;
 												nState := 20000;
 
 			E_CNC_Robot_Path.CNC1_to_Lift1B:
@@ -265,103 +159,6 @@ CASE nState OF
 												fbRobot.nOffset_X := stDutData_Cnc1.nPosX;
 												fbRobot.nOffset_Y := stDutData_Cnc1.nPosY;
 												fbRobot.nWeight := stDutData_Cnc1.nWeight;
-												nState := 30000;
-													 
-														  
-															   
-																	
-																		 
-													 
-			E_CNC_Robot_Path.Lift2A_to_CNC2:
-												nProgNr := 1;
-												fbRobot.nCncNumber := 2;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_2A;
-//												stDutData_Cnc2.nDimX := nDimX;
-//												stDutData_Cnc2.nDimY := nDimY;
-//												stDutData_Cnc2.nDimZ := nDimZ;
-//												stDutData_Cnc2.nPosX := nPosX;
-//												stDutData_Cnc2.nPosY := nPosY;
-//												stDutData_Cnc2.nWeight := nWeight;
-//												stDutData_Cnc2.nTorque := nTorque;
-//												stDutData_Cnc2.nDutId := 1;
-												nState := 20000;
-			E_CNC_Robot_Path.CNC2_to_Lift2A:
-												fbRobot.nCncNumber := 2;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_2A;
-												fbRobot.nOffset_X := stDutData_Cnc2.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc2.nPosY;
-												fbRobot.nWeight := stDutData_Cnc2.nWeight;	
-												nState := 30000;
-
-			E_CNC_Robot_Path.Lift2B_to_CNC2:
-												nProgNr := 2;
-												fbRobot.nCncNumber := 2;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_2B;
-//												stDutData_Cnc2.nDimX := nDimX;
-//												stDutData_Cnc2.nDimY := nDimY;
-//												stDutData_Cnc2.nDimZ := nDimZ;
-//												stDutData_Cnc2.nPosX := nPosX;
-//												stDutData_Cnc2.nPosY := nPosY;
-//												stDutData_Cnc2.nWeight := nWeight;
-//												stDutData_Cnc2.nTorque := nTorque;
-//												stDutData_Cnc2.nDutId := 1;
-												nState := 20000;
-
-			E_CNC_Robot_Path.CNC2_to_Lift2B:
-												fbRobot.nCncNumber := 2;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_2B;
-												fbRobot.nOffset_X := stDutData_Cnc2.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc2.nPosY;
-												fbRobot.nWeight := stDutData_Cnc2.nWeight;
-												nState := 30000;
-													 
-														  
-															   
-																	
-																		 
-																			  
-																				   
-			E_CNC_Robot_Path.Lift3A_to_CNC3:
-												nProgNr := 1;
-												fbRobot.nCncNumber := 3;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_3A;
-//												stDutData_Cnc3.nDimX := nDimX;
-//												stDutData_Cnc3.nDimY := nDimY;
-//												stDutData_Cnc3.nDimZ := nDimZ;
-//												stDutData_Cnc3.nPosX := nPosX;
-//												stDutData_Cnc3.nPosY := nPosY;
-//												stDutData_Cnc3.nWeight := nWeight;
-//												stDutData_Cnc3.nTorque := nTorque;
-//												stDutData_Cnc3.nDutId := 1;
-												nState := 20000;
-			E_CNC_Robot_Path.CNC3_to_Lift3A:
-												fbRobot.nCncNumber := 3;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_3A;
-												fbRobot.nOffset_X := stDutData_Cnc3.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc3.nPosY;
-												fbRobot.nWeight := stDutData_Cnc3.nWeight;	
-												nState := 30000;
-
-			E_CNC_Robot_Path.Lift3B_to_CNC3:
-												nProgNr := 2;
-												fbRobot.nCncNumber := 3;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_3B;
-//												stDutData_Cnc3.nDimX := nDimX;
-//												stDutData_Cnc3.nDimY := nDimY;
-//												stDutData_Cnc3.nDimZ := nDimZ;
-//												stDutData_Cnc3.nPosX := nPosX;
-//												stDutData_Cnc3.nPosY := nPosY;
-//												stDutData_Cnc3.nWeight := nWeight;
-//												stDutData_Cnc3.nTorque := nTorque;
-//												stDutData_Cnc3.nDutId := 1;
-												nState := 20000;
-
-			E_CNC_Robot_Path.CNC3_to_Lift3B:
-												fbRobot.nCncNumber := 3;
-												fbRobot.eLifterNumber := E_Lifter.Lifter_3B;
-												fbRobot.nOffset_X := stDutData_Cnc3.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc3.nPosY;
-												fbRobot.nWeight := stDutData_Cnc3.nWeight;
 												nState := 30000;
 		END_CASE
 {endregion}
@@ -372,11 +169,6 @@ CASE nState OF
 	(****************************************************************************************)
 	20000:		(*-----=== Szkennelési pozícióba ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Robot kamara pozícióba');
-		
-		bStartCNC1 := FALSE;
-		bStartCNC2 := FALSE;
-		bStartCNC3 := FALSE;	 
-		
 		fbRobot.nOffset_X := 0;
 		fbRobot.nOffset_Y := 0;
 		fbRobot.nOffset_Z := 0;
@@ -445,7 +237,6 @@ CASE nState OF
 		
 	20120:		(*-----=== Várakozás Robotmozgásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
-			   
 		IF NOT fbRobot.bBusy THEN
 			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
 			fb3DCam.ResetCam();
@@ -506,17 +297,6 @@ CASE nState OF
 
 	30060:		(*-----=== Várakozás Robotmozgásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
-			 
-		//Liftek visszaküldése alaphelyzetbe			  
-		IF stDutData_Cnc1.bDone THEN
-			stDutData_Cnc1.nState.3 := TRUE;
-		ELSIF stDutData_Cnc2.bDone THEN
-			stDutData_Cnc2.nState.3 := TRUE;	
-		ELSIF stDutData_Cnc3.bDone THEN
-			stDutData_Cnc3.nState.3 := TRUE; 
-		END_IF			  
-							  
-					   
 		IF NOT fbRobot.bBusy THEN
 			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
 			fb3DCam.ResetCam();
