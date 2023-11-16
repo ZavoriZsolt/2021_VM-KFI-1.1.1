@@ -16,16 +16,17 @@ STRUCT
 (*-----=== Byte 02 ===-----*)
 	bBatteryVoltageDrop		:BIT;				// 02.1	Battery voltage drop
 	bBusy					:BIT;				// 02.1	During operation
-	bAckSNO1				:BIT;				// 02.1	Selected program number
-	bAckSNO2				:BIT;				// 02.2	Selected program number
-	bAckSNO3				:BIT;				// 02.3	Selected program number
-	bAckSNO4				:BIT;				// 02.4	Selected program number
-	bAckSNO5				:BIT;				// 02.5	Selected program number
-	bAckSNO6				:BIT;				// 02.6	Selected program number
+	nAckProgNumber			:BYTE;
+//	bAckSNO1				:BIT;				// 02.1	Selected program number
+//	bAckSNO2				:BIT;				// 02.2	Selected program number
+//	bAckSNO3				:BIT;				// 02.3	Selected program number
+//	bAckSNO4				:BIT;				// 02.4	Selected program number
+//	bAckSNO5				:BIT;				// 02.5	Selected program number
+//	bAckSNO6				:BIT;				// 02.6	Selected program number
 
 (*-----=== Byte 03 ===-----*)
-	bAckSNO7				:BIT;				// 03.1	Selected program number
-	bAckSNO8				:BIT;				// 03.2	Selected program number
+//	bAckSNO7				:BIT;				// 03.1	Selected program number
+//	bAckSNO8				:BIT;				// 03.2	Selected program number
 	bSnAck					:BIT;				// 03.3	Response signal to PNS
 	{attribute 'hide'}
 	_reserved_03_04			:BIT;
@@ -49,8 +50,8 @@ STRUCT
 	
 (*-----=== Byte 05 ===-----*)
 	bKardex_Set				:BIT;				// 05.1	Robot kardex-be menne SET
-	bHolder_Set				:BIT;				// 05.2	Robot Mir-1-be menne SET
-	bMir_Set				:BIT;				// 05.3	Robot Mir-2-be menne SET
+	bMir_1_Set				:BIT;				// 05.2	Robot Mir-1-be menne SET
+	bMir_2_Set				:BIT;				// 05.3	Robot Mir-2-be menne SET
 	bPuffer_Set				:BIT;				// 05.4	Robot pufferbe menne SET
 	bStrip_1_Set			:BIT;				// 05.5	Robot szalag-1-be menne SET
 	bStrip_2_Set			:BIT;				// 05.6	Robot szalag-2-be menne SET
@@ -90,8 +91,8 @@ STRUCT
 	
 (*-----=== Byte 09 ===-----*)
 	bZone_1_Kardex			:BIT;				// 09.1	Robot bent a területen. - Kardex
-	bZone_2_Holder			:BIT;				// 09.2	Robot bent a területen. - Mir1
-	bZone_3_Mir1			:BIT;				// 09.3	Robot bent a területen. - Mir2
+	bZone_2_Mir1			:BIT;				// 09.2	Robot bent a területen. - Mir1
+	bZone_3_Mir2			:BIT;				// 09.3	Robot bent a területen. - Mir2
 	bZone_4_Puffer			:BIT;				// 09.4	Robot bent a területen. - Puffer
 	bZone_5_Strip			:BIT;				// 09.5	Robot bent a területen. - Szalag
 	bZone_6_Trans			:BIT;				// 09.6	Robot bent a területen. - Átmozgási terület

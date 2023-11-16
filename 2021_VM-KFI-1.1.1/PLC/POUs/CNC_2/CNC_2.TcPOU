@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="CNC_3" Id="{4037178f-c66b-48ac-90dc-6a958e705bda}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM CNC_3
+  <POU Name="CNC_2" Id="{b2ba6a71-d0e7-43a0-aefe-6c9053d2372c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM CNC_2
 VAR	(* Control *)
 	nState						: UDINT;
 	nStatePrevious				: UDINT;
@@ -15,23 +15,23 @@ VAR (* LastStates *)
     iLastStates					: INT;
 END_VAR
 VAR (* Var IO *)
-	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(35)^Channel 1^Input;
-									.fbMoveUpper.i_bWorkPos	:= TIIB(35)^Channel 2^Input;
-									.fbMoveUpper.q_bBasePos	:= TIIB(36)^Channel 2^Output;
-									.fbMoveUpper.q_bWorkPos	:= TIIB(36)^Channel 1^Output;
-									.fbMoveLower.i_bBasePos	:= TIIB(35)^Channel 3^Input;
-									.fbMoveLower.i_bWorkPos	:= TIIB(35)^Channel 4^Input;
-									.fbMoveLower.q_bBasePos	:= TIIB(36)^Channel 4^Output;
-									.fbMoveLower.q_bWorkPos	:= TIIB(36)^Channel 3^Output;
-									.fbLock.i_bBasePos	:= TIIB(35)^Channel 6^Input;
-									.fbLock.i_bWorkPos	:= TIIB(35)^Channel 5^Input;
-									.fbLock.q_bWorkPos	:= TIIB(36)^Channel 5^Output;
-									.q_bToolCheckBlower := TIIB(36)^Channel 6^Output;
-									.fbVisePos.arrRaw[0]	:= TIIB(32)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
-									.fbVisePos.arrRaw[1] 	:= TIIB(32)^Module 1 (IOL_I_4byte)^TxPDO^input byte 1;
-									.fbVisePos.arrRaw[2]	:= TIIB(32)^Module 1 (IOL_I_4byte)^TxPDO^input byte 2;
-									.fbVisePos.arrRaw[3]	:= TIIB(32)^Module 1 (IOL_I_4byte)^TxPDO^input byte 3;
-									.fbVisePos.nState		:= TIIB(32)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
+	{attribute 'TcLinkTo' := '		.fbMoveUpper.i_bBasePos	:= TIIB(24)^Channel 1^Input;
+									.fbMoveUpper.i_bWorkPos	:= TIIB(24)^Channel 2^Input;
+									.fbMoveUpper.q_bBasePos	:= TIIB(25)^Channel 2^Output;
+									.fbMoveUpper.q_bWorkPos	:= TIIB(25)^Channel 1^Output;
+									.fbMoveLower.i_bBasePos	:= TIIB(24)^Channel 3^Input;
+									.fbMoveLower.i_bWorkPos	:= TIIB(24)^Channel 4^Input;
+									.fbMoveLower.q_bBasePos	:= TIIB(25)^Channel 4^Output;
+									.fbMoveLower.q_bWorkPos	:= TIIB(25)^Channel 3^Output;
+									.fbLock.i_bBasePos	:= TIIB(24)^Channel 6^Input;
+									.fbLock.i_bWorkPos	:= TIIB(24)^Channel 5^Input;
+									.fbLock.q_bWorkPos	:= TIIB(25)^Channel 5^Output;
+									.q_bToolCheckBlower := TIIB(25)^Channel 6^Output;
+									.fbVisePos.arrRaw[0]	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 0;	
+									.fbVisePos.arrRaw[1] 	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 1;
+									.fbVisePos.arrRaw[2]	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 2;
+									.fbVisePos.arrRaw[3]	:= TIIB(21)^Module 1 (IOL_I_4byte)^TxPDO^input byte 3;
+									.fbVisePos.nState		:= TIIB(21)^IO-Link DeviceState Inputs^Status of IO-Link Port 1;'}
 	fbCncServoVise				: FB_CNC_Servo;	
 
 END_VAR
@@ -53,7 +53,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(* OPC_UA *)
-stCNC_Data := ADR(OPC_UA_CNC3);
+stCNC_Data := ADR(OPC_UA_CNC2);
 tHeartBeatDelay(IN := stCNC_Data^.HeartBeat = 99, PT := T#500MS, Q=>);
 IF tHeartBeatDelay.Q THEN
 	stCNC_Data^.HeartBeat := 0;
@@ -117,9 +117,9 @@ THEN
 END_IF
 
 
-(*   Vise Position Adjustment   *)
-fbCncServoVise.nCalOffset_1 := 31.32;	//Originally 22.32
-fbCncServoVise.nCalOffset_2 := 108.01;	//Originally 99.01
+(*   Vise Position Adjustment  -16,38 *)
+fbCncServoVise.nCalOffset_1 := 14.94;	//Originally 22.32
+fbCncServoVise.nCalOffset_2 := 91.63;	//Originally 99.01
 
 bCNCRunning := ((nState > 10000) AND (nState <= 30000));
 
@@ -159,7 +159,7 @@ CASE nState OF
 				IF		stCNC_Data^.CurentState_Program = 'Running' THEN
 					nState := 11500;										// A megmunkálás folyamatban -> Várakozás megmunkálás végére.
 				ELSIF	stCNC_Data^.CurentState_Program = 'Idle' OR stCNC_Data^.CurentState_Program = 'NotSelected' OR stCNC_Data^.CurentState_Program = 'Interrupted' THEN
-					IF stDutData_Cnc3.nDutId > 0 AND stDutData_Cnc3.bDone THEN
+					IF stDutData_Cnc2.nDutId > 0 AND stDutData_Cnc2.bDone THEN
 						IF bStepEnable THEN									// Késztermék a satuban
 							nState := 11600;
 						END_IF
@@ -192,8 +192,8 @@ CASE nState OF
 	10000:		(*-----=== Várakozás berakásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás alapanyagra');
 		IF ((NOT bShutdownIsProcessing) AND (NOT stCNC_Data^.ApproveShutdownRequest)) THEN
-			IF Robot7AxisProgram.bStartCNC3 THEN
-				IF stDutData_Cnc3.nDutId > 0 THEN											// Alapanyag a robotnál
+			IF Robot7AxisProgram.bStartCNC2 THEN
+				IF stDutData_Cnc2.nDutId > 0 THEN											// Alapanyag a robotnál
 					IF bStepEnable THEN	
 						nState := 11000;			// -> Alapanyag fogadása
 					END_IF
@@ -208,7 +208,7 @@ CASE nState OF
 	(****************************************************************************************)	
 	11000:		(*-----=== Satu pozícionálása ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
-		fbCncServoVise.nPosition := stDutData_Cnc3.nDimX;
+		fbCncServoVise.nPosition := stDutData_Cnc2.nDimX;
 		fbCncServoVise.eCommand := E_CncServoCommand.MovePos;
 		IF fbCncServoVise.bDone THEN
 			IF bStepEnable THEN
@@ -221,7 +221,7 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alapanyag berakás');
 		IF Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
 			IF bStepEnable THEN
-				stDutData_Cnc3.bDutInVise := TRUE;
+				stDutData_Cnc2.bDutInVise := TRUE;
 				nState := 11200;
 			END_IF
 		END_IF
@@ -236,7 +236,7 @@ CASE nState OF
 	
 	11300:		(*-----=== Satu rögzítése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
-		fbCncServoVise.nTorque := stDutData_Cnc3.nTorque;
+		fbCncServoVise.nTorque := stDutData_Cnc2.nTorque;
 		fbCncServoVise.eCommand := E_CncServoCommand.Fixed;
 		IF fbCncServoVise.bDone THEN
 			IF bStepEnable THEN
@@ -312,12 +312,12 @@ CASE nState OF
 	
 	11600:		(*-----=== Satu pozícionálása ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu pozícionálása');
-		fbCncServoVise.nPosition := stDutData_Cnc3.nDimX;
+		fbCncServoVise.nPosition := stDutData_Cnc2.nDimX;
 		fbCncServoVise.eCommand := E_CncServoCommand.MovePos;
 		IF fbCncServoVise.bDone THEN
 			IF bStepEnable THEN
-				stDutData_Cnc3.bDone := TRUE;
-				stDutData_Cnc3.bPass := TRUE;
+				stDutData_Cnc2.bDone := TRUE;
+				stDutData_Cnc2.bPass := TRUE;
 				fbCncServoVise.eCommand := E_CncServoCommand.NoCommand;
 				nState := 12000;
 			END_IF
@@ -340,9 +340,9 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
 		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
 			IF bStepEnable THEN
-				stDutData_Cnc3.bDutInVise := FALSE;
-				stDutData_Cnc3.nDutId := 0;
-				stDutData_Cnc3.bDone := FALSE;
+				stDutData_Cnc2.bDutInVise := FALSE;
+				stDutData_Cnc2.nDutId := 0;
+				stDutData_Cnc2.bDone := FALSE;
 				nState := 10000;
 			END_IF
 		END_IF
@@ -384,10 +384,10 @@ ServoVise();
 //fbCncServoVise.bTestStop := i_bTest_Stop;
 ]]></ST>
     </Implementation>
-    <Action Name="ServoVise" Id="{8ebdb559-ce77-4f07-b37d-bb616d0c4544}">
+    <Action Name="ServoVise" Id="{06dac574-a1fc-4549-9e52-0cde7c50d998}">
       <Implementation>
         <ST><![CDATA[fbCncServoVise(
-	sName:= 'AWEA_3', 
+	sName:= 'AWEA_2', 
 	bErrorAck:= bAckP, 
 	bEnable:= i_bLO1_Main,		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!, 
 	bManualMode:= bManualMode, 

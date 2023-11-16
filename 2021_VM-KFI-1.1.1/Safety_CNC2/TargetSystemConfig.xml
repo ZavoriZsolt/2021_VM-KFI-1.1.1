@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TargetSystemConfig Crc="3440838569" Version="1.5">
+<TargetSystemConfig Crc="3925893302" Version="1.5">
   <TargetSystemType>HSafetyPLC</TargetSystemType>
   <TargetSystemSubType>EL6910</TargetSystemSubType>
   <IsExternalDevice>false</IsExternalDevice>
-  <TargetSystemObjectId>50462762</TargetSystemObjectId>
-  <TargetSystemObjectName>Term 42 (EL6910)</TargetSystemObjectName>
+  <TargetSystemObjectId>50462743</TargetSystemObjectId>
+  <TargetSystemObjectName>Term 23 (EL6910)</TargetSystemObjectName>
   <SoftwareVersion>05 (V01.14)     </SoftwareVersion>
-  <SerialNumber>3752464</SerialNumber>
-  <ProjectCRC>30263</ProjectCRC>
-  <MapProjectCRC>true</MapProjectCRC>
-  <MapSerialNumber>true</MapSerialNumber>
+  <SerialNumber>3651703</SerialNumber>
+  <ProjectCRC>62988</ProjectCRC>
+  <MapProjectCRC>false</MapProjectCRC>
+  <MapSerialNumber>false</MapSerialNumber>
   <VersionNumber>1</VersionNumber>
-  <FSOEAddress>31</FSOEAddress>
-  <DipSwitch>31</DipSwitch>
-  <AmsNetID>192.168.81.10.11.1</AmsNetID>
-  <AmsPort>1003</AmsPort>
+  <FSOEAddress>51</FSOEAddress>
+  <DipSwitch>51</DipSwitch>
+  <AmsNetID>192.168.81.10.9.1</AmsNetID>
+  <AmsPort>1006</AmsPort>
   <ConnectionInfoDataConfigOld>false</ConnectionInfoDataConfigOld>
   <TakeOverSafetyAliasDeviceNamesInProcessImage>false</TakeOverSafetyAliasDeviceNamesInProcessImage>
   <TakeOverStandardAliasDeviceNamesInProcessImage>false</TakeOverStandardAliasDeviceNamesInProcessImage>
