@@ -86,7 +86,7 @@ END_IF
 
 
 (* =================================== OPC_UA Hearbeat handling =========================================== *)
-stCNC5_Data := ADR(OPC_UA_CNC2);
+stCNC5_Data := ADR(OPC_UA_CNC5);
 tCNC5HeartBeatDelay(IN := stCNC5_Data^.HeartBeat = 99, PT := T#500MS, Q=>);
 IF tCNC5HeartBeatDelay.Q THEN
 	stCNC5_Data^.HeartBeat := 0;
