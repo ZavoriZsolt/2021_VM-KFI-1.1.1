@@ -19,7 +19,7 @@ VAR (* Robot *)
 	arRobotEvents				: ARRAY [0..15] OF TcEventEntry;
 END_VAR
 VAR (* Test variables *)
-	nOverride					: BYTE := 10;
+	nOverride					: BYTE := 30;
 	bTestEnable					: BOOL;
 	nTestIndex					: BYTE;
 	nTestCncIndex				: BYTE;

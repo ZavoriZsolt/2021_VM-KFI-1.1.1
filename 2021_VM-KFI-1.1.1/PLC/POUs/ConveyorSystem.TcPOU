@@ -846,7 +846,7 @@ fbS1(			(*-----=== Stopper kiemelő 1A ===-----*)
 	bNextReady:= fbS2.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_1A.nState = 10000 OR fbLift_1A.nState = 12000, 
-	bStationFinished:= fbLift_1A.nState = 14000 OR fbLift_1A.nState = 12000, 
+	bStationFinished:= fbLift_1A.nState = 14000 OR fbLift_1A.nState = 12000 OR fbLift_1A.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_7.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS1);
 	
@@ -854,7 +854,7 @@ fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
 	bNextReady:= fbS17.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_1B.nState = 10000 OR fbLift_1B.nState = 12000, 
-	bStationFinished:= fbLift_1B.nState = 14000 OR fbLift_1B.nState = 12000, 
+	bStationFinished:= fbLift_1B.nState = 14000 OR fbLift_1B.nState = 12000 OR fbLift_1B.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_6.Channel_6,
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
 	
@@ -868,7 +868,7 @@ fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
 
 fbS20(			(*-----=== CNC1 Puffer küldés ===-----*)
-	bNextReady:= fbS1.bReady AND NOT fbS19.bPalletSent, 
+	bNextReady:= fbS1.bReady AND NOT fbS19.bPalletSent  AND (fbLift_1A.nState = 10000 OR fbLift_1B.nState = 10000), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= TRUE, 
@@ -884,7 +884,7 @@ fbS3(			(*-----=== Stopper kiemelő 2A ===-----*)
 	bNextReady:= fbS4.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_2A.nState = 10000 OR fbLift_2A.nState = 12000, 
-	bStationFinished:= fbLift_2A.nState = 14000 OR fbLift_2A.nState = 12000, 
+	bStationFinished:= fbLift_2A.nState = 14000 OR fbLift_2A.nState = 12000 OR fbLift_2A.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_10.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);	
 	
@@ -892,7 +892,7 @@ fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
 	bNextReady:= fbS13.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_2B.nState = 10000 OR fbLift_2B.nState = 12000, 
-	bStationFinished:= fbLift_2B.nState = 14000 OR fbLift_2B.nState = 12000, 
+	bStationFinished:= fbLift_2B.nState = 14000 OR fbLift_2B.nState = 12000 OR fbLift_2B.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_11.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
 
@@ -906,7 +906,7 @@ fbS13(			(*-----=== CNC2 Puffer, Stopper kiemelő 2B után===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
 
 fbS16(			(*-----=== CNC2 Puffer küldés ===-----*)
-	bNextReady:= fbS3.bReady, 
+	bNextReady:= fbS3.bReady AND (fbLift_2A.nState = 10000 OR fbLift_2B.nState = 10000), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	tToNextStopper:= T#5s, 
@@ -924,7 +924,7 @@ fbS5(			(*-----=== Stopper kiemelő 3A ===-----*)
 	bNextReady:= fbS6.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_3A.nState = 10000 OR fbLift_3A.nState = 12000, 
-	bStationFinished:= fbLift_3A.nState = 14000 OR fbLift_3A.nState = 12000, 
+	bStationFinished:= fbLift_3A.nState = 14000 OR fbLift_3A.nState = 12000 OR fbLift_3A.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_14.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS5);
 	
@@ -932,7 +932,7 @@ fbS6(			(*-----=== Stopper kiemelő 3B ===-----*)
 	bNextReady:= fbS11.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_3B.nState = 10000 OR fbLift_3B.nState = 12000, 
-	bStationFinished:= fbLift_3B.nState = 14000 OR fbLift_3B.nState = 12000, 
+	bStationFinished:= fbLift_3B.nState = 14000 OR fbLift_3B.nState = 12000 OR fbLift_3B.nState = 13000, 
 	i_bPalettSensor:= GVL_ConveyorSystem.i_stSensorHub_15.Channel_6, 
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS6);
 
@@ -946,7 +946,7 @@ fbS14(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS14);
 
 fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
-	bNextReady:= fbS5.bReady, 
+	bNextReady:= fbS5.bReady AND (fbLift_3A.nState = 10000 OR fbLift_3B.nState = 10000), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
 	bStationReady:= TRUE,  

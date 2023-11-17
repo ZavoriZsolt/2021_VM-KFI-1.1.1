@@ -90,7 +90,7 @@ END_IF
 //END_IF
 
 (*Push out time*) 
-tVisePushTime(IN:= nState = 20060, PT:= T#400MS, Q=> , ET=> );
+tVisePushTime(IN:= (nState = 20060) OR (nState = 50060), PT:= T#400MS, Q=> , ET=> );
 
 (*Fill up time*) 
 tFillUpTime(IN:= (nState = 80) OR (nState = 140), PT:= T#2S, Q=> , ET=> );
@@ -322,6 +322,7 @@ CASE nState OF
 	20180:
 		IF fbViseStation[index].fbStopper_In.bWorkPosStab THEN
 			aViseStatus[index].eState := E_Vise_State.ReadyToCnc;
+			eCommand := E_Vise_Command.UnLoad;
 			nState := 10000;
 		END_IF		
 {endregion}

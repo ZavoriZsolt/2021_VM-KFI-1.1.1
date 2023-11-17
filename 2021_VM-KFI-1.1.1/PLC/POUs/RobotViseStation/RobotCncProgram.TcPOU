@@ -292,7 +292,7 @@ CASE nState OF
 		ELSIF stCNC5_Data^.ApproveShutdownRequest THEN
 			nState  := 11010;
 		(*Check if there is a Ready to CNC Vise *)
-		ELSIF (CheckForViseStatus(E_Vise_State.ReadyToCnc) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <= ViseProgram.nMaxIndex) AND (CheckForViseStatus(E_Vise_State.CncDone) = 99) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <> 99) THEN
+		ELSIF (CheckForViseStatus(E_Vise_State.ReadyToCnc) >= ViseProgram.nStartIndex) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <= ViseProgram.nMaxIndex) AND (CheckForViseStatus(E_Vise_State.CncDone) = 99) AND (CheckForViseStatus(E_Vise_State.ReadyToCnc) <> 99) AND (bActualCNCProgramNotRunning AND (bActualCNCThreadInBase)) THEN
 			
 			nUsedViseIndex := CheckForViseStatus(E_Vise_State.ReadyToCnc);
 			
@@ -921,7 +921,7 @@ CASE nStateCNC5 OF
 		
 	13100:		(*-----=== Várakozás CAM program végére ===-----*)
 		sStateCNC5 := CONCAT(UDINT_TO_STRING(nStateCNC5) ,' - Várakozás CAM program végére');
-		IF stCNC5_Data^.CurentState_Program = 'Finished' THEN
+		IF stCNC5_Data^.CurentState_Program = 'Finished' OR stCNC5_Data^.CurentState_Program = 'Idle' THEN
 			IF bStepEnableCNC5 THEN	
 				aViseStatus[nRackUsedForCNC5].eState := E_Vise_State.CncDone;
 				stCNC5_Data^.DoorControl_CloseDoor := FALSE;
