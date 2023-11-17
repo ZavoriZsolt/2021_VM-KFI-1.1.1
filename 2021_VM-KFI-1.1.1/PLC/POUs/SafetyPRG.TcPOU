@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="SafetyPRG" Id="{d93974d1-d903-4b6e-83e0-8aba9599867a}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM SafetyPRG
 VAR
@@ -13,6 +13,12 @@ q_bCellEmptyAck_CNC45 := i_bCellAck;
 q_bSafetyMasterOn_CNC45 := i_bMasterOn_CNC45 AND bBL100p100;
 q_bSafetyMasterOn_Main := i_bMasterOn_Main AND bBL100p100;
 q_bBlink := bBL500p500;
+
+
+(*Safety Override for CNC 1 to 3 Doors*)
+GVL_Safety.q_bSafetyOverrideCnc1 := TRUE;
+GVL_Safety.q_bSafetyOverrideCnc2 := TRUE;
+GVL_Safety.q_bSafetyOverrideCnc3 := TRUE;
 
 // Safety Error
 bSafetyError_CNC45 := i_bSafetyGroupComErr_CNC45 OR i_bSafetyGroupFBErr_CNC45 OR i_bSafetyGroupOtherErr_CNC45 OR 

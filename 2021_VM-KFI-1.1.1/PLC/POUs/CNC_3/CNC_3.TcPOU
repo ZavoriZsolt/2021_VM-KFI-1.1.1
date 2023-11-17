@@ -117,6 +117,7 @@ THEN
 END_IF
 
 
+
 (*   Vise Position Adjustment   *)
 fbCncServoVise.nCalOffset_1 := 31.32;	//Originally 22.32
 fbCncServoVise.nCalOffset_2 := 108.01;	//Originally 99.01
@@ -130,7 +131,7 @@ CASE nState OF
 	(****************************************************************************************)	
 	0:		(*-----=== Kimenetek törlése ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - A biztonsági kör nem aktív');
-		IF i_bLO1_Main AND (NOT bManualMode) AND bEnableStart THEN		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!
+		IF i_bLO1_Main AND (NOT bManualMode) THEN		//AND i_bLO1_CNC1 THEN		Nincs bekötve! Teszteléshez kikapcsolva! Ha a bekötés kész VISSZAÍRNI !!!!!!!!!!!!!!!
 			stCNC_Data^.DoorControl_CloseDoor := FALSE;
 			stCNC_Data^.DoorControl_OpenDoor := FALSE;
 			stCNC_Data^.MagazineTable_Trigger := FALSE;
