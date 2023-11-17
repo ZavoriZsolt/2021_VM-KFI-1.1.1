@@ -113,7 +113,9 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Stopperek');
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
 			IF fbViseStation[index].stViseStationSensors.bInPos THEN
-				fbViseStation[index].StopperInner.bWorkPosCmd := TRUE;
+				IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+					fbViseStation[index].StopperInner.bWorkPosCmd := TRUE;
+				END_IF
 			ELSE
 				nState := 200000;
 				EXIT;
@@ -126,8 +128,10 @@ CASE nState OF
 	40:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Stopperek');
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF NOT fbViseStation[index].stViseStationSensors.bStopper_In_Hold THEN
-				EXIT;
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				IF NOT fbViseStation[index].stViseStationSensors.bStopper_In_Hold THEN
+					EXIT;
+				END_IF
 			END_IF
 		END_FOR
 		IF index = (nMaxIndex + 1) THEN
@@ -137,8 +141,10 @@ CASE nState OF
 	60:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengereinek feltöltése ');
 		FOR index := 1 TO 7 BY 1 DO
-			fbViseStation[index].Vise.bWorkPosCmd := TRUE;
-			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				fbViseStation[index].Vise.bWorkPosCmd := TRUE;
+				fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			END_IF
 		END_FOR
 		
 		nState := nState + 20;
@@ -151,8 +157,10 @@ CASE nState OF
 	100:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengerek alaphelyzetbe');
 		FOR index := 1 TO 7 BY 1 DO
-			fbViseStation[index].Vise.bWorkPosCmd := FALSE;
-			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				fbViseStation[index].Vise.bWorkPosCmd := FALSE;
+				fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			END_IF
 		END_FOR
 		
 		nState := nState + 10;
@@ -161,18 +169,22 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu alaphelyzetek ellenőrzése');
 		
 		FOR index := 1 TO 7 BY 1 DO
-			IF fbViseStation[index].Vise.bBasePosStab THEN
-				nState := 120;
-			ELSE
-				EXIT;
-			END_IF		
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				IF fbViseStation[index].Vise.bBasePosStab THEN
+					nState := 120;
+				ELSE
+					EXIT;
+				END_IF		
+			END_IF
 		END_FOR
 		
 	120:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengereinek feltöltése ');
 		FOR index := 8 TO 14 BY 1 DO
-			fbViseStation[index].Vise.bWorkPosCmd := TRUE;
-			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				fbViseStation[index].Vise.bWorkPosCmd := TRUE;
+				fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			END_IF
 		END_FOR
 		nState := nState + 20;
 		
@@ -184,8 +196,10 @@ CASE nState OF
 	160:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alaphelyzet felvétel - Satu betolva - Satu hengerek alaphelyzetbe');
 		FOR index := 8 TO 14 BY 1 DO
-			fbViseStation[index].Vise.bWorkPosCmd := FALSE;
-			fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				fbViseStation[index].Vise.bWorkPosCmd := FALSE;
+				fbViseStation[index].Vise.bBasePosCmd := TRUE;
+			END_IF
 		END_FOR
 		
 		nState := nState + 10;
@@ -194,17 +208,21 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu alaphelyzetek ellenőrzése');
 		
 		FOR index := 8 TO 14 BY 1 DO
-			IF fbViseStation[index].Vise.bBasePosStab THEN
-				nState := 180;
-			ELSE
-				EXIT;
-			END_IF		
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				IF fbViseStation[index].Vise.bBasePosStab THEN
+					nState := 180;
+				ELSE
+					EXIT;
+				END_IF		
+			END_IF
 		END_FOR
 		
 	180:	
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF NOT fbViseStation[index].fbVise.bBasePosStab THEN
-				EXIT;
+			IF (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
+				IF NOT fbViseStation[index].fbVise.bBasePosStab THEN
+					EXIT;
+				END_IF
 			END_IF
 		END_FOR
 		IF index = (nMaxIndex + 1) THEN
@@ -228,7 +246,7 @@ CASE nState OF
 {region "Feltöltés"}
 	20000: (*Load*)
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF (aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad) AND (aViseStatus[index].eState <> E_Vise_State.OutForLoad) THEN
+			IF (aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad) AND (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
 				nState := nState + 20;
 				EXIT;
 			END_IF
@@ -307,7 +325,7 @@ CASE nState OF
 {region "Gyártás"}
 	30000: (*In process*)
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF (aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad) AND (aViseStatus[index].eState <> E_Vise_State.OutForLoad) THEN
+			IF (aViseStatus[index].eState = E_Vise_State.Empty OR aViseStatus[index].eState = E_Vise_State.OutForLoad) AND (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
 				nState := nState + 20;
 				EXIT;
 			END_IF
@@ -317,15 +335,13 @@ CASE nState OF
 			nState := 10000;
 		END_IF
 
-
-
 {endregion}
 
 	(*-----=== Kiürítés ===-----*)
 {region "Kiürítés"}		
 	50000: (*Unload*)
 		FOR index := nStartIndex TO nMaxIndex BY 1 DO
-			IF (aViseStatus[index].eState = E_Vise_State.WaitingForUnLoad OR aViseStatus[index].eState = E_Vise_State.OutForUnload) AND (aViseStatus[index].eState <> E_Vise_State.OutForLoad) THEN
+			IF (aViseStatus[index].eState = E_Vise_State.WaitingForUnLoad OR aViseStatus[index].eState = E_Vise_State.OutForUnload) AND (aViseStatus[index].eState <> E_Vise_State.OutOfService) THEN
 				nState := nState + 20;
 				EXIT;
 			END_IF
