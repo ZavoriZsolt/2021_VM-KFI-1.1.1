@@ -40,6 +40,7 @@ VAR	(*Communication with CNC-s*)
 	bStartCNC1					:	BOOL;
 	bStartCNC2					:	BOOL;
 	bStartCNC3					:	BOOL;
+	nPlaceBackFromThisCNC		:	BYTE;
 END_VAR
 VAR // MySQL
 	
@@ -90,6 +91,10 @@ THEN
 END_IF
 
 
+(*Yet, constantly write the offset to the used value, because it is the only needed offset now AT 2023.11.17.*)
+nPosX := 62.5;
+nPosY := (nDimX+4)/2+1;
+
 
 CASE nState OF
 {region "Alaphelyzet felvétel"}
@@ -103,6 +108,7 @@ CASE nState OF
 		bStartCNC1 := FALSE;
 		bStartCNC2 := FALSE;
 		bStartCNC3 := FALSE;	
+		nPlaceBackFromThisCNC := 0;
 			 
 		IF i_bLO1_Main AND NOT bManualMode AND NOT fbRobot.bPendantMode THEN
 			nState := nState + 20;
@@ -132,6 +138,7 @@ CASE nState OF
 		
 		IF stDutData_Cnc1.bDone AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN	//CNC Done, and CNC Door Opened
 			
+			nPlaceBackFromThisCNC := 1;
 			IF fbLift_1A.nTagID = stDutData_Cnc1.nPaletteId THEN	//Decide that what lift should be used
 				ePath := E_CNC_Robot_Path.CNC1_to_Lift1A;
 				nState := 11000;
@@ -144,6 +151,7 @@ CASE nState OF
 			
 		ELSIF stDutData_Cnc2.bDone AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //CNC Done, and CNC Door Opened
 			
+			nPlaceBackFromThisCNC := 2;
 			IF fbLift_2A.nTagID = stDutData_Cnc2.nPaletteId THEN	//Decide that what lift should be used
 				ePath := E_CNC_Robot_Path.CNC2_to_Lift2A;
 				nState := 11000;
@@ -156,6 +164,7 @@ CASE nState OF
 		
 		ELSIF stDutData_Cnc3.bDone AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout))THEN //CNC Done, and CNC Door Opened
 				
+			nPlaceBackFromThisCNC := 3;
 			IF fbLift_3A.nTagID = stDutData_Cnc3.nPaletteId THEN	//Decide that what lift should be used
 				ePath := E_CNC_Robot_Path.CNC3_to_Lift3A;
 				nState := 11000;
@@ -508,15 +517,14 @@ CASE nState OF
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
 			 
 		//Liftek visszaküldése alaphelyzetbe			  
-		IF stDutData_Cnc1.bDone THEN
+		IF nPlaceBackFromThisCNC = 1 THEN
 			stDutData_Cnc1.nState.3 := TRUE;
-		ELSIF stDutData_Cnc2.bDone THEN
+		ELSIF nPlaceBackFromThisCNC = 2 THEN
 			stDutData_Cnc2.nState.3 := TRUE;	
-		ELSIF stDutData_Cnc3.bDone THEN
+		ELSIF nPlaceBackFromThisCNC = 3 THEN
 			stDutData_Cnc3.nState.3 := TRUE; 
 		END_IF			  
-							  
-					   
+							  		   
 		IF NOT fbRobot.bBusy THEN
 			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
 			fb3DCam.ResetCam();
