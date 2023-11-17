@@ -95,6 +95,11 @@ tVisePushTime(IN:= nState = 20060, PT:= T#400MS, Q=> , ET=> );
 (*Fill up time*) 
 tFillUpTime(IN:= (nState = 80) OR (nState = 140), PT:= T#2S, Q=> , ET=> );
 
+
+
+
+aViseStatus[1].eState := E_Vise_State.OutOfService;
+
 CASE nState OF
 	(* Emergency circuit broken - Base state *)
 	0:(* Operation stop - Emergency circuit check *)

@@ -303,7 +303,7 @@ CASE nState OF
 			END_CASE
 		
 			IF bActualCNCProgramNotRunning AND (bActualCNCThreadInBase) THEN
-				IF (CheckForViseStatus(E_Vise_State.InCnc) = 99) AND (CheckForViseStatus(E_Vise_State.CncDone) = 99) AND (CheckForUsedCNCByVise(nUsedCNC) <> nUsedCNC) THEN	//No vise with CncDone and InCNC Status in the requested CNC
+				IF (CheckForViseStatus(E_Vise_State.InCnc) = 99) AND (CheckForViseStatus(E_Vise_State.CncDone) = 99) (*AND (CheckForUsedCNCByVise(nUsedCNC) <> nUsedCNC)*) THEN	//No vise with CncDone and InCNC Status in the requested CNC
 					IF CheckAllViseInSafePos() THEN
 						IF (NOT fbRobot.bBusy) THEN
 							bRobotGoneTowait := FALSE;
@@ -537,7 +537,7 @@ CASE nState OF
 			fbRobot.eCommand := E_Robot_Command.NoCommand;
 			
 			IF bStepEnableViseStation THEN
-				IF (NOT bOverrideCNC5ProgramUse) THEN
+				IF (TRUE) THEN
 					nState := nState + 20;
 				ELSE
 					nState := 13000;
@@ -781,7 +781,7 @@ END_VAR
         <ST><![CDATA[(*Check if all Vises ar in base position*)
 
 FOR i := ViseProgram.nStartIndex TO ViseProgram.nMaxIndex BY 1 DO
-	IF (NOT fbViseStation[i].Vise.bBasePosStab) THEN
+	IF (NOT fbViseStation[i].Vise.bBasePosStab) AND (aViseStatus[1].eState <> E_Vise_State.OutOfService) THEN
 		CheckAllViseInSafePos := FALSE;
 		RETURN;
 	END_IF
