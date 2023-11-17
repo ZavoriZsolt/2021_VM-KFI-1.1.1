@@ -175,6 +175,10 @@ IF 	fbrobot.bError OR
 	bErrorCNC5
 THEN	
 	bError := TRUE;
+ELSE
+	IF bAckP THEN
+		bError := FALSE;
+	END_IF
 END_IF
 
 
@@ -422,7 +426,7 @@ CASE nState OF
 		fbViseStation[nUsedViseIndex].Vise.bBasePosCmd := FALSE;
 		fbViseStation[nUsedViseIndex].Vise.bWorkPosCmd := TRUE;
 		
-		IF fbViseStation[nUsedViseIndex].Vise.bWorkPosStab THEN
+		IF fbViseStation[nUsedViseIndex].Vise.bWorkPosStab OR bAckP THEN
 			IF bStepEnableViseStation THEN
 				nState := nState + 10;
 			END_IF
@@ -658,7 +662,7 @@ CASE nState OF
 		fbViseStation[nUsedViseIndex].Vise.bBasePosCmd := FALSE;
 		fbViseStation[nUsedViseIndex].Vise.bWorkPosCmd := TRUE;
 		
-		IF fbViseStation[nUsedViseIndex].Vise.bWorkPosStab THEN
+		IF fbViseStation[nUsedViseIndex].Vise.bWorkPosStab OR bAckP THEN
 			IF bStepEnableViseStation THEN
 				nState := nState + 20;
 			END_IF
