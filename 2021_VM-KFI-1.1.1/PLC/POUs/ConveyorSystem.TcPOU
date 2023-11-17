@@ -821,6 +821,7 @@ fbRouter_CNC3_puffer(
     <Action Name="Stoppers" Id="{36f9cafc-067f-4f68-8376-0b31a800df4d}">
       <Implementation>
         <ST><![CDATA[fbS24(			(*-----=== Kardex alsó pozíció 2. utáni torlasztás ===-----*)
+	sName := 'Kardex alsó pozíció 2. utáni torlasztás',
 	bNextReady:= fbS19.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -831,6 +832,7 @@ fbRouter_CNC3_puffer(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS24);
 	
 fbS19(			(*-----=== Stopper kiemelő 1A előtt leválogatás ===-----*)
+	sName := 'Stopper kiemelő 1A előtt leválogatás',
 	bNextReady:= fbS1.bReady AND NOT fbS20.bPalletSent AND NOT((fbLift_1A.nState = 10000 OR fbLift_1B.nState = 10000)AND fbS20.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -843,6 +845,7 @@ fbS19(			(*-----=== Stopper kiemelő 1A előtt leválogatás ===-----*)
 (************************************** CNC1 ********************************************)
 (****************************************************************************************)	
 fbS1(			(*-----=== Stopper kiemelő 1A ===-----*)
+	sName := 'Stopper kiemelő 1A',
 	bNextReady:= fbS2.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_1A.nState = 10000 OR fbLift_1A.nState = 12000, 
@@ -851,6 +854,7 @@ fbS1(			(*-----=== Stopper kiemelő 1A ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS1);
 	
 fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
+	sName := 'Stopper kiemelő 1B',
 	bNextReady:= fbS17.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_1B.nState = 10000 OR fbLift_1B.nState = 12000, 
@@ -859,6 +863,7 @@ fbS2(			(*-----=== Stopper kiemelő 1B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS2);
 	
 fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
+	sName := 'CNC1 Puffer, Stopper kiemelő 1B után',
 	bNextReady:= fbRouter_CNC1_puffer.bReady AND NOT fbS16.bPalletSent AND NOT((fbLift_2A.nState = 10000 OR fbLift_2B.nState = 10000)AND fbS16.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -868,6 +873,7 @@ fbS17(			(*-----=== CNC1 Puffer, Stopper kiemelő 1B után===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS17);
 
 fbS20(			(*-----=== CNC1 Puffer küldés ===-----*)
+	sName := 'CNC1 Puffer küldés',
 	bNextReady:= fbS1.bReady AND NOT fbS19.bPalletSent  AND (fbLift_1A.nState = 10000 OR fbLift_1B.nState = 10000), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -881,6 +887,7 @@ fbS20(			(*-----=== CNC1 Puffer küldés ===-----*)
 (************************************** CNC2 ********************************************)
 (****************************************************************************************)	
 fbS3(			(*-----=== Stopper kiemelő 2A ===-----*)
+	sName := 'Stopper kiemelő 2A',
 	bNextReady:= fbS4.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_2A.nState = 10000 OR fbLift_2A.nState = 12000, 
@@ -889,6 +896,7 @@ fbS3(			(*-----=== Stopper kiemelő 2A ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS3);	
 	
 fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
+	sName := 'Stopper kiemelő 2B',
 	bNextReady:= fbS13.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_2B.nState = 10000 OR fbLift_2B.nState = 12000, 
@@ -897,6 +905,7 @@ fbS4(			(*-----=== Stopper kiemelő 2B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS4);
 
 fbS13(			(*-----=== CNC2 Puffer, Stopper kiemelő 2B után===-----*)
+	sName := 'CNC2 Puffer, Stopper kiemelő 2B után',
 	bNextReady:= fbRouter_CNC2_puffer.bReady AND NOT fbS11.bPalletSent AND NOT((fbLift_3A.nState = 10000 OR fbLift_3B.nState = 10000)AND fbS11.i_bPalettSensor), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -906,6 +915,7 @@ fbS13(			(*-----=== CNC2 Puffer, Stopper kiemelő 2B után===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS13);
 
 fbS16(			(*-----=== CNC2 Puffer küldés ===-----*)
+	sName := 'CNC2 Puffer küldés',
 	bNextReady:= fbS3.bReady AND (fbLift_2A.nState = 10000 OR fbLift_2B.nState = 10000), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -921,6 +931,7 @@ fbS16(			(*-----=== CNC2 Puffer küldés ===-----*)
 (************************************** CNC3 ********************************************)
 (****************************************************************************************)		
 fbS5(			(*-----=== Stopper kiemelő 3A ===-----*)
+	sName := 'Stopper kiemelő 3A',
 	bNextReady:= fbS6.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_3A.nState = 10000 OR fbLift_3A.nState = 12000, 
@@ -929,6 +940,7 @@ fbS5(			(*-----=== Stopper kiemelő 3A ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS5);
 	
 fbS6(			(*-----=== Stopper kiemelő 3B ===-----*)
+	sName := 'Stopper kiemelő 3B',
 	bNextReady:= fbS11.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= fbLift_3B.nState = 10000 OR fbLift_3B.nState = 12000, 
@@ -937,6 +949,7 @@ fbS6(			(*-----=== Stopper kiemelő 3B ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS6);
 
 fbS14(
+	sName := 'S14',
 	bNextReady:= fbRouter_CNC1_puffer.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -946,6 +959,7 @@ fbS14(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS14);
 
 fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
+	sName := 'CNC3 Puffer küldés',
 	bNextReady:= fbS5.bReady AND (fbLift_3A.nState = 10000 OR fbLift_3B.nState = 10000), 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -959,6 +973,7 @@ fbS11(			(*-----=== CNC3 Puffer küldés ===-----*)
 (*********************** Alsó konvejor visszahordás *************************************)
 (****************************************************************************************)
 fbS8(			(*-----=== alsó visszahordó 1. torlasztás ===-----*)
+	sName := 'alsó visszahordó 1. torlasztás',
 	bNextReady:= fbS27.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5S, 
@@ -969,6 +984,7 @@ fbS8(			(*-----=== alsó visszahordó 1. torlasztás ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS8);
 
 fbS27(			(*-----=== alsó visszahordó 2. torlasztás ===-----*)
+	sName := 'alsó visszahordó 2. torlasztás',
 	bNextReady:= fbS21.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5S, 
@@ -979,6 +995,7 @@ fbS27(			(*-----=== alsó visszahordó 2. torlasztás ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS27);
 
 fbS29(			(*-----=== alsó visszahordó S19 után 2nd felfogás ===-----*)
+	sName := 'alsó visszahordó S19 után 2nd felfogás',
 	bNextReady:= , 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5S, 
@@ -988,6 +1005,7 @@ fbS29(			(*-----=== alsó visszahordó S19 után 2nd felfogás ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS29);
 
 fbS21(			(*-----=== alsó visszahordó 3. torlasztás ===-----*)
+	sName := 'alsó visszahordó 3. torlasztás',
 	bNextReady:= fbS22.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5S, 
@@ -998,6 +1016,7 @@ fbS21(			(*-----=== alsó visszahordó 3. torlasztás ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS21);
 	
 fbS22(			(*-----=== Kardex alsó pozíció 1. ===-----*)
+	sName := 'Kardex alsó pozíció 1.',
 	bNextReady:= fbS23.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5S, 
@@ -1007,6 +1026,7 @@ fbS22(			(*-----=== Kardex alsó pozíció 1. ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS22);
 	
 fbS23(			(*-----=== Kardex alsó pozíció 2. ===-----*)
+	sName := 'Kardex alsó pozíció 2.',
 	bNextReady:= fbS24.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5S, 
@@ -1019,6 +1039,7 @@ fbS23(			(*-----=== Kardex alsó pozíció 2. ===-----*)
 (************************** Felső konvejor behordás *************************************)
 (****************************************************************************************)
 fbS7(			(*-----=== Operátori pozíció ===-----*)
+	sName := 'Operátori pozíció',
 	bNextReady:= fbS10.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#1s, 
@@ -1028,6 +1049,7 @@ fbS7(			(*-----=== Operátori pozíció ===-----*)
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS7);
 	
 fbS10(
+	sName := 'S10 - Felső konvejor behordás',
 	bNextReady:= fbS9.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -1038,6 +1060,7 @@ fbS10(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS10);
 
 fbS9(
+	sName := 'S09 - Felső konvejor behordás',
 	bNextReady:= fbS18.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -1048,6 +1071,7 @@ fbS9(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS9);
 
 fbS18(
+	sName := 'S18 - Felső konvejor behordás',
 	bNextReady:= fbS15.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#15s, 
@@ -1058,6 +1082,7 @@ fbS18(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS18);
 
 fbS15(
+	sName := 'S15 - Felső konvejor behordás',
 	bNextReady:= fbS26.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#15s, 
@@ -1068,6 +1093,7 @@ fbS15(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS15);
 	
 fbS26(
+	sName := 'S26 - Felső konvejor behordás',
 	bNextReady:= fbS25.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#15s, 
@@ -1078,6 +1104,7 @@ fbS26(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS26);
 
 fbS25(
+	sName := 'S25 - Felső konvejor behordás',
 	bNextReady:= fbS32.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#5s, 
@@ -1088,6 +1115,7 @@ fbS25(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS25);
 	
 fbS32(
+	sName := 'S32 - Felső konvejor behordás',
 	bNextReady:= FALSE, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#1s, 
@@ -1100,6 +1128,7 @@ fbS32(
 (************************** Felső konvejor kihordás *************************************)
 (****************************************************************************************)
 fbS30(
+	sName := 'S30 - Felső konvejor kihordás',
 	bNextReady:= fbS31.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#10s, 
@@ -1110,6 +1139,7 @@ fbS30(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS30);	
 
 fbS31(
+	sName := 'S31 - Felső konvejor kihordás',
 	bNextReady:= fbS12.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#10s, 
@@ -1120,6 +1150,7 @@ fbS31(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS31);	
 
 fbS12(
+	sName := 'S12 - Felső konvejor kihordás',
 	bNextReady:= fbS28.bReady, 
 	bMotorRun:= i_bLO1_Main, 
 	tToNextStopper:= T#15s, 
@@ -1130,6 +1161,7 @@ fbS12(
 	q_bStopperDown=> GVL_ConveyorSystem.q_bS12);
 
 fbS28(			(*-----=== Operátori pozíció Fix nincs vezérelve ===-----*)
+	sName := 'Operátori pozíció Fix nincs vezérelve',
 	bNextReady:= FALSE, 
 	bMotorRun:= i_bLO1_Main, 
 	bStationReady:= TRUE,			// Satuzó állomás paletta kérése 

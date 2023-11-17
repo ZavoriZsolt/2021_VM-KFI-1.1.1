@@ -1,4 +1,4 @@
-﻿<div id="ConveyorStation" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1752" data-tchmi-height="1709">
+﻿<div id="ConveyorStation" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1752" data-tchmi-height="4131">
 <div id="TcHmiContainer" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="967" data-tchmi-height-unit="px" data-tchmi-left="1085" data-tchmi-left-unit="px" data-tchmi-top="83" data-tchmi-top-unit="px" data-tchmi-width="652" data-tchmi-width-unit="px">
 <div id="ConveyorControl_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="145" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/ConveyorControl.usercontrol" data-tchmi-top="20" data-tchmi-top-unit="px" data-tchmi-width="300" data-tchmi-width-unit="px" data-tchmi-conveyor="%s%PLC1.GVL_ConveyorSystem.fbConveyor_1%/s%">
 </div>
@@ -88,5 +88,71 @@
   "color": "rgba(193, 193, 193, 1)"
 }
 </script>
+</div>
+<div id="TcHmiContainer_5" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="2518" data-tchmi-height-unit="px" data-tchmi-left="11" data-tchmi-left-unit="px" data-tchmi-top="1587" data-tchmi-top-unit="px" data-tchmi-width="1702" data-tchmi-width-unit="px">
+<div id="Stopper_2" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="17" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="11" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS1%/s%">
+</div>
+<div id="Stopper_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="377" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="11" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS2%/s%">
+</div>
+<div id="Stopper_4" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="736" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="12" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS3%/s%">
+</div>
+<div id="Stopper_5" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1094" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="12" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS4%/s%">
+</div>
+<div id="Stopper_6" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1095" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="278" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS13%/s%">
+</div>
+<div id="Stopper_7" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="737" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="278" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS7%/s%">
+</div>
+<div id="Stopper_8" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="378" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="277" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS6%/s%">
+</div>
+<div id="Stopper_9" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="18" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="277" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS5%/s%">
+</div>
+<div id="Stopper_10" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1093" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="544" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS22%/s%">
+</div>
+<div id="Stopper_11" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="735" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="544" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS19%/s%">
+</div>
+<div id="Stopper_12" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="376" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="543" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS17%/s%">
+</div>
+<div id="Stopper_13" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="16" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="543" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS14%/s%">
+</div>
+<div id="Stopper_14" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1093" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="811" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS32%/s%">
+</div>
+<div id="Stopper_15" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="735" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="811" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS29%/s%">
+</div>
+<div id="Stopper_16" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="376" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="810" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS28%/s%">
+</div>
+<div id="Stopper_17" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="16" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="810" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS23%/s%">
+</div>
+<div id="Stopper_18" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="16" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1116" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS8%/s%">
+</div>
+<div id="Stopper_19" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="376" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1116" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS9%/s%">
+</div>
+<div id="Stopper_20" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="735" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1117" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS10%/s%">
+</div>
+<div id="Stopper_21" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1093" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1117" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS11%/s%">
+</div>
+<div id="Stopper_22" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1094" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1383" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS18%/s%">
+</div>
+<div id="Stopper_23" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="736" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1383" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS16%/s%">
+</div>
+<div id="Stopper_24" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="377" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1382" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS15%/s%">
+</div>
+<div id="Stopper_25" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="17" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1382" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS12%/s%">
+</div>
+<div id="Stopper_26" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="15" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1648" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS20%/s%">
+</div>
+<div id="Stopper_27" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="375" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1648" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS21%/s%">
+</div>
+<div id="Stopper_28" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="734" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1649" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS24%/s%">
+</div>
+<div id="Stopper_29" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1092" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1649" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS25%/s%">
+</div>
+<div id="Stopper_30" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="1092" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1916" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS31%/s%">
+</div>
+<div id="Stopper_31" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="734" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1916" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS30%/s%">
+</div>
+<div id="Stopper_32" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="375" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1915" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS27%/s%">
+</div>
+<div id="Stopper_33" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="266" data-tchmi-height-unit="px" data-tchmi-left="15" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/Stopper1.usercontrol" data-tchmi-top="1915" data-tchmi-top-unit="px" data-tchmi-width="345" data-tchmi-width-unit="px" data-tchmi-fbstopper1="%s%PLC1.GVL_ConveyorSystem.fbS26%/s%">
+</div>
 </div>
 </div>

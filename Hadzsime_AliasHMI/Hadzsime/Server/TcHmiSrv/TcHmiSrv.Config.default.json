@@ -831,6 +831,278 @@
             },
             "type": "object"
         },
+        "PLC1.FB_Stopper": {
+            "properties": {
+                "bMotorRun": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Pályamotor jár"
+                        }
+                    ]
+                },
+                "bNextReady": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Következõ stopper fogadókész"
+                        }
+                    ]
+                },
+                "bPalletAtStopper": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bPalletSent": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Paletta küldés folyamatban/bekapcsolás"
+                        }
+                    ]
+                },
+                "bReady": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bStationFinished": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Állomás kész, mehet a paletta(ha van a stopperhez)"
+                        }
+                    ]
+                },
+                "bStationReady": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Állomás fogadókész/kiemelõ lent van(ha van a stopperhez)"
+                        }
+                    ]
+                },
+                "fbEmpty": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "fbPalettOut": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "fbPalletInStab": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "fbPalletOutStab": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "fbToNextStopper": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "i_bPalettSensor": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Input"
+                            },
+                            "comment": "Paletta érzékelõ"
+                        }
+                    ]
+                },
+                "q_bStopperDown": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Output"
+                            }
+                        }
+                    ]
+                },
+                "sName": {
+                    "$ref": "tchmi:general#/definitions/STRING%2880%29"
+                },
+                "tPalettOut": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/TIME"
+                        },
+                        {
+                            "comment": "Paletta kiengedéshez"
+                        }
+                    ]
+                },
+                "tPalletInStab": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/TIME"
+                        },
+                        {
+                            "comment": "A stoppernél stabilan van paletta"
+                        }
+                    ]
+                },
+                "tPalletOutStab": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/TIME"
+                        },
+                        {
+                            "comment": "A stoppernél stabilan nincs paletta"
+                        }
+                    ]
+                },
+                "tToNextStopper": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/TIME"
+                        },
+                        {
+                            "comment": "Ennél sûrûbben nem engedhet ki palettát"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "PLC1.FB_Stopper2": {
+            "properties": {
+                "bMotorRun": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Pályamotor jár"
+                        }
+                    ]
+                },
+                "bNextReady": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Következõ stopper fogadókész"
+                        }
+                    ]
+                },
+                "bPalletSent": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Paletta küldés folyamatban/bekapcsolás"
+                        }
+                    ]
+                },
+                "bReady": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bStationFinished": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Állomás kész, mehet a paletta(ha van a stopperhez)"
+                        }
+                    ]
+                },
+                "bStationReady": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Állomás fogadókész/kiemelõ lent van(ha van a stopperhez)"
+                        }
+                    ]
+                },
+                "fbEmpty": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "fbPalettOut": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "fbToNextStopper": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.TON"
+                },
+                "i_bPalettSensor": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Input"
+                            },
+                            "comment": "Paletta érzékelõ"
+                        }
+                    ]
+                },
+                "i_bPalettSensor2": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Input"
+                            },
+                            "comment": "Paletta érzékelõ torlasztási maximum"
+                        }
+                    ]
+                },
+                "q_bStopperDown": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "TcAddressType": "Output"
+                            }
+                        }
+                    ]
+                },
+                "sName": {
+                    "$ref": "tchmi:general#/definitions/STRING%2880%29"
+                },
+                "tPalettOut": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/TIME"
+                        },
+                        {
+                            "comment": "Paletta kiengedéshez"
+                        }
+                    ]
+                },
+                "tToNextStopper": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/TIME"
+                        },
+                        {
+                            "comment": "Ennél sûrûbben nem engedhet ki palettát"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
         "PLC1.FB_Vise_Station": {
             "properties": {
                 "bAck": {
@@ -4028,6 +4300,340 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.GVL_ConveyorSystem.fbS1": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS1",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "comment": "Stoppers"
+                    },
+                    {
+                        "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS10": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS10",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS11": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS11",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS12": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS12",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS13": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS13",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS14": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS14",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS15": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS15",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS16": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS16",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS17": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS17",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS18": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS18",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS19": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS19",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS2": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS2",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS20": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS20",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS21": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS21",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS22": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS22",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS23": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS23",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS24": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS24",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS25": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS25",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS26": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS26",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS27": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS27",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS28": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS28",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "comment": "28 hol faszom sem tudja"
+                    },
+                    {
+                        "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS29": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS29",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS3": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS3",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS30": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS30",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS31": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS31",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS32": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS32",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS4": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS4",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS5": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS5",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS6": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS6",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS7": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS7",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS8": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS8",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL_ConveyorSystem.fbS9": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_ConveyorSystem::fbS9",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_Stopper2"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.GVL_ConveyorSystem.fbZ1": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -5320,6 +5926,38 @@
                 "PLC1.GVL_ConveyorSystem.fbConveyor_7": 3,
                 "PLC1.GVL_ConveyorSystem.fbConveyor_8": 3,
                 "PLC1.GVL_ConveyorSystem.fbConveyor_9": 3,
+                "PLC1.GVL_ConveyorSystem.fbS1": 3,
+                "PLC1.GVL_ConveyorSystem.fbS10": 3,
+                "PLC1.GVL_ConveyorSystem.fbS11": 3,
+                "PLC1.GVL_ConveyorSystem.fbS12": 3,
+                "PLC1.GVL_ConveyorSystem.fbS13": 3,
+                "PLC1.GVL_ConveyorSystem.fbS14": 3,
+                "PLC1.GVL_ConveyorSystem.fbS15": 3,
+                "PLC1.GVL_ConveyorSystem.fbS16": 3,
+                "PLC1.GVL_ConveyorSystem.fbS17": 3,
+                "PLC1.GVL_ConveyorSystem.fbS18": 3,
+                "PLC1.GVL_ConveyorSystem.fbS19": 3,
+                "PLC1.GVL_ConveyorSystem.fbS2": 3,
+                "PLC1.GVL_ConveyorSystem.fbS20": 3,
+                "PLC1.GVL_ConveyorSystem.fbS21": 3,
+                "PLC1.GVL_ConveyorSystem.fbS22": 3,
+                "PLC1.GVL_ConveyorSystem.fbS23": 3,
+                "PLC1.GVL_ConveyorSystem.fbS24": 3,
+                "PLC1.GVL_ConveyorSystem.fbS25": 3,
+                "PLC1.GVL_ConveyorSystem.fbS26": 3,
+                "PLC1.GVL_ConveyorSystem.fbS27": 3,
+                "PLC1.GVL_ConveyorSystem.fbS28": 3,
+                "PLC1.GVL_ConveyorSystem.fbS29": 3,
+                "PLC1.GVL_ConveyorSystem.fbS3": 3,
+                "PLC1.GVL_ConveyorSystem.fbS30": 3,
+                "PLC1.GVL_ConveyorSystem.fbS31": 3,
+                "PLC1.GVL_ConveyorSystem.fbS32": 3,
+                "PLC1.GVL_ConveyorSystem.fbS4": 3,
+                "PLC1.GVL_ConveyorSystem.fbS5": 3,
+                "PLC1.GVL_ConveyorSystem.fbS6": 3,
+                "PLC1.GVL_ConveyorSystem.fbS7": 3,
+                "PLC1.GVL_ConveyorSystem.fbS8": 3,
+                "PLC1.GVL_ConveyorSystem.fbS9": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ1": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ10": 3,
                 "PLC1.GVL_ConveyorSystem.fbZ11": 3,

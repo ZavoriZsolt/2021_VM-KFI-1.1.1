@@ -40,6 +40,22 @@
       "frameworkUserControlConfig": "UserControls\\Stopper.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/Stopper"
+    },
+    "Stopper2": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "UserControls\\Stopper2.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Stopper2"
+    },
+    "Stopper1": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "UserControls\\Stopper1.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Stopper1"
     }
   }
 }

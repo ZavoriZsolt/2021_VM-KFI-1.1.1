@@ -69,7 +69,10 @@
       "url": "UserControls/ViseStation.usercontrol"
     },
     {
-      "url": "UserControls/Stopper.usercontrol"
+      "url": "UserControls/Stopper1.usercontrol"
+    },
+    {
+      "url": "UserControls/Stopper2.usercontrol"
     }
   ],
   "content": [

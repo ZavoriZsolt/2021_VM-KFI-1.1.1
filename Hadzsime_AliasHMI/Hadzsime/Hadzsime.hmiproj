@@ -143,12 +143,19 @@
       <SubType>Content</SubType>
       <DependentUpon>UserControls\RFID_Data.usercontrol</DependentUpon>
     </Content>
-    <Content Include="UserControls\Stopper.usercontrol">
+    <Content Include="UserControls\Stopper2.usercontrol">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UserControls\Stopper.usercontrol.json">
+    <Content Include="UserControls\Stopper2.usercontrol.json">
       <SubType>Content</SubType>
-      <DependentUpon>UserControls\Stopper.usercontrol</DependentUpon>
+      <DependentUpon>UserControls\Stopper2.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="UserControls\Stopper1.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UserControls\Stopper1.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>UserControls\Stopper1.usercontrol</DependentUpon>
     </Content>
     <Content Include="UserControls\ViseStation.usercontrol">
       <SubType>Content</SubType>
