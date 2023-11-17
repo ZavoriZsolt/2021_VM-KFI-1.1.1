@@ -63,10 +63,13 @@
       "url": "UserControls/FB_Bistabil.usercontrol"
     },
     {
+      "url": "UserControls/RFID_Data.usercontrol"
+    },
+    {
       "url": "UserControls/ViseStation.usercontrol"
     },
     {
-      "url": "UserControls/RFID_Data.usercontrol"
+      "url": "UserControls/Stopper.usercontrol"
     }
   ],
   "content": [

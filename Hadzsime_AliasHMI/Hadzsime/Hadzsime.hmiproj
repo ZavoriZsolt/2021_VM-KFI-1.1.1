@@ -143,6 +143,13 @@
       <SubType>Content</SubType>
       <DependentUpon>UserControls\RFID_Data.usercontrol</DependentUpon>
     </Content>
+    <Content Include="UserControls\Stopper.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UserControls\Stopper.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>UserControls\Stopper.usercontrol</DependentUpon>
+    </Content>
     <Content Include="UserControls\ViseStation.usercontrol">
       <SubType>Content</SubType>
     </Content>

@@ -135,92 +135,86 @@ CASE nState OF
 		
 		//Mi van ha megszakad a folyamat valami maitt?  Akkor is jó ha itt kezd? 
 		
-		IF stDutData_Cnc1.bDone AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN	//CNC Done, and CNC Door Opened
+		IF stDutData_Cnc1.bDone AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout)) AND ((fbLift_1A.nTagID = stDutData_Cnc1.nPaletteId)OR(fbLift_1B.nTagID = stDutData_Cnc1.nPaletteId))THEN	//CNC Done, and CNC Door Opened
 			
-			nPlaceBackFromThisCNC := 1;
+			
 			IF fbLift_1A.nTagID = stDutData_Cnc1.nPaletteId THEN	//Decide that what lift should be used
 				ePath := E_CNC_Robot_Path.CNC1_to_Lift1A;
+				nPlaceBackFromThisCNC := 1;
 				nState := 11000;
 			ELSIF fbLift_1B.nTagID = stDutData_Cnc1.nPaletteId THEN
 				ePath := E_CNC_Robot_Path.CNC1_to_Lift1B;
+				nPlaceBackFromThisCNC := 2;
 				nState := 11000;
 			ELSE
 				sState := CONCAT(UDINT_TO_STRING(nState) ,' - Ismeretlen cél lift paletta lerakáskor CNC 1 - Paletta Lift 1 A-B között');
 			END_IF
 			
-		ELSIF stDutData_Cnc2.bDone AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //CNC Done, and CNC Door Opened
+		ELSIF stDutData_Cnc2.bDone AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout)) AND ((fbLift_2A.nTagID = stDutData_Cnc2.nPaletteId)OR(fbLift_2B.nTagID = stDutData_Cnc2.nPaletteId))THEN //CNC Done, and CNC Door Opened
 			
-			nPlaceBackFromThisCNC := 2;
+			
 			IF fbLift_2A.nTagID = stDutData_Cnc2.nPaletteId THEN	//Decide that what lift should be used
 				ePath := E_CNC_Robot_Path.CNC2_to_Lift2A;
+				nPlaceBackFromThisCNC := 3;
 				nState := 11000;
 			ELSIF fbLift_2B.nTagID = stDutData_Cnc2.nPaletteId THEN
 				ePath := E_CNC_Robot_Path.CNC2_to_Lift2B;
+				nPlaceBackFromThisCNC := 4;
 				nState := 11000;
 			ELSE
 				sState := CONCAT(UDINT_TO_STRING(nState) ,' - Ismeretlen cél lift paletta lerakáskor CNC 2 - Paletta Lift 2 A-B között');
 			END_IF
 		
-		ELSIF stDutData_Cnc3.bDone AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout))THEN //CNC Done, and CNC Door Opened
+		ELSIF stDutData_Cnc3.bDone AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) AND ((fbLift_3A.nTagID = stDutData_Cnc3.nPaletteId)OR(fbLift_3B.nTagID = stDutData_Cnc3.nPaletteId))THEN //CNC Done, and CNC Door Opened
 				
 			nPlaceBackFromThisCNC := 3;
 			IF fbLift_3A.nTagID = stDutData_Cnc3.nPaletteId THEN	//Decide that what lift should be used
 				ePath := E_CNC_Robot_Path.CNC3_to_Lift3A;
+				nPlaceBackFromThisCNC := 5;
 				nState := 11000;
 			ELSIF fbLift_3B.nTagID = stDutData_Cnc3.nPaletteId THEN
 				ePath := E_CNC_Robot_Path.CNC3_to_Lift3B;
+				nPlaceBackFromThisCNC := 6;
 				nState := 11000;
 			ELSE
 				sState := CONCAT(UDINT_TO_STRING(nState) ,' - Ismeretlen cél lift paletta lerakáskor CNC 3 - Paletta Lift 3 A-B között');
 			END_IF	
 			
 		
-		ELSIF  (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_1A.nTagID].nState.1 THEN	//Lifted, wait for CNC
+		ELSIF  (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout)) AND (GVL_Palette.arrPalette[fbLift_1A.nTagID].nState = 3) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 		 		stDutData_Cnc1 := GVL_Palette.arrPalette[fbLift_1A.nTagID];
 				ePath := E_CNC_Robot_Path.Lift1A_to_CNC1;
 				bStartCNC1 := TRUE;
 				nState := 11000;
-			END_IF
-		ELSIF  (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_1B.nTagID].nState.1 THEN	
+		ELSIF  (NOT CNC_1.bCNCRunning) AND (CNC_1.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_1.bCNCHandshakeTimeout)) AND (GVL_Palette.arrPalette[fbLift_1B.nTagID].nState = 3 ) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 		 		stDutData_Cnc1 := GVL_Palette.arrPalette[fbLift_1B.nTagID];
 				ePath := E_CNC_Robot_Path.Lift1B_to_CNC1;
 				bStartCNC1 := TRUE;
 				nState := 11000;
-			END_IF
 			
 			
-		ELSIF  (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_2A.nTagID].nState.1 THEN
+		ELSIF  (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout)) AND (GVL_Palette.arrPalette[fbLift_2A.nTagID].nState = 3)THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 		 		stDutData_Cnc2 := GVL_Palette.arrPalette[fbLift_2A.nTagID];
 				ePath := E_CNC_Robot_Path.Lift2A_to_CNC2;
 				bStartCNC2 := TRUE;
 				nState := 11000;
-			END_IF
-		ELSIF  (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout))THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_2B.nTagID].nState.1 THEN
+		ELSIF  (NOT CNC_2.bCNCRunning) AND (CNC_2.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_2.bCNCHandshakeTimeout)) AND (GVL_Palette.arrPalette[fbLift_2B.nTagID].nState = 3)THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 		 		stDutData_Cnc2 := GVL_Palette.arrPalette[fbLift_2B.nTagID];
 				ePath := E_CNC_Robot_Path.Lift2B_to_CNC2;
 				bStartCNC2 := TRUE;
 				nState := 11000;
-			END_IF
 			
 			
-		ELSIF  (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_3A.nTagID].nState.1 THEN
+		ELSIF  (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) AND (GVL_Palette.arrPalette[fbLift_3A.nTagID].nState = 3) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 		 		stDutData_Cnc3 := GVL_Palette.arrPalette[fbLift_3A.nTagID];
 				ePath := E_CNC_Robot_Path.Lift3A_to_CNC3;
 				bStartCNC3 := TRUE;
 				nState := 11000;
-			END_IF
-		ELSIF  (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
-			IF GVL_Palette.arrPalette[fbLift_3B.nTagID].nState.1 THEN
+		ELSIF  (NOT CNC_3.bCNCRunning) AND (CNC_3.stCNC_Data^.DoorControl_DoorOpened AND (NOT CNC_3.bCNCHandshakeTimeout)) AND (GVL_Palette.arrPalette[fbLift_3B.nTagID].nState = 3) THEN //Pallet is at the stopper, CNC not running, CNC door is opened
 		 		stDutData_Cnc3 := GVL_Palette.arrPalette[fbLift_3B.nTagID];
 				ePath := E_CNC_Robot_Path.Lift3B_to_CNC3;
 				bStartCNC3 := TRUE;
 				nState := 11000;
-			END_IF
 		END_IF
 		
 
@@ -515,16 +509,38 @@ CASE nState OF
 	30060:		(*-----=== Várakozás Robotmozgásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozáas robot mozgásra');
 			 
-		//Liftek visszaküldése alaphelyzetbe			  
-		IF nPlaceBackFromThisCNC = 1 THEN
-			stDutData_Cnc1.nState.3 := TRUE;
-		ELSIF nPlaceBackFromThisCNC = 2 THEN
-			stDutData_Cnc2.nState.3 := TRUE;	
-		ELSIF nPlaceBackFromThisCNC = 3 THEN
-			stDutData_Cnc3.nState.3 := TRUE; 
-		END_IF			  
-							  		   
 		IF NOT fbRobot.bBusy THEN
+					   
+			//Liftek visszaküldése alaphelyzetbe			  
+			IF nPlaceBackFromThisCNC = 1 THEN
+				stDutData_Cnc1.nState.3 := TRUE;
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nState.3 := TRUE;
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nTarget := 7;
+			ELSIF nPlaceBackFromThisCNC = 2 THEN
+				stDutData_Cnc1.nState.3 := TRUE;	
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nState.3 := TRUE;
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nTarget := 7;
+					 
+			ELSIF nPlaceBackFromThisCNC = 3 THEN
+				stDutData_Cnc2.nState.3 := TRUE; 
+				GVL_Palette.arrPalette[stDutData_Cnc2.nPaletteId].nState.3 := TRUE;
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nTarget := 7;
+			ELSIF nPlaceBackFromThisCNC = 4 THEN
+				stDutData_Cnc2.nState.3 := TRUE; 
+				GVL_Palette.arrPalette[stDutData_Cnc2.nPaletteId].nState.3 := TRUE;
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nTarget := 7;
+					 
+			ELSIF nPlaceBackFromThisCNC = 5 THEN
+				stDutData_Cnc3.nState.3 := TRUE; 
+				GVL_Palette.arrPalette[stDutData_Cnc3.nPaletteId].nState.3 := TRUE;
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nTarget := 7;
+			ELSIF nPlaceBackFromThisCNC = 6 THEN
+				stDutData_Cnc3.nState.3 := TRUE; 
+				GVL_Palette.arrPalette[stDutData_Cnc3.nPaletteId].nState.3 := TRUE;
+				GVL_Palette.arrPalette[stDutData_Cnc1.nPaletteId].nTarget := 7;
+			END_IF			  
+							  		   
+		
 			fbRobot.eCommand := E_CNC_Robot_Command.NoCommand;
 			fb3DCam.ResetCam();
 			nState := nState + 20;
@@ -632,7 +648,7 @@ fbGripperPos2(
 (*-----=== Hand shake jelek kezelése ===-----*)
 fbRobot.bCNC_1_Reset := 			fbRobot.bCNC_1_Set AND				// 05.1	Robot CNC-1-be menne
 									i_bRobotDoorOpened_CNC1 AND
-									CNC_1.nState = 11100;
+									CNC_1.nState = 11100 OR CNC_1.nState = 12000;
 
 fbRobot.bCNC_1_ViseClose_Reset := 	fbRobot.bCNC_1_ViseClose_Set AND	// 05.2	Robot CNC-1 satu zárásra vár
 									CNC_1.nState = 11300;

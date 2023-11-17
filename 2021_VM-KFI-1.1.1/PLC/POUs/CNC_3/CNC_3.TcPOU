@@ -276,7 +276,7 @@ CASE nState OF
 	
 	11500:		(*-----=== Várakozás CAM program végére ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás CAM program végére');
-		IF stCNC_Data^.CurentState_Program = 'Finished' THEN
+		IF stCNC_Data^.CurentState_Program = 'Finished' OR stCNC_Data^.CurentState_Program = 'Idle' THEN
 			IF bStepEnable THEN	
 				stCNC_Data^.DoorControl_CloseDoor := FALSE;
 				nState := nState + 20;

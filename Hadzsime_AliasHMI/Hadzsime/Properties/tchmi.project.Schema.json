@@ -32,6 +32,14 @@
       "frameworkUserControlConfig": "UserControls\\RFID_Data.usercontrol.json",
       "id": "tchmi:project#/definitions/RFID_Data",
       "type": "object"
+    },
+    "Stopper": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "UserControls\\Stopper.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Stopper"
     }
   }
 }
