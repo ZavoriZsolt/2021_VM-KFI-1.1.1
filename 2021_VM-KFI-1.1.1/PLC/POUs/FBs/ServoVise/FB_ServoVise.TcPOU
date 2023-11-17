@@ -255,7 +255,7 @@ CASE nState OF
 			nState := 250000;
 		ELSIF (lrVisePosition < 0) AND bVisePosValid THEN						// Minimális pozíció elérve -> Hiba
 			nState := 250000;
-		ELSIF (nRealVisePos < (lrTargetDistance - 4)) THEN						// Satupozíció 4mm-el kissebb mint a nominál méret -> Hiba
+		ELSIF (nRealVisePos < (lrTargetDistance - 6)) THEN						// Satupozíció 4mm-el kissebb mint a nominál méret -> Hiba
 			nState := 250000;
 		END_IF	
 	

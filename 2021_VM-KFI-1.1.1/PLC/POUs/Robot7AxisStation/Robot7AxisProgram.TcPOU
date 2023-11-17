@@ -228,20 +228,20 @@ CASE nState OF
 												nProgNr := 1;
 												fbRobot.nCncNumber := 1;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_1A;
-//												stDutData_Cnc1.nDimX := nDimX;
-//												stDutData_Cnc1.nDimY := nDimY;
-//												stDutData_Cnc1.nDimZ := nDimZ;
-//												stDutData_Cnc1.nPosX := nPosX;
-//												stDutData_Cnc1.nPosY := nPosY;
-//												stDutData_Cnc1.nWeight := nWeight;
-//												stDutData_Cnc1.nTorque := nTorque;
+												nDimX := stDutData_Cnc1.nDimX;
+												nDimY := stDutData_Cnc1.nDimY;
+												nDimZ := stDutData_Cnc1.nDimZ;
+												nPosX := stDutData_Cnc1.nPosX;
+												nPosY := stDutData_Cnc1.nPosY;
+												nWeight := stDutData_Cnc1.nWeight;
+												nTorque := stDutData_Cnc1.nTorque;
 //												stDutData_Cnc1.nDutId := 1;
 												nState := 20000;
 			E_CNC_Robot_Path.CNC1_to_Lift1A:
 												fbRobot.nCncNumber := 1;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_1A;
-												fbRobot.nOffset_X := stDutData_Cnc1.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc1.nPosY;
+												fbRobot.nOffset_X := nPosX;
+												fbRobot.nOffset_Y := nPosY;
 												fbRobot.nWeight := stDutData_Cnc1.nWeight;	
 												nState := 30000;
 
@@ -249,21 +249,21 @@ CASE nState OF
 												nProgNr := 2;
 												fbRobot.nCncNumber := 1;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_1B;
-//												stDutData_Cnc1.nDimX := nDimX;
-//												stDutData_Cnc1.nDimY := nDimY;
-//												stDutData_Cnc1.nDimZ := nDimZ;
-//												stDutData_Cnc1.nPosX := nPosX;
-//												stDutData_Cnc1.nPosY := nPosY;
-//												stDutData_Cnc1.nWeight := nWeight;
-//												stDutData_Cnc1.nTorque := nTorque;
+												nDimX := stDutData_Cnc1.nDimX;
+												nDimY := stDutData_Cnc1.nDimY;
+												nDimZ := stDutData_Cnc1.nDimZ;
+												nPosX := stDutData_Cnc1.nPosX;
+												nPosY := stDutData_Cnc1.nPosY;
+												nWeight := stDutData_Cnc1.nWeight;
+												nTorque := stDutData_Cnc1.nTorque;
 //												stDutData_Cnc1.nDutId := 1;
 												nState := 20000;
 
 			E_CNC_Robot_Path.CNC1_to_Lift1B:
 												fbRobot.nCncNumber := 1;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_1B;
-												fbRobot.nOffset_X := stDutData_Cnc1.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc1.nPosY;
+												fbRobot.nOffset_X := nPosX;
+												fbRobot.nOffset_Y := nPosY;
 												fbRobot.nWeight := stDutData_Cnc1.nWeight;
 												nState := 30000;
 													 
@@ -273,45 +273,45 @@ CASE nState OF
 																		 
 													 
 			E_CNC_Robot_Path.Lift2A_to_CNC2:
-												nProgNr := 1;
+												nProgNr := 3;
 												fbRobot.nCncNumber := 2;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_2A;
-//												stDutData_Cnc2.nDimX := nDimX;
-//												stDutData_Cnc2.nDimY := nDimY;
-//												stDutData_Cnc2.nDimZ := nDimZ;
-//												stDutData_Cnc2.nPosX := nPosX;
-//												stDutData_Cnc2.nPosY := nPosY;
-//												stDutData_Cnc2.nWeight := nWeight;
-//												stDutData_Cnc2.nTorque := nTorque;
+												nDimX := stDutData_Cnc2.nDimX;
+												nDimY := stDutData_Cnc2.nDimY;
+												nDimZ := stDutData_Cnc2.nDimZ;
+												nPosX := stDutData_Cnc2.nPosX;
+												nPosY := stDutData_Cnc2.nPosY;
+												nWeight := stDutData_Cnc2.nWeight;
+												nTorque := stDutData_Cnc2.nTorque;
 //												stDutData_Cnc2.nDutId := 1;
 												nState := 20000;
 			E_CNC_Robot_Path.CNC2_to_Lift2A:
 												fbRobot.nCncNumber := 2;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_2A;
-												fbRobot.nOffset_X := stDutData_Cnc2.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc2.nPosY;
+												fbRobot.nOffset_X := nPosX;
+												fbRobot.nOffset_Y := nPosY;
 												fbRobot.nWeight := stDutData_Cnc2.nWeight;	
 												nState := 30000;
 
 			E_CNC_Robot_Path.Lift2B_to_CNC2:
-												nProgNr := 2;
+												nProgNr := 4;
 												fbRobot.nCncNumber := 2;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_2B;
-//												stDutData_Cnc2.nDimX := nDimX;
-//												stDutData_Cnc2.nDimY := nDimY;
-//												stDutData_Cnc2.nDimZ := nDimZ;
-//												stDutData_Cnc2.nPosX := nPosX;
-//												stDutData_Cnc2.nPosY := nPosY;
-//												stDutData_Cnc2.nWeight := nWeight;
-//												stDutData_Cnc2.nTorque := nTorque;
+												nDimX := stDutData_Cnc2.nDimX;
+												nDimY := stDutData_Cnc2.nDimY;
+												nDimZ := stDutData_Cnc2.nDimZ;
+												nPosX := stDutData_Cnc2.nPosX;
+												nPosY := stDutData_Cnc2.nPosY;
+												nWeight := stDutData_Cnc2.nWeight;
+												nTorque := stDutData_Cnc2.nTorque;
 //												stDutData_Cnc2.nDutId := 1;
 												nState := 20000;
 
 			E_CNC_Robot_Path.CNC2_to_Lift2B:
 												fbRobot.nCncNumber := 2;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_2B;
-												fbRobot.nOffset_X := stDutData_Cnc2.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc2.nPosY;
+												fbRobot.nOffset_X := nPosX;
+												fbRobot.nOffset_Y := nPosY;
 												fbRobot.nWeight := stDutData_Cnc2.nWeight;
 												nState := 30000;
 													 
@@ -322,45 +322,45 @@ CASE nState OF
 																			  
 																				   
 			E_CNC_Robot_Path.Lift3A_to_CNC3:
-												nProgNr := 1;
+												nProgNr := 5;
 												fbRobot.nCncNumber := 3;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_3A;
-//												stDutData_Cnc3.nDimX := nDimX;
-//												stDutData_Cnc3.nDimY := nDimY;
-//												stDutData_Cnc3.nDimZ := nDimZ;
-//												stDutData_Cnc3.nPosX := nPosX;
-//												stDutData_Cnc3.nPosY := nPosY;
-//												stDutData_Cnc3.nWeight := nWeight;
-//												stDutData_Cnc3.nTorque := nTorque;
+												nDimX := stDutData_Cnc3.nDimX;
+												nDimY := stDutData_Cnc3.nDimY;
+												nDimZ := stDutData_Cnc3.nDimZ;
+												nPosX := stDutData_Cnc3.nPosX;
+												nPosY := stDutData_Cnc3.nPosY;
+												nWeight := stDutData_Cnc3.nWeight;
+												nTorque := stDutData_Cnc3.nTorque;
 //												stDutData_Cnc3.nDutId := 1;
 												nState := 20000;
 			E_CNC_Robot_Path.CNC3_to_Lift3A:
 												fbRobot.nCncNumber := 3;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_3A;
-												fbRobot.nOffset_X := stDutData_Cnc3.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc3.nPosY;
+												fbRobot.nOffset_X := nPosX;
+												fbRobot.nOffset_Y := nPosY;
 												fbRobot.nWeight := stDutData_Cnc3.nWeight;	
 												nState := 30000;
 
 			E_CNC_Robot_Path.Lift3B_to_CNC3:
-												nProgNr := 2;
+												nProgNr := 6;
 												fbRobot.nCncNumber := 3;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_3B;
-//												stDutData_Cnc3.nDimX := nDimX;
-//												stDutData_Cnc3.nDimY := nDimY;
-//												stDutData_Cnc3.nDimZ := nDimZ;
-//												stDutData_Cnc3.nPosX := nPosX;
-//												stDutData_Cnc3.nPosY := nPosY;
-//												stDutData_Cnc3.nWeight := nWeight;
-//												stDutData_Cnc3.nTorque := nTorque;
+												nDimX := stDutData_Cnc3.nDimX;
+												nDimY := stDutData_Cnc3.nDimY;
+												nDimZ := stDutData_Cnc3.nDimZ;
+												nPosX := stDutData_Cnc3.nPosX;
+												nPosY := stDutData_Cnc3.nPosY;
+												nWeight := stDutData_Cnc3.nWeight;
+												nTorque := stDutData_Cnc3.nTorque;
 //												stDutData_Cnc3.nDutId := 1;
 												nState := 20000;
 
 			E_CNC_Robot_Path.CNC3_to_Lift3B:
 												fbRobot.nCncNumber := 3;
 												fbRobot.eLifterNumber := E_Lifter.Lifter_3B;
-												fbRobot.nOffset_X := stDutData_Cnc3.nPosX;
-												fbRobot.nOffset_Y := stDutData_Cnc3.nPosY;
+												fbRobot.nOffset_X := nPosX;
+												fbRobot.nOffset_Y := nPosY;
 												fbRobot.nWeight := stDutData_Cnc3.nWeight;
 												nState := 30000;
 		END_CASE

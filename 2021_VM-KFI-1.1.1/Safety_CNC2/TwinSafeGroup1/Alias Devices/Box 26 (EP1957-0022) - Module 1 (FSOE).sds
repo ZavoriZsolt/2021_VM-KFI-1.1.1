@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SafetyDeviceDesc Crc="1191377500" FileFormatVersion="1.8">
+<SafetyDeviceDesc Crc="661112105" FileFormatVersion="1.8">
   <AliasDeviceType>
     <Type>4</Type>
     <SubType>526245</SubType>
@@ -27,7 +27,7 @@
       <Param Index="32768" SubIndex="1">00</Param>
       <Param Index="32768" SubIndex="2">01</Param>
       <Param Index="32768" SubIndex="3">00</Param>
-      <Param Index="32768" SubIndex="4">01</Param>
+      <Param Index="32768" SubIndex="4">00</Param>
       <Param Index="32768" SubIndex="7">01</Param>
       <Param Index="32784" SubIndex="1">00</Param>
       <Param Index="32784" SubIndex="2">01</Param>
@@ -46,27 +46,27 @@
       <Param Index="32816" SubIndex="7">01</Param>
       <Param Index="32832" SubIndex="1">00</Param>
       <Param Index="32832" SubIndex="2">01</Param>
-      <Param Index="32832" SubIndex="4">01</Param>
+      <Param Index="32832" SubIndex="4">00</Param>
       <Param Index="32832" SubIndex="5">01</Param>
-      <Param Index="32832" SubIndex="12">01</Param>
+      <Param Index="32832" SubIndex="12">0A</Param>
       <Param Index="32833" SubIndex="1">0A00</Param>
       <Param Index="32833" SubIndex="2">0200</Param>
       <Param Index="32833" SubIndex="4">0A00</Param>
       <Param Index="32833" SubIndex="5">0200</Param>
       <Param Index="32848" SubIndex="1">00</Param>
       <Param Index="32848" SubIndex="2">01</Param>
-      <Param Index="32848" SubIndex="4">01</Param>
+      <Param Index="32848" SubIndex="4">00</Param>
       <Param Index="32848" SubIndex="5">01</Param>
-      <Param Index="32848" SubIndex="12">01</Param>
+      <Param Index="32848" SubIndex="12">0A</Param>
       <Param Index="32849" SubIndex="1">0A00</Param>
       <Param Index="32849" SubIndex="2">0200</Param>
       <Param Index="32849" SubIndex="4">0A00</Param>
       <Param Index="32849" SubIndex="5">0200</Param>
       <Param Index="32864" SubIndex="1">00</Param>
       <Param Index="32864" SubIndex="2">01</Param>
-      <Param Index="32864" SubIndex="4">01</Param>
+      <Param Index="32864" SubIndex="4">00</Param>
       <Param Index="32864" SubIndex="5">01</Param>
-      <Param Index="32864" SubIndex="12">01</Param>
+      <Param Index="32864" SubIndex="12">0A</Param>
       <Param Index="32865" SubIndex="1">0A00</Param>
       <Param Index="32865" SubIndex="2">0200</Param>
       <Param Index="32865" SubIndex="4">0A00</Param>

@@ -219,7 +219,7 @@ CASE nState OF
 
 	11100:		(*-----=== Várakozás alapanyag berakásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alapanyag berakás');
-		IF Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+		IF Robot7AxisProgram.fbRobot.bZoneCnc3 THEN
 			IF bStepEnable THEN
 				stDutData_Cnc3.bDutInVise := TRUE;
 				nState := 11200;
@@ -228,7 +228,7 @@ CASE nState OF
 
 	11200:		(*-----=== Várakozás robot távozásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Várakozás robot távozásra');
-		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc3 THEN
 			IF bStepEnable THEN
 				nState := 11300;
 			END_IF
@@ -330,7 +330,7 @@ CASE nState OF
 	(****************************************************************************************)	
 	12000:		(*-----=== Várakozás alapanyag kivételre ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Alapanyag kivétel');
-		IF Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+		IF Robot7AxisProgram.fbRobot.bZoneCnc3 THEN
 			IF bStepEnable THEN
 				nState := 12100;
 			END_IF
@@ -338,7 +338,7 @@ CASE nState OF
 	
 	12100:		(*-----=== Várakozás robot távozásra ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Satu rögzítése');
-		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc1 THEN
+		IF NOT Robot7AxisProgram.fbRobot.bZoneCnc3 THEN
 			IF bStepEnable THEN
 				stDutData_Cnc3.bDutInVise := FALSE;
 				stDutData_Cnc3.nDutId := 0;
