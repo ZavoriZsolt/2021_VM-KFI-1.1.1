@@ -15,8 +15,9 @@ VAR CONSTANT
 	iLastStatesMax				: INT := 500;
 END_VAR
 VAR //LastStates
-	anLastStates				:ARRAY[0..iLastStatesMax] OF UDINT;
-    iLastStates					:INT;
+	anLastStates				: ARRAY[0..iLastStatesMax] OF UDINT;
+    iLastStates					: INT;
+	
 END_VAR
 VAR (* Operator *)
 	arRobotEvents				: ARRAY [0..15] OF TcEventEntry;
@@ -26,6 +27,7 @@ VAR (* Test variables *)
 	PaletteId					: INT;
 	tRFID_Timeout				: TON;
 	nLastTarget					: UINT := 5;
+	stInitDutData				: ST_Dut_Data := (nDutId := 1, sSerNr := 'VM_2023_11_123', nPaletteId := 1, nDimX := 40, nDimY := 45, nDimZ := 30, nTorque := 35, nWeight := 200, bPass := TRUE, nState := 1, nTarget := 1);
 END_VAR
 VAR // MySQL
 	
@@ -117,22 +119,9 @@ CASE nState OF
 		IF nLastTarget > 5 THEN
 			nLastTarget := 1;
 		END_IF
-		GVL_Palette.arrPalette[PaletteId].nDutId := 1;
-		GVL_Palette.arrPalette[PaletteId].sSerNr := 'VM001234';
-		GVL_Palette.arrPalette[PaletteId].nPaletteId := PaletteId;
-		GVL_Palette.arrPalette[PaletteId].nCamFileId := 0;
-		GVL_Palette.arrPalette[PaletteId].nDimX := 40;
-		GVL_Palette.arrPalette[PaletteId].nDimY := 45;
-		GVL_Palette.arrPalette[PaletteId].nDimZ := 30;
-		GVL_Palette.arrPalette[PaletteId].nPosX := 0;
-		GVL_Palette.arrPalette[PaletteId].nPosX := 0;
-		GVL_Palette.arrPalette[PaletteId].nTorque := 35;
-		GVL_Palette.arrPalette[PaletteId].nWeight := 200;
-		GVL_Palette.arrPalette[PaletteId].bPass := TRUE;
-		GVL_Palette.arrPalette[PaletteId].bDutInVise := FALSE;
-		GVL_Palette.arrPalette[PaletteId].bDone := FALSE;
-		GVL_Palette.arrPalette[PaletteId].nState := 1;
-		GVL_Palette.arrPalette[PaletteId].nTarget := nLastTarget;
+		stInitDutData.nPaletteId := PaletteId;
+		stInitDutData.nTarget := nLastTarget;
+		GVL_Palette.arrPalette[PaletteId] := stInitDutData;
 		nState := nState + 20;
 
 	11040:		(*-----=== Várakozás paletta indításra ===-----*)

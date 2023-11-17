@@ -3135,18 +3135,18 @@ External Setpoint Generation:
 		<System>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="01194492">
-					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
-					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
 					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
+					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
+					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 					<ManualSelect>{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</ManualSelect>
-					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
-					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
-					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
 					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
+					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
+					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
+					<TargetSelect TargetId="2">{92583661-35AE-45CE-BD4F-C35BFE16F07E}</TargetSelect>
 					<TargetSelect TargetId="2">{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</TargetSelect>
-					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
 					<TargetSelect TargetId="2">{520DE751-9DB6-47CB-8240-BD5C466E7E64}</TargetSelect>
+					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302004e" DongleLevel="70" DongleSystemId="{BE4209AF-5A1D-9803-878A-435C4A2270DC}" DongleSerialNumber="000bph10"/>
 				</Target>
 			</Licenses>
@@ -3613,7 +3613,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{7970A53C-DBC8-BBA9-3D59-4C1D8DC776AF}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{C77663A9-4E2C-77A2-1855-7F60168002CC}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3667,6 +3667,51 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_bCaptron</Name>
 							<Comment><![CDATA[ Operator Captron]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS8.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS8.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS9.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS9.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS1.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS2.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS3.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS4.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS5.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -3777,246 +3822,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.i_bVisePos1RequestBtn</Name>
 							<Comment><![CDATA[ Satu kérés 1-7]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS1.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS2.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS3.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS4.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS5.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS6.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS7.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS8.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS8.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS9.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS9.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS10.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS10.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS12.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS12.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS13.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS14.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS17.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS19.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS21.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS21.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS22.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS23.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS25.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS25.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS27.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS27.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS28.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS29.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS30.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS30.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS31.i_bPalettSensor</Name>
-							<Comment><![CDATA[Paletta érzékelő]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS31.i_bPalettSensor2</Name>
-							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS32.i_bPalettSensor</Name>
-							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -4282,6 +4087,36 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_ConveyorSystem.fbConveyor_11.i_bConveyorOK</Name>
 							<Comment><![CDATA[Conveyor drive OK - motorindító üzemkész]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS6.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS10.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS10.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS7.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS11.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -5286,6 +5121,171 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_ConveyorSystem.fbS12.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS12.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS13.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS14.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS15.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS16.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS17.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS18.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS19.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS20.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS21.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS21.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS22.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS23.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS24.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS25.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS25.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS26.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS27.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS27.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS28.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS29.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS30.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS30.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS31.i_bPalettSensor</Name>
+							<Comment><![CDATA[Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS31.i_bPalettSensor2</Name>
+							<Comment><![CDATA[Paletta érzékelő torlasztási maximum]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS32.i_bPalettSensor</Name>
+							<Comment><![CDATA[ Paletta érzékelő]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>RobotKardexProgram.fbRobot.RobotIn.aStdIn</Name>
 							<Type GUID="{06996938-A0CC-D594-2D93-F13C682B876A}">ARRAY [1..32] OF UINT</Type>
 						</Var>
@@ -5431,6 +5431,34 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.q_bCaptronLED</Name>
 							<Comment><![CDATA[ Operator Captron LED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS8.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS9.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS1.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS2.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS3.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS4.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS5.q_bStopperDown</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -5729,134 +5757,6 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL_ConveyorSystem.q_bS32</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS1.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS2.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS3.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS4.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS5.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS6.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS7.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS8.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS9.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS10.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS11.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS12.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS13.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS14.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS15.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS16.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS17.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS18.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS19.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS20.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS21.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS22.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS23.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS24.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS25.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS26.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS27.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS28.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS29.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS30.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS31.q_bStopperDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_ConveyorSystem.fbS32.q_bStopperDown</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -6232,6 +6132,22 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_ConveyorSystem.fbConveyor_11.q_bConveyorRst</Name>
 							<Comment><![CDATA[ Motor reset signal - Motor hibatörlés]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS6.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS10.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS7.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS11.q_bStopperDown</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -6941,6 +6857,90 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_Safety.q_bSafetyErrorAck_Main</Name>
 							<Comment><![CDATA[ Safety ack]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS12.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS13.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS14.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS15.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS16.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS17.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS18.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS19.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS20.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS21.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS22.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS23.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS24.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS25.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS26.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS27.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS28.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS29.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS30.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS31.q_bStopperDown</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_ConveyorSystem.fbS32.q_bStopperDown</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -26136,10 +26136,7 @@ External Setpoint Generation:
 				</Image>
 				<Box Id="96" BoxType="9121">
 					<Name>rfm1</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -26648,10 +26645,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="97" BoxType="9121">
 					<Name>rfm2</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27162,10 +27156,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="98" BoxType="9121">
 					<Name>rfm3</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -27676,10 +27667,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="99" BoxType="9121">
 					<Name>rfm4</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28190,10 +28178,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="100" BoxType="9121">
 					<Name>rfm5</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -28704,10 +28689,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="101" BoxType="9121">
 					<Name>rfm6</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29218,10 +29200,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="102" BoxType="9121">
 					<Name>rfm7</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -29732,10 +29711,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="103" BoxType="9121">
 					<Name>rfm8</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -30246,10 +30222,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="104" BoxType="9121">
 					<Name>rfm9</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060
@@ -30760,10 +30733,7 @@ Submodule Info: In / Out Daten
 				</Box>
 				<Box Id="105" BoxType="9121">
 					<Name>rfm10</Name>
-					<Comment><![CDATA[
-The GSDML is not available!
-
-GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.2-Bosch_Rexroth_ID200_C-ETH-20161103.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Bosch Rexroth
 OrderNumber: 3842410060

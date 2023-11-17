@@ -128,9 +128,8 @@ CASE nState OF
 	 
 
 	10000:
-		//nState := 10500;
-		nState := 10501;
-	
+		nState := 10500;
+		
 	10500:	
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta kivétel-beküldés ellenőrzés');
 		

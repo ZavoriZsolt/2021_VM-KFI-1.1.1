@@ -3,6 +3,7 @@
   <POU Name="FB_Stopper2" Id="{1e519197-e74e-47ea-b26e-ab56df4d6d70}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Stopper2
 VAR_INPUT
+	sName				:STRING;
 	bNextReady			:BOOL;			(*Következő stopper fogadókész*)
 	bMotorRun			:BOOL;			(*Pályamotor jár*)
 	tToNextStopper		:TIME := T#5S;	(*Ennél sűrűbben nem engedhet ki palettát*)
