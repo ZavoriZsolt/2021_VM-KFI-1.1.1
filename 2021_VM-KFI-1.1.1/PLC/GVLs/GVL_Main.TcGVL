@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <GVL Name="GVL_Main" Id="{3b5d4a0b-a75d-4b2d-96e2-aa85a6e849c2}">
     <Declaration><![CDATA[VAR_GLOBAL
 	// Blink

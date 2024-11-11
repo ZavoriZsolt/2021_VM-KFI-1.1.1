@@ -2,9 +2,9 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{E3312171-D384-1133-5D7E-D1F459A05617}</SystemId>
-		<IssueTime>2023-11-10T10:56:00</IssueTime>
-		<ExpireTime>2023-11-18T00:00:00</ExpireTime>
-		<LicenseKey>58621b8ce5447788f32d581aa82c2dcf3ade364f79bd508e5870c15029327ac3bf978a10a13d13e13b80a434e15f4f0c767e5f16a5027040d6221ff3407fa1649a208b570fa49bb587fdc7011fefe6dd885df2fa4884aee144d2ddbc1318ef6c2dd17801d193330907a3e280ec7734cfa90fcdb3352a1a3b02bad15d57d59a9957f82b33166321c9cb7e54096120986403d73ad10aa1a6e024bc24f3d3c68c9cd55df82847d3933b4790ad8361ecf3b289a7f64469385bd22591dad499716f79c46ae6a704959c2a1214ac6be4ee05422d03ac31bcde43eee0e072b2b5e8ef3695528c824a4d5c54689527a40d3e412aa275d753c4ce9136ca79770e93b85267</LicenseKey>
+		<IssueTime>2024-10-28T08:08:00</IssueTime>
+		<ExpireTime>2024-11-05T00:00:00</ExpireTime>
+		<LicenseKey>ca8b239be9258c7d72672c33d657e79f674fd10fd7538027283bfc9f7952ba3e54e27f3ba5606855c6c5aedcb2f15015b1deff757a82e085cea6895706482ec7015eaec6e9b5aeec2ed8224c94a187298d427ebaaef97f4f091614a801dbd975bc9e581fd0ccfc302000583dad7c2cccd99e6a6c3aad2cb83651921ab64ec5fe2b5952017227ecf9044ad719b9a01fd0489cc44477ae36fa9cd7441a23babb4e865a91d413d830263ad77bcf343333b813a37a150fa87aa4a39abb470897b28a0589ce66121c210318e51c3eabe54f67fcdb58c68ef3526a6cb47de9bd6fc29e531ea95e791bbc89e6554b83e5b58e999a9dc30ac13aca1a6f61141c7d2921f9</LicenseKey>
 		<License>
 			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
 			<Name>TC3 ADS</Name>
@@ -31,9 +31,19 @@
 			<OrderNo>TF5000</OrderNo>
 		</License>
 		<License>
+			<LicenseId>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</LicenseId>
+			<Name>TC3 Database-Server</Name>
+			<OrderNo>TF6420</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</LicenseId>
+			<Name>TC3 Serial-Communication</Name>
+			<OrderNo>TF6340</OrderNo>
+		</License>
+		<License>
 			<LicenseId>{37E5160D-987B-4640-888D-0F97727B53E2}</LicenseId>
 			<Name>TC3 HMI Clients</Name>
-			<Instances>4</Instances>
+			<Instances>1</Instances>
 		</License>
 		<License>
 			<LicenseId>{A2091C4C-7D04-4202-B173-9984E7125BC0}</LicenseId>
@@ -41,24 +51,23 @@
 			<Instances>1</Instances>
 		</License>
 		<License>
+			<LicenseId>{CCE50C10-2CAA-4243-8182-080F02C5BE3D}</LicenseId>
+			<Name>TC3 Reporting Server</Name>
+		</License>
+		<License>
 			<LicenseId>{796D380F-D49E-4C0C-A05F-500052FAC883}</LicenseId>
 			<Name>TC3 HMI Server</Name>
 			<OrderNo>TF2000</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{648F394E-7DD1-499C-8112-7C38E161A94C}</LicenseId>
-			<Name>TC3 HMI Clients Pack 3</Name>
-			<OrderNo>TF2020</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</LicenseId>
-			<Name>TC3 Database-Server</Name>
-			<OrderNo>TF6420</OrderNo>
-		</License>
-		<License>
 			<LicenseId>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</LicenseId>
 			<Name>TC3 TCP/IP</Name>
 			<OrderNo>TF6310</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</LicenseId>
+			<Name>TC3 JSON Data Interface</Name>
+			<OrderNo>TF6020</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>

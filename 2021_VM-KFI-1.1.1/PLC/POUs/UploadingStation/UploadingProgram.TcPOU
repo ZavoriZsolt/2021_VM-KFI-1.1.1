@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="UploadingProgram" Id="{feddf8b3-3ea0-4820-9460-178b2c31a9f2}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM UploadingProgram
 VAR	(* Control *)
@@ -116,6 +116,9 @@ CASE nState OF
 	11020:		(*-----=== Paletta adat feltöltés ===-----*)
 		sState := CONCAT(UDINT_TO_STRING(nState) ,' - Paletta adat feltöltés');
 		nLastTarget := nLastTarget + 2;
+		IF nLastTarget = 3 THEN					// 2-es CNC ajtóhiba miatt nem pakolható
+			nLastTarget := nLastTarget + 2;		// Ha a cél a 2-es CNC -> megyünk a 3-as ra
+		END_IF									// Törölni, ha már működik !!!!!!!!!!!!!!!!!
 		IF nLastTarget > 5 THEN
 			nLastTarget := 1;
 		END_IF
@@ -188,5 +191,15 @@ END_IF]]></ST>
         <ST><![CDATA[;]]></ST>
       </Implementation>
     </Action>
+    <LineIds Name="UploadingProgram">
+      <LineId Id="3" Count="81" />
+      <LineId Id="182" Count="1" />
+      <LineId Id="181" Count="0" />
+      <LineId Id="85" Count="64" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="UploadingProgram.MySQL">
+      <LineId Id="1" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

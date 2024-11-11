@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="Robot7AxisProgram" Id="{173dc762-8603-41d5-83ed-b826c20223c0}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Robot7AxisProgram
 VAR	(* Control *)
@@ -628,7 +628,7 @@ arRobotEvents[8] := TC_EVENTS.MyEvents.RobotBasePosErr;
 
 (*-----=== Gripper jelek kezelése ===-----*)
 fbGripperPos1(
-	nCalOffset:= 31, 
+	nCalOffset:= 34.9, 
 	nReqDistance:= nDimY, 
 	bPendantMode:= fbRobot.bPendantMode, 
 	bValid=> , 
@@ -636,7 +636,7 @@ fbGripperPos1(
 	bGripperInPos=> );
 
 fbGripperPos2(
-	nCalOffset:= 31.1, 
+	nCalOffset:= 35, 
 	nReqDistance:= nDimY, 
 	bPendantMode:= fbRobot.bPendantMode, 
 	bValid=> , 
@@ -690,5 +690,19 @@ fbRobot(
 	stEventArray:= arRobotEvents);]]></ST>
       </Implementation>
     </Action>
+    <LineIds Name="Robot7AxisProgram">
+      <LineId Id="3" Count="555" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Robot7AxisProgram.Camera">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="Robot7AxisProgram.MySQL">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="Robot7AxisProgram.Robot">
+      <LineId Id="2" Count="70" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

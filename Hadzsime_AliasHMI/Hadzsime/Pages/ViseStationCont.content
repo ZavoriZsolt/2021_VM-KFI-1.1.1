@@ -1,4 +1,4 @@
-﻿<div id="ViseStationCont" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1920" data-tchmi-height="1200" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center">
+<div id="ViseStationCont" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1920" data-tchmi-height="1200" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center">
 
 <div id="ViseStation_17" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="135" data-tchmi-height-unit="px" data-tchmi-left="30" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/ViseStation.usercontrol" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="920" data-tchmi-width-unit="px" data-tchmi-stationname="Vise1" data-tchmi-visestation="%s%PLC1.GVL_Main.fbViseStation[0]%/s%" data-tchmi-visestatus="%s%PLC1.GVL_Main.aViseStatus[0]%/s%">
 </div>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="ConveyorSystem" Id="{f8767a66-2af5-4d3e-9e9a-eaea6bc70687}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ConveyorSystem
 VAR
@@ -1177,5 +1177,37 @@ fbS28(			(*-----=== Operátori pozíció Fix nincs vezérelve ===-----*)
 ]]></ST>
       </Implementation>
     </Action>
+    <LineIds Name="ConveyorSystem">
+      <LineId Id="3" Count="10" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="ConveyorSystem.Cylinders">
+      <LineId Id="2" Count="312" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ConveyorSystem.ID_200">
+      <LineId Id="2" Count="16" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ConveyorSystem.ID_200_Test">
+      <LineId Id="2" Count="58" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ConveyorSystem.Lift">
+      <LineId Id="2" Count="75" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ConveyorSystem.Motors">
+      <LineId Id="2" Count="221" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ConveyorSystem.Routers">
+      <LineId Id="2" Count="40" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ConveyorSystem.Stoppers">
+      <LineId Id="2" Count="353" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

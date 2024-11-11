@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="FB_Fanuc_CNC" Id="{18cbb600-0505-4d22-8791-aa5b7b76e0c1}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Fanuc_CNC
 VAR_INPUT
@@ -193,6 +193,8 @@ bRobotReady :=  NOT RobotIn.Status.bControllerEmyStop AND
 (*Hibakezelés************************************************)
 IF nState >= 200 AND nState < 150000 AND (RobotIn.Status.bAlarm OR RobotIn.Status.bFault OR NOT bRobotReady) THEN
 	bErrNotReady := TRUE;
+ELSIF nState = 40 AND bErrBaseTimeout THEN
+	nState := 200000;
 END_IF
 
 IF tBaseState.Q AND NOT bErrBaseTimeout THEN
@@ -1098,5 +1100,19 @@ END_VAR
 WHOLE_AND_FRACTION_TO_REAL := TRUE;]]></ST>
       </Implementation>
     </Method>
+    <LineIds Name="FB_Fanuc_CNC">
+      <LineId Id="3" Count="86" />
+      <LineId Id="1050" Count="1" />
+      <LineId Id="90" Count="856" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Fanuc_CNC.REAL_TO_WHOLE_AND_FRACTION">
+      <LineId Id="3" Count="10" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Fanuc_CNC.WHOLE_AND_FRACTION_TO_REAL">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

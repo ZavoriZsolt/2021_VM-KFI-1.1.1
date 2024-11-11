@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="FB_MPS100" Id="{f469da73-d257-46c8-b89b-08467d2532c1}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MPS100
 VAR_INPUT
@@ -28,7 +28,7 @@ IF nState = 3 THEN
 	nTemp := SHR(uConv2int.nData,4);
 	nDistance := INT_TO_REAL(nTemp)*0.05 + nCalOffset;
 	nAverageDistance := (((nAverageDistance * 9) + nDistance)/10);
-	IF bPendantMode THEN
+	IF TRUE THEN 						//bPendantMode THEN 				//megdöglött a szenzor de mennie kell midenképp!!
 		bGripperInPos := nPendantTimer.Q;
 	ELSE
 		bGripperInPos := ABS(nDistance - nReqDistance) < 5;
@@ -42,5 +42,9 @@ ELSE
 END_IF
 nPendantTimer(IN:= ABS(nAverageDistance - nDistance)< 0.5, PT:= T#500MS, Q=> , ET=> );]]></ST>
     </Implementation>
+    <LineIds Name="FB_MPS100">
+      <LineId Id="3" Count="18" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,4 +1,4 @@
-﻿<div id="ConveyorStation" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1752" data-tchmi-height="4131">
+<div id="ConveyorStation" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1752" data-tchmi-height="4131">
 <div id="TcHmiContainer" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="967" data-tchmi-height-unit="px" data-tchmi-left="1085" data-tchmi-left-unit="px" data-tchmi-top="83" data-tchmi-top-unit="px" data-tchmi-width="652" data-tchmi-width-unit="px">
 <div id="ConveyorControl_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="145" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-target-user-control="UserControls/ConveyorControl.usercontrol" data-tchmi-top="20" data-tchmi-top-unit="px" data-tchmi-width="300" data-tchmi-width-unit="px" data-tchmi-conveyor="%s%PLC1.GVL_ConveyorSystem.fbConveyor_1%/s%">
 </div>

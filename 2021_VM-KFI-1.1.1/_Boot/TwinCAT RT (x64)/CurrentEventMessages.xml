@@ -9784,6 +9784,30 @@
 			</Detail>
 		</Event>
 		<Event>
+			<Id>62125</Id>
+			<Message LcId="1033">{0}{1,X}{2} Active operation mode not supported</Message>
+			<Detail>
+				<Name LcId="1033">Description</Name>
+				<Text LcId="1033">Active operation mode is not supported with configured motor and control mode</Text>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReset</SourceId>
+				<Id>2</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReaction</SourceId>
+				<Id>1</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagType</SourceId>
+				<Id>0</Id>
+			</Detail>
+			<CauseRemedy Idx="0">
+				<Cause LcId="1033">Only specific operation modes are supported with configured motor and control mode.</Cause>
+				<Remedy LcId="1033">Check settings in S-0-0032 to S-0-0035, P-0-0050 and P-x-0451.</Remedy>
+			</CauseRemedy>
+		</Event>
+		<Event>
 			<Id>62177</Id>
 			<Message LcId="1033">{0}{1,X}{2} Velocity Control: Control deviation monitoring failed</Message>
 			<Detail>
@@ -10213,6 +10237,34 @@
 			<CauseRemedy Idx="0">
 				<Cause LcId="1033"><![CDATA[The position offset can't be activated because the modulo calculation is enabled and the modulo value is less than the position offset change.]]></Cause>
 				<Remedy LcId="1033">Use only position offset changes less than the modulo value.</Remedy>
+			</CauseRemedy>
+		</Event>
+		<Event>
+			<Id>62277</Id>
+			<Message LcId="1033">{0}{1,X}{2} Manufacturer position offset calibration with additional position offset and / or modulo calculation not possible.</Message>
+			<Detail>
+				<Name LcId="1033">Description</Name>
+				<Text LcId="1033"><![CDATA[The manufacturer position offset calibration is active. No other position offset can be activated and the modulo calculation can't be used!]]></Text>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReset</SourceId>
+				<Id>2</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReaction</SourceId>
+				<Id>5</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagType</SourceId>
+				<Id>0</Id>
+			</Detail>
+			<CauseRemedy Idx="0">
+				<Cause LcId="1033">A position offset is active.</Cause>
+				<Remedy LcId="1033">Disable the position offset.</Remedy>
+			</CauseRemedy>
+			<CauseRemedy Idx="1">
+				<Cause LcId="1033">The modulo calculation is active.</Cause>
+				<Remedy LcId="1033">Disable the modulo calculation.</Remedy>
 			</CauseRemedy>
 		</Event>
 		<Event>
@@ -16845,6 +16897,22 @@
 			</Detail>
 		</Event>
 		<Event>
+			<Id>63566</Id>
+			<Message LcId="1033">{0}{1,X}{2} OCT / HpfDSL: Position offset file found but the manufacturer position offset is active.</Message>
+			<Detail>
+				<SourceId>DiagReset</SourceId>
+				<Id>2</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReaction</SourceId>
+				<Id>3</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagType</SourceId>
+				<Id>0</Id>
+			</Detail>
+		</Event>
+		<Event>
 			<Id>63567</Id>
 			<Message LcId="1033">{0}{1,X}{2} OCT / HpfDSL: Electronic data sheet without implied commutation offset found.</Message>
 			<Detail>
@@ -17855,6 +17923,62 @@
 				<SourceId>DiagType</SourceId>
 				<Id>0</Id>
 			</Detail>
+		</Event>
+		<Event>
+			<Id>63624</Id>
+			<Message LcId="1033"><![CDATA[{0}{1,X}{2} Feedback "AX572x": Position is invalid]]></Message>
+			<Detail>
+				<Name LcId="1033">Description</Name>
+				<Text LcId="1033">The AX5000 has detected a feedback 1 position error. Error reaction is open loop ramp.</Text>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReset</SourceId>
+				<Id>3</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReaction</SourceId>
+				<Id>3</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagType</SourceId>
+				<Id>0</Id>
+			</Detail>
+			<CauseRemedy Idx="0">
+				<Cause LcId="1033">The feedback system is defective.</Cause>
+				<Remedy LcId="1033">Check the feedback system.</Remedy>
+			</CauseRemedy>
+			<CauseRemedy Idx="1">
+				<Cause LcId="1033">An unknown hard- or software error has occurred.</Cause>
+				<Remedy LcId="1033">Disconnect the servo drive from the mains (including the 24 V power supply) and start a new attempt. If this error occurs repeatedly, please call the Beckhoff branch office that is responsible for you.</Remedy>
+			</CauseRemedy>
+		</Event>
+		<Event>
+			<Id>63625</Id>
+			<Message LcId="1033"><![CDATA[{0}{1,X}{2} Feedback "AX572x": Position is invalid]]></Message>
+			<Detail>
+				<Name LcId="1033">Description</Name>
+				<Text LcId="1033">The feedback 1 position calculation was not finished in time. Error reaction is open loop ramp.</Text>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReset</SourceId>
+				<Id>3</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReaction</SourceId>
+				<Id>3</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagType</SourceId>
+				<Id>0</Id>
+			</Detail>
+			<CauseRemedy Idx="0">
+				<Cause LcId="1033">The feedback system requires too much time for the position calculation.</Cause>
+				<Remedy LcId="1033">Check or exchange the feedback system.</Remedy>
+			</CauseRemedy>
+			<CauseRemedy Idx="1">
+				<Cause LcId="1033">An unknown hard- or software error has occurred.</Cause>
+				<Remedy LcId="1033">Disconnect the servo drive from the mains (including the 24 V power supply) and start a new attempt. If this error occurs repeatedly, please call the Beckhoff branch office that is responsible for you.</Remedy>
+			</CauseRemedy>
 		</Event>
 		<Event>
 			<Id>63648</Id>
@@ -20105,11 +20229,11 @@ multiturnlength = "signal periods per rotation" * "length per signal period" mus
 			</Detail>
 			<Detail>
 				<SourceId>DiagReset</SourceId>
-				<Id>1</Id>
+				<Id>2</Id>
 			</Detail>
 			<Detail>
 				<SourceId>DiagReaction</SourceId>
-				<Id>1</Id>
+				<Id>2</Id>
 			</Detail>
 			<Detail>
 				<SourceId>DiagType</SourceId>
@@ -22063,10 +22187,10 @@ multiturnlength = "signal periods per rotation" * "length per signal period" mus
 		</Event>
 		<Event>
 			<Id>64810</Id>
-			<Message LcId="1033">{0}{1,X}{2} Drive off delay time higher than error reaction times</Message>
+			<Message LcId="1033">{0}{1,X}{2} Drive off delay time smaller than error reaction times</Message>
 			<Detail>
 				<Name LcId="1033">Description</Name>
-				<Text LcId="1033">Drive off delay time in S-0-0273 is higher than the sum of the error reaction times in P-x-0356</Text>
+				<Text LcId="1033">Drive off delay time in S-0-0273 is smaller than the sum of the error reaction times in P-x-0356</Text>
 			</Detail>
 			<Detail>
 				<SourceId>DiagReset</SourceId>
@@ -22802,7 +22926,7 @@ multiturnlength = "signal periods per rotation" * "length per signal period" mus
 			<Message LcId="1033">{0}{1,X}{2} Device rated current too high for single phase supply.</Message>
 			<Detail>
 				<Name LcId="1033">Description</Name>
-				<Text LcId="1033"> Device rated current too high for single phase supply. Change power supply type (AC1) or P-0-0093</Text>
+				<Text LcId="1033">Device rated current too high for single phase supply. Change power supply type (AC1) or P-0-0093.</Text>
 			</Detail>
 			<Detail>
 				<SourceId>DiagReset</SourceId>
@@ -22851,6 +22975,34 @@ multiturnlength = "signal periods per rotation" * "length per signal period" mus
 			<CauseRemedy Idx="1">
 				<Cause LcId="1033">X07, terminal points for using external brake resistor not connected.</Cause>
 				<Remedy LcId="1033"><![CDATA[Check terminal points at X07: external brake resistor must connected between"+RB" and "-RB".]]></Remedy>
+			</CauseRemedy>
+		</Event>
+		<Event>
+			<Id>64864</Id>
+			<Message LcId="1033">{0}{1,X}{2} Disable from Umains monitoring and Umains loss monitoring in P-0-0204 is only by power supply type DC allowed.</Message>
+			<Detail>
+				<Name LcId="1033">Description</Name>
+				<Text LcId="1033">Disable from Umains monitoring and Umains loss monitoring in P-0-0204 is only by power supply type DC allowed.</Text>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReset</SourceId>
+				<Id>2</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagReaction</SourceId>
+				<Id>5</Id>
+			</Detail>
+			<Detail>
+				<SourceId>DiagType</SourceId>
+				<Id>1</Id>
+			</Detail>
+			<CauseRemedy Idx="0">
+				<Cause LcId="1033">Umains monitoring or Umains loss monitoring is disabled in P-0-0204.</Cause>
+				<Remedy LcId="1033">Enable Umains monitoring and Umains loss monitoring by set in the IDN P-0-0204 bit 2 and bit 8 to 0.</Remedy>
+			</CauseRemedy>
+			<CauseRemedy Idx="1">
+				<Cause LcId="1033">Power supply type is wrong in P-0-0204.</Cause>
+				<Remedy LcId="1033">Set power supply type to DC in the IDN P-0-0204 bit 9 and bit 10.</Remedy>
 			</CauseRemedy>
 		</Event>
 		<Event>
