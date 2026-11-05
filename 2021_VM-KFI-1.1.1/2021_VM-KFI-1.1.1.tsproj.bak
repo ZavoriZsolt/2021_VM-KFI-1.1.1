@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.68">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.75">
 	<Translations>
 		<Text TxtId="AirPressureError">
 			<Text LcId="1033"><![CDATA[Air pressure error]]></Text>
@@ -3135,9 +3135,9 @@ External Setpoint Generation:
 		<System>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="01194492">
-					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
-					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
 					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
+					<ManualSelect>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</ManualSelect>
+					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 					<ManualSelect>{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</ManualSelect>
 					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
@@ -3147,7 +3147,7 @@ External Setpoint Generation:
 					<TargetSelect TargetId="2">{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</TargetSelect>
 					<TargetSelect TargetId="2">{520DE751-9DB6-47CB-8240-BD5C466E7E64}</TargetSelect>
 					<TargetSelect TargetId="2">{E008E3C8-6BD9-491C-B673-DC45CC7AA4F1}</TargetSelect>
-					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302004e" DongleLevel="70" DongleSystemId="{BE4209AF-5A1D-9803-878A-435C4A2270DC}" DongleSerialNumber="000bph10"/>
+					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302004e" DongleLevel="90" DongleSerialNumber="000bph10"/>
 				</Target>
 			</Licenses>
 			<Tasks>
@@ -3613,7 +3613,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{298110F8-693B-4E01-8402-259C6102335E}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{0CCCA854-03A8-20BA-30ED-922A6CEBB558}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{9C4A223F-3216-11FC-4F0A-568D68C92C09}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -9075,7 +9075,7 @@ External Setpoint Generation:
 							</DialogSettings>
 							<InitCmds>
 								<InitCmd DriveNo="0" IDN="30" MotorDataLevel="0" DisableMode="0">
-									<RetainData>3e0042004669726d776172653a2076322e313420284275696c64203030303429202f20426f6f746c6f616465723a2076322e303220284275696c6420303030322900</RetainData>
+									<RetainData>3e003e004669726d776172653a2076322e313420284275696c64203030303429202f20426f6f746c6f616465723a2076322e303220284275696c6420303030322900</RetainData>
 								</InitCmd>
 								<InitCmd DriveNo="0" IDN="91" MotorDataLevel="1" DisableMode="0"/>
 								<InitCmd DriveNo="0" IDN="100" MotorDataLevel="1" DisableMode="0"/>
@@ -9089,7 +9089,7 @@ External Setpoint Generation:
 								<InitCmd DriveNo="0" IDN="201" MotorDataLevel="1" DisableMode="0"/>
 								<InitCmd DriveNo="0" IDN="204" MotorDataLevel="1" DisableMode="0"/>
 								<InitCmd DriveNo="0" IDN="432" MotorDataLevel="0" DisableMode="0">
-									<RetainData>1200160053657269616c233a20303030333730363034</RetainData>
+									<RetainData>1200120053657269616c233a20303030333730363034</RetainData>
 								</InitCmd>
 								<InitCmd DriveNo="0" IDN="32770" MotorDataLevel="1" DisableMode="0"/>
 								<InitCmd DriveNo="0" IDN="32818" MotorDataLevel="1" DisableMode="0"/>
@@ -9117,7 +9117,7 @@ External Setpoint Generation:
 									<RetainData>24002400d6000400ca0002002c9d5b002c9d5b000000000000000000000000002260000000000000</RetainData>
 								</InitCmd>
 								<InitCmd DriveNo="0" IDN="33093" MotorDataLevel="0" DisableMode="0">
-									<RetainData>16001a005365702020392032303231202c2030383a35383a3536</RetainData>
+									<RetainData>160016005365702020392032303231202c2030383a35383a3536</RetainData>
 								</InitCmd>
 								<InitCmd DriveNo="0" IDN="33219" MotorDataLevel="1" DisableMode="0"/>
 								<InitCmd DriveNo="0" IDN="33223" MotorDataLevel="1" DisableMode="0"/>
@@ -13228,7 +13228,7 @@ External Setpoint Generation:
 								</Element>
 								<Element option="0" SortOder="0" SubIdx="0">
 									<Index>95</Index>
-									<Width>299</Width>
+									<Width>100</Width>
 								</Element>
 								<Element option="1" SortOder="0" SubIdx="0">
 									<Index>32821</Index>

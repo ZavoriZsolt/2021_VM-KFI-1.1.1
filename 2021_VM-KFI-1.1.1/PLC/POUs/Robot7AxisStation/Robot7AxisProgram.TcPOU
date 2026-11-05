@@ -111,7 +111,7 @@ CASE nState OF
 		nPlaceBackFromThisCNC := 0;
 			 
 		IF i_bLO1_Main AND NOT bManualMode AND NOT fbRobot.bPendantMode THEN
-			nState := nState + 20;
+//			nState := nState + 20;												// Nem tudunk CNC-be pakolni.
 		END_IF
 
 	20: 

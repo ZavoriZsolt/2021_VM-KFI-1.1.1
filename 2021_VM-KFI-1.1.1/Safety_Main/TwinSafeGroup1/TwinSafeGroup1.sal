@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<safetyApplication Crc="2483513169" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.5.0.0" Id="290abd85-2167-400b-848e-321705fb774e" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
+<safetyApplication Crc="2190318731" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.5.0.0" Id="290abd85-2167-400b-848e-321705fb774e" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
   <networks>
     <safetyApplicationHasNetworks Id="ef342a82-4537-4908-92e1-f9081bbea37e">
       <Network Id="42327c37-bd26-4482-9b19-59978f9dc524" name="Network1" networkName="Network1" intId="1" networkOrderId="0">
@@ -23,7 +23,7 @@
                   <inPort Id="bb3c2fa8-7f22-4cb0-9642-2d9ccf1f5a7d" name="EStopIn4" portName="EStopIn4" portNum="7" objectIndex="11" varId="6" filter="2" portDataType="1" channelInterface="Both Deactivated" maxDeviation="0" resetTime="0" />
                 </functioBlockHasInPorts>
                 <functioBlockHasInPorts Id="8267924a-85ce-405b-bdc7-852924886fd6">
-                  <inPort Id="56cc420f-74c8-4bd8-b153-8e37e0d4a914" name="EStopIn5" portName="EStopIn5" portNum="8" objectIndex="12" varId="7" filter="2" portDataType="1" channelInterface="Single-Channel Both Activated" deactivate1="Break Contact (NC)" deactivate2="Break Contact (NC)" maxDeviation="0" resetTime="0" />
+                  <inPort Id="56cc420f-74c8-4bd8-b153-8e37e0d4a914" name="EStopIn5" portName="EStopIn5" portNum="8" objectIndex="12" varId="7" filter="2" portDataType="1" channelInterface="Both Deactivated" maxDeviation="0" resetTime="0" />
                 </functioBlockHasInPorts>
                 <functioBlockHasInPorts Id="40544a1e-a781-4706-8782-90286697f32e">
                   <inPort Id="262c343b-9752-46ee-b2c1-3938fe0e648b" name="EStopIn6" portName="EStopIn6" portNum="9" objectIndex="13" varId="8" filter="2" portDataType="1" channelInterface="Both Deactivated" maxDeviation="0" resetTime="0" />
@@ -964,70 +964,6 @@
               <usages>
                 <variableUsagesHasUsages Id="b6438527-6894-44a9-9e70-890c44c9bd6d">
                   <aliasDeviceIoUsage Id="72b35e17-f944-4312-91af-de9a4061d271" sdsId="29" channelId="2" functionId="1327742742" />
-                </variableUsagesHasUsages>
-              </usages>
-            </variableUsages>
-          </variableHasTargetUsages>
-        </targetUsages>
-      </variable>
-    </safetyApplicationHasVariables>
-    <safetyApplicationHasVariables Id="24a58c22-1a33-4922-bdf2-3c85eda3ec3a">
-      <variable Id="48122bc0-e2cb-4147-beee-bc8faecf1e98" name="KardexRobotEStopCh1" isLocal="false">
-        <sourceUsages>
-          <variableHasSourceUsages Id="7c785916-d084-4053-98c3-9095e6a91245">
-            <variableUsages Id="21ab5fa7-dd24-42e3-9e9b-1299f45533e3">
-              <usages>
-                <variableUsagesHasUsages Id="4f75a129-3add-4946-bda6-d234f4b20432">
-                  <aliasDeviceIoUsage Id="0657c9b8-3324-4e3d-96c1-90971e1eb62a" sdsId="3" channelId="1" functionId="1610678529" />
-                </variableUsagesHasUsages>
-              </usages>
-            </variableUsages>
-          </variableHasSourceUsages>
-        </sourceUsages>
-        <targetUsages>
-          <variableHasTargetUsages Id="8bd637db-24bb-44b6-9beb-5cdf3a53fe68">
-            <variableUsages Id="b2ccf865-1730-406f-beed-f2a804b2a046">
-              <usages>
-                <variableUsagesHasUsages Id="2a241a93-c3e1-42a9-8125-577b6611958e">
-                  <fbPortUsage Id="1d800676-0ac1-487d-8057-06984e015dac">
-                    <functionBlockPort>
-                      <fbPortUsageReferencesFunctionBlockPort Id="498a612f-e2ab-4f47-bac6-7965dddbba5a">
-                        <inPortMoniker name="//Network1/FBEstop1/EStopIn5" />
-                      </fbPortUsageReferencesFunctionBlockPort>
-                    </functionBlockPort>
-                  </fbPortUsage>
-                </variableUsagesHasUsages>
-              </usages>
-            </variableUsages>
-          </variableHasTargetUsages>
-        </targetUsages>
-      </variable>
-    </safetyApplicationHasVariables>
-    <safetyApplicationHasVariables Id="08b729c0-bc96-4431-a446-3596a9c932d0">
-      <variable Id="fa68727f-5313-4f73-9405-83b94f7bd281" name="KardexRobotEStopCh2" isLocal="false">
-        <sourceUsages>
-          <variableHasSourceUsages Id="772b9072-2615-4aae-860a-2e2175340b9a">
-            <variableUsages Id="e5335166-b3e4-49ae-ace9-a7b58796f69d">
-              <usages>
-                <variableUsagesHasUsages Id="767fc35a-6c67-473d-a35a-d6f6c189a582">
-                  <aliasDeviceIoUsage Id="7c43b6d9-75bd-4b44-9d53-89fe9f02d468" sdsId="3" channelId="2" functionId="1610678785" />
-                </variableUsagesHasUsages>
-              </usages>
-            </variableUsages>
-          </variableHasSourceUsages>
-        </sourceUsages>
-        <targetUsages>
-          <variableHasTargetUsages Id="40bd3e42-6a60-4fc3-9858-2b5ebe7fead1">
-            <variableUsages Id="c1cf6bfe-89b1-48eb-b571-221b1e897fef">
-              <usages>
-                <variableUsagesHasUsages Id="e3bee223-e4fa-4cee-9f37-768f754e2b48">
-                  <fbPortUsage Id="a62e76a8-3823-4b67-8765-14daa4c04497">
-                    <functionBlockPort>
-                      <fbPortUsageReferencesFunctionBlockPort Id="e62e53ee-9950-487a-b7fc-43267b70b2d9">
-                        <inPortMoniker name="//Network1/FBEstop1/EStopIn6" />
-                      </fbPortUsageReferencesFunctionBlockPort>
-                    </functionBlockPort>
-                  </fbPortUsage>
                 </variableUsagesHasUsages>
               </usages>
             </variableUsages>
