@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="ConveyorSystem" Id="{f8767a66-2af5-4d3e-9e9a-eaea6bc70687}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ConveyorSystem
 VAR
@@ -26,6 +26,7 @@ VAR
 	
 	pvPaletteData		: PVOID;
 	nRouterIndex		: BYTE;
+	bConveyorTest		: BOOL;
 END_VAR
 VAR CONSTANT
 	arrRFIDs			: ARRAY[1..17] OF ST_Active_RFIDs := [	(RFID := 1, CH := 2),	//RF 1
@@ -547,7 +548,7 @@ fbLift_3B(
     </Action>
     <Action Name="Motors" Id="{b9d1ee0e-1d9c-4705-9d0c-08b115909584}">
       <Implementation>
-        <ST><![CDATA[IF NOT bManualMode THEN
+        <ST><![CDATA[IF NOT bManualMode AND NOT bConveyorTest THEN
 	fbConveyor_1.bConveyorOnL := i_bLO1_Main;
 	fbConveyor_2.bConveyorOnL := i_bLO1_Main;
 	fbConveyor_3.bConveyorOnL := i_bLO1_Main;
@@ -1198,7 +1199,9 @@ fbS28(			(*-----=== Operátori pozíció Fix nincs vezérelve ===-----*)
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ConveyorSystem.Motors">
-      <LineId Id="2" Count="221" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="241" Count="10" />
+      <LineId Id="14" Count="209" />
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ConveyorSystem.Routers">
